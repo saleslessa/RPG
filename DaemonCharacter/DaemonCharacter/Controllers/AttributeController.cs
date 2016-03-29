@@ -1,0 +1,124 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using DaemonCharacter.Models;
+
+namespace DaemonCharacter.Controllers
+{
+    public class AttributeController : Controller
+    {
+        private DaemonCharacterContext db = new DaemonCharacterContext();
+
+        //
+        // GET: /Attribute/
+
+        public ActionResult Index()
+        {
+            return View(db.AttributeClasses.ToList());
+        }
+
+        //
+        // GET: /Attribute/Details/5
+
+        public ActionResult Details(int id = 0)
+        {
+            AttributeClass attributeclass = db.AttributeClasses.Find(id);
+            if (attributeclass == null)
+            {
+                return HttpNotFound();
+            }
+            return View(attributeclass);
+        }
+
+        //
+        // GET: /Attribute/Create
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Attribute/Create
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(AttributeClass attributeclass)
+        {
+            if (ModelState.IsValid)
+            {
+                db.AttributeClasses.Add(attributeclass);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.errorMessage = "Error while trying to create this Attribute";
+            return View(attributeclass);
+        }
+
+        //
+        // GET: /Attribute/Edit/5
+
+        public ActionResult Edit(int id = 0)
+        {
+            AttributeClass attributeclass = db.AttributeClasses.Find(id);
+            if (attributeclass == null)
+            {
+                return HttpNotFound();
+            }
+            return View(attributeclass);
+        }
+
+        //
+        // POST: /Attribute/Edit/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(AttributeClass attributeclass)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(attributeclass).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(attributeclass);
+        }
+
+        //
+        // GET: /Attribute/Delete/5
+
+        public ActionResult Delete(int id = 0)
+        {
+            AttributeClass attributeclass = db.AttributeClasses.Find(id);
+            if (attributeclass == null)
+            {
+                return HttpNotFound();
+            }
+            return View(attributeclass);
+        }
+
+        //
+        // POST: /Attribute/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            AttributeClass attributeclass = db.AttributeClasses.Find(id);
+            db.AttributeClasses.Remove(attributeclass);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+}
