@@ -13,13 +13,18 @@ namespace DaemonCharacter.Models
         // 
         // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<DaemonCharacter.Models.DaemonCharacterContext>());
 
-        public DaemonCharacterContext() : base("name=DaemonCharacterContext")
+        public DaemonCharacterContext() : base("name=DaemonCharacter")
         {
-            System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<DaemonCharacter.Models.DaemonCharacterContext>());
+            
         }
 
-        public DbSet<AttributeType> AttributeTypes { get; set; }
+        public DbSet<AttributeTypeClass> AttributeTypes { get; set; }
 
-        public DbSet<AttributeClass> AttributeClasses { get; set; }
+        public DbSet<AttributeClass> Attributes { get; set; }
+
+        public DbSet<CharacterClass> Characters { get; set; }
+
+        public DbSet<CharacterAttributeClass> CharacterAttributes { get; set; }
+        
     }
 }

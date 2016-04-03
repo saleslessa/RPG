@@ -19,8 +19,18 @@ namespace DaemonCharacter.Models
         public string description { get; set; }
 
         [Required, Display(Name = "Type")]
-        public AttributeType type { get; set; }
+        public AttributeTypeClass type { get; set; }
 
         public int minimum { get; set; }
+
+    }
+
+    public class AttributeTypeClass
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
+
+        [Required, MaxLength(50)]
+        public string name { get; set; }
     }
 }

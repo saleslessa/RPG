@@ -18,7 +18,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Index()
         {
-            return View(db.AttributeClasses.ToList());
+            return View(db.Attributes.ToList());
         }
 
         //
@@ -26,7 +26,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            AttributeClass attributeclass = db.AttributeClasses.Find(id);
+            AttributeClass attributeclass = db.Attributes.Find(id);
             if (attributeclass == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace DaemonCharacter.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AttributeClasses.Add(attributeclass);
+                db.Attributes.Add(attributeclass);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            AttributeClass attributeclass = db.AttributeClasses.Find(id);
+            AttributeClass attributeclass = db.Attributes.Find(id);
             if (attributeclass == null)
             {
                 return HttpNotFound();
@@ -94,7 +94,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            AttributeClass attributeclass = db.AttributeClasses.Find(id);
+            AttributeClass attributeclass = db.Attributes.Find(id);
             if (attributeclass == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AttributeClass attributeclass = db.AttributeClasses.Find(id);
-            db.AttributeClasses.Remove(attributeclass);
+            AttributeClass attributeclass = db.Attributes.Find(id);
+            db.Attributes.Remove(attributeclass);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

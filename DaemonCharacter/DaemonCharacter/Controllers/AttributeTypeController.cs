@@ -21,12 +21,17 @@ namespace DaemonCharacter.Controllers
             return View(db.AttributeTypes.ToList());
         }
 
+        public ActionResult List()
+        {
+            return View(db.AttributeTypes.ToList());
+        }
+
         //
         // GET: /AttributeType/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            AttributeType attributetype = db.AttributeTypes.Find(id);
+            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
             if (attributetype == null)
             {
                 return HttpNotFound();
@@ -47,7 +52,7 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AttributeType attributetype)
+        public ActionResult Create(AttributeTypeClass attributetype)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +69,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            AttributeType attributetype = db.AttributeTypes.Find(id);
+            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
             if (attributetype == null)
             {
                 return HttpNotFound();
@@ -77,7 +82,7 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AttributeType attributetype)
+        public ActionResult Edit(AttributeTypeClass attributetype)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +98,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            AttributeType attributetype = db.AttributeTypes.Find(id);
+            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
             if (attributetype == null)
             {
                 return HttpNotFound();
@@ -108,7 +113,7 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AttributeType attributetype = db.AttributeTypes.Find(id);
+            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
             db.AttributeTypes.Remove(attributetype);
             db.SaveChanges();
             return RedirectToAction("Index");
