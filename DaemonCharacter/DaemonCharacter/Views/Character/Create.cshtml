@@ -1,4 +1,4 @@
-﻿@model DaemonCharacter.Models.AttributeClass
+﻿@model DaemonCharacter.Models.CharacterClass
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +11,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>AttributeClass</legend>
+        <legend>CharacterClass</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.name)
@@ -21,26 +21,13 @@
             @Html.ValidationMessageFor(model => model.name)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.description)
-            @Html.ValidationMessageFor(model => model.description)
-        </div>
-
-        <div>
-            @{Html.RenderAction("_List", "AttributeType");}
-        </div>
 
         <p>
             <input type="submit" value="Create" />
         </p>
     </fieldset>
 }
-<div style="color:red">
-    @ViewBag.Retorno
-</div>
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

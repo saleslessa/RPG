@@ -30,7 +30,7 @@ namespace DaemonCharacter.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required, MaxLength(50), Display(Name="Attribute Type Name"]
         public string name { get; set; }
     }
 }

@@ -9,38 +9,33 @@ using DaemonCharacter.Models;
 
 namespace DaemonCharacter.Controllers
 {
-    public class AttributeTypeController : Controller
+    public class CharacterController : Controller
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
         //
-        // GET: /AttributeType/
+        // GET: /Character/
 
         public ActionResult Index()
         {
-            return View(db.AttributeTypes.ToList());
+            return View(db.Characters.ToList());
         }
 
-        public ActionResult _List()
-        {
-            return View(db.AttributeTypes.ToList());
-        }
-       
         //
-        // GET: /AttributeType/Details/5
+        // GET: /Character/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
-            if (attributetype == null)
+            CharacterClass characterclass = db.Characters.Find(id);
+            if (characterclass == null)
             {
                 return HttpNotFound();
             }
-            return View(attributetype);
+            return View(characterclass);
         }
 
         //
-        // GET: /AttributeType/Create
+        // GET: /Character/Create
 
         public ActionResult Create()
         {
@@ -48,73 +43,73 @@ namespace DaemonCharacter.Controllers
         }
 
         //
-        // POST: /AttributeType/Create
+        // POST: /Character/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AttributeTypeClass attributetype)
+        public ActionResult Create(CharacterClass characterclass)
         {
             if (ModelState.IsValid)
             {
-                db.AttributeTypes.Add(attributetype);
+                db.Characters.Add(characterclass);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(attributetype);
+            return View(characterclass);
         }
 
         //
-        // GET: /AttributeType/Edit/5
+        // GET: /Character/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
-            if (attributetype == null)
+            CharacterClass characterclass = db.Characters.Find(id);
+            if (characterclass == null)
             {
                 return HttpNotFound();
             }
-            return View(attributetype);
+            return View(characterclass);
         }
 
         //
-        // POST: /AttributeType/Edit/5
+        // POST: /Character/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AttributeTypeClass attributetype)
+        public ActionResult Edit(CharacterClass characterclass)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(attributetype).State = EntityState.Modified;
+                db.Entry(characterclass).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(attributetype);
+            return View(characterclass);
         }
 
         //
-        // GET: /AttributeType/Delete/5
+        // GET: /Character/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
-            if (attributetype == null)
+            CharacterClass characterclass = db.Characters.Find(id);
+            if (characterclass == null)
             {
                 return HttpNotFound();
             }
-            return View(attributetype);
+            return View(characterclass);
         }
 
         //
-        // POST: /AttributeType/Delete/5
+        // POST: /Character/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
-            db.AttributeTypes.Remove(attributetype);
+            CharacterClass characterclass = db.Characters.Find(id);
+            db.Characters.Remove(characterclass);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
