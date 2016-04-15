@@ -28,6 +28,14 @@
             @Html.EditorFor(model => model.description)
             @Html.ValidationMessageFor(model => model.description)
         </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.minimum)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.minimum)
+            @Html.ValidationMessageFor(model => model.minimum)
+        </div>
 
         <div>
             @{Html.RenderAction("_List", "AttributeType");}

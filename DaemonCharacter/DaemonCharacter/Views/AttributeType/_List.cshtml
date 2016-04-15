@@ -2,18 +2,13 @@
 
 @{
     Layout = null;
+    var a = new SelectList(Model, "id", "name");
 }
 
 <div class="editor-label">
-    @Html.DisplayNameFor(model => model.name)
+    @Html.DisplayNameFor(m => m.name)
 </div>
+
 <div class="editor-field">
-    <select>
-        @foreach (var item in Model)
-        {
-            <option value="@item.id">
-                @Html.DisplayFor(model => item.name)
-            </option>
-        }
-    </select>
+    @Html.DropDownListFor(m => m.FirstOrDefault().id, a)
 </div>

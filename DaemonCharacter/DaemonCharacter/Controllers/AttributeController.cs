@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
+using System.Transactions;
 
 namespace DaemonCharacter.Controllers
 {
@@ -36,7 +37,6 @@ namespace DaemonCharacter.Controllers
 
         //
         // GET: /Attribute/Create
-
         public ActionResult Create()
         {
             return View();
@@ -47,13 +47,34 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AttributeClass attributeclass)
+        public ActionResult Create(AttributeClass attributeclass, FormCollection f)
         {
             if (ModelState.IsValid)
             {
-                db.Attributes.Add(attributeclass);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    AttributeTypeClass a = new AttributeTypeClass();
+                     
+                    for(int i=0;i<f.Count;i++)
+                    {
+                        if (f.Keys[i] == "attr_Type")
+                        {
+                            a = db.AttributeTypes.Find(f.GetValues(i).ToString());
+                        }
+                    }
+
+                    attributeclass.type = a;
+                    db.Attributes.Add(attributeclass);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Retorno = "An error occured while trying to create this attribute: " + ex.Message;
+                    return RedirectToAction("Index");
+                }
+                    
             }
 
             ViewBag.errorMessage = "Error while trying to create this Attribute";

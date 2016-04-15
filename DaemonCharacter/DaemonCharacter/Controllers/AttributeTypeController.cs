@@ -23,6 +23,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult _List()
         {
+            //return View(this.GetAttributeTypes());
             return View(db.AttributeTypes.ToList());
         }
        
@@ -124,5 +125,7 @@ namespace DaemonCharacter.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        
     }
 }

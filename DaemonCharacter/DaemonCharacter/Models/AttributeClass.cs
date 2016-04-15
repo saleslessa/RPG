@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace DaemonCharacter.Models
         [Required, Display(Name = "Type")]
         public AttributeTypeClass type { get; set; }
 
+        [Required, Display(Name = "Minimum Required")]
+        [DefaultValue(0), MinLength(0)]
         public int minimum { get; set; }
 
     }
@@ -30,7 +33,8 @@ namespace DaemonCharacter.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [Required, MaxLength(50), Display(Name="Attribute Type Name"]
+        [Required, MaxLength(50), Display(Name="Attribute Type Name")]
         public string name { get; set; }
+
     }
 }
