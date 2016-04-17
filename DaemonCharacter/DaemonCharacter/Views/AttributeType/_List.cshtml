@@ -1,8 +1,7 @@
-﻿@model IEnumerable<DaemonCharacter.Models.AttributeTypeClass>
+﻿@model DaemonCharacter.Models.AttributeTypeClass
 
 @{
-    Layout = null;
-    var a = new SelectList(Model, "id", "name");
+    Layout = "~/Views/Shared/_LayoutPartial.cshtml";
 }
 
 <div class="editor-label">
@@ -10,5 +9,6 @@
 </div>
 
 <div class="editor-field">
-    @Html.DropDownListFor(m => m.FirstOrDefault().id, a)
+    @Html.DropDownList("Types", String.Empty)
 </div>
+

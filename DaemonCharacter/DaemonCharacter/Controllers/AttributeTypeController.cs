@@ -21,18 +21,26 @@ namespace DaemonCharacter.Controllers
             return View(db.AttributeTypes.ToList());
         }
 
-        public ActionResult _List()
+        public ActionResult _List(int id = 0)
         {
-            //return View(this.GetAttributeTypes());
-            return View(db.AttributeTypes.ToList());
+
+            ViewBag.Types = new SelectList(
+                db.AttributeTypes.ToList(),
+                "idAttributeType",
+                "name",
+                id
+                );
+            //ViewBag.Types = (SelectList)db.AttributeTypes.Select(n => new SelectListItem() { Text = n.name, Value = n.idAttributeType.ToString(), Selected = (n.idAttributeType == id) });
+            
+           return View();
         }
        
         //
         // GET: /AttributeType/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int idAttributeType = 0)
         {
-            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
+            AttributeTypeClass attributetype = db.AttributeTypes.Find(idAttributeType);
             if (attributetype == null)
             {
                 return HttpNotFound();
@@ -68,9 +76,9 @@ namespace DaemonCharacter.Controllers
         //
         // GET: /AttributeType/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int idAttributeType = 0)
         {
-            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
+            AttributeTypeClass attributetype = db.AttributeTypes.Find(idAttributeType);
             if (attributetype == null)
             {
                 return HttpNotFound();
@@ -83,11 +91,12 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AttributeTypeClass attributetype)
+        public ActionResult Edit(AttributeTypeClass attributetype, FormCollection f)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(attributetype).State = EntityState.Modified;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -97,9 +106,9 @@ namespace DaemonCharacter.Controllers
         //
         // GET: /AttributeType/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int idAttributeType = 0)
         {
-            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
+            AttributeTypeClass attributetype = db.AttributeTypes.Find(idAttributeType);
             if (attributetype == null)
             {
                 return HttpNotFound();
@@ -112,9 +121,9 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int idAttributeType)
         {
-            AttributeTypeClass attributetype = db.AttributeTypes.Find(id);
+            AttributeTypeClass attributetype = db.AttributeTypes.Find(idAttributeType);
             db.AttributeTypes.Remove(attributetype);
             db.SaveChanges();
             return RedirectToAction("Index");

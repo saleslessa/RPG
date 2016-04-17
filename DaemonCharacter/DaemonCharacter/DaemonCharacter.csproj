@@ -326,6 +326,7 @@
     <Content Include="Views\Character\Delete.cshtml" />
     <Content Include="Views\Attribute\_ListAttributeType.cshtml" />
     <Content Include="Views\AttributeType\_List.cshtml" />
+    <Content Include="Views\Shared\_LayoutPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

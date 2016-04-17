@@ -47,24 +47,25 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AttributeClass attributeclass, FormCollection f)
+        public ActionResult Create(AttributeClass Attribute, FormCollection f)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     AttributeTypeClass a = new AttributeTypeClass();
-                     
-                    for(int i=0;i<f.Count;i++)
-                    {
-                        if (f.Keys[i] == "attr_Type")
-                        {
-                            a = db.AttributeTypes.Find(f.GetValues(i).ToString());
-                        }
-                    }
 
-                    attributeclass.type = a;
-                    db.Attributes.Add(attributeclass);
+                    int idAttributeType;
+
+                    int.TryParse(((string[])f.GetValue("Types").RawValue)[0].ToString(), out idAttributeType);
+
+                    if (idAttributeType == 0)
+                        throw new Exception("Invalid Attribute Type");
+
+                    a = db.AttributeTypes.Find(idAttributeType);
+
+                    Attribute.type = a;
+                    db.Attributes.Add(Attribute);
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -77,8 +78,16 @@ namespace DaemonCharacter.Controllers
                     
             }
 
-            ViewBag.errorMessage = "Error while trying to create this Attribute";
-            return View(attributeclass);
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
+            ViewBag.message = "The following errors occured while trying to create this Attribute:\n";
+
+            for (int i = 0; i < errors.ToList().Count; i++)
+            {
+                ViewBag.message += errors.ToList()[i].ErrorMessage + "\n";
+            }
+
+            return View(Attribute);
         }
 
         //
@@ -99,15 +108,35 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AttributeClass attributeclass)
+        public ActionResult Edit(AttributeClass Att, FormCollection f)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(attributeclass).State = EntityState.Modified;
+                AttributeTypeClass a = new AttributeTypeClass();
+
+                int idAttributeType;
+
+                //Getting selected attribute type in form
+                int.TryParse(((string[])f.GetValue("Types").RawValue)[0].ToString(), out idAttributeType);
+
+                if (idAttributeType == 0)
+                    throw new Exception("Invalid Attribute Type");
+
+
+                //looking for related attribute type
+                a = db.AttributeTypes.Find(idAttributeType);
+
+                Att.type = a;
+
+                //setting foreign key on attribute class
+                Att.idAttributeType = a.idAttributeType;
+
+                db.Entry(Att).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            return View(attributeclass);
+            return View(Att);
         }
 
         //

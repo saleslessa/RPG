@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
+<table border="1" cellpadding="5" cellspacing="5">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.name)
@@ -19,6 +19,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.minimum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type.name)
         </th>
         <th></th>
     </tr>
@@ -35,9 +38,12 @@
             @Html.DisplayFor(modelItem => item.minimum)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.DisplayFor(modelItem => item.type.name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idAttribute }) |
+            @Html.ActionLink("Details", "Details", new { id = item.idAttribute }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.idAttribute })
         </td>
     </tr>
 }

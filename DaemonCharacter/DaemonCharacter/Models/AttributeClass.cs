@@ -11,19 +11,22 @@ namespace DaemonCharacter.Models
     public class AttributeClass
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int idAttribute { get; set; }
 
-        [Required, MaxLength(50), Display(Name = "Attribute Name")]
+        public int idAttributeType { get; set; }
+
+        [Required(ErrorMessage="Please put a correct name"), MaxLength(50), Display(Name = "Attribute Name")]
         public string name { get; set; }
 
         [DataType(DataType.MultilineText), MaxLength(250), Display(Name = "Attribute Description")]
         public string description { get; set; }
 
-        [Required, Display(Name = "Type")]
-        public AttributeTypeClass type { get; set; }
+        [Display(Name = "Type")]
+        [ForeignKey("idAttributeType")]
+        public virtual AttributeTypeClass type { get; set; }
 
-        [Required, Display(Name = "Minimum Required")]
-        [DefaultValue(0), MinLength(0)]
+        [Required, Display(Name = "Minimum Required to use")]
+        [DefaultValue(0), Range(0, 100)]
         public int minimum { get; set; }
 
     }
@@ -31,7 +34,7 @@ namespace DaemonCharacter.Models
     public class AttributeTypeClass
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int idAttributeType { get; set; }
 
         [Required, MaxLength(50), Display(Name="Attribute Type Name")]
         public string name { get; set; }

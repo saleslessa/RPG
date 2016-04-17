@@ -13,7 +13,7 @@
     <fieldset>
         <legend>AttributeClass</legend>
 
-        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.idAttribute)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.name)
@@ -37,6 +37,12 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.minimum)
             @Html.ValidationMessageFor(model => model.minimum)
+        </div>
+
+        <div>
+            @{
+                Html.RenderAction("_List", "AttributeType", new {id = Model.type.idAttributeType});
+            }
         </div>
 
         <p>

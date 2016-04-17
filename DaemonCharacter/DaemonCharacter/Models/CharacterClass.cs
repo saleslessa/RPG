@@ -12,7 +12,7 @@ namespace DaemonCharacter.Models
     {
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int idCharacter { get; set; }
 
         [Required, MaxLength(50)]
         public string name { get; set; }
@@ -23,7 +23,7 @@ namespace DaemonCharacter.Models
     public class CharacterAttributeClass
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int idCharacterAttribute { get; set; }
         
         [Key]
         public CharacterClass character { get; set; }
