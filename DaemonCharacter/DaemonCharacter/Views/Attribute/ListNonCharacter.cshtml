@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DaemonCharacter.Models.AttributeClass>
+
+<fieldset>
+    <legend>Attributes</legend>
+
+    @{
+        var type = string.Empty;
+    }
+    <ul>
+        @foreach (var items in Model)
+        {
+            if (type != items.type.name)
+            {
+                type = items.type.name;
+
+                <li class="selector-Dynamic-header">@Html.DisplayName(type)</li>
+
+            }
+            <li class="selector-Dynamic-details" title="@Html.Raw(items.description)">
+                <input type="checkbox" class="chk-dynamic" id="ChkAttr_@Html.Raw(items.idAttribute)" /> @Html.DisplayName(items.name)
+                <input type="number" class="dynamic-input" id="ValAttr_@Html.Raw(items.idAttribute)">
+            </li>
+        }
+    </ul>
+
+</fieldset>

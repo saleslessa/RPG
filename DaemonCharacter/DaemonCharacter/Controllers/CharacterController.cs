@@ -36,24 +36,44 @@ namespace DaemonCharacter.Controllers
 
         //
         // GET: /Character/Create
-
         public ActionResult Create()
         {
+            ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
+            ViewBag.display = "none";
+
             return View();
         }
 
         //
         // POST: /Character/Create
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CharacterClass characterclass)
         {
             if (ModelState.IsValid)
             {
-                db.Characters.Add(characterclass);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //db.Characters.Add(characterclass);
+                //db.SaveChanges();
+
+                ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
+                ViewBag.display = "normal";
+
+                return View(characterclass);
+                //return RedirectToAction("Index");
+            }
+
+
+            //When an error accours
+            ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
+            ViewBag.Display = "none";
+            ViewBag.Message = "The following error occured when trying to create a character:\n";
+
+            foreach (ModelState states in ViewData.ModelState.Values)
+            {
+                foreach (ModelError errors in states.Errors)
+                {
+                    ViewBag.Message += errors.ErrorMessage + "\n";
+                }
             }
 
             return View(characterclass);

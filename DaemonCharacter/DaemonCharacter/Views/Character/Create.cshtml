@@ -1,17 +1,27 @@
 ﻿@model DaemonCharacter.Models.CharacterClass
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "New Character";
+
 }
+@using System.Web.Mvc.Html;
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) {
+<head>
+    <title>Creating a new character</title>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DynamicForm.js")"></script>
+    <link href="@Url.Content("~/Content/DynamicForm.css")"
+          rel="stylesheet" type="text/css" />
+</head>
+<p class="messages">
+    @ViewBag.Message
+</p>
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>CharacterClass</legend>
+    <fieldset id="fieldset-left-dynamic">
+        <legend>Create Character Form</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.name)
@@ -21,17 +31,48 @@
             @Html.ValidationMessageFor(model => model.name)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.gender)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Genders", string.Empty)
+            @Html.ValidationMessageFor(model => model.gender)
+        </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.age)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.age)
+            @Html.ValidationMessageFor(model => model.age)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.experience)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.experience)
+            @Html.ValidationMessageFor(model => model.experience)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.pointsToDistribute)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.pointsToDistribute)
+            @Html.ValidationMessageFor(model => model.pointsToDistribute)
+        </div>
         <p>
             <input type="submit" value="Create" />
+            @Html.ActionLink("Back to List", "Index")
         </p>
     </fieldset>
+
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
+<aside class="dynamic-side-right" style="display:@ViewBag.Display">
+    <label>Available Attributes</label>
+    @{Html.RenderAction("ListNonCharacter", "Attribute");}
+</aside>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

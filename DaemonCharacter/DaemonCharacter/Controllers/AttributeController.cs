@@ -39,6 +39,7 @@ namespace DaemonCharacter.Controllers
         // GET: /Attribute/Create
         public ActionResult Create()
         {
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name");
             return View();
         }
 
@@ -53,16 +54,11 @@ namespace DaemonCharacter.Controllers
             {
                 try
                 {
-                    AttributeTypeClass a = new AttributeTypeClass();
 
-                    int idAttributeType;
-
-                    int.TryParse(((string[])f.GetValue("Types").RawValue)[0].ToString(), out idAttributeType);
-
-                    if (idAttributeType == 0)
+                    if (Attribute.idAttributeType == 0)
                         throw new Exception("Invalid Attribute Type");
 
-                    a = db.AttributeTypes.Find(idAttributeType);
+                    AttributeTypeClass a = db.AttributeTypes.Find(Attribute.idAttributeType);
 
                     Attribute.type = a;
                     db.Attributes.Add(Attribute);
@@ -73,9 +69,9 @@ namespace DaemonCharacter.Controllers
                 catch (Exception ex)
                 {
                     ViewBag.Retorno = "An error occured while trying to create this attribute: " + ex.Message;
-                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index");
                 }
-                    
+
             }
 
             var errors = ModelState.Values.SelectMany(v => v.Errors);
@@ -170,5 +166,98 @@ namespace DaemonCharacter.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        public ActionResult ListNonCharacter()
+        {
+            IEnumerable<AttributeClass> attributes;
+
+            attributes = db.Attributes.ToList().OrderBy(t => t.type.name);
+
+            return PartialView(attributes);
+        }
+
+        public ActionResult ListAttributesFromCharacter(int[] idAttributes)
+        {
+
+            //if (idAttributes == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //else
+            //{
+            //IEnumerable<AttributeClass> list = db.Attributes.Where(t => idAttributes.Contains(t.idAttribute)).OrderBy(t => t.type.name);
+            IEnumerable<AttributeClass> list = db.Attributes.OrderBy(t => t.type.name);
+
+            if (list == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(list);
+            //}
+
+        }
+
+        /// <summary>
+        /// Method responsible for retrieve the list of associated attributes of a character
+        /// </summary>
+        /// <param name="idCharacter">Edited character</param>
+        /// <returns>Returns a partial view</returns>
+        public ActionResult ListAttributesFromCharacter(int idCharacter = 0)
+        {
+            IEnumerable<AttributeClass> attributes;
+            //idCharacter = 0 is a new Character being created. None attribute exist yet.
+            if (idCharacter == 0)
+            {
+                return HttpNotFound();
+            }
+            //idCharacter != 0 is a Character being edited
+            else
+            {
+                CharacterClass character = db.Characters.Find(idCharacter);
+                if (character == null)
+                {
+                    return HttpNotFound();
+                }
+                attributes = db.Attributes.Where(t => character.attributes.Any(c => c.idAttribute == t.idAttribute)).OrderBy(t => t.type.name);
+            }
+
+            return PartialView(attributes);
+        }
+
+        /// <summary>
+        /// Method responsible for return a list of attributes to the create character form dynamically
+        /// </summary>
+        /// <returns>JSON result containing all html box</returns>
+        //public JsonResult GetAttributes(int counter=0)
+        //{
+
+
+
+
+
+
+        //List<AttributeClass> list = db.Attributes.ToList();
+
+        //string div = "<div>";
+        //div += "<div class='dynamicAttribute' id='InputsWrapper_0" + counter.ToString() + "'>";
+
+        //div += "<label>Attribute: <select id='idAttribute" + counter.ToString() + "'>";
+
+        //for (int i = 0; i < list.Count; i++)
+        //{
+        //    div += "<option value='" + list[i].idAttribute.ToString() + "'>" + list[i].name + "</option>";
+        //}
+
+        //div += "</select></label>";
+
+        //div += "<input type='text' name='mytext[]' id='field_" + counter.ToString() + "' palceholder='Value' />";
+        //div += "<button class='removeclass0'>X</button>";
+
+        //div += "</div>";
+        //div += "</div>";
+
+        //return Json(div, JsonRequestBehavior.AllowGet);
+        //}
     }
 }

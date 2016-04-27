@@ -37,8 +37,12 @@
             @Html.ValidationMessageFor(model => model.minimum)
         </div>
 
-        <div>
-            @{Html.RenderAction("_List", "AttributeType");}
+        <div class="editor-label">
+            @Html.LabelFor(model => model.type.name)
+        </div>
+        <div class="editor-field">
+           @Html.DropDownList("idAttributeType", String.Empty)
+            @Html.ValidationMessageFor(model => model.idAttribute)
         </div>
 
         <p>
