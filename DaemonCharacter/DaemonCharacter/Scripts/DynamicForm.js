@@ -1,92 +1,99 @@
 ﻿$(document).ready(function () {
 
-    /*
-    Script located on http://www.formget.com/jquery-codes-for-dynamic-form/ 
-    http://www.formget.com/script-preview/?preview_url=http://www.aorank.com/tutorial/createformdynamically/dynamicallyformcreation.html
-    */
-    /*-------------------------------------------------------------------*/
-    var MaxInputs = 100; //Maximum Input Boxes Allowed
-    /*-------------------------------------------------------------------
-    To Keep Track of Fields And Divs Added
-    -------------------------------------------------------------------*/
-    var AttributeFieldCount = 0;
+    $('input[type=checkbox]').click(function () {
 
-    var InputsWrapper = $("#InputsWrapper"); // Input Box Wrapper ID
-    var x = InputsWrapper.length; // Initial Field Count
-    /*--------------------------------------------------------------
-    To Get Fields Button ID
-    ----------------------------------------------------------------*/
-    var AttributeField = $("#AttributeField");
+        if (this.id.split('_')[0] == 'ChkAttr' && this.checked == true)
+            GetMinimumValueFromAttribute(this.id);
+        else
+            ClearValueFromAttribute(this.id);
 
-    /*---------------------------------------------------------------
-    To Add Name Field
-    ----------------------------------------------------------------*/
+    });
 
-    $(AttributeField).click(function () {
-        if (x <= MaxInputs) {
-            AttributeFieldCount++;
-
-            /**********************************************
-            Calling a controller method using JSON
-            ***********************************************/
-            var Vurl = "/Attribute/GetAttributes/";
-            Vurl += x;
-            var result;
+    $('input').change(function(){
+        if (document.getElementsByName('pointsToDistribute')[0].id == this.id)
+            document.getElementsByName('remainingPoints')[0].value = document.getElementsByName('pointsToDistribute')[0].value;
+    });
 
 
-            $.getJSON(Vurl, function (data) {
+    $('input[id=submitAttributes]').click(function () {
+        var url = "/CharacterAttribute/Create/";
+        sessionStorage.clear();
+        SelectAttributesFromSelectedCheckboxes();
 
-                result = data;
-
+        $.ajax(
+            {
+                dataType: 'json',
+                //contenttype: 'application/json; charset=utf-8',
+                url: url,
+                data: 'Attributes=' + JSON.stringify(String(sessionStorage["ArrayOfSelectedAttributes"])),
+                success: function (data) {
+                    document.getElementById("CharacterAttributeMessage").innerText = data;
+                },
+                error: function (xhr) {
+                    alert(xhr.statusText);
+                }
             });
-
-            $(InputsWrapper).append(result);
-            x++;
-        }
-        return false;
     });
-    $("body").on("click", ".removeclass0", function () {
-        $(this).parent('div').remove(); // To Remove Name Field
-        x--;
-        return false;
-    });
-
 });
 
-function SelectAttribute(obj) {
-    var val = obj.id;
-
-    //Looking if is the first click
-    if ($(':hidden#SelectedAttributes').val() != "") {
-        var isNotSelected = true;
-        var ids = $('input[id=SelectedAttributes]').val().split(',');
-        var hiddenValue = "";
-
-        //Looking if the attribute is already selected. If yes, remove from selection and from hidden value
-        for (var i = 0; i < ids.length; i++) {
-
-            if (ids[i] == val) {
-                isNotSelected = false;
-                obj.style.backgroundColor = "white";
-            } else {
-                if (hiddenValue.length == 0)
-                    hiddenValue = ids[i];
-                else
-                    hiddenValue = ',' + ids[i];
-            }
+function SelectAttributesFromSelectedCheckboxes() {
+    var Attribute = [];
+    $('input:checkbox').each(function (index, element) {
+        if (element.checked) {
+            var idAttribute = element.id.split('_')[1];
+            AddAttributeToArray(Attribute, document.getElementById('ValAttr_' + idAttribute));
         }
+    });
+    sessionStorage.setItem("ArrayOfSelectedAttributes", Attribute);
+}
 
-        $('input[id=SelectedAttributes]').val(hiddenValue);
+function AddAttributeToArray(Attribute, SelectedAttribute) {
+    Attribute.push(SelectedAttribute.id.split('_')[1] + '|' + SelectedAttribute.value);
+}
 
-        if (isNotSelected) {
-            $('input[id=SelectedAttributes]').val($('input[id=SelectedAttributes]').val() + "," + val);
-            obj.style.backgroundColor = "red";
+function setCheckbox(id) {
+    id.click();
+}
+
+function ClearValueFromAttribute(id) {
+    var elementId = "ValAttr_" + id.split('_')[1];
+    document.getElementById(elementId).value = "";
+    CalculateRemainingPoints(document.getElementById(elementId));
+}
+function GetMinimumValueFromAttribute(id) {
+    var url = "/Attribute/FindMinimum/" + id;
+    $.ajax(
+     {
+         dataType: 'json',
+         type: 'get',
+         url: url,
+         //data: 'id=' + id,
+         data: null,
+         success: function (data) {
+             var elementId = "ValAttr_" + id.split('_')[1];
+             SetMinimumValueToSelectedInput(document.getElementById(elementId), data);
+         },
+         error: function (xhr) {
+             $("#CharacterAttributeMessage").value = xhr.statusText;
+         }
+     });
+}
+function SetMinimumValueToSelectedInput(obj, value) {
+    if (obj.value == "" || obj.value < value)
+        obj.value = value;
+
+    CalculateRemainingPoints(obj);
+}
+
+function CalculateRemainingPoints(obj) {
+    var sumPointsUsed = 0;
+    $('input').each(function (index, element) {
+                
+        if (element.id.split('_')[0] == "ValAttr") {
+            if(element.value != "")
+                sumPointsUsed = sumPointsUsed + parseInt(element.value);
         }
+    });
 
-    } else {
-        $('input[id=SelectedAttributes]').val(val);
-        obj.style.backgroundColor = "red";
-    }
-
-
+    document.getElementsByName('remainingPoints')[0].value = document.getElementsByName('pointsToDistribute')[0].value - sumPointsUsed;
 }

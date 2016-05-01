@@ -1,0 +1,26 @@
+﻿@model DaemonCharacter.Models.CharacterAttributeClass
+
+@{
+    Layout = "~/Views/Shared/_LayoutPartial.cshtml";
+}
+
+<table cellpadding="5" cellspacing="5">
+    <tr>
+        <th>@Html.LabelFor(model => model.attribute.name)</th>
+        <th>@Html.LabelFor(model => model.value)</th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DropDownList("idAttribute", String.Empty)
+            @Html.ValidationMessageFor(model => model.idAttribute)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.value)
+            @Html.ValidationMessageFor(model => model.value)
+        </td>
+    </tr>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

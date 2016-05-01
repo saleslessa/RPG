@@ -158,3 +158,9 @@ C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\bin\zh-Hant\System.Spatial.res
 C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\obj\Debug\DaemonCharacter.dll
 C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\obj\Debug\DaemonCharacter.pdb
 C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\obj\Debug\DaemonCharacter.csprojResolveAssemblyReference.cache
+C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\bin\System.Net.Http.Formatting.dll
+C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\bin\System.Web.Http.dll
+C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\bin\System.Web.Http.WebHost.dll
+C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\bin\System.Net.Http.Formatting.xml
+C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\bin\System.Web.Http.xml
+C:\GitHub\RPG\RPG\DaemonCharacter\DaemonCharacter\bin\System.Web.Http.WebHost.xml

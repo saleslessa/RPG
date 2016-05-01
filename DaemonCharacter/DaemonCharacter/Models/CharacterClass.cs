@@ -21,6 +21,8 @@ namespace DaemonCharacter.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idCharacter { get; set; }
 
+        public IEnumerable<CharacterAttributeClass> characterAttributes { get; set; }
+
         [Required(ErrorMessage="Character name is required"), MaxLength(50)]
         [Display(Name = "Character Name")]
         public string name { get; set; }
@@ -40,7 +42,13 @@ namespace DaemonCharacter.Models
         [Range(0, int.MaxValue)]
         public int pointsToDistribute { get; set; }
 
+        [DefaultValue(0)]
+        [Display(Name = "Remaining points to distribute among Attributes")]
+        [Range(0, int.MaxValue)]
+        public int remainingPoints { get; set; }
+
         [Display(Name="Attributes")]
+        [ForeignKey("characterAttributes")]
         public virtual IEnumerable<CharacterAttributeClass> attributes { get; set; }
     }
 
@@ -50,8 +58,14 @@ namespace DaemonCharacter.Models
         public int idCharacterAttributeClass { get; set; }
 
         [Required]
+        public int idCharacter { get; set; }
+
+        [Required]
         public int idAttribute { get; set; }
         
+        [Required, ForeignKey("idCharacter")]
+        public CharacterClass character { get; set; }
+
         [Required, ForeignKey("idAttribute")]
         public AttributeClass attribute { get; set; }
 

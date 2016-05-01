@@ -151,28 +151,41 @@ div.dynamicAttribute {
 .dynamic-input {
     max-width: 50px;
     font-size: small;
-    border-radius:10px;
-}
-.chk-dynamic
-{
-    border-radius:10px;
+    border-radius: 10px;
 }
 
-.dynamic-side-right {
+.chk-dynamic {
+    border-radius: 10px;
+}
+
+#fieldset-left-dynamic {
+    float: left;
+    padding: 15px;
+    margin: 5px;
+    border: 1px solid #808080;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px #888888;
+    background-color: whitesmoke;
+}
+
+#dynamic-side-right {
     margin-left: 15px;
     padding: 5px;
-    border: 1px ridge #342e2e;
+    border: 1px solid #808080;
     border-radius: 10px;
-    background-color: whitesmoke;
     box-shadow: 2px 2px 3px #888888;
+    background-color: whitesmoke;
     overflow-y: auto;
+    overflow-x: no-display;
+    max-height: 500px;
+    max-width: 1000px;
+    float: left;
 }
 
 .selector-Dynamic-header {
     margin: 5px;
-    margin-bottom: 10px;
     padding: 5px;
-    list-style-type:none;
+    font-weight: bold;
 }
 
 .selector-Dynamic-details {
@@ -182,6 +195,7 @@ div.dynamicAttribute {
     border: 1px solid grey;
     border-radius: 10px;
     list-style-type: none;
+    display: inline-table;
 }
 
     .selector-Dynamic-details:hover {
@@ -194,19 +208,21 @@ div.dynamicAttribute {
     border: 1px solid grey;
     border-radius: 10px;
 }*/
+.messages {
+    color: red;
+}
 
-#fieldset-left-dynamic {
-    float: left;
-    padding: 15px;
-    margin: 5px;
-    border: 1px solid #808080;
+.button {
     border-radius: 10px;
-    box-shadow: 2px 2px 3px #888888;
-}
-.messages{
-    color:red;
+    box-shadow: 1px 1px 2px #888888;
+    font-size: medium;
 }
 
-.teste{
-    background-color:black;
+fieldset legend {
+    background-color: darkgrey;
+}
+
+checkbox{
+    border-radius:10px;
+    font-size:large;
 }

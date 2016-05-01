@@ -40,6 +40,7 @@ namespace DaemonCharacter.Controllers
         {
             ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
             ViewBag.display = "none";
+            ViewBag.isRegistered = false;
 
             return View();
         }
@@ -50,20 +51,24 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CharacterClass characterclass)
         {
+            characterclass.remainingPoints = characterclass.pointsToDistribute;
             if (ModelState.IsValid)
             {
-                //db.Characters.Add(characterclass);
-                //db.SaveChanges();
+                db.Characters.Add(characterclass);
+                db.SaveChanges();
 
-                ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
+                Session["idCharacter"] = characterclass.idCharacter;
+                ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>(), characterclass.gender);
                 ViewBag.display = "normal";
+                ViewBag.isRegistered = "readonly";
+                ViewBag.Message = "Character Created. Please select the attributes at right side";
 
                 return View(characterclass);
-                //return RedirectToAction("Index");
             }
 
 
             //When an error accours
+            ViewBag.isRegistered = false;
             ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
             ViewBag.Display = "none";
             ViewBag.Message = "The following error occured when trying to create a character:\n";

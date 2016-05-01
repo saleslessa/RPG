@@ -225,39 +225,13 @@ namespace DaemonCharacter.Controllers
             return PartialView(attributes);
         }
 
-        /// <summary>
-        /// Method responsible for return a list of attributes to the create character form dynamically
-        /// </summary>
-        /// <returns>JSON result containing all html box</returns>
-        //public JsonResult GetAttributes(int counter=0)
-        //{
+        public JsonResult FindMinimum(int id=0)
+        {
+            if (id == 0)
+                id = 1;
+            return Json(db.Attributes.Find(id).minimum, JsonRequestBehavior.AllowGet);
+        }
 
 
-
-
-
-
-        //List<AttributeClass> list = db.Attributes.ToList();
-
-        //string div = "<div>";
-        //div += "<div class='dynamicAttribute' id='InputsWrapper_0" + counter.ToString() + "'>";
-
-        //div += "<label>Attribute: <select id='idAttribute" + counter.ToString() + "'>";
-
-        //for (int i = 0; i < list.Count; i++)
-        //{
-        //    div += "<option value='" + list[i].idAttribute.ToString() + "'>" + list[i].name + "</option>";
-        //}
-
-        //div += "</select></label>";
-
-        //div += "<input type='text' name='mytext[]' id='field_" + counter.ToString() + "' palceholder='Value' />";
-        //div += "<button class='removeclass0'>X</button>";
-
-        //div += "</div>";
-        //div += "</div>";
-
-        //return Json(div, JsonRequestBehavior.AllowGet);
-        //}
     }
 }

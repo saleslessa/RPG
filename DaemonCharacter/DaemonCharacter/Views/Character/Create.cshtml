@@ -12,9 +12,7 @@
     <link href="@Url.Content("~/Content/DynamicForm.css")"
           rel="stylesheet" type="text/css" />
 </head>
-<p class="messages">
-    @ViewBag.Message
-</p>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -62,14 +60,26 @@
             @Html.EditorFor(model => model.pointsToDistribute)
             @Html.ValidationMessageFor(model => model.pointsToDistribute)
         </div>
+
+        <div class="editor-label" display="@ViewBag.display">
+            @Html.LabelFor(model => model.remainingPoints)
+        </div>
+        <div class="editor-field" display="@ViewBag.display">
+            @Html.EditorFor(model => model.remainingPoints)
+            @Html.ValidationMessageFor(model => model.remainingPoints)
+        </div>
+
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Choose Attributes" class="button" />
             @Html.ActionLink("Back to List", "Index")
+        </p>
+        <p class="messages">
+            @ViewBag.Message
         </p>
     </fieldset>
 
 }
-<aside class="dynamic-side-right" style="display:@ViewBag.Display">
+<aside id="dynamic-side-right" style="display:@ViewBag.display">
     <label>Available Attributes</label>
     @{Html.RenderAction("ListNonCharacter", "Attribute");}
 </aside>

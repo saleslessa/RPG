@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
+using System.Collections;
+using Newtonsoft.Json.Linq;
 
 namespace DaemonCharacter.Controllers
 {
@@ -38,18 +40,18 @@ namespace DaemonCharacter.Controllers
         //
         // GET: /CharacterAttribute/Create
 
-        public ActionResult _Create()
-        {
-            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name");
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name");
+        //    return View();
+        //}
 
         //
         // POST: /CharacterAttribute/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _Create(CharacterAttributeClass characterattributeclass)
+        public ActionResult Create(CharacterAttributeClass characterattributeclass, FormCollection f)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +62,118 @@ namespace DaemonCharacter.Controllers
 
             ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterattributeclass.idAttribute);
             return View(characterattributeclass);
+        }
+
+        public JsonResult Create(string Attributes)
+        {
+            ArrayList listOfAttributes = new ArrayList();
+            try
+            {
+                if (Session["idCharacter"] == null)
+                    throw new Exception("Character Not Found");
+
+                string idCharacter = Session["idCharacter"].ToString();
+
+                for (int i = 0; i < Attributes.ToString().Split(',').Length; i++)
+                {
+                    listOfAttributes.Add(ValidateAttributeFromCharacterClass(Attributes.ToString().Split(',')[i]));
+                }
+
+                PersistCharacterAttributes(idCharacter, listOfAttributes);
+
+                return Json("Request Completed", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("The following error occured when trying to associate a attribute to character: " + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        private int GetNumber(string val)
+        {
+            int returning = -1;
+            try
+            {
+                for (int i = 0; i < val.Length; i++)
+                {
+                    if (Char.IsDigit(val[i]))
+                    {
+                        returning = Convert.ToInt32(val[i].ToString());
+                    }
+                }
+                return returning;
+            }
+            catch (Exception)
+            {
+                throw new Exception("invalid number");
+            }
+            finally
+            {
+                if (returning == -1)
+                    throw new Exception();
+            }
+        }
+
+        private void PersistCharacterAttributes(string idCharacter, ArrayList listOfAttributes)
+        {
+            try
+            {
+                CharacterClass c = ValidateCharacter(idCharacter);
+
+                foreach (CharacterAttributeClass item in listOfAttributes)
+                    SaveCharacterAttributes(c, item);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void SaveCharacterAttributes(CharacterClass c, CharacterAttributeClass item)
+        {
+            try
+            {
+                item.character = c;
+                db.CharacterAttributes.Add(item);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private CharacterClass ValidateCharacter(string idCharacter)
+        {
+            try
+            {
+                CharacterClass c = db.Characters.Find(Convert.ToInt32(idCharacter));
+
+                if (c == null)
+                    throw new Exception("Invalid Character to input attributes. Please try again");
+
+                return c;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private CharacterAttributeClass ValidateAttributeFromCharacterClass(string attribute)
+        {
+            try
+            {
+                CharacterAttributeClass returning = new CharacterAttributeClass();
+                returning.attribute = db.Attributes.Find(GetNumber(attribute.Split('|')[0]));
+                returning.value = GetNumber(attribute.Split('|')[1]);
+                return returning;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         //
