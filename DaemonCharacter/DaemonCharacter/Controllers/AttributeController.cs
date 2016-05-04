@@ -167,15 +167,6 @@ namespace DaemonCharacter.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult ListNonCharacter()
-        {
-            IEnumerable<AttributeClass> attributes;
-
-            attributes = db.Attributes.ToList().OrderBy(t => t.type.name);
-
-            return PartialView(attributes);
-        }
-
         public ActionResult ListAttributesFromCharacter(int[] idAttributes)
         {
 

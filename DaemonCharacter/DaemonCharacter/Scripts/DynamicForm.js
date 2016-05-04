@@ -27,10 +27,12 @@
                 url: url,
                 data: 'Attributes=' + JSON.stringify(String(sessionStorage["ArrayOfSelectedAttributes"])),
                 success: function (data) {
+                    document.getElementById('CharacterAttributeMessage').style.color = "blue";
                     document.getElementById("CharacterAttributeMessage").innerText = data;
                 },
                 error: function (xhr) {
-                    alert(xhr.statusText);
+                    document.getElementById('CharacterAttributeMessage').style.color = "red";
+                    document.getElementById("CharacterAttributeMessage").innerText = xhr.statusText;
                 }
             });
     });
@@ -79,8 +81,10 @@ function GetMinimumValueFromAttribute(id) {
      });
 }
 function SetMinimumValueToSelectedInput(obj, value) {
-    if (obj.value == "" || obj.value < value)
+    if (obj.value == "" || obj.value < value) {
         obj.value = value;
+        obj.setAttribute("min", value);
+    }
 
     CalculateRemainingPoints(obj);
 }

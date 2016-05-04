@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DaemonCharacter.Models.AttributeClass>
+
+
+<fieldset>
+    <legend>Attributes</legend>
+
+    @{
+        var type = string.Empty;
+    }
+    <dl>
+        @foreach (var items in Model)
+            {
+                if (type != items.type.name)
+                {
+                    type = items.type.name;
+
+                <dd class="selector-Dynamic-header">@Html.DisplayName(type)</dd>
+
+            }
+            <dt class="selector-Dynamic-details">
+                <input type="checkbox" class="chk-dynamic" id="ChkAttr_@Html.Raw(items.idAttribute)" />
+                <span title="@Html.Raw(items.description)" onclick="setCheckbox(ChkAttr_@Html.Raw(items.idAttribute))">@Html.DisplayName(items.name)</span>
+                <input type="number" class="dynamic-input" id="ValAttr_@Html.Raw(items.idAttribute)" onchange="CalculateRemainingPoints(this)">
+            </dt>
+        }
+    </dl>
+    <p>
+        <input type="button" value="Finish" class="button" id="submitAttributes" />
+    </p>
+    <p class="messages" id="CharacterAttributeMessage"></p>
+</fieldset>

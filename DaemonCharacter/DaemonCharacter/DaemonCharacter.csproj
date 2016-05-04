@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -327,13 +328,7 @@
     <Content Include="Views\Character\Details.cshtml" />
     <Content Include="Views\Character\Edit.cshtml" />
     <Content Include="Views\Character\Delete.cshtml" />
-    <Content Include="Views\CharacterAttribute\Index.cshtml" />
-    <Content Include="Views\CharacterAttribute\Details.cshtml" />
-    <Content Include="Views\CharacterAttribute\_Create.cshtml" />
-    <Content Include="Views\CharacterAttribute\Edit.cshtml" />
-    <Content Include="Views\CharacterAttribute\Delete.cshtml" />
-    <Content Include="Views\Attribute\ListNonCharacter.cshtml" />
-    <Content Include="Views\Attribute\ListAttributesFromNewCharacter.cshtml" />
+    <Content Include="Views\CharacterAttribute\ListNonCharacter.cshtml" />
     <Content Include="Views\Character\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>

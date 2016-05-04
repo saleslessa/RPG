@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
 using System.Collections;
-using Newtonsoft.Json.Linq;
+
 
 namespace DaemonCharacter.Controllers
 {
@@ -74,14 +73,16 @@ namespace DaemonCharacter.Controllers
 
                 string idCharacter = Session["idCharacter"].ToString();
 
-                for (int i = 0; i < Attributes.ToString().Split(',').Length; i++)
+                for (int i = 0; i < Attributes.Split(',').Length; i++)
                 {
                     listOfAttributes.Add(ValidateAttributeFromCharacterClass(Attributes.ToString().Split(',')[i]));
                 }
 
+                ValidateSumAttributes(listOfAttributes);
+
                 PersistCharacterAttributes(idCharacter, listOfAttributes);
 
-                return Json("Request Completed", JsonRequestBehavior.AllowGet);
+                return Json("Attributes Associated to new character", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -90,19 +91,39 @@ namespace DaemonCharacter.Controllers
 
         }
 
+        private void ValidateSumAttributes(ArrayList attributes)
+        {
+            try
+            {
+                CharacterClass c = db.Characters.Find(Session["idCharacter"]);
+                int total = 0;
+
+                foreach (var item in attributes)
+                    total += ((CharacterAttributeClass)item).value;
+
+                if (total > c.pointsToDistribute)
+                    throw new Exception("You used more points than permited. Please reorganize your points");
+            }
+            catch (Exception ex)
+            { 
+                throw ex;
+            }
+
+        }
+
         private int GetNumber(string val)
         {
-            int returning = -1;
+            string returning = string.Empty;
             try
             {
                 for (int i = 0; i < val.Length; i++)
                 {
                     if (Char.IsDigit(val[i]))
                     {
-                        returning = Convert.ToInt32(val[i].ToString());
+                        returning += val[i].ToString();
                     }
                 }
-                return returning;
+                return Convert.ToInt32(returning);
             }
             catch (Exception)
             {
@@ -110,7 +131,7 @@ namespace DaemonCharacter.Controllers
             }
             finally
             {
-                if (returning == -1)
+                if (returning == string.Empty)
                     throw new Exception();
             }
         }
@@ -121,14 +142,46 @@ namespace DaemonCharacter.Controllers
             {
                 CharacterClass c = ValidateCharacter(idCharacter);
 
+
+                ValidateCharacterAttributeBeforePersist(ReturnCompleteCharacterAttribute(c.idCharacter, listOfAttributes));
+
                 foreach (CharacterAttributeClass item in listOfAttributes)
                     SaveCharacterAttributes(c, item);
-
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        private void ValidateCharacterAttributeBeforePersist(ArrayList listOfAttributes)
+        {
+            try
+            {
+                foreach (CharacterAttributeClass item in listOfAttributes)
+                {
+                    if (db.CharacterAttributes
+                        .Where(t => t.idCharacter == item.idCharacter)
+                        .Where(x => x.idAttribute == item.idAttribute).ToList().Count > 0)
+                    {
+                        db.CharacterAttributes.Remove(item);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private ArrayList ReturnCompleteCharacterAttribute(int idCharacter, ArrayList listOfAttributes)
+        {
+            for (int i = 0; i < listOfAttributes.Count; i++)
+            {
+                ((CharacterAttributeClass)listOfAttributes[i]).idCharacter = idCharacter;
+            }
+            return listOfAttributes;
         }
 
         private void SaveCharacterAttributes(CharacterClass c, CharacterAttributeClass item)
@@ -231,6 +284,15 @@ namespace DaemonCharacter.Controllers
             db.CharacterAttributes.Remove(characterattributeclass);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ListNonCharacter()
+        {
+            IEnumerable<AttributeClass> attributes;
+
+            attributes = db.Attributes.ToList().OrderBy(t => t.type.name);
+
+            return PartialView(attributes);
         }
 
         protected override void Dispose(bool disposing)

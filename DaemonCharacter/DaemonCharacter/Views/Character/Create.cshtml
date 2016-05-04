@@ -2,9 +2,7 @@
 
 @{
     ViewBag.Title = "New Character";
-
 }
-@using System.Web.Mvc.Html;
 
 <head>
     <title>Creating a new character</title>
@@ -27,6 +25,14 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.name)
             @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.level)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.level)
+            @Html.ValidationMessageFor(model => model.level)
         </div>
 
         <div class="editor-label">
@@ -61,14 +67,15 @@
             @Html.ValidationMessageFor(model => model.pointsToDistribute)
         </div>
 
-        <div class="editor-label" display="@ViewBag.display">
-            @Html.LabelFor(model => model.remainingPoints)
+        <div style="display:@ViewBag.display">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.remainingPoints)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.remainingPoints)
+                @Html.ValidationMessageFor(model => model.remainingPoints)
+            </div>
         </div>
-        <div class="editor-field" display="@ViewBag.display">
-            @Html.EditorFor(model => model.remainingPoints)
-            @Html.ValidationMessageFor(model => model.remainingPoints)
-        </div>
-
         <p>
             <input type="submit" value="Choose Attributes" class="button" />
             @Html.ActionLink("Back to List", "Index")
@@ -81,7 +88,7 @@
 }
 <aside id="dynamic-side-right" style="display:@ViewBag.display">
     <label>Available Attributes</label>
-    @{Html.RenderAction("ListNonCharacter", "Attribute");}
+    @{Html.RenderAction("ListNonCharacter", "CharacterAttribute");}
 </aside>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
