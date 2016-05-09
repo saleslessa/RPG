@@ -330,6 +330,8 @@
     <Content Include="Views\Character\Delete.cshtml" />
     <Content Include="Views\CharacterAttribute\ListNonCharacter.cshtml" />
     <Content Include="Views\Character\Create.cshtml" />
+    <Content Include="Views\Attribute\ListBonus.cshtml" />
+    <Content Include="Views\CharacterAttribute\ListCharacter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

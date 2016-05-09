@@ -36,10 +36,18 @@
         </div>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.maxLife)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.maxLife)
+            @Html.ValidationMessageFor(model => model.maxLife)
+        </div>
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.gender)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("Genders", string.Empty)
+            @Html.DropDownList("Genders", (SelectList)ViewBag.Genders)
             @Html.ValidationMessageFor(model => model.gender)
         </div>
 

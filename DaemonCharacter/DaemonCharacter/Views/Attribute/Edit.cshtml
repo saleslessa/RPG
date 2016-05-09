@@ -38,13 +38,21 @@
             @Html.EditorFor(model => model.minimum)
             @Html.ValidationMessageFor(model => model.minimum)
         </div>
-
-        <div>
-            @{
-                Html.RenderAction("_List", "AttributeType", new {id = Model.type.idAttributeType});
-            }
+        <div class="editor-label">
+            @Html.LabelFor(model => model.type.name)
         </div>
-
+        <div class="editor-field">
+            @Html.DropDownList("idAttributeType", String.Empty)
+        </div>
+        <div class="editor-label">
+            <label>Bonus</label>
+        </div>
+        <div class="editor-field">
+            @{Html.RenderAction("ListBonus");}
+        </div>
+        <p class="messages">
+            @ViewBag.Message
+        </p>
         <p>
             <input type="submit" value="Save" />
         </p>

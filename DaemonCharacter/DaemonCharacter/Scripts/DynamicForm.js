@@ -27,11 +27,9 @@
                 url: url,
                 data: 'Attributes=' + JSON.stringify(String(sessionStorage["ArrayOfSelectedAttributes"])),
                 success: function (data) {
-                    document.getElementById('CharacterAttributeMessage').style.color = "blue";
                     document.getElementById("CharacterAttributeMessage").innerText = data;
                 },
                 error: function (xhr) {
-                    document.getElementById('CharacterAttributeMessage').style.color = "red";
                     document.getElementById("CharacterAttributeMessage").innerText = xhr.statusText;
                 }
             });
@@ -63,7 +61,7 @@ function ClearValueFromAttribute(id) {
     CalculateRemainingPoints(document.getElementById(elementId));
 }
 function GetMinimumValueFromAttribute(id) {
-    var url = "/Attribute/FindMinimum/" + id;
+    var url = "/Attribute/FindMinimum/" + id.split('_')[1];
     $.ajax(
      {
          dataType: 'json',

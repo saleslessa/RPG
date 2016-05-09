@@ -23,7 +23,6 @@ namespace DaemonCharacter.Controllers
 
         //
         // GET: /Character/Details/5
-
         public ActionResult Details(int id = 0)
         {
             CharacterClass characterclass = db.Characters.Find(id);
@@ -52,6 +51,8 @@ namespace DaemonCharacter.Controllers
         public ActionResult Create(CharacterClass characterclass)
         {
             characterclass.remainingPoints = characterclass.pointsToDistribute;
+            characterclass.remainingLife = characterclass.maxLife;
+
             if (ModelState.IsValid)
             {
                 db.Characters.Add(characterclass);
@@ -60,7 +61,6 @@ namespace DaemonCharacter.Controllers
                 Session["idCharacter"] = characterclass.idCharacter;
                 ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>(), characterclass.gender);
                 ViewBag.display = "normal";
-                ViewBag.isRegistered = "readonly";
                 ViewBag.Message = "Character Created. Please select the attributes at right side";
 
                 return View(characterclass);

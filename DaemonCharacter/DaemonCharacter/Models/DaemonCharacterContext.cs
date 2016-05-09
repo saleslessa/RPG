@@ -25,6 +25,8 @@ namespace DaemonCharacter.Models
         public DbSet<CharacterClass> Characters { get; set; }
 
         public DbSet<CharacterAttributeClass> CharacterAttributes { get; set; }
-        
+
+        public DbSet<AttributeBonusClass> AttributeBonus { get; set; }
+
     }
 }

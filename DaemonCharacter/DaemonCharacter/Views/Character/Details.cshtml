@@ -1,22 +1,42 @@
 ﻿@model DaemonCharacter.Models.CharacterClass
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Character Form";
 }
+<head>
+    <title>Character Form</title>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/DynamicForm.js")"></script>
+    <link href="@Url.Content("~/Content/DynamicForm.css")"
+          rel="stylesheet" type="text/css" />
+</head>
+<h2>@Html.DisplayFor(model => model.name)</h2>
+<br />
+<aside id="aside-character-form">
+    @{Html.RenderAction("ListCharacter", "CharacterAttribute", new { Model.idCharacter });}
+</aside>
+<table cellpadding="0" cellspacing="0" border="1">
+    <tr>
+        <td><strong>@Html.DisplayNameFor(model => model.name)</strong></td>
+        <td>@Html.DisplayFor(model => model.name)</td>
+        <td><strong>@Html.DisplayNameFor(model => model.gender)</strong></td>
+        <td>@Html.DisplayFor(model => model.gender)</td>
+        <td><strong>@Html.DisplayNameFor(model => model.age)</strong></td>
+        <td>@Html.DisplayFor(model => model.age)</td>
+    </tr>
+    <tr>
+        <td><strong>@Html.DisplayNameFor(model => model.level)</strong></td>
+        <td>@Html.DisplayFor(model => model.level)</td>
+        
+        <td><strong>@Html.DisplayNameFor(model => model.maxLife)</strong></td>
+        <td>@Html.DisplayFor(model => model.maxLife)</td>
+        <td><strong>@Html.DisplayNameFor(model => model.remainingLife)</strong></td>
+        <td>@Html.DisplayFor(model => model.remainingLife)</td>
+    </tr>
+    <tr>
+        <td colspan="3"><strong>@Html.DisplayNameFor(model => model.remainingPoints)</strong></td>
+        <td>@Html.DisplayFor(model => model.remainingPoints)</td>
+        <td><strong>@Html.DisplayNameFor(model => model.experience)</strong></td>
+        <td>@Html.DisplayFor(model => model.experience)</td>
+    </tr>
+</table>
 
-<h2>Details</h2>
-
-<fieldset>
-    <legend>CharacterClass</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.name)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.idCharacter }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
+using System.Collections;
 using System.Transactions;
 
 namespace DaemonCharacter.Controllers
@@ -22,6 +21,21 @@ namespace DaemonCharacter.Controllers
             return View(db.Attributes.ToList());
         }
 
+        public ActionResult ListBonus(int id = -1)
+        {
+
+            ViewBag.selected = GetBonusAttribute(id);
+            return View(db.Attributes.ToList());
+
+        }
+
+        private List<int> GetBonusAttribute(int id)
+        {
+            if (id != -1)
+                return db.AttributeBonus.Where(t => t.idAttribute == id).Select(s => s.idAttributeBonusClass).ToList();
+            else
+                return new List<int>() { id };
+        }
         //
         // GET: /Attribute/Details/5
 
@@ -43,45 +57,129 @@ namespace DaemonCharacter.Controllers
             return View();
         }
 
+        private ArrayList SelectAttributeBonus(FormCollection f)
+        {
+            ArrayList Ret = new ArrayList();
+
+            try
+            {
+                for (int i = 0; i < f.Keys.Count; i++)
+                {
+                    if (f.Keys[i].Split('_')[0] == "Bonus")
+                        if ((((string[])f.GetValue(f.Keys[i]).RawValue)[0]) == "true")
+                            Ret.Add(Convert.ToInt32(f.Keys[i].Split('_')[1]));
+
+                }
+
+                return Ret;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void SaveAttribute(ref AttributeClass Attribute)
+        {
+            Attribute.type = db.AttributeTypes.Find(Attribute.idAttributeType);
+            db.Attributes.Add(Attribute);
+            db.SaveChanges();
+        }
+
+        private void ValidateDuplicateBonus(AttributeBonusClass a)
+        {
+            try
+            {
+                List<AttributeBonusClass> result = db.AttributeBonus
+                    .Where(t => t.idAttribute == a.idAttributeBonusClass && t.idAttributeBonusClass == a.idAttribute)
+                    .ToList();
+
+                if (result.Count > 0)
+                    throw new Exception("You cannot use cyclic bonus");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void SaveAttributeBonus(int idAttribute, ArrayList Bonus)
+        {
+            try
+            {
+                List<AttributeBonusClass> attNot = db.AttributeBonus
+                .Where(t => t.idAttribute == idAttribute).ToList();
+
+                foreach (AttributeBonusClass item in attNot)
+                    db.AttributeBonus.Remove(item);
+
+                db.SaveChanges();
+
+                for (int i = 0; i < Bonus.Count; i++)
+                {
+                    AttributeBonusClass a = new AttributeBonusClass();
+                    a.idAttribute = idAttribute;
+                    a.idAttributeBonusClass = Convert.ToInt32(Bonus[i]);
+
+                    ValidateDuplicateBonus(a);
+
+                    db.AttributeBonus.Add(a);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private AttributeTypeClass ValidateAttributeType(int idAttributeType)
+        {
+            try
+            {
+                if (idAttributeType == 0)
+                    throw new Exception("Invalid Attribute Type");
+
+                return db.AttributeTypes.Find(idAttributeType);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         //
         // POST: /Attribute/Create
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AttributeClass Attribute, FormCollection f)
         {
             if (ModelState.IsValid)
             {
+
                 try
                 {
+                    using (TransactionScope scope = new TransactionScope())
+                    {
+                        ValidateAttributeType(Attribute.idAttributeType);
 
-                    if (Attribute.idAttributeType == 0)
-                        throw new Exception("Invalid Attribute Type");
+                        SaveAttribute(ref Attribute);
+                        SaveAttributeBonus(Attribute.idAttribute, SelectAttributeBonus(f));
 
-                    AttributeTypeClass a = db.AttributeTypes.Find(Attribute.idAttributeType);
-
-                    Attribute.type = a;
-                    db.Attributes.Add(Attribute);
-                    db.SaveChanges();
-
+                        scope.Complete();
+                    }
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
                     ViewBag.Retorno = "An error occured while trying to create this attribute: " + ex.Message;
-                    //return RedirectToAction("Index");
+                    ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name");
+                    return View(Attribute);
                 }
 
             }
 
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-
-            ViewBag.message = "The following errors occured while trying to create this Attribute:\n";
-
-            for (int i = 0; i < errors.ToList().Count; i++)
-            {
-                ViewBag.message += errors.ToList()[i].ErrorMessage + "\n";
-            }
+            ReturnErrorModelState(ModelState);
 
             return View(Attribute);
         }
@@ -96,6 +194,7 @@ namespace DaemonCharacter.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name", attributeclass.idAttributeType);
             return View(attributeclass);
         }
 
@@ -106,33 +205,61 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AttributeClass Att, FormCollection f)
         {
-            if (ModelState.IsValid)
+
+            try
             {
-                AttributeTypeClass a = new AttributeTypeClass();
+                if (ModelState.IsValid)
+                {
 
-                int idAttributeType;
+                    AttributeTypeClass a = new AttributeTypeClass();
 
-                //Getting selected attribute type in form
-                int.TryParse(((string[])f.GetValue("Types").RawValue)[0].ToString(), out idAttributeType);
+                    a.idAttributeType = Convert.ToInt32(((string[])f.GetValue("idAttributeType").RawValue)[0].ToString());
 
-                if (idAttributeType == 0)
-                    throw new Exception("Invalid Attribute Type");
+                    a = ValidateAttributeType(a.idAttributeType);
+                    using (TransactionScope scope = new TransactionScope())
+                    {
+                        EditAttribute(Att, a);
+                        SaveAttributeBonus(Att.idAttribute, SelectAttributeBonus(f));
 
+                        scope.Complete();
+                    }
 
-                //looking for related attribute type
-                a = db.AttributeTypes.Find(idAttributeType);
+                    return RedirectToAction("Index");
 
-                Att.type = a;
-
-                //setting foreign key on attribute class
-                Att.idAttributeType = a.idAttributeType;
-
-                db.Entry(Att).State = EntityState.Modified;
-                db.SaveChanges();
-
-                return RedirectToAction("Index");
+                }
             }
+            catch (Exception ex)
+            {
+                ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name", Att.idAttributeType);
+                ViewBag.Message = ex.Message;
+                return View(Att);
+            }
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name", Att.idAttributeType);
+            ReturnErrorModelState(ModelState);
             return View(Att);
+
+
+        }
+
+        private void ReturnErrorModelState(ModelStateDictionary ModelState)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name");
+            ViewBag.message = "The following errors occured while trying to create this Attribute:\n";
+
+            for (int i = 0; i < errors.ToList().Count; i++)
+            {
+                ViewBag.message += errors.ToList()[i].ErrorMessage + "\n";
+            }
+        }
+
+        private void EditAttribute(AttributeClass Att, AttributeTypeClass type)
+        {
+            Att.type = type;
+            Att.idAttributeType = type.idAttributeType;
+            db.Entry(Att).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         //
@@ -167,28 +294,6 @@ namespace DaemonCharacter.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult ListAttributesFromCharacter(int[] idAttributes)
-        {
-
-            //if (idAttributes == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //else
-            //{
-            //IEnumerable<AttributeClass> list = db.Attributes.Where(t => idAttributes.Contains(t.idAttribute)).OrderBy(t => t.type.name);
-            IEnumerable<AttributeClass> list = db.Attributes.OrderBy(t => t.type.name);
-
-            if (list == null)
-            {
-                return HttpNotFound();
-            }
-
-            return PartialView(list);
-            //}
-
-        }
-
         /// <summary>
         /// Method responsible for retrieve the list of associated attributes of a character
         /// </summary>
@@ -216,13 +321,14 @@ namespace DaemonCharacter.Controllers
             return PartialView(attributes);
         }
 
-        public JsonResult FindMinimum(int id=0)
+        public JsonResult FindMinimum(int id=-1)
         {
-            if (id == 0)
-                id = 1;
-            return Json(db.Attributes.Find(id).minimum, JsonRequestBehavior.AllowGet);
-        }
+            if (id == -1)
+                return Json(HttpNotFound());
 
+            return Json(db.Attributes.Find(id).minimum, JsonRequestBehavior.AllowGet);
+
+        }
 
     }
 }

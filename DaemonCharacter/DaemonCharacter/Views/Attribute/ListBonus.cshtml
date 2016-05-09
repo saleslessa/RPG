@@ -1,0 +1,24 @@
+﻿@model IEnumerable<DaemonCharacter.Models.AttributeClass>
+@{ 
+    Layout = null;
+}
+
+<table cellspacing="0" >
+    <tr>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.CheckBox("Bonus_" + item.idAttribute.ToString(), (bool)ViewBag.selected.Contains(item.idAttribute))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+
+        </tr>
+    }
+
+</table>

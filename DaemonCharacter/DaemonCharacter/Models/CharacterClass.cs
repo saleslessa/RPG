@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,6 +36,12 @@ namespace DaemonCharacter.Models
         [Display(Name = "Age"), DefaultValue(0), Range(0, int.MaxValue)]
         public int age { get; set; }
 
+        [Required, Display(Name ="Maximum Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
+        public int maxLife { get; set; }
+
+        [Required, Display(Name = "Remaining Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
+        public int remainingLife { get; set; }
+
         [Required(ErrorMessage = "Experience is necessary :)"), DefaultValue(0), Display(Name = "Character Experience")]
         [Range(0, int.MaxValue)]
         public int experience { get; set; }
@@ -56,8 +63,8 @@ namespace DaemonCharacter.Models
     public class CharacterAttributeClass
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(Order =0)]
-        public int idCharacterAttributeClass { get; set; }
+        [Column(Order = 0)]
+        public int idCharacterAttribute { get; set; }
 
         [Required, Key]
         [Column(Order = 1)]
@@ -68,13 +75,15 @@ namespace DaemonCharacter.Models
         public int idAttribute { get; set; }
 
         [Required, ForeignKey("idCharacter")]
-        public CharacterClass character { get; set; }
+        public virtual CharacterClass character { get; set; }
 
         [Required, ForeignKey("idAttribute")]
-        public AttributeClass attribute { get; set; }
+        public virtual AttributeClass attribute { get; set; }
 
-        [Required, DefaultValue("0"), Range(0, 100)]
+        [Required, DefaultValue("0"), Range(0, int.MaxValue)]
         public int value { get; set; }
 
+        //[ForeignKey("idCharacterAttribute,idCharacter,idAttribute"), DefaultValue(null)]
+        public virtual ArrayList bonusValues { get; set; }
     }
 }

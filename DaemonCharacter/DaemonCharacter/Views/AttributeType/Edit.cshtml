@@ -23,6 +23,30 @@
             @Html.ValidationMessageFor(model => model.name)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.useBonus)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.useBonus)
+            @Html.ValidationMessageFor(model => model.useBonus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.useModifier)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.useModifier)
+            @Html.ValidationMessageFor(model => model.useModifier)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.baseModifier)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.baseModifier)
+            @Html.ValidationMessageFor(model => model.baseModifier)
+        </div>
+
         <p>
             <input type="submit" value="Save" />
         </p>

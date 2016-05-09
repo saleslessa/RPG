@@ -42,9 +42,13 @@
         </div>
         <div class="editor-field">
            @Html.DropDownList("idAttributeType", String.Empty)
-            @Html.ValidationMessageFor(model => model.idAttribute)
         </div>
-
+        <div class="editor-label">
+            <label>Bonus</label>
+        </div>
+        <div class="editor-field">
+            @{Html.RenderAction("ListBonus");}
+        </div>
         <p>
             <input type="submit" value="Create" />
         </p>

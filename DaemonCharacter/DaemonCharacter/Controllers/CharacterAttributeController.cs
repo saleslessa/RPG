@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
 using System.Collections;
-
+using System.Transactions;
 
 namespace DaemonCharacter.Controllers
 {
@@ -36,33 +36,6 @@ namespace DaemonCharacter.Controllers
             return View(characterattributeclass);
         }
 
-        //
-        // GET: /CharacterAttribute/Create
-
-        //public ActionResult Create()
-        //{
-        //    ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name");
-        //    return View();
-        //}
-
-        //
-        // POST: /CharacterAttribute/Create
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(CharacterAttributeClass characterattributeclass, FormCollection f)
-        {
-            if (ModelState.IsValid)
-            {
-                db.CharacterAttributes.Add(characterattributeclass);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterattributeclass.idAttribute);
-            return View(characterattributeclass);
-        }
-
         public JsonResult Create(string Attributes)
         {
             ArrayList listOfAttributes = new ArrayList();
@@ -78,9 +51,14 @@ namespace DaemonCharacter.Controllers
                     listOfAttributes.Add(ValidateAttributeFromCharacterClass(Attributes.ToString().Split(',')[i]));
                 }
 
-                ValidateSumAttributes(listOfAttributes);
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    ValidateSumAttributes(listOfAttributes);
 
-                PersistCharacterAttributes(idCharacter, listOfAttributes);
+                    PersistCharacterAttributes(idCharacter, listOfAttributes);
+
+                    scope.Complete();
+                }
 
                 return Json("Attributes Associated to new character", JsonRequestBehavior.AllowGet);
             }
@@ -105,7 +83,7 @@ namespace DaemonCharacter.Controllers
                     throw new Exception("You used more points than permited. Please reorganize your points");
             }
             catch (Exception ex)
-            { 
+            {
                 throw ex;
             }
 
@@ -142,11 +120,33 @@ namespace DaemonCharacter.Controllers
             {
                 CharacterClass c = ValidateCharacter(idCharacter);
 
-
                 ValidateCharacterAttributeBeforePersist(ReturnCompleteCharacterAttribute(c.idCharacter, listOfAttributes));
 
                 foreach (CharacterAttributeClass item in listOfAttributes)
                     SaveCharacterAttributes(c, item);
+
+                EditRemainingPointToDistribute(c, listOfAttributes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        private void EditRemainingPointToDistribute(CharacterClass c, ArrayList listOfAttributes)
+        {
+            try
+            {
+                int sumUsedPoints = 0;
+
+                foreach (CharacterAttributeClass item in listOfAttributes)
+                    sumUsedPoints += item.value;
+
+                c.remainingPoints = c.pointsToDistribute - sumUsedPoints;
+
+                db.Entry(c).State = EntityState.Modified;
+                db.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -188,9 +188,13 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
-                item.character = c;
-                db.CharacterAttributes.Add(item);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    item.character = c;
+                    item.bonusValues = new ArrayList();
+                    db.CharacterAttributes.Add(item);
+                    db.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
@@ -214,6 +218,7 @@ namespace DaemonCharacter.Controllers
                 throw ex;
             }
         }
+
         private CharacterAttributeClass ValidateAttributeFromCharacterClass(string attribute)
         {
             try
@@ -293,6 +298,50 @@ namespace DaemonCharacter.Controllers
             attributes = db.Attributes.ToList().OrderBy(t => t.type.name);
 
             return PartialView(attributes);
+        }
+
+        public ActionResult ListCharacter(int idCharacter)
+        {
+            IEnumerable<CharacterAttributeClass> characterAttribute;
+
+            characterAttribute = db.CharacterAttributes
+                .Where(t => t.idCharacter == idCharacter)
+                .ToList();
+
+            foreach (CharacterAttributeClass item in characterAttribute)
+            {
+                item.bonusValues = LoadBonusValues(characterAttribute, item);
+            }
+
+            return PartialView(characterAttribute);
+        }
+
+        private ArrayList LoadBonusValues(IEnumerable<CharacterAttributeClass> characterAttribute, CharacterAttributeClass c)
+        {
+            try
+            {
+                ArrayList result = new ArrayList();
+                List<AttributeBonusClass> attributeBonus = new List<AttributeBonusClass>();
+                attributeBonus = db.AttributeBonus.Where(t => c.idAttribute == t.idAttributeBonusClass).ToList();
+
+                foreach (AttributeBonusClass subitem in attributeBonus)
+                {
+                    CharacterAttributeClass obj = characterAttribute.First(t => t.idAttribute == subitem.idAttribute);
+                    if (obj != null)
+                    {
+                        //if (obj.attribute.type.useModifier)
+                        //    obj.value =  (obj.attribute.type.baseModifier - obj.value) / 2;
+
+                        result.Add(obj);
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected override void Dispose(bool disposing)

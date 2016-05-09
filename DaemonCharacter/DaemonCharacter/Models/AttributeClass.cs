@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,6 +29,22 @@ namespace DaemonCharacter.Models
 
     }
 
+    public class AttributeBonusClass
+    {
+        [Key, Column(Order = 0)]
+        public int idAttribute { get; set; }
+
+        [Key, Column(Order = 1)]
+        public int idAttributeBonusClass { get; set; }
+
+        [ForeignKey("idAttribute")]
+        public AttributeClass Attribute { get; set; }
+
+        [ForeignKey("idAttributeBonusClass")]
+        public virtual IEnumerable<AttributeClass> AttributeBonus { get; set; }
+
+    }
+
     public class AttributeTypeClass
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -35,5 +53,13 @@ namespace DaemonCharacter.Models
         [Required, MaxLength(50), Display(Name="Attribute Type Name")]
         public string name { get; set; }
 
+        [Required(ErrorMessage ="Field Required"), DefaultValue(true), Display(Name ="Attribute can be bonified?")]
+        public bool useBonus { get; set; }
+
+        [Required(ErrorMessage = "Field Required"), DefaultValue(false), Display(Name = "Attribute bonify using modifier?")]
+        public bool useModifier { get; set; }
+
+        [DefaultValue(0), Display(Name = "Base modifier")]
+        public int baseModifier { get; set; }
     }
 }
