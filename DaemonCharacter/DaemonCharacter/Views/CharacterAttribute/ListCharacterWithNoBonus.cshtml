@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DaemonCharacter.Models.CharacterAttributeClass>
+
+@{
+    ViewBag.type = string.Empty;
+}
+@foreach (var items in Model)
+{
+    if (string.IsNullOrEmpty(ViewBag.type) || ViewBag.type != items.attribute.type.name)
+    {
+        <h3>@Html.Raw(items.attribute.type.name)</h3>
+    }
+    <div style="text-align:right;" title="@Html.Raw(items.attribute.description)">
+        @Html.DisplayName(items.attribute.name)
+        <input type="number" class="dynamic-input-detail" id="ValAttr_@Html.Raw(items.idAttribute)" readonly="readonly" value="@Html.Raw(items.value)">
+    </div>
+
+    ViewBag.type = items.attribute.type.name;
+}

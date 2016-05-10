@@ -233,14 +233,23 @@ checkbox {
     border-radius: 10px;
 }
 
-#aside-character-form {
+#aside-character-form-right {
     float: right;
     border: 1px solid black;
     border-radius: 10px;
     box-shadow: 2px 2px 3px #888888;
+    overflow-x:no-display;
+    overflow-y:auto;
+    max-height:350px;
     padding:10px;
-    width:500px;
-    overflow:auto;
+}
+
+#aside-character-form-left {
+    float:left;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px #888888;
+    padding:5px;
     overflow-x:no-display;
     overflow-y:auto;
     max-height:350px;

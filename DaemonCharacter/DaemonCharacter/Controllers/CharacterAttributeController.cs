@@ -14,27 +14,6 @@ namespace DaemonCharacter.Controllers
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
-        //
-        // GET: /CharacterAttribute/
-
-        public ActionResult Index()
-        {
-            var characterattributes = db.CharacterAttributes.Include(c => c.attribute);
-            return View(characterattributes.ToList());
-        }
-
-        //
-        // GET: /CharacterAttribute/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            CharacterAttributeClass characterattributeclass = db.CharacterAttributes.Find(id);
-            if (characterattributeclass == null)
-            {
-                return HttpNotFound();
-            }
-            return View(characterattributeclass);
-        }
 
         public JsonResult Create(string Attributes)
         {
@@ -161,8 +140,8 @@ namespace DaemonCharacter.Controllers
                 foreach (CharacterAttributeClass item in listOfAttributes)
                 {
                     if (db.CharacterAttributes
-                        .Where(t => t.idCharacter == item.idCharacter)
-                        .Where(x => x.idAttribute == item.idAttribute).ToList().Count > 0)
+                        .Where(t => t.idCharacter == item.idCharacter && t.idAttribute == item.idAttribute)
+                        .ToList().Count > 0)
                     {
                         db.CharacterAttributes.Remove(item);
                         db.SaveChanges();
@@ -300,12 +279,23 @@ namespace DaemonCharacter.Controllers
             return PartialView(attributes);
         }
 
-        public ActionResult ListCharacter(int idCharacter)
+        public ActionResult ListCharacterWithBonus(int idCharacter)
+        {
+            return PartialView(GetCharacterAttributeWithBonus(idCharacter));
+        }
+
+        public ActionResult ListCharacterWithNoBonus(int idCharacter)
+        {
+            return PartialView(GetCharacterAttributeWithNoBonus(idCharacter));
+        }
+
+
+        private IEnumerable<CharacterAttributeClass> GetCharacterAttributeWithBonus(int idCharacter)
         {
             IEnumerable<CharacterAttributeClass> characterAttribute;
 
             characterAttribute = db.CharacterAttributes
-                .Where(t => t.idCharacter == idCharacter)
+                .Where(t => t.idCharacter == idCharacter && t.attribute.type.useBonus == true)
                 .ToList();
 
             foreach (CharacterAttributeClass item in characterAttribute)
@@ -313,7 +303,18 @@ namespace DaemonCharacter.Controllers
                 item.bonusValues = LoadBonusValues(characterAttribute, item);
             }
 
-            return PartialView(characterAttribute);
+            return characterAttribute;
+        }
+
+        private IEnumerable<CharacterAttributeClass> GetCharacterAttributeWithNoBonus(int idCharacter)
+        {
+            IEnumerable<CharacterAttributeClass> characterAttribute;
+
+            characterAttribute = db.CharacterAttributes
+                .Where(t => t.idCharacter == idCharacter && t.attribute.type.useBonus == false)
+                .ToList();
+
+            return characterAttribute;
         }
 
         private ArrayList LoadBonusValues(IEnumerable<CharacterAttributeClass> characterAttribute, CharacterAttributeClass c)
@@ -326,7 +327,7 @@ namespace DaemonCharacter.Controllers
 
                 foreach (AttributeBonusClass subitem in attributeBonus)
                 {
-                    CharacterAttributeClass obj = characterAttribute.First(t => t.idAttribute == subitem.idAttribute);
+                    CharacterAttributeClass obj = characterAttribute.FirstOrDefault(t => t.idAttribute == subitem.idAttribute);
                     if (obj != null)
                     {
                         //if (obj.attribute.type.useModifier)

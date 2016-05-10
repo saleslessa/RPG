@@ -25,14 +25,18 @@ namespace DaemonCharacter.Controllers
         {
 
             ViewBag.selected = GetBonusAttribute(id);
-            return View(db.Attributes.ToList());
+
+            IEnumerable<AttributeClass> result = db.Attributes.Where(t => t.type.useBonus == true).ToList();
+
+            return View(result);
 
         }
 
         private List<int> GetBonusAttribute(int id)
         {
             if (id != -1)
-                return db.AttributeBonus.Where(t => t.idAttribute == id).Select(s => s.idAttributeBonusClass).ToList();
+                return db.AttributeBonus.Where(t => t.idAttribute == id)
+                    .Select(s => s.idAttributeBonusClass).ToList();
             else
                 return new List<int>() { id };
         }
