@@ -1,15 +1,12 @@
 ﻿@model DaemonCharacter.Models.CharacterClass
 
-@{
-    ViewBag.Title = "New Character";
-}
-
 <head>
     <title>Creating a new character</title>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/DynamicForm.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/CharacterForms.js")"></script>
     <link href="@Url.Content("~/Content/DynamicForm.css")"
           rel="stylesheet" type="text/css" />
 </head>
+
 
 @using (Html.BeginForm())
 {

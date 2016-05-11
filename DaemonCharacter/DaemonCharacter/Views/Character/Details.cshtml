@@ -11,9 +11,9 @@
 </head>
 <h2>@Html.DisplayFor(model => model.name)</h2>
 <br />
-<aside id="aside-character-form-right">
+<section id="aside-character-form-right">
     @{Html.RenderAction("ListCharacterWithBonus", "CharacterAttribute", new { Model.idCharacter });}
-</aside>
+</section>
 <table cellpadding="0" cellspacing="0" border="1">
     <tr>
         <td><strong>@Html.DisplayNameFor(model => model.name)</strong></td>
@@ -39,6 +39,6 @@
         <td>@Html.DisplayFor(model => model.experience)</td>
     </tr>
 </table>
-<aside id="aside-character-form-left">
+<section id="aside-character-form-left">
     @{Html.RenderAction("ListCharacterWithNoBonus", "CharacterAttribute", new { Model.idCharacter });}
-</aside>
+</section>

@@ -20,7 +20,7 @@ namespace DaemonCharacter.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idCharacter { get; set; }
 
-        public IEnumerable<CharacterAttributeClass> characterAttributes { get; set; }
+        public virtual IEnumerable<CharacterAttributeClass> characterAttributes { get; set; }
 
         [Required(ErrorMessage = "Character name is required"), MaxLength(50)]
         [Display(Name = "Character Name")]
@@ -83,7 +83,6 @@ namespace DaemonCharacter.Models
         [Required, DefaultValue("0"), Range(0, int.MaxValue)]
         public int value { get; set; }
 
-        //[ForeignKey("idCharacterAttribute,idCharacter,idAttribute"), DefaultValue(null)]
-        public virtual ArrayList bonusValues { get; set; }
+        public virtual List<CharacterAttributeClass> bonusValues { get; set; }
     }
 }

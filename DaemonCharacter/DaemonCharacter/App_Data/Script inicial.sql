@@ -33,4 +33,3 @@ commit tran
 
 USE [master]
 
-delete from [AttributeTypeClasses]

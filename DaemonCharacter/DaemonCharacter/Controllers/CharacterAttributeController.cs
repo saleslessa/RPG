@@ -170,7 +170,7 @@ namespace DaemonCharacter.Controllers
                 if (ModelState.IsValid)
                 {
                     item.character = c;
-                    item.bonusValues = new ArrayList();
+                    item.bonusValues = new List<CharacterAttributeClass>();
                     db.CharacterAttributes.Add(item);
                     db.SaveChanges();
                 }
@@ -317,11 +317,11 @@ namespace DaemonCharacter.Controllers
             return characterAttribute;
         }
 
-        private ArrayList LoadBonusValues(IEnumerable<CharacterAttributeClass> characterAttribute, CharacterAttributeClass c)
+        private List<CharacterAttributeClass> LoadBonusValues(IEnumerable<CharacterAttributeClass> characterAttribute, CharacterAttributeClass c)
         {
             try
             {
-                ArrayList result = new ArrayList();
+                List<CharacterAttributeClass> result = new List<CharacterAttributeClass>();
                 List<AttributeBonusClass> attributeBonus = new List<AttributeBonusClass>();
                 attributeBonus = db.AttributeBonus.Where(t => c.idAttribute == t.idAttributeBonusClass).ToList();
 

@@ -10,22 +10,16 @@ namespace DaemonCharacter.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "dfasbdkfsfnbsdm,fgbsdmgbsmVC application.";
-
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

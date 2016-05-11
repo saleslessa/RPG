@@ -143,7 +143,7 @@ div.dynamicAttribute {
     padding: 10px;
     border: 1px ridge #342e2e;
     border-radius: 10px;
-    background-color: whitesmoke;
+    /*background-color: whitesmoke;*/
     box-shadow: 2px 2px 3px #888888;
     max-width: 250px;
 }
@@ -165,7 +165,7 @@ div.dynamicAttribute {
     border: 1px solid #808080;
     border-radius: 10px;
     box-shadow: 2px 2px 3px #888888;
-    background-color: whitesmoke;
+    /*background-color: whitesmoke;*/
 }
 
 #dynamic-side-right {
@@ -174,7 +174,7 @@ div.dynamicAttribute {
     border: 1px solid #808080;
     border-radius: 10px;
     box-shadow: 2px 2px 3px #888888;
-    background-color: whitesmoke;
+    /*background-color: whitesmoke;*/
     overflow-y: auto;
     overflow-x: no-display;
     max-height: 500px;

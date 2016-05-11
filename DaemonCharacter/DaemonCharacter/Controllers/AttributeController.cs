@@ -13,16 +13,32 @@ namespace DaemonCharacter.Controllers
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
-        //
+         //
         // GET: /Attribute/
 
         public ActionResult Index()
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
+
             return View(db.Attributes.ToList());
+        }
+
+        public bool ValidateAuth()
+        {
+            if (!Request.IsAuthenticated)
+            {
+                RedirectToAction("Index", "Home");
+                return false;
+            }
+            return true;
+
         }
 
         public ActionResult ListBonus(int id = -1)
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
 
             ViewBag.selected = GetBonusAttribute(id);
 
@@ -45,6 +61,9 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
+
             AttributeClass attributeclass = db.Attributes.Find(id);
             if (attributeclass == null)
             {
@@ -57,6 +76,9 @@ namespace DaemonCharacter.Controllers
         // GET: /Attribute/Create
         public ActionResult Create()
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
+
             ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name");
             return View();
         }
@@ -158,9 +180,11 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AttributeClass Attribute, FormCollection f)
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
-
                 try
                 {
                     using (TransactionScope scope = new TransactionScope())
@@ -193,6 +217,9 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
+
             AttributeClass attributeclass = db.Attributes.Find(id);
             if (attributeclass == null)
             {
@@ -209,6 +236,8 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AttributeClass Att, FormCollection f)
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
 
             try
             {
@@ -271,6 +300,9 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
+
             AttributeClass attributeclass = db.Attributes.Find(id);
             if (attributeclass == null)
             {
@@ -286,6 +318,9 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
+
             AttributeClass attributeclass = db.Attributes.Find(id);
             db.Attributes.Remove(attributeclass);
             db.SaveChanges();
@@ -295,7 +330,7 @@ namespace DaemonCharacter.Controllers
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
-            base.Dispose(disposing);
+            base.Dispose(disposing);            
         }
 
         /// <summary>
@@ -305,6 +340,9 @@ namespace DaemonCharacter.Controllers
         /// <returns>Returns a partial view</returns>
         public ActionResult ListAttributesFromCharacter(int idCharacter = 0)
         {
+            if (!ValidateAuth())
+                RedirectToAction("Index", "Home");
+
             IEnumerable<AttributeClass> attributes;
             //idCharacter = 0 is a new Character being created. None attribute exist yet.
             if (idCharacter == 0)
@@ -327,7 +365,8 @@ namespace DaemonCharacter.Controllers
 
         public JsonResult FindMinimum(int id=-1)
         {
-            if (id == -1)
+
+            if (id == -1 || !ValidateAuth())
                 return Json(HttpNotFound());
 
             return Json(db.Attributes.Find(id).minimum, JsonRequestBehavior.AllowGet);
