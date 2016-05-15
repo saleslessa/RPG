@@ -1,4 +1,11 @@
-﻿@model DaemonCharacter.Models.CharacterClass
+﻿@if (!Request.IsAuthenticated)
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index","Home")';
+    </script>
+}
+
+@model DaemonCharacter.Models.CharacterClass
 
 <head>
     <title>Creating a new character</title>
@@ -7,15 +14,13 @@
           rel="stylesheet" type="text/css" />
 </head>
 
-
+<h3>Create Character Form</h3>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset id="fieldset-left-dynamic">
-        <legend>Create Character Form</legend>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.name)
         </div>

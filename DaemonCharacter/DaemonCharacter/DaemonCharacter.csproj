@@ -259,6 +259,8 @@
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\dragon_2.jpg" />
+    <Content Include="Images\icon_minus.png" />
+    <Content Include="Images\icon_plus.png" />
     <Content Include="Images\texture.png" />
     <Content Include="Scripts\CharacterForms.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -274,6 +276,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\Menu.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

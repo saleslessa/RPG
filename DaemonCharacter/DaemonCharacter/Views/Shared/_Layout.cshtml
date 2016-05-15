@@ -16,14 +16,17 @@
 </head>
 <body>
     <header>
-        <div id="site-menu">
-            @Html.Partial("_Menu")
-        </div>
+        <aside class="float-right" id="login">
+            @Html.Partial("_LoginPartial")
+        </aside>
         <div class="content-wrapper" id="site-logo">
             <div class="float-left">
                 <p class="site-title">@Html.ActionLink("Daemon Character", "Index", "Home")</p>
             </div>
         </div>
+        <section id="site-menu">
+            @Html.Partial("_Menu")
+        </section>
     </header>
     <div id="body">
         <section class="content-wrapper main-content clear-fix">

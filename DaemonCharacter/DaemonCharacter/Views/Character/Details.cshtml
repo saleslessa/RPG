@@ -1,4 +1,11 @@
-﻿@model DaemonCharacter.Models.CharacterClass
+﻿@if (!Request.IsAuthenticated)
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index","Home")';
+    </script>
+}
+
+@model DaemonCharacter.Models.CharacterClass
 
 @{
     ViewBag.Title = "Character Form";
@@ -10,10 +17,6 @@
           rel="stylesheet" type="text/css" />
 </head>
 <h2>@Html.DisplayFor(model => model.name)</h2>
-<br />
-<section id="aside-character-form-right">
-    @{Html.RenderAction("ListCharacterWithBonus", "CharacterAttribute", new { Model.idCharacter });}
-</section>
 <table cellpadding="0" cellspacing="0" border="1">
     <tr>
         <td><strong>@Html.DisplayNameFor(model => model.name)</strong></td>
@@ -39,6 +42,10 @@
         <td>@Html.DisplayFor(model => model.experience)</td>
     </tr>
 </table>
+<br />
+<section id="aside-character-form-right">
+    @{Html.RenderAction("ListCharacterWithBonus", "CharacterAttribute", new { Model.idCharacter });}
+</section>
 <section id="aside-character-form-left">
     @{Html.RenderAction("ListCharacterWithNoBonus", "CharacterAttribute", new { Model.idCharacter });}
 </section>

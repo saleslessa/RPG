@@ -16,7 +16,7 @@
     height: 350px;
     padding: 15px;
     border: 1px solid #000;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     position: absolute;
     top: 70px;
     left: 10px;
@@ -127,7 +127,7 @@ div.dynamicAttribute {
     margin-left: 10px;
     width: 300px;
     height: 35px;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     border: 1px solid blue;
     padding: 5px;
     cursor: move;
@@ -142,7 +142,7 @@ div.dynamicAttribute {
     margin-right: 30px;
     padding: 10px;
     border: 1px ridge #342e2e;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     /*background-color: whitesmoke;*/
     box-shadow: 2px 2px 3px #888888;
     max-width: 250px;
@@ -163,7 +163,7 @@ div.dynamicAttribute {
     padding: 15px;
     margin: 5px;
     border: 1px solid #808080;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     box-shadow: 2px 2px 3px #888888;
     /*background-color: whitesmoke;*/
 }
@@ -172,7 +172,7 @@ div.dynamicAttribute {
     margin: 5px;
     padding: 5px;
     border: 1px solid #808080;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     box-shadow: 2px 2px 3px #888888;
     /*background-color: whitesmoke;*/
     overflow-y: auto;
@@ -193,7 +193,7 @@ div.dynamicAttribute {
     margin-bottom: 10px;
     padding: 5px;
     border: 1px solid grey;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     list-style-type: none;
     display: inline-table;
 }
@@ -236,21 +236,20 @@ checkbox {
 #aside-character-form-right {
     float: right;
     border: 1px solid black;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     box-shadow: 2px 2px 3px #888888;
     overflow-x:no-display;
     overflow-y:auto;
-    max-height:350px;
+    max-height:290px;
     padding:10px;
 }
 
 #aside-character-form-left {
     float:left;
     border: 1px solid black;
-    border-radius: 10px;
     box-shadow: 2px 2px 3px #888888;
-    padding:5px;
+    padding:0px 15px 5px 15px;
     overflow-x:no-display;
     overflow-y:auto;
-    max-height:350px;
+    max-height:290px;
 }

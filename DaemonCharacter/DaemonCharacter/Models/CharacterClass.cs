@@ -26,7 +26,7 @@ namespace DaemonCharacter.Models
         [Display(Name = "Character Name")]
         public string name { get; set; }
 
-        [Required(ErrorMessage = "Character name is required")]
+        [Required(ErrorMessage = "Character level is required")]
         [Display(Name = "Character Level"), DefaultValue(1), Range(1, int.MaxValue)]
         public int level { get; set; }
 

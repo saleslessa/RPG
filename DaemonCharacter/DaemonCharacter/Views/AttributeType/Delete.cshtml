@@ -1,4 +1,12 @@
-﻿@model DaemonCharacter.Models.AttributeTypeClass
+﻿@if (!Request.IsAuthenticated)
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index","Home")';
+    </script>
+}
+
+
+@model DaemonCharacter.Models.AttributeTypeClass
 
 @{
     ViewBag.Title = "Delete";

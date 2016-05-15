@@ -1,4 +1,12 @@
-﻿@model IEnumerable<DaemonCharacter.Models.CharacterClass>
+﻿@if (!Request.IsAuthenticated)
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index","Home")';
+    </script>
+}
+
+
+@model IEnumerable<DaemonCharacter.Models.CharacterClass>
 
 @{
     ViewBag.Title = "Index";
