@@ -1,15 +1,14 @@
-﻿@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
+﻿@*@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
 {
     <script type="text/javascript">
         window.location.href = '@Url.Action("Index","Home")';
     </script>
-}
+}*@
 
 @model DaemonCharacter.Models.CharacterModel
 
 <head>
     <title>Creating a new character</title>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/CharacterForms.js")"></script>
     <link href="@Url.Content("~/Content/DynamicForm.css")"
           rel="stylesheet" type="text/css" />
 </head>
@@ -29,7 +28,7 @@
             @Html.Label("Campaign")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("campaign", string.Empty)
+            @Html.DropDownList("campaigns", string.Empty)
         <div id="campaign-container"></div>
         </div>
 
@@ -112,3 +111,4 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script type="text/javascript" src="@Url.Content("~/Scripts/CharacterForms.js")"></script>

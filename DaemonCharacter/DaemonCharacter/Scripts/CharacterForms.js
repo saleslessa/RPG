@@ -14,23 +14,24 @@
             document.getElementsByName('remainingPoints')[0].value = document.getElementsByName('pointsToDistribute')[0].value;
     });
 
-    $('campaign').change(function () {
+    $("select[id=campaigns]").change(function () {
         var url = '/Campaign/GetSelectedCampaign/';
-
-        var e = document.getElementById("campaign");
-        var selected = e.options[e.selectedIndex].value;
 
         $.ajax(
         {
-            dataType: 'json',
+            //dataType: 'JSON',
             url: url,
-            data: 'idCampaign=' + selected,
+            type: 'GET',
+            data: 'idCampaign=' + this.value,
 
             success: function (data) {
-                document.getElementById('campaign-container').innerText = 
-                 '<table>'+
+
+                alert(data);
+
+                document.getElementById('campaign-container').innerHTML =
+                 '<table>' +
                     '<tr>' +
-                        '<td>Master:</td><td>' + data.userMaster.UserName + '</td>' +
+                        '<td>Master:</td><td>' + data[0] + '</td>' +
                         '<td>Name:</td><td>' + data.name + '</td>' +
                         '<td>Short description:</td><td>' + data.shortDescription + '</td>' +
                         '<td>Remaining players:</td><td>' + data.remainingPlayers + '</td>' +
@@ -38,11 +39,10 @@
                 '</table>';
             },
             error: function (xhr) {
-                document.getElementById("CharacterAttributeMessage").innerText = xhr.statusText;
+                document.getElementById('campaign-container').innerHTML = "";
+                document.getElementById("messages").innerText = xhr.statusText;
             }
         });
-
-
     });
 
 

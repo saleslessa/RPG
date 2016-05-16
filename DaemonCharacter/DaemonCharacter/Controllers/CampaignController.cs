@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
+using Newtonsoft.Json.Linq;
+using System.Web.Script.Serialization;
+using System.Collections;
 
 namespace DaemonCharacter.Controllers
 {
@@ -178,8 +181,6 @@ namespace DaemonCharacter.Controllers
 
         public JsonResult GetSelectedCampaign(int idCampaign = -1)
         {
-            if (idCampaign == -1)
-                return Json(HttpNotFound(), JsonRequestBehavior.AllowGet);
 
             AvailableCampaignsModel a = new AvailableCampaignsModel();
 
@@ -194,7 +195,22 @@ namespace DaemonCharacter.Controllers
                 })
                 .FirstOrDefault();
 
-            return Json(a, JsonRequestBehavior.AllowGet);
+            if (a == null)
+                return Json(HttpNotFound(), JsonRequestBehavior.AllowGet);
+
+            JObject result = new JObject(
+                new JProperty("name", a.name.ToString()),
+                new JProperty("shortDescription", a.shortDescription.ToString()),
+                new JProperty("remainingPlayers", a.remainingPlayers.ToString()),
+                new JProperty("userMaster", a.userMaster.UserName.ToString())
+                );
+
+            //JavaScriptSerializer oSerializer = new JavaScriptSerializer();
+
+            //string sJSON = oSerializer.Serialize(result);
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
