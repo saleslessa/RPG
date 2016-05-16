@@ -185,6 +185,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttributeController.cs" />
     <Compile Include="Controllers\AttributeTypeController.cs" />
+    <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\CharacterAttributeController.cs" />
     <Compile Include="Controllers\CharacterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -193,8 +194,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\AttributeClass.cs" />
-    <Compile Include="Models\CharacterClass.cs" />
+    <Compile Include="Models\AttributeModel.cs" />
+    <Compile Include="Models\CampaignModel.cs" />
+    <Compile Include="Models\CharacterModel.cs" />
     <Compile Include="Models\DaemonCharacterContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -340,6 +342,11 @@
     <Content Include="Views\CharacterAttribute\ListCharacterWithBonus.cshtml" />
     <Content Include="Views\CharacterAttribute\ListCharacterWithNoBonus.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Campaign\Index.cshtml" />
+    <Content Include="Views\Campaign\Details.cshtml" />
+    <Content Include="Views\Campaign\Create.cshtml" />
+    <Content Include="Views\Campaign\Edit.cshtml" />
+    <Content Include="Views\Campaign\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

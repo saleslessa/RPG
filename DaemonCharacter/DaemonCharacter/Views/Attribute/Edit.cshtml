@@ -6,7 +6,7 @@
 }
 
 
-@model DaemonCharacter.Models.AttributeClass
+@model DaemonCharacter.Models.AttributeModel
 
 @{
     ViewBag.Title = "Edit";
@@ -19,7 +19,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>AttributeClass</legend>
+        <legend>AttributeModel</legend>
 
         @Html.HiddenFor(model => model.idAttribute)
 

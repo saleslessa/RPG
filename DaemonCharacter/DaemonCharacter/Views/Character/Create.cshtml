@@ -1,11 +1,11 @@
-﻿@if (!Request.IsAuthenticated)
+﻿@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
 {
     <script type="text/javascript">
         window.location.href = '@Url.Action("Index","Home")';
     </script>
 }
 
-@model DaemonCharacter.Models.CharacterClass
+@model DaemonCharacter.Models.CharacterModel
 
 <head>
     <title>Creating a new character</title>
@@ -21,6 +21,18 @@
     @Html.ValidationSummary(true)
 
     <fieldset id="fieldset-left-dynamic">
+        <p class="messages">
+            @ViewBag.Message
+        </p>
+
+        <div class="editor-label">
+            @Html.Label("Campaign")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("campaign", string.Empty)
+        <div id="campaign-container"></div>
+        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.name)
         </div>
@@ -89,9 +101,6 @@
         <p>
             <input type="submit" value="Choose Attributes" class="button" />
             @Html.ActionLink("Back to List", "Index")
-        </p>
-        <p class="messages">
-            @ViewBag.Message
         </p>
     </fieldset>
 

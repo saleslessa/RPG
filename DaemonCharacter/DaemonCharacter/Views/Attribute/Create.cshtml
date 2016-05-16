@@ -6,14 +6,14 @@
 }
 
 
-@model DaemonCharacter.Models.AttributeClass
+@model DaemonCharacter.Models.AttributeModel
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>AttributeClass</legend>
+        <legend>AttributeModel</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.name)

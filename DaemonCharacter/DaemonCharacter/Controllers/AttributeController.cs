@@ -42,7 +42,7 @@ namespace DaemonCharacter.Controllers
 
             ViewBag.selected = GetBonusAttribute(id);
 
-            IEnumerable<AttributeClass> result = db.Attributes.Where(t => t.type.useBonus == true).ToList();
+            IEnumerable<AttributeModel> result = db.Attributes.Where(t => t.type.useBonus == true).ToList();
 
             return View(result);
 
@@ -64,12 +64,12 @@ namespace DaemonCharacter.Controllers
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
 
-            AttributeClass attributeclass = db.Attributes.Find(id);
-            if (attributeclass == null)
+            AttributeModel AttributeModel = db.Attributes.Find(id);
+            if (AttributeModel == null)
             {
                 return HttpNotFound();
             }
-            return View(attributeclass);
+            return View(AttributeModel);
         }
 
         //
@@ -105,18 +105,18 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        private void SaveAttribute(ref AttributeClass Attribute)
+        private void SaveAttribute(ref AttributeModel Attribute)
         {
             Attribute.type = db.AttributeTypes.Find(Attribute.idAttributeType);
             db.Attributes.Add(Attribute);
             db.SaveChanges();
         }
 
-        private void ValidateDuplicateBonus(AttributeBonusClass a)
+        private void ValidateDuplicateBonus(AttributeBonusModel a)
         {
             try
             {
-                List<AttributeBonusClass> result = db.AttributeBonus
+                List<AttributeBonusModel> result = db.AttributeBonus
                     .Where(t => t.idAttribute == a.idAttributeBonusClass && t.idAttributeBonusClass == a.idAttribute)
                     .ToList();
 
@@ -133,17 +133,17 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
-                List<AttributeBonusClass> attNot = db.AttributeBonus
+                List<AttributeBonusModel> attNot = db.AttributeBonus
                 .Where(t => t.idAttribute == idAttribute).ToList();
 
-                foreach (AttributeBonusClass item in attNot)
+                foreach (AttributeBonusModel item in attNot)
                     db.AttributeBonus.Remove(item);
 
                 db.SaveChanges();
 
                 for (int i = 0; i < Bonus.Count; i++)
                 {
-                    AttributeBonusClass a = new AttributeBonusClass();
+                    AttributeBonusModel a = new AttributeBonusModel();
                     a.idAttribute = idAttribute;
                     a.idAttributeBonusClass = Convert.ToInt32(Bonus[i]);
 
@@ -159,7 +159,7 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        private AttributeTypeClass ValidateAttributeType(int idAttributeType)
+        private AttributeTypeModel ValidateAttributeType(int idAttributeType)
         {
             try
             {
@@ -178,7 +178,7 @@ namespace DaemonCharacter.Controllers
         // POST: /Attribute/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AttributeClass Attribute, FormCollection f)
+        public ActionResult Create(AttributeModel Attribute, FormCollection f)
         {
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
@@ -220,13 +220,13 @@ namespace DaemonCharacter.Controllers
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
 
-            AttributeClass attributeclass = db.Attributes.Find(id);
-            if (attributeclass == null)
+            AttributeModel AttributeModel = db.Attributes.Find(id);
+            if (AttributeModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name", attributeclass.idAttributeType);
-            return View(attributeclass);
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name", AttributeModel.idAttributeType);
+            return View(AttributeModel);
         }
 
         //
@@ -234,7 +234,7 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AttributeClass Att, FormCollection f)
+        public ActionResult Edit(AttributeModel Att, FormCollection f)
         {
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
@@ -244,7 +244,7 @@ namespace DaemonCharacter.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    AttributeTypeClass a = new AttributeTypeClass();
+                    AttributeTypeModel a = new AttributeTypeModel();
 
                     a.idAttributeType = Convert.ToInt32(((string[])f.GetValue("idAttributeType").RawValue)[0].ToString());
 
@@ -287,7 +287,7 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        private void EditAttribute(AttributeClass Att, AttributeTypeClass type)
+        private void EditAttribute(AttributeModel Att, AttributeTypeModel type)
         {
             Att.type = type;
             Att.idAttributeType = type.idAttributeType;
@@ -303,12 +303,12 @@ namespace DaemonCharacter.Controllers
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
 
-            AttributeClass attributeclass = db.Attributes.Find(id);
-            if (attributeclass == null)
+            AttributeModel AttributeModel = db.Attributes.Find(id);
+            if (AttributeModel == null)
             {
                 return HttpNotFound();
             }
-            return View(attributeclass);
+            return View(AttributeModel);
         }
 
         //
@@ -321,8 +321,8 @@ namespace DaemonCharacter.Controllers
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
 
-            AttributeClass attributeclass = db.Attributes.Find(id);
-            db.Attributes.Remove(attributeclass);
+            AttributeModel AttributeModel = db.Attributes.Find(id);
+            db.Attributes.Remove(AttributeModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -343,7 +343,7 @@ namespace DaemonCharacter.Controllers
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
 
-            IEnumerable<AttributeClass> attributes;
+            IEnumerable<AttributeModel> attributes;
             //idCharacter = 0 is a new Character being created. None attribute exist yet.
             if (idCharacter == 0)
             {
@@ -352,7 +352,7 @@ namespace DaemonCharacter.Controllers
             //idCharacter != 0 is a Character being edited
             else
             {
-                CharacterClass character = db.Characters.Find(idCharacter);
+                CharacterModel character = db.Characters.Find(idCharacter);
                 if (character == null)
                 {
                     return HttpNotFound();

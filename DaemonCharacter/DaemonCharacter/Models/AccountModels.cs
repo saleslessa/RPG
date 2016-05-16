@@ -1,6 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+
+public enum accessLevel
+{
+    User = 0,
+    Admin = 1
+}
 
 namespace DaemonCharacter.Models
 {
@@ -11,16 +19,24 @@ namespace DaemonCharacter.Models
         {
         }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<UserProfileModel> UserProfiles { get; set; }
     }
 
     [Table("UserProfile")]
-    public class UserProfile
+    public class UserProfileModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+
+        [Required]
+        public accessLevel accessLevel { get; set; }
+
+        public virtual ICollection<CampaignModel> campaigns { get; set; }
+
+        public virtual ICollection<CharacterModel> characters { get; set; }
+
     }
 
     public class RegisterExternalLoginModel

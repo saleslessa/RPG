@@ -292,7 +292,6 @@ C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\System.Web.Razor.xml
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\System.Web.WebPages.xml
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\System.Web.WebPages.Deployment.xml
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\System.Web.WebPages.Razor.xml
-C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\WebMatrix.Data.xml
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\Microsoft.Web.WebPages.OAuth.xml
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\WebMatrix.WebData.xml
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\DotNetOpenAuth.AspNet.xml
@@ -332,6 +331,6 @@ C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\ko\System.Spatial.resources.dl
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\ru\System.Spatial.resources.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\zh-Hans\System.Spatial.resources.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\bin\zh-Hant\System.Spatial.resources.dll
-C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\obj\Debug\DaemonCharacter.csprojResolveAssemblyReference.cache
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\obj\Debug\DaemonCharacter.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\obj\Debug\DaemonCharacter.pdb
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter\obj\Debug\DaemonCharacter.csprojResolveAssemblyReference.cache

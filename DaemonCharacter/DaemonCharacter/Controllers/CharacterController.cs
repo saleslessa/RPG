@@ -25,12 +25,12 @@ namespace DaemonCharacter.Controllers
         // GET: /Character/Details/5
         public ActionResult Details(int id = 0)
         {
-            CharacterClass characterclass = db.Characters.Find(id);
-            if (characterclass == null)
+            CharacterModel CharacterModel = db.Characters.Find(id);
+            if (CharacterModel == null)
             {
                 return HttpNotFound();
             }
-            return View(characterclass);
+            return View(CharacterModel);
         }
 
         //
@@ -41,32 +41,59 @@ namespace DaemonCharacter.Controllers
             ViewBag.display = "none";
             ViewBag.isRegistered = false;
 
+            CampaignController c = new CampaignController();
+
+            List<AvailableCampaignsModel> available = c.ListAvailableCampaigns();
+
+            ViewBag.campaigns = new SelectList(available, "id", "name");
+
             return View();
+        }
+
+        private void FillModelCreate(ref CharacterModel charactermodel)
+        {
+            charactermodel.remainingPoints = charactermodel.pointsToDistribute;
+            charactermodel.remainingLife = charactermodel.maxLife;
+
+            string log = Session["LoggedUser"].ToString();
+
+            int idUser = db.UserProfiles
+           .Where(w => w.UserName == log)
+           .Select(s => s.UserId)
+           .FirstOrDefault();
+
+            //charactermodel.idUser = idUser;
         }
 
         //
         // POST: /Character/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CharacterClass characterclass)
+        public ActionResult Create(CharacterModel CharacterModel)
         {
-            characterclass.remainingPoints = characterclass.pointsToDistribute;
-            characterclass.remainingLife = characterclass.maxLife;
-
-            if (ModelState.IsValid)
+            if (Session["LoggedUser"] == null)
             {
-                db.Characters.Add(characterclass);
-                db.SaveChanges();
-
-                Session["idCharacter"] = characterclass.idCharacter;
-                ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>(), characterclass.gender);
-                ViewBag.display = "normal";
-                ViewBag.Message = "Character Created. Please select the attributes at right side";
-
-                return View(characterclass);
+                return RedirectToAction("Index", "Home");
             }
+            else
+            {
 
+                FillModelCreate(ref CharacterModel);
 
+                if (ModelState.IsValid)
+                {
+                    db.Characters.Add(CharacterModel);
+                    db.SaveChanges();
+
+                    Session["idCharacter"] = CharacterModel.idCharacter;
+                    ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>(), CharacterModel.gender);
+                    ViewBag.display = "normal";
+                    ViewBag.Message = "Character Created. Please select the attributes at right side";
+
+                    return View(CharacterModel);
+                }
+
+            }
             //When an error accours
             ViewBag.isRegistered = false;
             ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
@@ -81,7 +108,7 @@ namespace DaemonCharacter.Controllers
                 }
             }
 
-            return View(characterclass);
+            return View(CharacterModel);
         }
 
         //
@@ -89,12 +116,12 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            CharacterClass characterclass = db.Characters.Find(id);
-            if (characterclass == null)
+            CharacterModel CharacterModel = db.Characters.Find(id);
+            if (CharacterModel == null)
             {
                 return HttpNotFound();
             }
-            return View(characterclass);
+            return View(CharacterModel);
         }
 
         //
@@ -102,15 +129,15 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CharacterClass characterclass)
+        public ActionResult Edit(CharacterModel CharacterModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(characterclass).State = EntityState.Modified;
+                db.Entry(CharacterModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(characterclass);
+            return View(CharacterModel);
         }
 
         //
@@ -118,12 +145,12 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            CharacterClass characterclass = db.Characters.Find(id);
-            if (characterclass == null)
+            CharacterModel CharacterModel = db.Characters.Find(id);
+            if (CharacterModel == null)
             {
                 return HttpNotFound();
             }
-            return View(characterclass);
+            return View(CharacterModel);
         }
 
         //
@@ -133,8 +160,8 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CharacterClass characterclass = db.Characters.Find(id);
-            db.Characters.Remove(characterclass);
+            CharacterModel CharacterModel = db.Characters.Find(id);
+            db.Characters.Remove(CharacterModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -15,18 +15,42 @@ namespace DaemonCharacter.Models
 
         public DaemonCharacterContext() : base("name=DaemonCharacter")
         {
-            
+
         }
 
-        public DbSet<AttributeTypeClass> AttributeTypes { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        public DbSet<AttributeClass> Attributes { get; set; }
+            modelBuilder.Entity<CampaignModel>().HasRequired(h => h.userMaster)
+                .WithMany(u => u.campaigns)
+                .HasForeignKey(c => c.idMaster)
+                .WillCascadeOnDelete(false);
 
-        public DbSet<CharacterClass> Characters { get; set; }
+            modelBuilder.Entity<CharacterModel>().HasRequired(h => h.user)
+                .WithMany(u => u.characters)
+                .HasForeignKey(c => c.idUser)
+                .WillCascadeOnDelete(false);
 
-        public DbSet<CharacterAttributeClass> CharacterAttributes { get; set; }
+            modelBuilder.Entity<AttributeModel>().HasRequired(h => h.type)
+                .WithMany(a => a.attributes)
+                .HasForeignKey(a => a.idAttributeType)
+                .WillCascadeOnDelete(true);
 
-        public DbSet<AttributeBonusClass> AttributeBonus { get; set; }
+        }
 
+        public DbSet<AttributeTypeModel> AttributeTypes { get; set; }
+
+        public DbSet<AttributeModel> Attributes { get; set; }
+
+        public DbSet<CharacterModel> Characters { get; set; }
+
+        public DbSet<CharacterAttributeModel> CharacterAttributes { get; set; }
+
+        public DbSet<AttributeBonusModel> AttributeBonus { get; set; }
+
+        public DbSet<CampaignModel> CampaignModels { get; set; }
+
+        public DbSet<UserProfileModel> UserProfiles { get; set; }
     }
 }

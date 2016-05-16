@@ -9,15 +9,47 @@
 
     });
 
-    $('input').change(function(){
+    $('input').change(function () {
         if (document.getElementsByName('pointsToDistribute')[0].id == this.id)
             document.getElementsByName('remainingPoints')[0].value = document.getElementsByName('pointsToDistribute')[0].value;
+    });
+
+    $('campaign').change(function () {
+        var url = '/Campaign/GetSelectedCampaign/';
+
+        var e = document.getElementById("campaign");
+        var selected = e.options[e.selectedIndex].value;
+
+        $.ajax(
+        {
+            dataType: 'json',
+            url: url,
+            data: 'idCampaign=' + selected,
+
+            success: function (data) {
+                document.getElementById('campaign-container').innerText = 
+                 '<table>'+
+                    '<tr>' +
+                        '<td>Master:</td><td>' + data.userMaster.UserName + '</td>' +
+                        '<td>Name:</td><td>' + data.name + '</td>' +
+                        '<td>Short description:</td><td>' + data.shortDescription + '</td>' +
+                        '<td>Remaining players:</td><td>' + data.remainingPlayers + '</td>' +
+                    '</tr>' +
+                '</table>';
+            },
+            error: function (xhr) {
+                document.getElementById("CharacterAttributeMessage").innerText = xhr.statusText;
+            }
+        });
+
+
     });
 
 
     $('input[id=submitAttributes]').click(function () {
         var url = "/CharacterAttribute/Create/";
         sessionStorage.clear();
+
         SelectAttributesFromSelectedCheckboxes();
 
         $.ajax(
@@ -60,6 +92,7 @@ function ClearValueFromAttribute(id) {
     document.getElementById(elementId).value = "";
     CalculateRemainingPoints(document.getElementById(elementId));
 }
+
 function GetMinimumValueFromAttribute(id) {
     var url = "/Attribute/FindMinimum/" + id.split('_')[1];
     $.ajax(
@@ -90,9 +123,9 @@ function SetMinimumValueToSelectedInput(obj, value) {
 function CalculateRemainingPoints(obj) {
     var sumPointsUsed = 0;
     $('input').each(function (index, element) {
-                
+
         if (element.id.split('_')[0] == "ValAttr") {
-            if(element.value != "")
+            if (element.value != "")
                 sumPointsUsed = sumPointsUsed + parseInt(element.value);
         }
     });

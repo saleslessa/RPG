@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
@@ -27,7 +26,7 @@ namespace DaemonCharacter.Controllers
 
                 for (int i = 0; i < Attributes.Split(',').Length; i++)
                 {
-                    listOfAttributes.Add(ValidateAttributeFromCharacterClass(Attributes.ToString().Split(',')[i]));
+                    listOfAttributes.Add(ValidateAttributeFromCharacterModel(Attributes.ToString().Split(',')[i]));
                 }
 
                 using (TransactionScope scope = new TransactionScope())
@@ -52,11 +51,11 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
-                CharacterClass c = db.Characters.Find(Session["idCharacter"]);
+                CharacterModel c = db.Characters.Find(Session["idCharacter"]);
                 int total = 0;
 
                 foreach (var item in attributes)
-                    total += ((CharacterAttributeClass)item).value;
+                    total += ((CharacterAttributeModel)item).value;
 
                 if (total > c.pointsToDistribute)
                     throw new Exception("You used more points than permited. Please reorganize your points");
@@ -97,11 +96,11 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
-                CharacterClass c = ValidateCharacter(idCharacter);
+                CharacterModel c = ValidateCharacter(idCharacter);
 
                 ValidateCharacterAttributeBeforePersist(ReturnCompleteCharacterAttribute(c.idCharacter, listOfAttributes));
 
-                foreach (CharacterAttributeClass item in listOfAttributes)
+                foreach (CharacterAttributeModel item in listOfAttributes)
                     SaveCharacterAttributes(c, item);
 
                 EditRemainingPointToDistribute(c, listOfAttributes);
@@ -113,13 +112,13 @@ namespace DaemonCharacter.Controllers
 
         }
 
-        private void EditRemainingPointToDistribute(CharacterClass c, ArrayList listOfAttributes)
+        private void EditRemainingPointToDistribute(CharacterModel c, ArrayList listOfAttributes)
         {
             try
             {
                 int sumUsedPoints = 0;
 
-                foreach (CharacterAttributeClass item in listOfAttributes)
+                foreach (CharacterAttributeModel item in listOfAttributes)
                     sumUsedPoints += item.value;
 
                 c.remainingPoints = c.pointsToDistribute - sumUsedPoints;
@@ -137,7 +136,7 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
-                foreach (CharacterAttributeClass item in listOfAttributes)
+                foreach (CharacterAttributeModel item in listOfAttributes)
                 {
                     if (db.CharacterAttributes
                         .Where(t => t.idCharacter == item.idCharacter && t.idAttribute == item.idAttribute)
@@ -158,19 +157,19 @@ namespace DaemonCharacter.Controllers
         {
             for (int i = 0; i < listOfAttributes.Count; i++)
             {
-                ((CharacterAttributeClass)listOfAttributes[i]).idCharacter = idCharacter;
+                ((CharacterAttributeModel)listOfAttributes[i]).idCharacter = idCharacter;
             }
             return listOfAttributes;
         }
 
-        private void SaveCharacterAttributes(CharacterClass c, CharacterAttributeClass item)
+        private void SaveCharacterAttributes(CharacterModel c, CharacterAttributeModel item)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     item.character = c;
-                    item.bonusValues = new List<CharacterAttributeClass>();
+                    item.bonusValues = new List<CharacterAttributeModel>();
                     db.CharacterAttributes.Add(item);
                     db.SaveChanges();
                 }
@@ -181,11 +180,11 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        private CharacterClass ValidateCharacter(string idCharacter)
+        private CharacterModel ValidateCharacter(string idCharacter)
         {
             try
             {
-                CharacterClass c = db.Characters.Find(Convert.ToInt32(idCharacter));
+                CharacterModel c = db.Characters.Find(Convert.ToInt32(idCharacter));
 
                 if (c == null)
                     throw new Exception("Invalid Character to input attributes. Please try again");
@@ -198,11 +197,11 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        private CharacterAttributeClass ValidateAttributeFromCharacterClass(string attribute)
+        private CharacterAttributeModel ValidateAttributeFromCharacterModel(string attribute)
         {
             try
             {
-                CharacterAttributeClass returning = new CharacterAttributeClass();
+                CharacterAttributeModel returning = new CharacterAttributeModel();
                 returning.attribute = db.Attributes.Find(GetNumber(attribute.Split('|')[0]));
                 returning.value = GetNumber(attribute.Split('|')[1]);
                 return returning;
@@ -218,13 +217,13 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            CharacterAttributeClass characterattributeclass = db.CharacterAttributes.Find(id);
-            if (characterattributeclass == null)
+            CharacterAttributeModel characterAttributeModel = db.CharacterAttributes.Find(id);
+            if (characterAttributeModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterattributeclass.idAttribute);
-            return View(characterattributeclass);
+            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterAttributeModel.idAttribute);
+            return View(characterAttributeModel);
         }
 
         //
@@ -232,16 +231,16 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CharacterAttributeClass characterattributeclass)
+        public ActionResult Edit(CharacterAttributeModel characterAttributeModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(characterattributeclass).State = EntityState.Modified;
+                db.Entry(characterAttributeModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterattributeclass.idAttribute);
-            return View(characterattributeclass);
+            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterAttributeModel.idAttribute);
+            return View(characterAttributeModel);
         }
 
         //
@@ -249,12 +248,12 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            CharacterAttributeClass characterattributeclass = db.CharacterAttributes.Find(id);
-            if (characterattributeclass == null)
+            CharacterAttributeModel characterAttributeModel = db.CharacterAttributes.Find(id);
+            if (characterAttributeModel == null)
             {
                 return HttpNotFound();
             }
-            return View(characterattributeclass);
+            return View(characterAttributeModel);
         }
 
         //
@@ -264,15 +263,15 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CharacterAttributeClass characterattributeclass = db.CharacterAttributes.Find(id);
-            db.CharacterAttributes.Remove(characterattributeclass);
+            CharacterAttributeModel characterAttributeModel = db.CharacterAttributes.Find(id);
+            db.CharacterAttributes.Remove(characterAttributeModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public ActionResult ListNonCharacter()
         {
-            IEnumerable<AttributeClass> attributes;
+            IEnumerable<AttributeModel> attributes;
 
             attributes = db.Attributes.ToList().OrderBy(t => t.type.name);
 
@@ -290,15 +289,15 @@ namespace DaemonCharacter.Controllers
         }
 
 
-        private IEnumerable<CharacterAttributeClass> GetCharacterAttributeWithBonus(int idCharacter)
+        private IEnumerable<CharacterAttributeModel> GetCharacterAttributeWithBonus(int idCharacter)
         {
-            IEnumerable<CharacterAttributeClass> characterAttribute;
+            IEnumerable<CharacterAttributeModel> characterAttribute;
 
             characterAttribute = db.CharacterAttributes
                 .Where(t => t.idCharacter == idCharacter && t.attribute.type.useBonus == true)
                 .ToList();
 
-            foreach (CharacterAttributeClass item in characterAttribute)
+            foreach (CharacterAttributeModel item in characterAttribute)
             {
                 item.bonusValues = LoadBonusValues(characterAttribute, item);
             }
@@ -306,9 +305,9 @@ namespace DaemonCharacter.Controllers
             return characterAttribute;
         }
 
-        private IEnumerable<CharacterAttributeClass> GetCharacterAttributeWithNoBonus(int idCharacter)
+        private IEnumerable<CharacterAttributeModel> GetCharacterAttributeWithNoBonus(int idCharacter)
         {
-            IEnumerable<CharacterAttributeClass> characterAttribute;
+            IEnumerable<CharacterAttributeModel> characterAttribute;
 
             characterAttribute = db.CharacterAttributes
                 .Where(t => t.idCharacter == idCharacter && t.attribute.type.useBonus == false)
@@ -317,17 +316,17 @@ namespace DaemonCharacter.Controllers
             return characterAttribute;
         }
 
-        private List<CharacterAttributeClass> LoadBonusValues(IEnumerable<CharacterAttributeClass> characterAttribute, CharacterAttributeClass c)
+        private List<CharacterAttributeModel> LoadBonusValues(IEnumerable<CharacterAttributeModel> characterAttribute, CharacterAttributeModel c)
         {
             try
             {
-                List<CharacterAttributeClass> result = new List<CharacterAttributeClass>();
-                List<AttributeBonusClass> attributeBonus = new List<AttributeBonusClass>();
+                List<CharacterAttributeModel> result = new List<CharacterAttributeModel>();
+                List<AttributeBonusModel> attributeBonus = new List<AttributeBonusModel>();
                 attributeBonus = db.AttributeBonus.Where(t => c.idAttribute == t.idAttributeBonusClass).ToList();
 
-                foreach (AttributeBonusClass subitem in attributeBonus)
+                foreach (AttributeBonusModel subitem in attributeBonus)
                 {
-                    CharacterAttributeClass obj = characterAttribute.FirstOrDefault(t => t.idAttribute == subitem.idAttribute);
+                    CharacterAttributeModel obj = characterAttribute.FirstOrDefault(t => t.idAttribute == subitem.idAttribute);
                     if (obj != null)
                     {
                         //if (obj.attribute.type.useModifier)
