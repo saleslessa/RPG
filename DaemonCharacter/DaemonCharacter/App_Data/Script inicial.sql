@@ -1,7 +1,7 @@
 USE [DaemonCharacter]
 GO
 begin tran
-INSERT INTO [dbo].tb_attribute_type([name],[useBonus],[useModifier], basemodifier) VALUES ('Característica', 1, 1, 10)
+INSERT INTO [dbo].tb_attribute_type([name],[useBonus],[useModifier], basemodifier) VALUES ('Característica', 0, 1, 10)
 INSERT INTO [dbo].tb_attribute_type([name],[useBonus],[useModifier], basemodifier) VALUES ('Perícia', 1, 0, 0)
 INSERT INTO [dbo].tb_attribute_type([name],[useBonus],[useModifier], basemodifier) VALUES ('Característica Secundária', 1, 0, 0)
 

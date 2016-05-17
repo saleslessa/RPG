@@ -41,44 +41,48 @@ namespace DaemonCharacter.Controllers
             ViewBag.display = "none";
             ViewBag.isRegistered = false;
 
-            CampaignController c = new CampaignController();
-
-            List<AvailableCampaignsModel> available = c.ListAvailableCampaigns();
-
-            ViewBag.campaigns = new SelectList(available, "id", "name");
+            CreateSelectListAvailableCampaigns();
 
             return View();
         }
 
-        private void FillModelCreate(ref CharacterModel charactermodel)
+        private void CreateSelectListAvailableCampaigns(string selected = "")
+        {
+            CampaignController c = new CampaignController();
+            List<AvailableCampaignsModel> available = c.ListAvailableCampaigns();
+            ViewBag.campaigns = new SelectList(available, "id", "name", selected);
+        }
+
+        private void FillModelCreate(ref CharacterModel charactermodel, FormCollection f)
         {
             charactermodel.remainingPoints = charactermodel.pointsToDistribute;
             charactermodel.remainingLife = charactermodel.maxLife;
 
             string log = Session["LoggedUser"].ToString();
 
-            int idUser = db.UserProfiles
-           .Where(w => w.UserName == log)
-           .Select(s => s.UserId)
-           .FirstOrDefault();
+            charactermodel.idUser = db.UserProfiles
+                       .Where(w => w.UserName == log)
+                       .Select(s => s.UserId)
+                       .FirstOrDefault();
 
-            //charactermodel.idUser = idUser;
+            charactermodel.idCampaign = Convert.ToInt32(((string[])f.GetValue("campaigns").RawValue)[0]);
+
         }
 
         //
         // POST: /Character/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CharacterModel CharacterModel)
+        public JsonResult Create(CharacterModel CharacterModel, FormCollection f)
         {
             if (Session["LoggedUser"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return Json("User not logged", JsonRequestBehavior.DenyGet);
             }
             else
             {
-
-                FillModelCreate(ref CharacterModel);
+               
+                FillModelCreate(ref CharacterModel, f);
 
                 if (ModelState.IsValid)
                 {
@@ -86,29 +90,25 @@ namespace DaemonCharacter.Controllers
                     db.SaveChanges();
 
                     Session["idCharacter"] = CharacterModel.idCharacter;
-                    ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>(), CharacterModel.gender);
-                    ViewBag.display = "normal";
-                    ViewBag.Message = "Character Created. Please select the attributes at right side";
 
-                    return View(CharacterModel);
+                    return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
                 }
 
-            }
-            //When an error accours
-            ViewBag.isRegistered = false;
-            ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
-            ViewBag.Display = "none";
-            ViewBag.Message = "The following error occured when trying to create a character:\n";
+                var Message = "The following error occured when trying to create a character:\n";
 
-            foreach (ModelState states in ViewData.ModelState.Values)
-            {
-                foreach (ModelError errors in states.Errors)
+                foreach (ModelState states in ViewData.ModelState.Values)
                 {
-                    ViewBag.Message += errors.ErrorMessage + "\n";
+                    foreach (ModelError errors in states.Errors)
+                    {
+                        Message += errors.ErrorMessage + "\n";
+                    }
                 }
+
+                return Json(Message, JsonRequestBehavior.DenyGet);
+
             }
 
-            return View(CharacterModel);
+            
         }
 
         //

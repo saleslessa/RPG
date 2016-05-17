@@ -1,9 +1,9 @@
-﻿@*@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
+﻿@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
 {
     <script type="text/javascript">
         window.location.href = '@Url.Action("Index","Home")';
     </script>
-}*@
+}
 
 @model DaemonCharacter.Models.CharacterModel
 
@@ -14,22 +14,22 @@
 </head>
 
 <h3>Create Character Form</h3>
-@using (Html.BeginForm())
+
+<p id="messages">
+</p>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCreate" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset id="fieldset-left-dynamic">
-        <p class="messages">
-            @ViewBag.Message
-        </p>
-
         <div class="editor-label">
             @Html.Label("Campaign")
         </div>
         <div class="editor-field">
             @Html.DropDownList("campaigns", string.Empty)
-        <div id="campaign-container"></div>
+            <div id="campaign-container"></div>
         </div>
 
         <div class="editor-label">
@@ -87,24 +87,19 @@
             @Html.EditorFor(model => model.pointsToDistribute)
             @Html.ValidationMessageFor(model => model.pointsToDistribute)
         </div>
-
-        <div style="display:@ViewBag.display">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.remainingPoints)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.remainingPoints)
-                @Html.ValidationMessageFor(model => model.remainingPoints)
-            </div>
-        </div>
         <p>
-            <input type="submit" value="Choose Attributes" class="button" />
+            <input type="button" value="Choose Attributes" class="button" id="submitCharacter" />
             @Html.ActionLink("Back to List", "Index")
         </p>
     </fieldset>
 
 }
-<aside id="dynamic-side-right" style="display:@ViewBag.display">
+<aside id="dynamic-side-right">
+    <div class="editor-label">
+        @Html.LabelFor(model => model.remainingPoints)
+        @Html.EditorFor(model => model.remainingPoints, new { disabled = "disabled" })
+        @Html.ValidationMessageFor(model => model.remainingPoints)
+    </div>
     <label>Available Attributes</label>
     @{Html.RenderAction("ListNonCharacter", "CharacterAttribute");}
 </aside>
@@ -112,3 +107,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script type="text/javascript" src="@Url.Content("~/Scripts/CharacterForms.js")"></script>
+
+<script>
+    document.getElementById("dynamic-side-right").style.display = "none";
+</script>

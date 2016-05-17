@@ -43,6 +43,7 @@ namespace DaemonCharacter.Controllers
             }
         }
 
+
         //
         // GET: /Campaign/Details/5
 
@@ -196,21 +197,23 @@ namespace DaemonCharacter.Controllers
                 .FirstOrDefault();
 
             if (a == null)
-                return Json(HttpNotFound(), JsonRequestBehavior.AllowGet);
+                return Json("", JsonRequestBehavior.AllowGet);
 
             JObject result = new JObject(
-                new JProperty("name", a.name.ToString()),
-                new JProperty("shortDescription", a.shortDescription.ToString()),
-                new JProperty("remainingPlayers", a.remainingPlayers.ToString()),
-                new JProperty("userMaster", a.userMaster.UserName.ToString())
+                new JProperty("name", a.name),
+                new JProperty("shortDescription", a.shortDescription),
+                new JProperty("remainingPlayers", a.remainingPlayers),
+                new JProperty("userMaster", a.userMaster.UserName)
                 );
+
+            string r = a.name + "|" + a.shortDescription + "|" + a.remainingPlayers.ToString() + "|" + a.userMaster.UserName;
 
             //JavaScriptSerializer oSerializer = new JavaScriptSerializer();
 
             //string sJSON = oSerializer.Serialize(result);
 
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(r, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -24,19 +24,21 @@
             type: 'GET',
             data: 'idCampaign=' + this.value,
 
-            success: function (data) {
+            success: function (response) {
 
-                alert(data);
-
-                document.getElementById('campaign-container').innerHTML =
-                 '<table>' +
-                    '<tr>' +
-                        '<td>Master:</td><td>' + data[0] + '</td>' +
-                        '<td>Name:</td><td>' + data.name + '</td>' +
-                        '<td>Short description:</td><td>' + data.shortDescription + '</td>' +
-                        '<td>Remaining players:</td><td>' + data.remainingPlayers + '</td>' +
-                    '</tr>' +
-                '</table>';
+                if (response.length == 0)
+                    document.getElementById('campaign-container').innerHTML = "";
+                else {
+                    var r = response.split('|');
+                    document.getElementById('campaign-container').innerHTML =
+                     '<table cellspacing="3" class="dynamic-table-campaign" title="' + r[1] + '">' +
+                        '<tr>' +
+                            '<td><strong>Master:</strong></td><td>' + r[3] + '</td>' +
+                            '<td><strong>Name:</strong></td><td>' + r[0] + '</td>' +
+                            '<td><strong>Remaining players:</strong></td><td>' + r[2] + '</td>' +
+                        '</tr>' +
+                    '</table>';
+                }
             },
             error: function (xhr) {
                 document.getElementById('campaign-container').innerHTML = "";
@@ -46,6 +48,7 @@
     });
 
 
+    //Submission form with attributes
     $('input[id=submitAttributes]').click(function () {
         var url = "/CharacterAttribute/Create/";
         sessionStorage.clear();
@@ -59,14 +62,59 @@
                 url: url,
                 data: 'Attributes=' + JSON.stringify(String(sessionStorage["ArrayOfSelectedAttributes"])),
                 success: function (data) {
-                    document.getElementById("CharacterAttributeMessage").innerText = data;
+                    document.getElementById("messages").innerText = data;
+                    $("#dynamic-side-right").slideToggle("slow");
                 },
                 error: function (xhr) {
-                    document.getElementById("CharacterAttributeMessage").innerText = xhr.statusText;
+                    document.getElementById("messages").innerText = xhr.statusText;
                 }
             });
     });
+
+
+    //Submission form initial
+    $('input[id=submitCharacter]').click(function () {
+        var url = "/Character/Create/";
+        var form = $("#formCreate").serialize();
+
+
+        $.ajax(
+            {
+                dataType: 'json',
+                type: 'POST',
+                url: url,
+                data: form,
+
+                success: function (response) {
+                    document.getElementById("messages").innerText = response;
+
+
+                    $("#dynamic-side-right").slideToggle("slow");
+                    document.getElementById("dynamic-side-right").style.display = "normal";
+                    $("#formCreate").slideToggle("slow");
+
+
+                },
+                error: function (xhr) {
+                    document.getElementById("messages").innerText = xhr.statusText;
+                }
+            });
+    });
+
+
+
+
 });
+
+function unselectAttributes() {
+
+    $('input:checkbox').each(function (index, element) {
+        if (element.checked) {
+            setCheckbox(element);
+        }
+    });
+
+}
 
 function SelectAttributesFromSelectedCheckboxes() {
     var Attribute = [];

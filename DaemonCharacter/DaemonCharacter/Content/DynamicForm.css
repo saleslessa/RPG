@@ -172,12 +172,7 @@ div.dynamicAttribute {
     margin: 5px;
     padding: 5px;
     border: 1px solid #808080;
-    /*border-radius: 10px;*/
     box-shadow: 2px 2px 3px #888888;
-    /*background-color: whitesmoke;*/
-    overflow-y: auto;
-    overflow-x: no-display;
-    max-height: 500px;
     max-width: 1000px;
     float: left;
 }
@@ -252,4 +247,13 @@ checkbox {
     overflow-x:no-display;
     overflow-y:auto;
     max-height:290px;
+}
+
+.dynamic-table-campaign
+{
+    border:1px solid black;
+    padding:3px 5px 3px 5px;
+    font-size:smaller;
+    max-width:125px;
+    border-radius:5px;
 }

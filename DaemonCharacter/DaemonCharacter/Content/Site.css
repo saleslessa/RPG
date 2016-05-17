@@ -7,7 +7,16 @@ body {
     /*background-image: url('../Images/dragon_2.jpg');
     background-position:left top*/
     background-repeat:no-repeat;
-    background-color:#222;
+    background-color:#232323;
+
+
+    background: #232323; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(90deg, #444, #111); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(90deg, #444, #111); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(90deg, #444, #111); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(90deg, #444, #111); /* Standard syntax */
+
+
     border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
@@ -106,7 +115,8 @@ h5, h6 {
 
 #body {
     /*background-color: rgba(253, 253, 253, 0.75);*/
-    background-color: rgba(255, 255, 255, 0.80);
+    /*background-color: rgba(255, 255, 255, 0.90);*/
+    background-color: white;
     padding: 15px;
     max-height: 100%;
     

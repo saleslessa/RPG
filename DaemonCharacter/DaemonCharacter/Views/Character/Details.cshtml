@@ -1,6 +1,7 @@
 ﻿@if (!Request.IsAuthenticated)
 {
     <script type="text/javascript">
+        document.getElementById('logoutForm').submit();
         window.location.href = '@Url.Action("Index","Home")';
     </script>
 }
