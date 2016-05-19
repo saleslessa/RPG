@@ -52,5 +52,7 @@ namespace DaemonCharacter.Models
         public DbSet<CampaignModel> CampaignModels { get; set; }
 
         public DbSet<UserProfileModel> UserProfiles { get; set; }
+
+        public DbSet<RaceModel> RaceModels { get; set; }
     }
 }

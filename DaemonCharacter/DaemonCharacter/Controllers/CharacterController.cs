@@ -41,6 +41,9 @@ namespace DaemonCharacter.Controllers
             ViewBag.display = "none";
             ViewBag.isRegistered = false;
 
+            ViewBag.Races = new SelectList(db.RaceModels.ToList());
+
+
             CreateSelectListAvailableCampaigns();
 
             return View();

@@ -5,9 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 public enum Gender
 {
-    Male = 0,
-    Female = 1,
-    Other = 2
+    Male = 1,
+    Female = 2,
+    Other = 3
+}
+
+public enum NonPlayerType
+{
+    NPC = 1,
+    Enemy = 2,
+    Other = 3
 }
 
 namespace DaemonCharacter.Models
@@ -28,6 +35,9 @@ namespace DaemonCharacter.Models
         [Required(ErrorMessage = "Character name is required"), MaxLength(50)]
         [Display(Name = "Character Name")]
         public string name { get; set; }
+
+        [Required(ErrorMessage ="Race is required. If you don't have one choose default")]
+        public int idRace { get; set; }
 
         [Required(ErrorMessage = "Character level is required")]
         [Display(Name = "Character Level"), DefaultValue(1), Range(1, int.MaxValue)]
@@ -58,6 +68,9 @@ namespace DaemonCharacter.Models
         [Display(Name = "Remaining points to distribute among Attributes")]
         public int remainingPoints { get; set; }
 
+        [Display(Name ="Background"), DataType(DataType.MultilineText)]
+        public string background { get; set; }
+
         #region Virtual Attributes
         public virtual List<CharacterAttributeModel> attributes { get; set; }
 
@@ -66,6 +79,9 @@ namespace DaemonCharacter.Models
 
         [ForeignKey("idCampaign")]
         public virtual CampaignModel campaign { get; set; }
+
+        [ForeignKey("idRace")]
+        public virtual RaceModel race { get; set; }
         #endregion
 
     }
@@ -142,5 +158,31 @@ namespace DaemonCharacter.Models
         public int value { get; set; }
 
         public virtual ICollection<CharacterAttributeModel> bonusValues { get; set; }
+    }
+
+    public class NonPlayer : CharacterModel
+    {
+        [Required]
+        public NonPlayerType type { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name ="Annotations that all players can see")]
+        public string publicAnnotations { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Annotations that only you (master) can see")]
+        public string privateAnnotations { get; set; }
+
+    }
+
+    [Table("tb_race")]
+    public class RaceModel
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
+
+        [Required]
+        public string name { get; set; }
+
     }
 }

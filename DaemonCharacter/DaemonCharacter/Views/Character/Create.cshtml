@@ -41,6 +41,14 @@
         </div>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.race)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Races", (SelectList)ViewBag.Races)
+            @Html.ValidationMessageFor(model => model.race)
+        </div>
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.level)
         </div>
         <div class="editor-field">
