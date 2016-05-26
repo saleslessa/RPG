@@ -1,41 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
 
 namespace DaemonCharacter.Controllers
 {
-    public class RaceController : Controller
+    public class GenderController : Controller
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
         //
-        // GET: /Race/
+        // GET: /Gender/
 
         public ActionResult Index()
         {
-            return View(db.Races.ToList());
+            return View(db.Genders.ToList());
         }
 
         //
-        // GET: /Race/Details/5
+        // GET: /Gender/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            RaceModel racemodel = db.Races.Find(id);
-            if (racemodel == null)
+            GenderModel gendermodel = db.Genders.Find(id);
+            if (gendermodel == null)
             {
                 return HttpNotFound();
             }
-            return View(racemodel);
+            return View(gendermodel);
         }
 
         //
-        // GET: /Race/Create
+        // GET: /Gender/Create
 
         public ActionResult Create()
         {
@@ -43,73 +39,73 @@ namespace DaemonCharacter.Controllers
         }
 
         //
-        // POST: /Race/Create
+        // POST: /Gender/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RaceModel racemodel)
+        public ActionResult Create(GenderModel gendermodel)
         {
             if (ModelState.IsValid)
             {
-                db.Races.Add(racemodel);
+                db.Genders.Add(gendermodel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(racemodel);
+            return View(gendermodel);
         }
 
         //
-        // GET: /Race/Edit/5
+        // GET: /Gender/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            RaceModel racemodel = db.Races.Find(id);
-            if (racemodel == null)
+            GenderModel gendermodel = db.Genders.Find(id);
+            if (gendermodel == null)
             {
                 return HttpNotFound();
             }
-            return View(racemodel);
+            return View(gendermodel);
         }
 
         //
-        // POST: /Race/Edit/5
+        // POST: /Gender/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(RaceModel racemodel)
+        public ActionResult Edit(GenderModel gendermodel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(racemodel).State = EntityState.Modified;
+                db.Entry(gendermodel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(racemodel);
+            return View(gendermodel);
         }
 
         //
-        // GET: /Race/Delete/5
+        // GET: /Gender/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            RaceModel racemodel = db.Races.Find(id);
-            if (racemodel == null)
+            GenderModel gendermodel = db.Genders.Find(id);
+            if (gendermodel == null)
             {
                 return HttpNotFound();
             }
-            return View(racemodel);
+            return View(gendermodel);
         }
 
         //
-        // POST: /Race/Delete/5
+        // POST: /Gender/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RaceModel racemodel = db.Races.Find(id);
-            db.Races.Remove(racemodel);
+            GenderModel gendermodel = db.Genders.Find(id);
+            db.Genders.Remove(gendermodel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

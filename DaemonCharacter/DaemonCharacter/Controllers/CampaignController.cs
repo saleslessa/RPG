@@ -62,10 +62,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Create()
         {
-            if (Session["LoggedUser"] == null)
-                return RedirectToAction("Index", "Home");
-            else
-                return View();
+            return View();
         }
 
         //
@@ -85,7 +82,7 @@ namespace DaemonCharacter.Controllers
                 .FirstOrDefault();
 
                 campaignmodel.idMaster = idMaster;
-
+                campaignmodel.campaignStatus = CampaignStatus.Beginning;
                 campaignmodel.remainingPlayers = campaignmodel.maxPlayers;
 
                 if (ModelState.IsValid)

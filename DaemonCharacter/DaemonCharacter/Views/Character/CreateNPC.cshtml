@@ -1,0 +1,94 @@
+﻿@model DaemonCharacter.Models.NonPlayerModel
+
+@{
+    ViewBag.Title = "CreateNPC";
+}
+
+<h2>CreateNPC</h2>
+
+@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index","Home")';
+    </script>
+}
+
+<head>
+    <title>Creating a new NPC</title>
+    <link href="@Url.Content("~/Content/DynamicForm.css")"
+          rel="stylesheet" type="text/css" />
+</head>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCreateNonPlayer" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>NonPlayer</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.race)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("races", (SelectList)ViewBag.Races)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.gender)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("genders", (SelectList)ViewBag.Genders)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.type)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("types", (SelectList)ViewBag.Types)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.chalengeLevel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.chalengeLevel)
+            @Html.ValidationMessageFor(model => model.chalengeLevel)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.maxLife)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.maxLife)
+            @Html.ValidationMessageFor(model => model.maxLife)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.publicAnnotations)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.publicAnnotations)
+            @Html.ValidationMessageFor(model => model.publicAnnotations)
+        </div>
+    </fieldset>
+}
+<aside>
+    <label>Available Attributes</label>
+    @{Html.RenderAction("ListNonCharacter", "CharacterAttribute", new { model = "NonPlayerModel" });}
+</aside>
+<p id="messages">
+</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/CharacterForms.js")"></script>

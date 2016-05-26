@@ -22,6 +22,12 @@
         <th>
             @Html.DisplayNameFor(model => model.name)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.race)
+        </th>
+        <th>
+            Type
+        </th>
         <th></th>
     </tr>
 
@@ -31,9 +37,15 @@
             @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idCharacter }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idCharacter }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idCharacter })
+            @Html.DisplayFor(modelItem => item.race.name)
+        </td>
+        <td>
+            @Html.Raw(item.GetType().BaseType.Name.Replace("Model", ""))
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", Html.Raw(item.GetType().BaseType.Name.Replace("Model", "")) + "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>
 }

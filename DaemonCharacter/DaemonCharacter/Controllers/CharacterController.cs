@@ -21,28 +21,94 @@ namespace DaemonCharacter.Controllers
             return View(db.Characters.ToList());
         }
 
+
         //
-        // GET: /Character/Details/5
-        public ActionResult Details(int id = 0)
+        // GET: /Character/PlayerDetails/5
+        public ActionResult PlayerDetails(int id = 0)
         {
-            CharacterModel CharacterModel = db.Characters.Find(id);
-            if (CharacterModel == null)
+            PlayerModel model = db.Players.Find(id);
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            return View(CharacterModel);
+
+            return View(model);
+        }
+
+        public ActionResult NonPlayerDetails(int id = 0)
+        {
+            NonPlayerModel model = db.NonPlayers.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(model);
+        }
+
+
+
+        private void PrepareCreateScreen()
+        {
+            ViewBag.Genders = new SelectList(db.Genders.ToList(), "id", "name");
+            ViewBag.display = "none";
+            ViewBag.isRegistered = false;
+
+            ViewBag.Races = new SelectList(db.Races.ToList(), "id", "name");
+
+
+            ViewBag.Types = new SelectList(db.NonPlayerTypes.ToList(), "id", "name");
+        }
+
+        public ActionResult CreateNPC()
+        {
+            PrepareCreateScreen();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult CreateNPC(NonPlayerModel NonPlayer, FormCollection f)
+        {
+            if (Session["LoggedUser"] == null)
+            {
+                return Json("User not logged", JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+
+                FillProperties(ref NonPlayer, f);
+
+                if (ModelState.IsValid)
+                {
+                    db.NonPlayers.Add(NonPlayer);
+                    db.SaveChanges();
+
+                    Session["idCharacter"] = NonPlayer.id;
+
+                    return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
+                }
+
+                var Message = "The following error occured when trying to create a character:\n";
+
+                foreach (ModelState states in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError errors in states.Errors)
+                    {
+                        Message += errors.ErrorMessage + "\n";
+                    }
+                }
+
+                return Json(Message, JsonRequestBehavior.DenyGet);
+
+            }
         }
 
         //
         // GET: /Character/Create
-        public ActionResult Create()
+        public ActionResult CreatePlayer()
         {
-            ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Gender)).Cast<Gender>());
-            ViewBag.display = "none";
-            ViewBag.isRegistered = false;
-
-            ViewBag.Races = new SelectList(db.RaceModels.ToList());
-
+            PrepareCreateScreen();
 
             CreateSelectListAvailableCampaigns();
 
@@ -56,19 +122,43 @@ namespace DaemonCharacter.Controllers
             ViewBag.campaigns = new SelectList(available, "id", "name", selected);
         }
 
-        private void FillModelCreate(ref CharacterModel charactermodel, FormCollection f)
+        private void FillProperties<T>(ref T obj, FormCollection f)
         {
-            charactermodel.remainingPoints = charactermodel.pointsToDistribute;
-            charactermodel.remainingLife = charactermodel.maxLife;
 
-            string log = Session["LoggedUser"].ToString();
+            try
+            {
 
-            charactermodel.idUser = db.UserProfiles
-                       .Where(w => w.UserName == log)
-                       .Select(s => s.UserId)
-                       .FirstOrDefault();
+                string log = Session["LoggedUser"].ToString();
 
-            charactermodel.idCampaign = Convert.ToInt32(((string[])f.GetValue("campaigns").RawValue)[0]);
+                (obj as CharacterModel).idUser = db.UserProfiles
+                           .Where(w => w.UserName == log)
+                           .Select(s => s.UserId)
+                           .FirstOrDefault();
+
+                (obj as CharacterModel).idRace = Convert.ToInt32(((string[])f.GetValue("races").RawValue)[0]);
+
+                (obj as CharacterModel).idGender = Convert.ToInt32(((string[])f.GetValue("genders").RawValue)[0]);
+
+
+
+
+                if (typeof(T) == typeof(PlayerModel))
+                {
+                    (obj as PlayerModel).remainingPoints = (obj as PlayerModel).pointsToDistribute;
+                    (obj as PlayerModel).remainingLife = (obj as PlayerModel).maxLife;
+                    (obj as PlayerModel).idCampaign = Convert.ToInt32(((string[])f.GetValue("campaigns").RawValue)[0]);
+
+                }
+                if(typeof(T) == typeof(NonPlayerModel))
+                {
+                    (obj as NonPlayerModel).idType = Convert.ToInt32(((string[])f.GetValue("types").RawValue)[0]);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
@@ -76,7 +166,7 @@ namespace DaemonCharacter.Controllers
         // POST: /Character/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Create(CharacterModel CharacterModel, FormCollection f)
+        public JsonResult CreatePlayer(PlayerModel character, FormCollection f)
         {
             if (Session["LoggedUser"] == null)
             {
@@ -85,14 +175,14 @@ namespace DaemonCharacter.Controllers
             else
             {
                
-                FillModelCreate(ref CharacterModel, f);
+                FillProperties(ref character, f);
 
                 if (ModelState.IsValid)
                 {
-                    db.Characters.Add(CharacterModel);
+                    db.Characters.Add(character);
                     db.SaveChanges();
 
-                    Session["idCharacter"] = CharacterModel.idCharacter;
+                    Session["idCharacter"] = character.id;
 
                     return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
                 }

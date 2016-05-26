@@ -24,10 +24,10 @@
 
         @foreach (var subitem in items.bonusValues)
                 {
-                    ViewBag.description = ViewBag.description + ((DaemonCharacter.Models.CharacterAttributeModel)subitem).attribute.name + ": "
-                        + ((DaemonCharacter.Models.CharacterAttributeModel)subitem).value.ToString()
+                    ViewBag.description = ViewBag.description + subitem.attribute.name + ": "
+                        + subitem.value.ToString()
                         + "\n";
-                    ViewBag.result = ViewBag.result + ((DaemonCharacter.Models.CharacterAttributeModel)subitem).value;
+                    ViewBag.result = ViewBag.result + subitem.value;
                 }
 
         <input type="number" title="@ViewBag.description" class="dynamic-input-detail" id="BonusAttr_@Html.Raw(items.idAttribute)" readonly="readonly" value="@ViewBag.result" min="@ViewBag.result">

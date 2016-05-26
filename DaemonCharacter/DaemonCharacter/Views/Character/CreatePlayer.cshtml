@@ -1,0 +1,129 @@
+﻿@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index","Home")';
+    </script>
+}
+
+@model DaemonCharacter.Models.PlayerModel
+
+<head>
+    <title>Creating a new character</title>
+    <link href="@Url.Content("~/Content/DynamicForm.css")"
+          rel="stylesheet" type="text/css" />
+</head>
+
+<h3>Create Character Form</h3>
+
+<p id="messages">
+</p>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCreatePlayer" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset id="fieldset-left-dynamic">
+        <div class="editor-label">
+            @Html.Label("Campaign")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("campaigns", string.Empty)
+            <div id="campaign-container"></div>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.race)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("races", (SelectList)ViewBag.Races)
+            @Html.ValidationMessageFor(model => model.race)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.level)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.level)
+            @Html.ValidationMessageFor(model => model.level)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.maxLife)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.maxLife)
+            @Html.ValidationMessageFor(model => model.maxLife)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.gender)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Genders", (SelectList)ViewBag.Genders)
+            @Html.ValidationMessageFor(model => model.gender)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.age)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.age)
+            @Html.ValidationMessageFor(model => model.age)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.experience)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.experience)
+            @Html.ValidationMessageFor(model => model.experience)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.background)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.background)
+            @Html.ValidationMessageFor(model => model.background)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.pointsToDistribute)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.pointsToDistribute)
+            @Html.ValidationMessageFor(model => model.pointsToDistribute)
+        </div>
+        <p>
+            <input type="button" value="Choose Attributes" class="button" id="submitPlayer" />
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </fieldset>
+
+}
+<aside id="dynamic-side-right">
+    <div class="editor-label">
+        @Html.LabelFor(model => model.remainingPoints)
+        @Html.EditorFor(model => model.remainingPoints, new { disabled = "disabled" })
+        @Html.ValidationMessageFor(model => model.remainingPoints)
+    </div>
+    <label>Available Attributes</label>
+    @{Html.RenderAction("ListNonCharacter", "CharacterAttribute", new { model = "PlayerModel" });}
+</aside>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/CharacterForms.js")"></script>
+
+<script>
+    document.getElementById("dynamic-side-right").style.display = "none";
+</script>

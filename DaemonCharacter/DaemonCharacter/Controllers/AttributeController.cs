@@ -336,23 +336,23 @@ namespace DaemonCharacter.Controllers
         /// <summary>
         /// Method responsible for retrieve the list of associated attributes of a character
         /// </summary>
-        /// <param name="idCharacter">Edited character</param>
+        /// <param name="idPerson">Edited character</param>
         /// <returns>Returns a partial view</returns>
-        public ActionResult ListAttributesFromCharacter(int idCharacter = 0)
+        public ActionResult ListAttributesFromCharacter(int idPerson = 0)
         {
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
 
             IEnumerable<AttributeModel> attributes;
-            //idCharacter = 0 is a new Character being created. None attribute exist yet.
-            if (idCharacter == 0)
+            //idPerson = 0 is a new Character being created. None attribute exist yet.
+            if (idPerson == 0)
             {
                 return HttpNotFound();
             }
-            //idCharacter != 0 is a Character being edited
+            //idPerson != 0 is a Character being edited
             else
             {
-                CharacterModel character = db.Characters.Find(idCharacter);
+                CharacterModel character = db.Characters.Find(idPerson);
                 if (character == null)
                 {
                     return HttpNotFound();

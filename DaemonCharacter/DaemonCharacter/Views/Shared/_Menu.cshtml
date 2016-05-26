@@ -23,17 +23,16 @@
                 </ul>
             </li>
             <li class='has-sub'>
-                <a href="#"><span>Characters</span></a>
+                <a href="#"><span>Players</span></a>
                 <ul>
                     <li>@Html.ActionLink("List Chars", "Index", "Character")</li>
-                    <li>@Html.ActionLink("Create", "Create", "Character")</li>
+                    <li>@Html.ActionLink("Create", "CreatePlayer", "Character")</li>
                 </ul>
             </li>
             <li class='has-sub'>
-                <a href="#"><span>Races</span></a>
+                <a href="#"><span>NPC</span></a>
                 <ul>
-                    <li>@Html.ActionLink("Races", "Index", "Race")</li>
-                    <li>@Html.ActionLink("Create", "Create", "Race")</li>
+                    <li>@Html.ActionLink("Create", "CreateNPC", "Character")</li>
                 </ul>
             </li>
             <li class='has-sub'>
@@ -41,6 +40,20 @@
                 <ul>
                     <li>@Html.ActionLink("List Campaigns", "Index", "Campaign")</li>
                     <li>@Html.ActionLink("Create", "Create", "Campaign")</li>
+                </ul>
+            </li>
+            <li class='has-sub'>
+                <a href="#"><span>Races</span></a>
+                <ul>
+                    <li>@Html.ActionLink("List Them", "Index", "Race")</li>
+                    <li>@Html.ActionLink("Create", "Create", "Race")</li>
+                </ul>
+            </li>
+            <li class='has-sub'>
+                <a href="#"><span>Genders</span></a>
+                <ul>
+                    <li>@Html.ActionLink("List Genders", "Index", "Gender")</li>
+                    <li>@Html.ActionLink("Create", "Create", "Gender")</li>
                 </ul>
             </li>
             @*<li class='last'><a href='#'><span>Contact</span></a></li>*@

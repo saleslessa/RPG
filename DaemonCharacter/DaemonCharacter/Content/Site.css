@@ -10,11 +10,11 @@ body {
     background-color:#232323;
 
 
-    background: #232323; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(90deg, #444, #111); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(90deg, #444, #111); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(90deg, #444, #111); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(90deg, #444, #111); /* Standard syntax */
+    background: #FFF; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(90deg, #DDD, #FFF); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(90deg, #DDD, #FFF); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(90deg, #DDD, #FFF); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(90deg, #DDD, #FFF); /* Standard syntax */
 
 
     border-top: solid 10px #000;
@@ -118,12 +118,11 @@ h5, h6 {
     /*background-color: rgba(255, 255, 255, 0.90);*/
     background-color: white;
     padding: 15px;
-    max-height: 100%;
     
     margin:60px 20px 0 200px;
-    max-width:750px;
+    max-width:900px;
     /*border-radius: 15px;*/
-    border-color: AppWorkspace;
+    border-color: black;
     margin-bottom:50px;
 }
 

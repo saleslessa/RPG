@@ -50,20 +50,27 @@
 
     //Submission form with attributes
     $('input[id=submitAttributes]').click(function () {
-        var url = "/CharacterAttribute/Create/";
-        sessionStorage.clear();
+        var url = "/CharacterAttribute/CreateCharacter/";
+        var form = $("#formCharacterAttributes").serialize();
 
-        SelectAttributesFromSelectedCheckboxes();
+        var model = document.getElementById('model').value;
+
+
+        if (model == "NonPlayerModel")
+            SubmitNonPlayer();
+
 
         $.ajax(
             {
                 dataType: 'json',
-                //contenttype: 'application/json; charset=utf-8',
+                type: 'POST',
                 url: url,
-                data: 'Attributes=' + JSON.stringify(String(sessionStorage["ArrayOfSelectedAttributes"])),
-                success: function (data) {
-                    document.getElementById("messages").innerText = data;
-                    $("#dynamic-side-right").slideToggle("slow");
+                data: form,
+                success: function (response) {
+                    document.getElementById("messages").innerText = response;
+
+                    if (model != "NonPlayerModel")
+                        $("#dynamic-side-right").slideToggle("slow");
                 },
                 error: function (xhr) {
                     document.getElementById("messages").innerText = xhr.statusText;
@@ -73,9 +80,9 @@
 
 
     //Submission form initial
-    $('input[id=submitCharacter]').click(function () {
-        var url = "/Character/Create/";
-        var form = $("#formCreate").serialize();
+    $('input[id=submitPlayer]').click(function () {
+        var url = "/Character/CreatePlayer/";
+        var form = $("#formCreatePlayer").serialize();
 
 
         $.ajax(
@@ -91,7 +98,7 @@
 
                     $("#dynamic-side-right").slideToggle("slow");
                     document.getElementById("dynamic-side-right").style.display = "normal";
-                    $("#formCreate").slideToggle("slow");
+                    $("#formCreatePlayer").slideToggle("slow");
 
 
                 },
@@ -106,6 +113,27 @@
 
 });
 
+function SubmitNonPlayer()
+{
+    var url = "/Character/CreateNPC/";
+    var form = $("#formCreateNonPlayer").serialize();
+
+    $.ajax(
+        {
+            dataType: 'json',
+            type: 'POST',
+            url: url,
+            data: form,
+
+            success: function (response) {
+                document.getElementById("messages").innerText = response;
+            },
+            error: function (xhr) {
+                document.getElementById("messages").innerText = xhr.statusText;
+            }
+        });
+}
+
 function unselectAttributes() {
 
     $('input:checkbox').each(function (index, element) {
@@ -114,21 +142,6 @@ function unselectAttributes() {
         }
     });
 
-}
-
-function SelectAttributesFromSelectedCheckboxes() {
-    var Attribute = [];
-    $('input:checkbox').each(function (index, element) {
-        if (element.checked) {
-            var idAttribute = element.id.split('_')[1];
-            AddAttributeToArray(Attribute, document.getElementById('ValAttr_' + idAttribute));
-        }
-    });
-    sessionStorage.setItem("ArrayOfSelectedAttributes", Attribute);
-}
-
-function AddAttributeToArray(Attribute, SelectedAttribute) {
-    Attribute.push(SelectedAttribute.id.split('_')[1] + '|' + SelectedAttribute.value);
 }
 
 function setCheckbox(id) {
