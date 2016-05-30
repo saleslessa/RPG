@@ -31,9 +31,9 @@
             @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { idAttributeType = item.idAttributeType }) |
-            @Html.ActionLink("Details", "Details", new { idAttributeType = item.idAttributeType }) |
-            @Html.ActionLink("Delete", "Delete", new { idAttributeType = item.idAttributeType })
+            @Html.ActionLink("Edit", "Edit", new { idAttributeType = item.id }) |
+            @Html.ActionLink("Details", "Details", new { idAttributeType = item.id}) |
+            @Html.ActionLink("Delete", "Delete", new { idAttributeType = item.id })
         </td>
     </tr>
 }

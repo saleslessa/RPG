@@ -1,9 +1,9 @@
-﻿@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
+﻿@*@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
 {
     <script type="text/javascript">
         window.location.href = '@Url.Action("Index","Home")';
     </script>
-}
+}*@
 
 @model DaemonCharacter.Models.CampaignModel
 

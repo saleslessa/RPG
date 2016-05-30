@@ -24,9 +24,9 @@
 
                 }
                 <dt class="selector-Dynamic-details">
-                    <input type="checkbox" class="chk-dynamic" id="ChkAttr_@Html.Raw(items.idAttribute)" name="ChkAttr_@Html.Raw(items.idAttribute)" />
-                    <span title="@Html.Raw(items.description)" onclick="setCheckbox(ChkAttr_@Html.Raw(items.idAttribute))">@Html.DisplayName(items.name)</span>
-                    <input type="number" class="dynamic-input" id="ValAttr_@Html.Raw(items.idAttribute)" name="ValAttr_@Html.Raw(items.idAttribute)" onchange="CalculateRemainingPoints(this)">
+                    <input type="checkbox" class="chk-dynamic" id="ChkAttr_@Html.Raw(items.id)" name="ChkAttr_@Html.Raw(items.id)" />
+                    <span title="@Html.Raw(items.description)" onclick="setCheckbox(ChkAttr_@Html.Raw(items.id))">@Html.DisplayName(items.name)</span>
+                    <input type="number" class="dynamic-input" id="ValAttr_@Html.Raw(items.id)" name="ValAttr_@Html.Raw(items.id)" onchange="CalculateRemainingPoints(this)">
                 </dt>
             }
         </dl>

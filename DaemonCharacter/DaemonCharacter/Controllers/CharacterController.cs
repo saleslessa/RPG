@@ -130,14 +130,13 @@ namespace DaemonCharacter.Controllers
 
                 string log = Session["LoggedUser"].ToString();
 
-                (obj as CharacterModel).idUser = db.UserProfiles
+                (obj as CharacterModel).user = db.UserProfiles
                            .Where(w => w.UserName == log)
-                           .Select(s => s.UserId)
                            .FirstOrDefault();
 
-                (obj as CharacterModel).idRace = Convert.ToInt32(((string[])f.GetValue("races").RawValue)[0]);
+                (obj as CharacterModel).race = db.Races.Find(Convert.ToInt32(((string[])f.GetValue("races").RawValue)[0]));
 
-                (obj as CharacterModel).idGender = Convert.ToInt32(((string[])f.GetValue("genders").RawValue)[0]);
+                (obj as CharacterModel).gender = db.Genders.Find(Convert.ToInt32(((string[])f.GetValue("genders").RawValue)[0]));
 
 
 
@@ -146,7 +145,7 @@ namespace DaemonCharacter.Controllers
                 {
                     (obj as PlayerModel).remainingPoints = (obj as PlayerModel).pointsToDistribute;
                     (obj as PlayerModel).remainingLife = (obj as PlayerModel).maxLife;
-                    (obj as PlayerModel).idCampaign = Convert.ToInt32(((string[])f.GetValue("campaigns").RawValue)[0]);
+                    (obj as PlayerModel).campaign = db.CampaignModels.Find(Convert.ToInt32(((string[])f.GetValue("campaigns").RawValue)[0]));
 
                 }
                 if(typeof(T) == typeof(NonPlayerModel))

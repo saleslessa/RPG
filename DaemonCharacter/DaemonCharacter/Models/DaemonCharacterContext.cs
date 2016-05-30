@@ -22,39 +22,81 @@ namespace DaemonCharacter.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<CampaignModel>().HasRequired(h => h.userMaster)
-                .WithMany(u => u.campaigns)
-                .HasForeignKey(c => c.idMaster)
-                .WillCascadeOnDelete(false);
+            //New fluent API
 
-            modelBuilder.Entity<CharacterModel>().HasRequired(h => h.user)
-                .WithMany(u => u.characters)
-                .HasForeignKey(c => c.idUser)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<CharacterModel>()
+                .HasOptional(t => t.user)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idUser")); ;
 
-            modelBuilder.Entity<AttributeModel>().HasRequired(h => h.type)
-                .WithMany(a => a.attributes)
-                .HasForeignKey(a => a.idAttributeType)
-                .WillCascadeOnDelete(true);
+            modelBuilder.Entity<CharacterModel>()
+                .HasOptional(t => t.race)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idRace"));
 
-            modelBuilder.Entity<NonPlayerCampaignModel>().HasRequired(h => h.campaign)
-                .WithMany(campaign => campaign.nonPlayerCampaigns)
-                .HasForeignKey(f => f.idCampaign)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<CharacterModel>()
+               .HasOptional(t => t.gender)
+               .WithOptionalDependent()
+               .Map(t => t.MapKey("idGender"));
 
-            modelBuilder.Entity<NonPlayerCampaignModel>().HasRequired(h => h.nonplayer)
-                .WithMany(nonplayer => nonplayer.nonPlayerCampaigns)
-                .HasForeignKey(f => f.idNonPlayer)
-                .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<PlayerModel>()
+                .HasOptional(t => t.campaign)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idCampaign"));
+
+            modelBuilder.Entity<CharacterAttributeModel>()
+                .HasOptional(t => t.character)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idCharacter"));
+
+            modelBuilder.Entity<CharacterAttributeModel>()
+                .HasOptional(t => t.attribute)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idAttribute"));
+
+            modelBuilder.Entity<CampaignModel>()
+                .HasOptional(t => t.userMaster)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idMaster"));
+
+            modelBuilder.Entity<AttributeModel>()
+                .HasOptional(t => t.type)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idType"));
+
+            modelBuilder.Entity<NonPlayerCampaignModel>()
+                .HasOptional(t => t.nonplayer)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idNonPlayer"));
+
+            modelBuilder.Entity<NonPlayerCampaignModel>()
+                .HasOptional(t => t.campaign)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idCampaign"));
+
+            modelBuilder.Entity<AttributeModel>()
+                .HasMany(t => t.ParentAttribute)
+                .WithMany(t => t.AttributeBonus)
+                .Map(t => t.ToTable("tb_attribute_bonus")
+                    .MapLeftKey("idAttribute")
+                    .MapRightKey("idAttributeBonus"));
+
+            modelBuilder.Entity<ItemAttributeModel>()
+                .HasOptional(t => t.item)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idItem"));
+
+            modelBuilder.Entity<ItemAttributeModel>()
+                .HasOptional(t => t.attribute)
+                .WithOptionalDependent()
+                .Map(t => t.MapKey("idAttribute"));
 
         }
 
         public DbSet<AttributeTypeModel> AttributeTypes { get; set; }
 
         public DbSet<AttributeModel> Attributes { get; set; }
-
-        public DbSet<AttributeBonusModel> AttributeBonus { get; set; }
 
         public DbSet<CampaignModel> CampaignModels { get; set; }
 

@@ -9,9 +9,7 @@ namespace DaemonCharacter.Models
     public class AttributeModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int idAttribute { get; set; }
-
-        public int idAttributeType { get; set; }
+        public int id { get; set; }
 
         [Required(ErrorMessage="Please put a correct name"), MaxLength(50), Display(Name = "Attribute Name")]
         public string name { get; set; }
@@ -19,30 +17,16 @@ namespace DaemonCharacter.Models
         [DataType(DataType.MultilineText), MaxLength(250), Display(Name = "Attribute Description")]
         public string description { get; set; }
 
-        [Display(Name = "Type")]
-        [ForeignKey("idAttributeType")]
-        public virtual AttributeTypeModel type { get; set; }
+        [Display(Name = "Type"), Required]
+        public AttributeTypeModel type { get; set; }
 
         [Required, Display(Name = "Minimum Required to use")]
         [DefaultValue(0), Range(0, 100)]
         public int minimum { get; set; }
 
-    }
+        public List<AttributeModel> ParentAttribute { get; set;}
 
-    [Table("tb_atribute_bonus")]
-    public class AttributeBonusModel
-    {
-        [Key, Column(Order = 0)]
-        public int idAttribute { get; set; }
-
-        [Key, Column(Order = 1)]
-        public int idAttributeBonusClass { get; set; }
-
-        [ForeignKey("idAttribute")]
-        public AttributeModel Attribute { get; set; }
-
-        [ForeignKey("idAttributeBonusClass")]
-        public virtual IEnumerable<AttributeModel> AttributeBonus { get; set; }
+        public List<AttributeModel> AttributeBonus { get; set; }
 
     }
 
@@ -50,7 +34,7 @@ namespace DaemonCharacter.Models
     public class AttributeTypeModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int idAttributeType { get; set; }
+        public int id { get; set; }
 
         [Required, MaxLength(50), Display(Name="Attribute Type Name")]
         public string name { get; set; }
@@ -64,6 +48,5 @@ namespace DaemonCharacter.Models
         [DefaultValue(0), Display(Name = "Base modifier")]
         public int baseModifier { get; set; }
 
-        public virtual ICollection<AttributeModel> attributes { get; set; }
     }
 }

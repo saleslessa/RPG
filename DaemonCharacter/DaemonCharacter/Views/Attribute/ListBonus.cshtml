@@ -1,9 +1,9 @@
-﻿@if (!Request.IsAuthenticated)
+﻿@*@if (!Request.IsAuthenticated)
 {
     <script type="text/javascript">
         window.location.href = '@Url.Action("Index","Home")';
     </script>
-}
+}*@
 
 
 @model IEnumerable<DaemonCharacter.Models.AttributeModel>
@@ -21,7 +21,7 @@
     {
         <tr>
             <td>
-                @Html.CheckBox("Bonus_" + item.idAttribute.ToString(), (bool)ViewBag.selected.Contains(item.idAttribute))
+                @Html.CheckBox("Bonus_" + item.id.ToString(), (bool)ViewBag.selected.Contains(item.id))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.name)

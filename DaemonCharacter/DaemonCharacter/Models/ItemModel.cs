@@ -23,20 +23,14 @@ namespace DaemonCharacter.Models
     [Table("tb_item_attribute")]
     public class ItemAttributeModel
     {
-        [Key, Column(Order = 1)]
-        public int idItem { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
 
-        [Key, Column(Order = 2)]
-        public int idAttribute { get; set; }
+        public ItemModel item { get; set; }
 
-        [Required(ErrorMessage ="You must select a value to associate to this attribute")]
+        public AttributeModel attribute { get; set; }
+
+        [Required(ErrorMessage = "You must select a value to associate to this attribute")]
         public int value { get; set; }
-
-        [ForeignKey("idItem")]
-        public virtual ItemModel item { get; set; }
-
-        [ForeignKey("idAttribute")]
-        public virtual AttributeModel attribute { get; set; }
-
     }
 }

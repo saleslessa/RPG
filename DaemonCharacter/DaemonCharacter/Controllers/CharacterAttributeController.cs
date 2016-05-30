@@ -150,12 +150,12 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
-                CharacterModel c = db.Characters.Find(listOfAttributes[0].idCharacter);
+                CharacterModel c = db.Characters.Find(listOfAttributes[0].attribute.id);
 
                 foreach (CharacterAttributeModel item in listOfAttributes)
                 {
                     if (db.CharacterAttributes
-                        .Where(t => t.idCharacter == item.idCharacter && t.idAttribute == item.idAttribute)
+                        .Where(t => t.character.id == item.character.id && t.attribute.id == item.attribute.id)
                         .ToList().Count > 0)
                     {
                         db.CharacterAttributes.Remove(item);
@@ -163,7 +163,7 @@ namespace DaemonCharacter.Controllers
                     }
                     else
                     {
-                        item.attribute = db.Attributes.Find(item.idAttribute);
+                        item.attribute = db.Attributes.Find(item.attribute.id);
                         item.character = c;
                     }
                 }
@@ -180,7 +180,7 @@ namespace DaemonCharacter.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    item.bonusValues = new List<CharacterAttributeModel>();
+                    //item.bonusValues = new List<CharacterAttributeModel>();
                     db.CharacterAttributes.Add(item);
                     db.SaveChanges();
                 }
@@ -252,7 +252,7 @@ namespace DaemonCharacter.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterAttributeModel.idAttribute);
+            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterAttributeModel.attribute.id);
             return View(characterAttributeModel);
         }
 
@@ -269,7 +269,7 @@ namespace DaemonCharacter.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterAttributeModel.idAttribute);
+            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterAttributeModel.attribute.id);
             return View(characterAttributeModel);
         }
 
@@ -325,12 +325,12 @@ namespace DaemonCharacter.Controllers
             List<CharacterAttributeModel> characterAttribute;
 
             characterAttribute = db.CharacterAttributes
-                .Where(t => t.idCharacter == id && t.attribute.type.useBonus == true)
+                .Where(t => t.character.id == id && t.attribute.type.useBonus == true)
                 .ToList();
 
             foreach (CharacterAttributeModel item in characterAttribute)
             {
-                item.bonusValues = LoadBonusValues(characterAttribute, item);
+                //item.bonusValues = LoadBonusValues(characterAttribute, item);
             }
 
             return characterAttribute;
@@ -341,40 +341,40 @@ namespace DaemonCharacter.Controllers
             IEnumerable<CharacterAttributeModel> characterAttribute;
 
             characterAttribute = db.CharacterAttributes
-                .Where(t => t.idCharacter == idPerson && t.attribute.type.useBonus == false)
+                .Where(t => t.character.id == idPerson && t.attribute.type.useBonus == false)
                 .ToList();
 
             return characterAttribute;
         }
 
-        private List<CharacterAttributeModel> LoadBonusValues(List<CharacterAttributeModel> characterAttribute, CharacterAttributeModel c)
-        {
-            try
-            {
-                List<CharacterAttributeModel> result = new List<CharacterAttributeModel>();
-                List<AttributeBonusModel> attributeBonus = new List<AttributeBonusModel>();
-                attributeBonus = db.AttributeBonus.Where(t => c.idAttribute == t.idAttributeBonusClass).ToList();
+        //private List<CharacterAttributeModel> LoadBonusValues(List<CharacterAttributeModel> characterAttribute, CharacterAttributeModel c)
+        //{
+        //    try
+        //    {
+        //        List<CharacterAttributeModel> result = new List<CharacterAttributeModel>();
+        //        List<AttributeBonusModel> attributeBonus = new List<AttributeBonusModel>();
+        //        attributeBonus = db.AttributeBonus.Where(t => c.idAttribute == t.idAttributeBonusClass).ToList();
 
-                foreach (AttributeBonusModel subitem in attributeBonus)
-                {
-                    CharacterAttributeModel obj = characterAttribute.FirstOrDefault(t => t.idAttribute == subitem.idAttribute);
+        //        foreach (AttributeBonusModel subitem in attributeBonus)
+        //        {
+        //            CharacterAttributeModel obj = characterAttribute.FirstOrDefault(t => t.idAttribute == subitem.attribute.idAttribute);
 
-                    if (obj != null)
-                    {
-                        //if (obj.attribute.type.useModifier)
-                        //    obj.value =  (obj.attribute.type.baseModifier - obj.value) / 2;
+        //            if (obj != null)
+        //            {
+        //                //if (obj.attribute.type.useModifier)
+        //                //    obj.value =  (obj.attribute.type.baseModifier - obj.value) / 2;
 
-                        result.Add(obj);
-                    }
-                }
+        //                result.Add(obj);
+        //            }
+        //        }
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -48,15 +48,8 @@ namespace DaemonCharacter.Models
         [DefaultValue(CampaignStatus.Beginning), Display(Name ="Campaign Status")]
         public CampaignStatus campaignStatus { get; set; }
 
-        [Required]
-        public int idMaster { get; set; }
-
-        [ForeignKey("idMaster")]
         public UserProfileModel userMaster { get; set; }
 
-        public virtual List<CharacterModel> userCharacters { get; set; }
-
-        public virtual ICollection<NonPlayerCampaignModel> nonPlayerCampaigns { get; set; }
 
     }
 
@@ -67,20 +60,20 @@ namespace DaemonCharacter.Models
     //    [Key, Column(Order = 1)]
     //    public int idCampaign { get; set; }
 
-    //    [Key, Column(Order =2)]
-    //    [Display(Name ="Date Scheduled"), DataType(DataType.Date)]
+    //    [Key, Column(Order = 2)]
+    //    [Display(Name = "Date Scheduled"), DataType(DataType.Date)]
     //    public DateTime daySchedule { get; set; }
 
     //    [Required]
     //    [Display(Name = "Time Scheduled"), DataType(DataType.Time)]
     //    public DateTime hourSchedule { get; set; }
 
-    //    [Display(Name ="Session Briefing"), DefaultValue("")]
+    //    [Display(Name = "Session Briefing"), DefaultValue("")]
     //    public string briefing { get; set; }
 
     //    public int idPlayer { get; set; }
 
-    //    [Display(Name ="Campaign"), ForeignKey("idCampaign")]
+    //    [Display(Name = "Campaign"), ForeignKey("idCampaign")]
     //    public virtual CampaignModel campaign { get; set; }
 
     //    [ForeignKey("idPlayer")]
@@ -104,11 +97,7 @@ namespace DaemonCharacter.Models
         [Display(Name = "Remaining participants")]
         public int remainingPlayers { get; set; }
 
-        [Required]
-        public int idMaster { get; set; }
-
-        [ForeignKey("idMaster")]
-        public virtual UserProfileModel userMaster { get; set; }
+        public UserProfileModel userMaster { get; set; }
 
     }
 }

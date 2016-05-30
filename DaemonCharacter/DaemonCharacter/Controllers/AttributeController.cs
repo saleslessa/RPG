@@ -13,7 +13,7 @@ namespace DaemonCharacter.Controllers
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
-         //
+        //
         // GET: /Attribute/
 
         public ActionResult Index()
@@ -37,8 +37,8 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult ListBonus(int id = -1)
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
+            //if (!ValidateAuth())
+            //    RedirectToAction("Index", "Home");
 
             ViewBag.selected = GetBonusAttribute(id);
 
@@ -51,11 +51,12 @@ namespace DaemonCharacter.Controllers
         private List<int> GetBonusAttribute(int id)
         {
             if (id != -1)
-                return db.AttributeBonus.Where(t => t.idAttribute == id)
-                    .Select(s => s.idAttributeBonusClass).ToList();
+                return db.Attributes.Where(t => t.ParentAttribute.Exists(e => e.id == id))
+                    .Select(s => s.id).ToList();
             else
                 return new List<int>() { id };
         }
+
         //
         // GET: /Attribute/Details/5
 
@@ -79,7 +80,7 @@ namespace DaemonCharacter.Controllers
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
 
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name");
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name");
             return View();
         }
 
@@ -107,49 +108,28 @@ namespace DaemonCharacter.Controllers
 
         private void SaveAttribute(ref AttributeModel Attribute)
         {
-            Attribute.type = db.AttributeTypes.Find(Attribute.idAttributeType);
             db.Attributes.Add(Attribute);
             db.SaveChanges();
         }
 
-        private void ValidateDuplicateBonus(AttributeBonusModel a)
+        private void SaveAttributeBonus(AttributeModel attribute, ArrayList Bonus)
         {
             try
             {
-                List<AttributeBonusModel> result = db.AttributeBonus
-                    .Where(t => t.idAttribute == a.idAttributeBonusClass && t.idAttributeBonusClass == a.idAttribute)
-                    .ToList();
-
-                if (result.Count > 0)
-                    throw new Exception("You cannot use cyclic bonus");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void SaveAttributeBonus(int idAttribute, ArrayList Bonus)
-        {
-            try
-            {
-                List<AttributeBonusModel> attNot = db.AttributeBonus
-                .Where(t => t.idAttribute == idAttribute).ToList();
-
-                foreach (AttributeBonusModel item in attNot)
-                    db.AttributeBonus.Remove(item);
-
-                db.SaveChanges();
-
                 for (int i = 0; i < Bonus.Count; i++)
                 {
-                    AttributeBonusModel a = new AttributeBonusModel();
-                    a.idAttribute = idAttribute;
-                    a.idAttributeBonusClass = Convert.ToInt32(Bonus[i]);
+                    AttributeModel a = db.Attributes.Find(Bonus[i]);
 
-                    ValidateDuplicateBonus(a);
+                    if (a.ParentAttribute == null) a.ParentAttribute = new List<AttributeModel>();
 
-                    db.AttributeBonus.Add(a);
+                    if (attribute.AttributeBonus == null) attribute.AttributeBonus = new List<AttributeModel>();
+
+                    attribute.AttributeBonus.Add(a);
+                    a.ParentAttribute.Add(attribute);
+
+                    db.Entry(a).State = EntityState.Modified;
+                    db.Entry(attribute).State = EntityState.Modified;
+
                     db.SaveChanges();
                 }
             }
@@ -187,12 +167,15 @@ namespace DaemonCharacter.Controllers
             {
                 try
                 {
+
                     using (TransactionScope scope = new TransactionScope())
                     {
-                        ValidateAttributeType(Attribute.idAttributeType);
+                        AttributeTypeModel a = ValidateAttributeType(Convert.ToInt32(((string[])f.GetValue("idAttributeType").RawValue)[0].ToString()));
+
+                        Attribute.type = a;
 
                         SaveAttribute(ref Attribute);
-                        SaveAttributeBonus(Attribute.idAttribute, SelectAttributeBonus(f));
+                        SaveAttributeBonus(Attribute, SelectAttributeBonus(f));
 
                         scope.Complete();
                     }
@@ -201,7 +184,7 @@ namespace DaemonCharacter.Controllers
                 catch (Exception ex)
                 {
                     ViewBag.Retorno = "An error occured while trying to create this attribute: " + ex.Message;
-                    ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name");
+                    ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name");
                     return View(Attribute);
                 }
 
@@ -225,7 +208,7 @@ namespace DaemonCharacter.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name", AttributeModel.idAttributeType);
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name", AttributeModel.type.id);
             return View(AttributeModel);
         }
 
@@ -246,13 +229,13 @@ namespace DaemonCharacter.Controllers
 
                     AttributeTypeModel a = new AttributeTypeModel();
 
-                    a.idAttributeType = Convert.ToInt32(((string[])f.GetValue("idAttributeType").RawValue)[0].ToString());
+                    a.id = Convert.ToInt32(((string[])f.GetValue("id").RawValue)[0].ToString());
 
-                    a = ValidateAttributeType(a.idAttributeType);
+                    a = ValidateAttributeType(a.id);
                     using (TransactionScope scope = new TransactionScope())
                     {
                         EditAttribute(Att, a);
-                        SaveAttributeBonus(Att.idAttribute, SelectAttributeBonus(f));
+                        //SaveAttributeBonus(Att.id, SelectAttributeBonus(f));
 
                         scope.Complete();
                     }
@@ -263,11 +246,11 @@ namespace DaemonCharacter.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name", Att.idAttributeType);
+                ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name", Att.type.id);
                 ViewBag.Message = ex.Message;
                 return View(Att);
             }
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name", Att.idAttributeType);
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name", Att.type.id);
             ReturnErrorModelState(ModelState);
             return View(Att);
 
@@ -278,7 +261,7 @@ namespace DaemonCharacter.Controllers
         {
             var errors = ModelState.Values.SelectMany(v => v.Errors);
 
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "idAttributeType", "name");
+            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name");
             ViewBag.message = "The following errors occured while trying to create this Attribute:\n";
 
             for (int i = 0; i < errors.ToList().Count; i++)
@@ -290,7 +273,6 @@ namespace DaemonCharacter.Controllers
         private void EditAttribute(AttributeModel Att, AttributeTypeModel type)
         {
             Att.type = type;
-            Att.idAttributeType = type.idAttributeType;
             db.Entry(Att).State = EntityState.Modified;
             db.SaveChanges();
         }
@@ -330,7 +312,7 @@ namespace DaemonCharacter.Controllers
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
-            base.Dispose(disposing);            
+            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -352,18 +334,19 @@ namespace DaemonCharacter.Controllers
             //idPerson != 0 is a Character being edited
             else
             {
-                CharacterModel character = db.Characters.Find(idPerson);
+                List<CharacterAttributeModel> character = db.CharacterAttributes.Where(t => t.character.id == idPerson).ToList();
                 if (character == null)
                 {
                     return HttpNotFound();
                 }
-                attributes = db.Attributes.Where(t => character.attributes.Any(c => c.idAttribute == t.idAttribute)).OrderBy(t => t.type.name);
+
+                attributes = db.Attributes.Where(t => character.Any(c => c.attribute.id == t.id)).OrderBy(t => t.type.name);
             }
 
             return PartialView(attributes);
         }
 
-        public JsonResult FindMinimum(int id=-1)
+        public JsonResult FindMinimum(int id = -1)
         {
 
             if (id == -1 || !ValidateAuth())

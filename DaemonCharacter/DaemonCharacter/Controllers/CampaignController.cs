@@ -76,12 +76,11 @@ namespace DaemonCharacter.Controllers
             {
                 string log = Session["LoggedUser"].ToString();
 
-                int idMaster = db.UserProfiles
+                UserProfileModel idMaster = db.UserProfiles
                 .Where(w => w.UserName == log)
-                .Select(s => s.UserId)
                 .FirstOrDefault();
 
-                campaignmodel.idMaster = idMaster;
+                campaignmodel.userMaster = idMaster;
                 campaignmodel.campaignStatus = CampaignStatus.Beginning;
                 campaignmodel.remainingPlayers = campaignmodel.maxPlayers;
 
@@ -106,7 +105,7 @@ namespace DaemonCharacter.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.idMaster = new SelectList(db.UserProfiles, "UserId", "UserName", campaignmodel.idMaster);
+            ViewBag.idMaster = new SelectList(db.UserProfiles, "UserId", "UserName", campaignmodel.userMaster.UserId);
             return View(campaignmodel);
         }
 
@@ -123,7 +122,7 @@ namespace DaemonCharacter.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.idMaster = new SelectList(db.UserProfiles, "UserId", "UserName", campaignmodel.idMaster);
+            ViewBag.idMaster = new SelectList(db.UserProfiles, "UserId", "UserName", campaignmodel.userMaster.UserId);
             return View(campaignmodel);
         }
 
@@ -167,7 +166,7 @@ namespace DaemonCharacter.Controllers
                 .Select(s => new AvailableCampaignsModel
                 {
                     id = s.id,
-                    idMaster = s.idMaster,
+                    userMaster = s.userMaster,
                     name = s.name,
                     shortDescription = s.shortDescription,
                     remainingPlayers = s.remainingPlayers
