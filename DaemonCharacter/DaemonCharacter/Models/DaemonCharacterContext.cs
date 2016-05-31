@@ -34,11 +34,6 @@ namespace DaemonCharacter.Models
                 .WithOptionalDependent()
                 .Map(t => t.MapKey("idRace"));
 
-            modelBuilder.Entity<CharacterModel>()
-               .HasOptional(t => t.gender)
-               .WithOptionalDependent()
-               .Map(t => t.MapKey("idGender"));
-
 
             modelBuilder.Entity<PlayerModel>()
                 .HasOptional(t => t.campaign)
@@ -117,8 +112,6 @@ namespace DaemonCharacter.Models
         public DbSet<NonPlayerTypeModel> NonPlayerTypes { get; set; }
 
         public DbSet<NonPlayerModel> NonPlayers { get; set; }
-
-        public DbSet<GenderModel> Genders { get; set; }
 
         #endregion
 

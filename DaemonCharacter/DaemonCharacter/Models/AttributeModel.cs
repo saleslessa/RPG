@@ -17,16 +17,16 @@ namespace DaemonCharacter.Models
         [DataType(DataType.MultilineText), MaxLength(250), Display(Name = "Attribute Description")]
         public string description { get; set; }
 
-        [Display(Name = "Type"), Required]
-        public AttributeTypeModel type { get; set; }
+        [Display(Name = "Type")]
+        public virtual AttributeTypeModel type { get; set; }
 
         [Required, Display(Name = "Minimum Required to use")]
         [DefaultValue(0), Range(0, 100)]
         public int minimum { get; set; }
 
-        public List<AttributeModel> ParentAttribute { get; set;}
+        public virtual List<AttributeModel> ParentAttribute { get; set;}
 
-        public List<AttributeModel> AttributeBonus { get; set; }
+        public virtual List<AttributeModel> AttributeBonus { get; set; }
 
     }
 

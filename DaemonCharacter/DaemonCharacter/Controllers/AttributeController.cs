@@ -51,7 +51,10 @@ namespace DaemonCharacter.Controllers
         private List<int> GetBonusAttribute(int id)
         {
             if (id != -1)
-                return db.Attributes.Where(t => t.ParentAttribute.Exists(e => e.id == id))
+                return db.Attributes.Where(t => t.ParentAttribute.Contains(
+                            db.Attributes.Where(tt=>tt.id == id).FirstOrDefault()
+                        )
+                    )
                     .Select(s => s.id).ToList();
             else
                 return new List<int>() { id };
@@ -163,6 +166,10 @@ namespace DaemonCharacter.Controllers
             if (!ValidateAuth())
                 RedirectToAction("Index", "Home");
 
+            AttributeTypeModel a = ValidateAttributeType(Convert.ToInt32(((string[])f.GetValue("idAttributeType").RawValue)[0].ToString()));
+
+            Attribute.type = a;
+
             if (ModelState.IsValid)
             {
                 try
@@ -170,9 +177,7 @@ namespace DaemonCharacter.Controllers
 
                     using (TransactionScope scope = new TransactionScope())
                     {
-                        AttributeTypeModel a = ValidateAttributeType(Convert.ToInt32(((string[])f.GetValue("idAttributeType").RawValue)[0].ToString()));
-
-                        Attribute.type = a;
+                        
 
                         SaveAttribute(ref Attribute);
                         SaveAttributeBonus(Attribute, SelectAttributeBonus(f));

@@ -188,7 +188,6 @@
     <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\CharacterAttributeController.cs" />
     <Compile Include="Controllers\CharacterController.cs" />
-    <Compile Include="Controllers\GenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RaceController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -356,11 +355,6 @@
     <Content Include="Views\Race\Edit.cshtml" />
     <Content Include="Views\Race\Delete.cshtml" />
     <Content Include="Views\Character\CreateNPC.cshtml" />
-    <Content Include="Views\Gender\Index.cshtml" />
-    <Content Include="Views\Gender\Details.cshtml" />
-    <Content Include="Views\Gender\Create.cshtml" />
-    <Content Include="Views\Gender\Edit.cshtml" />
-    <Content Include="Views\Gender\Delete.cshtml" />
     <Content Include="Views\Character\NonPlayerDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>

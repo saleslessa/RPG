@@ -3,6 +3,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+public enum Genders
+{
+    Male = 1,
+    Female = 2,
+    Other = 3
+}
+
 namespace DaemonCharacter.Models
 {
 
@@ -21,7 +28,7 @@ namespace DaemonCharacter.Models
         [Required, Display(Name = "Maximum Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
         public int maxLife { get; set; }
 
-        #region Virtual Attributes
+       
 
         public UserProfileModel user { get; set; }
 
@@ -29,8 +36,8 @@ namespace DaemonCharacter.Models
         public RaceModel race { get; set; }
 
         [Display(Name ="Gender"), Required]
-        public GenderModel gender { get; set; }
-        #endregion
+        public Genders gender { get; set; }
+ 
 
     }
 
@@ -112,7 +119,7 @@ namespace DaemonCharacter.Models
         [ForeignKey("idCampaign")]
         public CampaignModel campaign { get; set; }
 
-        public GenderModel gender { get; set; }
+        public Genders gender { get; set; }
         #endregion
     }
 
@@ -188,16 +195,6 @@ namespace DaemonCharacter.Models
         [Required, Display(Name = "Name")]
         public string name { get; set; }
 
-    }
-
-    [Table("tb_gender")]
-    public class GenderModel
-    {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-
-        [Required, Display(Name = "Name")]
-        public string name { get; set; }
     }
 
     [Table("tb_nonplayer_type")]

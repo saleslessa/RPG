@@ -50,7 +50,7 @@ namespace DaemonCharacter.Controllers
 
         private void PrepareCreateScreen()
         {
-            ViewBag.Genders = new SelectList(db.Genders.ToList(), "id", "name");
+            ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Genders)).Cast<Genders>(), "id", "name");
             ViewBag.display = "none";
             ViewBag.isRegistered = false;
 
@@ -136,8 +136,7 @@ namespace DaemonCharacter.Controllers
 
                 (obj as CharacterModel).race = db.Races.Find(Convert.ToInt32(((string[])f.GetValue("races").RawValue)[0]));
 
-                (obj as CharacterModel).gender = db.Genders.Find(Convert.ToInt32(((string[])f.GetValue("genders").RawValue)[0]));
-
+                (obj as CharacterModel).gender = (Genders)(((object[])f.GetValue("genders").RawValue)[0]);
 
 
 
