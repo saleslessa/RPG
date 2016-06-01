@@ -121,16 +121,16 @@ namespace DaemonCharacter.Controllers
             {
                 for (int i = 0; i < Bonus.Count; i++)
                 {
-                    AttributeModel a = db.Attributes.Find(Bonus[i]);
+                    AttributeModel child = db.Attributes.Find(Bonus[i]);
 
-                    if (a.ParentAttribute == null) a.ParentAttribute = new List<AttributeModel>();
+                    if (child.AttributeBonus == null) child.AttributeBonus = new List<AttributeModel>();
 
-                    if (attribute.AttributeBonus == null) attribute.AttributeBonus = new List<AttributeModel>();
+                    if (attribute.ParentAttribute == null) attribute.ParentAttribute = new List<AttributeModel>();
 
-                    attribute.AttributeBonus.Add(a);
-                    a.ParentAttribute.Add(attribute);
+                    attribute.ParentAttribute.Add(child);
+                    child.AttributeBonus.Add(attribute);
 
-                    db.Entry(a).State = EntityState.Modified;
+                    db.Entry(child).State = EntityState.Modified;
                     db.Entry(attribute).State = EntityState.Modified;
 
                     db.SaveChanges();
@@ -224,8 +224,8 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AttributeModel Att, FormCollection f)
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
+            //if (!ValidateAuth())
+            //    RedirectToAction("Index", "Home");
 
             try
             {
@@ -234,13 +234,13 @@ namespace DaemonCharacter.Controllers
 
                     AttributeTypeModel a = new AttributeTypeModel();
 
-                    a.id = Convert.ToInt32(((string[])f.GetValue("id").RawValue)[0].ToString());
+                    a = ValidateAttributeType(Convert.ToInt32(((string[])f.GetValue("id").RawValue)[0].ToString()));
+                    Att.type = a;
 
-                    a = ValidateAttributeType(a.id);
                     using (TransactionScope scope = new TransactionScope())
                     {
-                        EditAttribute(Att, a);
-                        //SaveAttributeBonus(Att.id, SelectAttributeBonus(f));
+                        EditAttribute(Att);
+                        SaveAttributeBonus(Att, SelectAttributeBonus(f));
 
                         scope.Complete();
                     }
@@ -275,9 +275,8 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        private void EditAttribute(AttributeModel Att, AttributeTypeModel type)
+        private void EditAttribute(AttributeModel Att)
         {
-            Att.type = type;
             db.Entry(Att).State = EntityState.Modified;
             db.SaveChanges();
         }

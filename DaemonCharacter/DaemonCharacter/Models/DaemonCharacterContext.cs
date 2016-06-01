@@ -27,7 +27,7 @@ namespace DaemonCharacter.Models
             modelBuilder.Entity<CharacterModel>()
                 .HasOptional(t => t.user)
                 .WithOptionalDependent()
-                .Map(t => t.MapKey("idUser")); ;
+                .Map(t => t.MapKey("idUser")); 
 
             modelBuilder.Entity<CharacterModel>()
                 .HasOptional(t => t.race)
@@ -56,8 +56,8 @@ namespace DaemonCharacter.Models
                 .Map(t => t.MapKey("idMaster"));
 
             modelBuilder.Entity<AttributeModel>()
-                .HasOptional(t => t.type)
-                .WithOptionalDependent()
+                .HasRequired(t => t.type)
+                .WithMany()
                 .Map(t => t.MapKey("idType"));
 
             modelBuilder.Entity<NonPlayerCampaignModel>()
