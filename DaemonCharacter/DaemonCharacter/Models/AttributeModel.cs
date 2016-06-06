@@ -17,7 +17,7 @@ namespace DaemonCharacter.Models
         [DataType(DataType.MultilineText), MaxLength(250), Display(Name = "Attribute Description")]
         public string description { get; set; }
 
-        [Display(Name = "Type"), Required(ErrorMessage ="Type is necessary")]
+        [Display(Name = "Type")]
         public virtual AttributeTypeModel type { get; set; }
 
         [Required, Display(Name = "Minimum Required to use")]

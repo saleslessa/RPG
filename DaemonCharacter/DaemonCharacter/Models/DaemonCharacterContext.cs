@@ -15,7 +15,7 @@ namespace DaemonCharacter.Models
 
         public DaemonCharacterContext() : base("name=DaemonCharacter")
         {
-
+            //Database.SetInitializer(new DropCreateDatabaseAlways<DaemonCharacterContext>());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,19 +25,19 @@ namespace DaemonCharacter.Models
             //New fluent API
 
             modelBuilder.Entity<CharacterModel>()
-                .HasOptional(t => t.user)
-                .WithOptionalDependent()
+                .HasRequired(t => t.user)
+                .WithMany()
                 .Map(t => t.MapKey("idUser")); 
 
             modelBuilder.Entity<CharacterModel>()
-                .HasOptional(t => t.race)
-                .WithOptionalDependent()
+                .HasRequired(t => t.race)
+                .WithMany()
                 .Map(t => t.MapKey("idRace"));
 
 
             modelBuilder.Entity<PlayerModel>()
                 .HasOptional(t => t.campaign)
-                .WithOptionalDependent()
+                .WithMany()
                 .Map(t => t.MapKey("idCampaign"));
 
             modelBuilder.Entity<CharacterAttributeModel>()
@@ -51,12 +51,12 @@ namespace DaemonCharacter.Models
                 .Map(t => t.MapKey("idAttribute"));
 
             modelBuilder.Entity<CampaignModel>()
-                .HasOptional(t => t.userMaster)
-                .WithOptionalDependent()
+                .HasRequired(t => t.userMaster)
+                .WithMany()
                 .Map(t => t.MapKey("idMaster"));
 
             modelBuilder.Entity<AttributeModel>()
-                .HasRequired(t => t.type)
+                .HasOptional(t => t.type)
                 .WithMany()
                 .Map(t => t.MapKey("idType"));
 

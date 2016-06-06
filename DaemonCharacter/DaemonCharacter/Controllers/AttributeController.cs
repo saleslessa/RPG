@@ -40,7 +40,7 @@ namespace DaemonCharacter.Controllers
             //if (!ValidateAuth())
             //    RedirectToAction("Index", "Home");
 
-            ViewBag.selected = GetBonusAttribute(id);
+            ViewBag.selected = GetBonusAttributeId(id);
 
             IEnumerable<AttributeModel> result = db.Attributes.Where(t => t.type.useBonus == true).ToList();
 
@@ -48,16 +48,28 @@ namespace DaemonCharacter.Controllers
 
         }
 
-        private List<int> GetBonusAttribute(int id)
+        private List<int> GetBonusAttributeId(int id)
         {
             if (id != -1)
                 return db.Attributes.Where(t => t.ParentAttribute.Contains(
-                            db.Attributes.Where(tt=>tt.id == id).FirstOrDefault()
+                            db.Attributes.Where(tt => tt.id == id).FirstOrDefault()
                         )
                     )
                     .Select(s => s.id).ToList();
             else
                 return new List<int>() { id };
+        }
+
+        private List<AttributeModel> GetBonusAttribute(int id)
+        {
+            if (id != -1)
+                return db.Attributes.Where(t => t.ParentAttribute.Contains(
+                            db.Attributes.Where(tt => tt.id == id).FirstOrDefault()
+                        )
+                    )
+                    .ToList();
+            else
+                return null;
         }
 
         //
@@ -119,16 +131,25 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
+                RemoveChilds(attribute);
+
                 for (int i = 0; i < Bonus.Count; i++)
                 {
                     AttributeModel child = db.Attributes.Find(Bonus[i]);
 
-                    if (child.AttributeBonus == null) child.AttributeBonus = new List<AttributeModel>();
+                    //if (child.AttributeBonus == null) child.AttributeBonus = new List<AttributeModel>();
 
-                    if (attribute.ParentAttribute == null) attribute.ParentAttribute = new List<AttributeModel>();
+                    //if (attribute.ParentAttribute == null) attribute.ParentAttribute = new List<AttributeModel>();
 
-                    attribute.ParentAttribute.Add(child);
-                    child.AttributeBonus.Add(attribute);
+                    //attribute.ParentAttribute.Add(child);
+                    //child.AttributeBonus.Add(attribute);
+
+                    if (child.ParentAttribute == null) child.ParentAttribute = new List<AttributeModel>();
+
+                    if (attribute.AttributeBonus == null) attribute.AttributeBonus = new List<AttributeModel>();
+
+                    attribute.AttributeBonus.Add(child);
+                    child.ParentAttribute.Add(attribute);
 
                     db.Entry(child).State = EntityState.Modified;
                     db.Entry(attribute).State = EntityState.Modified;
@@ -177,7 +198,7 @@ namespace DaemonCharacter.Controllers
 
                     using (TransactionScope scope = new TransactionScope())
                     {
-                        
+
 
                         SaveAttribute(ref Attribute);
                         SaveAttributeBonus(Attribute, SelectAttributeBonus(f));
@@ -304,13 +325,57 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
+            //if (!ValidateAuth())
+            //    RedirectToAction("Index", "Home");
 
-            AttributeModel AttributeModel = db.Attributes.Find(id);
-            db.Attributes.Remove(AttributeModel);
-            db.SaveChanges();
+            using (TransactionScope scope = new TransactionScope())
+            {
+                AttributeModel AttributeModel = db.Attributes.Find(id);
+
+                RemoveChilds(AttributeModel);
+                RemoveParents(AttributeModel);
+
+                db.Attributes.Remove(AttributeModel);
+                db.SaveChanges();
+
+                scope.Complete();
+            }
+
             return RedirectToAction("Index");
+        }
+        
+        private void RemoveParents(AttributeModel attribute)
+        {
+            try
+            {
+                attribute.ParentAttribute.Clear();
+                db.Entry(attribute).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        } 
+
+        private void RemoveChilds(AttributeModel attribute)
+        {
+            try
+            {
+                List<AttributeModel> listChild = GetBonusAttribute(attribute.id);
+
+                foreach (AttributeModel item in listChild)
+                {
+                    item.ParentAttribute.Remove(attribute);
+                    db.Entry(item).State = EntityState.Modified;
+                }
+
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected override void Dispose(bool disposing)
