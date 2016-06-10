@@ -21,13 +21,13 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Index()
         {
-            if (Session["LoggedUser"] == null)
+            if (!Request.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                string log = Session["LoggedUser"].ToString();
+                string log = User.Identity.Name;
 
                 if (db.UserProfiles.Where(w => w.UserName == log).First().accessLevel != accessLevel.Admin)
                 {
@@ -91,6 +91,8 @@ namespace DaemonCharacter.Controllers
                     return RedirectToAction("Index");
                 }
             }
+
+            ViewBag.message = "Usuário não logado.";
 
             return View(campaignmodel);
         }

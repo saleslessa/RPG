@@ -42,11 +42,6 @@ namespace DaemonCharacter.Models
         [Required(ErrorMessage ="Field Required"), DefaultValue(true), Display(Name ="Attribute can be bonified?")]
         public bool useBonus { get; set; }
 
-        [Required(ErrorMessage = "Field Required"), DefaultValue(false), Display(Name = "Attribute bonify using modifier?")]
-        public bool useModifier { get; set; }
-
-        [DefaultValue(0), Display(Name = "Base modifier")]
-        public int baseModifier { get; set; }
-
+      
     }
 }

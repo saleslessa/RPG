@@ -338,11 +338,11 @@ ko.utils = new (function () {
             return ko.isObservable(value) ? value.peek() : value;
         },
 
-        toggleDomNodeCssClass: function (node, classNames, shouldHaveClass) {
+        toggleDomNodeclass: function (node, classNames, shouldHaveClass) {
             if (classNames) {
-                var cssClassNameRegex = /[\w-]+/g,
-                    currentClassNames = node.className.match(cssClassNameRegex) || [];
-                ko.utils.arrayForEach(classNames.match(cssClassNameRegex), function(className) {
+                var classNameRegex = /[\w-]+/g,
+                    currentClassNames = node.className.match(classNameRegex) || [];
+                ko.utils.arrayForEach(classNames.match(classNameRegex), function(className) {
                     var indexOfClass = ko.utils.arrayIndexOf(currentClassNames, className);
                     if (indexOfClass >= 0) {
                         if (!shouldHaveClass)
@@ -523,7 +523,7 @@ ko.exportSymbol('utils.parseJson', ko.utils.parseJson);
 ko.exportSymbol('utils.registerEventHandler', ko.utils.registerEventHandler);
 ko.exportSymbol('utils.stringifyJson', ko.utils.stringifyJson);
 ko.exportSymbol('utils.range', ko.utils.range);
-ko.exportSymbol('utils.toggleDomNodeCssClass', ko.utils.toggleDomNodeCssClass);
+ko.exportSymbol('utils.toggleDomNodeclass', ko.utils.toggleDomNodeclass);
 ko.exportSymbol('utils.triggerEvent', ko.utils.triggerEvent);
 ko.exportSymbol('utils.unwrapObservable', ko.utils.unwrapObservable);
 
@@ -2265,13 +2265,13 @@ ko.bindingHandlers['css'] = {
         if (typeof value == "object") {
             for (var className in value) {
                 var shouldHaveClass = ko.utils.unwrapObservable(value[className]);
-                ko.utils.toggleDomNodeCssClass(element, className, shouldHaveClass);
+                ko.utils.toggleDomNodeclass(element, className, shouldHaveClass);
             }
         } else {
             value = String(value || ''); // Make sure we don't try to store or set a non-string value
-            ko.utils.toggleDomNodeCssClass(element, element[classesWrittenByBindingKey], false);
+            ko.utils.toggleDomNodeclass(element, element[classesWrittenByBindingKey], false);
             element[classesWrittenByBindingKey] = value;
-            ko.utils.toggleDomNodeCssClass(element, value, true);
+            ko.utils.toggleDomNodeclass(element, value, true);
         }
     }
 };

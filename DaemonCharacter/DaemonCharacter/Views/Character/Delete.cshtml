@@ -25,6 +25,9 @@
         @Html.DisplayFor(model => model.name)
     </div>
 </fieldset>
+<div style="color:red">
+    @ViewBag.message
+</div>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>

@@ -22,11 +22,16 @@ namespace DaemonCharacter.Controllers
                 {
                     if (f.GetValue(f.Keys[i]) != null && f.Keys[i].Split('_')[0] == "ChkAttr")
                     {
-                        arr.Add(new CharacterAttributeModel(
-                            (int)Session["idCharacter"],
-                            Convert.ToInt32(f.Keys[i].Split('_')[1]),
-                            Convert.ToInt32(((string[])f.GetValue("ValAttr_" + f.Keys[i].Split('_')[1].ToString()).RawValue)[0])
-                        ));
+
+                        CharacterAttributeModel c = new CharacterAttributeModel();
+
+                        c.character = db.Characters.Find((int)Session["idCharacter"]);
+                        c.attribute = db.Attributes.Find(Convert.ToInt32(f.Keys[i].Split('_')[1]));
+                        c.value = Convert.ToInt32(((string[])f.GetValue("ValAttr_" + f.Keys[i].Split('_')[1].ToString()).RawValue)[0]);
+
+
+                        arr.Add(c);
+
                     }
                 }
             }
@@ -116,7 +121,10 @@ namespace DaemonCharacter.Controllers
                 ValidateCharacterAttributeBeforePersist(listOfAttributes);
 
                 foreach (CharacterAttributeModel item in listOfAttributes)
+                {
+                    item.character = (obj as CharacterModel);
                     SaveCharacterAttributes(item);
+                }
 
             }
             catch (Exception ex)
@@ -154,9 +162,12 @@ namespace DaemonCharacter.Controllers
 
                 foreach (CharacterAttributeModel item in listOfAttributes)
                 {
-                    if (db.CharacterAttributes
+
+                    List<CharacterAttributeModel> list = db.CharacterAttributes
                         .Where(t => t.character.id == item.character.id && t.attribute.id == item.attribute.id)
-                        .ToList().Count > 0)
+                        .ToList();
+
+                    if (list != null && list.Count > 0)
                     {
                         db.CharacterAttributes.Remove(item);
                         db.SaveChanges();
@@ -297,6 +308,28 @@ namespace DaemonCharacter.Controllers
             db.CharacterAttributes.Remove(characterAttributeModel);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        protected internal void DeleteCharacter(int idCharacter)
+        {
+            try
+            {
+                List<CharacterAttributeModel> list = db.CharacterAttributes.Where(t => t.character.id == idCharacter).ToList();
+
+                if (list == null)
+                    throw new Exception("Character inexistent to delete attributes");
+
+                foreach (var item in list)
+                {
+                    db.CharacterAttributes.Remove(item);
+                }
+
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public ActionResult ListNonCharacter(string model)

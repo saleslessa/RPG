@@ -42,12 +42,12 @@ namespace DaemonCharacter.Models
 
             modelBuilder.Entity<CharacterAttributeModel>()
                 .HasOptional(t => t.character)
-                .WithOptionalDependent()
+                .WithMany()
                 .Map(t => t.MapKey("idCharacter"));
 
             modelBuilder.Entity<CharacterAttributeModel>()
                 .HasOptional(t => t.attribute)
-                .WithOptionalDependent()
+                .WithMany()
                 .Map(t => t.MapKey("idAttribute"));
 
             modelBuilder.Entity<CampaignModel>()
@@ -60,15 +60,15 @@ namespace DaemonCharacter.Models
                 .WithMany()
                 .Map(t => t.MapKey("idType"));
 
-            modelBuilder.Entity<NonPlayerCampaignModel>()
-                .HasOptional(t => t.nonplayer)
-                .WithOptionalDependent()
-                .Map(t => t.MapKey("idNonPlayer"));
+            //modelBuilder.Entity<NonPlayerCampaignModel>()
+            //    .HasOptional(t => t.nonplayer)
+            //    .WithMany()
+            //    .Map(t => t.MapKey("idNonPlayer"));
 
-            modelBuilder.Entity<NonPlayerCampaignModel>()
-                .HasOptional(t => t.campaign)
-                .WithOptionalDependent()
-                .Map(t => t.MapKey("idCampaign"));
+            //modelBuilder.Entity<NonPlayerCampaignModel>()
+            //    .HasOptional(t => t.session)
+            //    .WithMany()
+            //    .Map(t => t.MapKey("idSession"));
 
             modelBuilder.Entity<AttributeModel>()
                 .HasMany(t => t.ParentAttribute)
@@ -79,12 +79,12 @@ namespace DaemonCharacter.Models
 
             modelBuilder.Entity<ItemAttributeModel>()
                 .HasOptional(t => t.item)
-                .WithOptionalDependent()
+                .WithMany()
                 .Map(t => t.MapKey("idItem"));
 
             modelBuilder.Entity<ItemAttributeModel>()
                 .HasOptional(t => t.attribute)
-                .WithOptionalDependent()
+                .WithMany()
                 .Map(t => t.MapKey("idAttribute"));
 
         }
@@ -105,15 +105,16 @@ namespace DaemonCharacter.Models
 
         public DbSet<CharacterAttributeModel> CharacterAttributes { get; set; }
 
-        public DbSet<NonPlayerCampaignModel> NonPlayerCampaigns { get; set; }
+        //public DbSet<NonPlayerCampaignModel> NonPlayerCampaigns { get; set; }
 
         public DbSet<PlayerModel> Players { get; set; }
 
-        public DbSet<NonPlayerTypeModel> NonPlayerTypes { get; set; }
 
         public DbSet<NonPlayerModel> NonPlayers { get; set; }
 
         #endregion
+
+        public DbSet<CampaignSessionModel> CampaignSession { set; get; }
 
 
     }

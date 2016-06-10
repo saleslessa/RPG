@@ -42,7 +42,7 @@ namespace DaemonCharacter.Controllers
 
             ViewBag.selected = GetBonusAttributeId(id);
 
-            IEnumerable<AttributeModel> result = db.Attributes.Where(t => t.type.useBonus == true).ToList();
+            IEnumerable<AttributeModel> result = db.Attributes.Where(t => t.type.useBonus == true && t.id != id).ToList();
 
             return View(result);
 

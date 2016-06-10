@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
+using System.Transactions;
 
 namespace DaemonCharacter.Controllers
 {
@@ -50,14 +51,14 @@ namespace DaemonCharacter.Controllers
 
         private void PrepareCreateScreen()
         {
-            ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Genders)).Cast<Genders>(), "id", "name");
+            ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Genders)).Cast<Genders>());
             ViewBag.display = "none";
             ViewBag.isRegistered = false;
 
             ViewBag.Races = new SelectList(db.Races.ToList(), "id", "name");
 
 
-            ViewBag.Types = new SelectList(db.NonPlayerTypes.ToList(), "id", "name");
+            ViewBag.Types = new SelectList(Enum.GetValues(typeof(NonPlayerTypes)).Cast<NonPlayerTypes>());
         }
 
         public ActionResult CreateNPC()
@@ -70,38 +71,33 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult CreateNPC(NonPlayerModel NonPlayer, FormCollection f)
         {
-            if (Session["LoggedUser"] == null)
+
+
+            FillProperties(ref NonPlayer, f);
+
+            if (ModelState.IsValid)
             {
-                return Json("User not logged", JsonRequestBehavior.DenyGet);
+                db.NonPlayers.Add(NonPlayer);
+                db.SaveChanges();
+
+                Session["idCharacter"] = NonPlayer.id;
+
+                return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
             }
-            else
+
+            var Message = "The following error occured when trying to create a character:\n";
+
+            foreach (ModelState states in ViewData.ModelState.Values)
             {
-
-                FillProperties(ref NonPlayer, f);
-
-                if (ModelState.IsValid)
+                foreach (ModelError errors in states.Errors)
                 {
-                    db.NonPlayers.Add(NonPlayer);
-                    db.SaveChanges();
-
-                    Session["idCharacter"] = NonPlayer.id;
-
-                    return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
+                    Message += errors.ErrorMessage + "\n";
                 }
-
-                var Message = "The following error occured when trying to create a character:\n";
-
-                foreach (ModelState states in ViewData.ModelState.Values)
-                {
-                    foreach (ModelError errors in states.Errors)
-                    {
-                        Message += errors.ErrorMessage + "\n";
-                    }
-                }
-
-                return Json(Message, JsonRequestBehavior.DenyGet);
-
             }
+
+            return Json(Message, JsonRequestBehavior.DenyGet);
+
+
         }
 
         //
@@ -136,7 +132,7 @@ namespace DaemonCharacter.Controllers
 
                 (obj as CharacterModel).race = db.Races.Find(Convert.ToInt32(((string[])f.GetValue("races").RawValue)[0]));
 
-                (obj as CharacterModel).gender = (Genders)(((object[])f.GetValue("genders").RawValue)[0]);
+                (obj as CharacterModel).gender = (Genders)Enum.Parse(typeof(Genders), (((object[])f.GetValue("genders").RawValue)[0]).ToString(), true);
 
 
 
@@ -147,9 +143,9 @@ namespace DaemonCharacter.Controllers
                     (obj as PlayerModel).campaign = db.CampaignModels.Find(Convert.ToInt32(((string[])f.GetValue("campaigns").RawValue)[0]));
 
                 }
-                if(typeof(T) == typeof(NonPlayerModel))
+                if (typeof(T) == typeof(NonPlayerModel))
                 {
-                    (obj as NonPlayerModel).idType = Convert.ToInt32(((string[])f.GetValue("types").RawValue)[0]);
+                    (obj as NonPlayerModel).type = (NonPlayerTypes)Enum.Parse(typeof(NonPlayerTypes), (((object[])f.GetValue("types").RawValue)[0]).ToString(), true);
                 }
 
             }
@@ -166,40 +162,31 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult CreatePlayer(PlayerModel character, FormCollection f)
         {
-            if (Session["LoggedUser"] == null)
+
+            FillProperties(ref character, f);
+
+            if (ModelState.IsValid)
             {
-                return Json("User not logged", JsonRequestBehavior.DenyGet);
-            }
-            else
-            {
-               
-                FillProperties(ref character, f);
+                db.Characters.Add(character);
+                db.SaveChanges();
 
-                if (ModelState.IsValid)
-                {
-                    db.Characters.Add(character);
-                    db.SaveChanges();
+                Session["idCharacter"] = character.id;
 
-                    Session["idCharacter"] = character.id;
-
-                    return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
-                }
-
-                var Message = "The following error occured when trying to create a character:\n";
-
-                foreach (ModelState states in ViewData.ModelState.Values)
-                {
-                    foreach (ModelError errors in states.Errors)
-                    {
-                        Message += errors.ErrorMessage + "\n";
-                    }
-                }
-
-                return Json(Message, JsonRequestBehavior.DenyGet);
-
+                return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
             }
 
-            
+            var Message = "The following error occured when trying to create a character:\n";
+
+            foreach (ModelState states in ViewData.ModelState.Values)
+            {
+                foreach (ModelError errors in states.Errors)
+                {
+                    Message += errors.ErrorMessage + "\n";
+                }
+            }
+
+            return Json(Message, JsonRequestBehavior.DenyGet);
+
         }
 
         //
@@ -251,10 +238,30 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CharacterModel CharacterModel = db.Characters.Find(id);
-            db.Characters.Remove(CharacterModel);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            CharacterAttributeController ca = new CharacterAttributeController();
+
+            try
+            {
+                
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    CharacterModel CharacterModel = db.Characters.Find(id);
+
+                    ca.DeleteCharacter(id);
+
+                    db.Characters.Remove(CharacterModel);
+                    db.SaveChanges();
+
+                    scope.Complete();
+                }
+                    
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.message = ex.Message;
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)

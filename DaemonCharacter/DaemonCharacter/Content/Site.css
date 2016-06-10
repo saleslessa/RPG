@@ -1,11 +1,10 @@
-﻿html {
+﻿/*html {
     margin: 0;
     padding: 0;
-}
+}*/
 
-body {
-    /*background-image: url('../Images/dragon_2.jpg');
-    background-position:left top*/
+/*body {
+  
     background-repeat:no-repeat;
     background-color:#232323;
 
@@ -23,9 +22,9 @@ body {
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0; 
-}
+}*/
 
-a {
+/*a {
     color: #333;
     outline: none;
     padding-left: 3px;
@@ -99,29 +98,28 @@ h5, h6 {
     h5 a:link, h5 a:visited, h5 a:active {
         padding: 0;
         text-decoration: none;
-    }
+    }*/
 
 
 /* main layout
 ----------------------------------------------------------*/
-.content-wrapper {
+/*.content-wrapper {
     margin: 0 auto;
     max-width: 95%;
 }
 
 #site-logo {
     margin-top: 20px;
-}
+}*/
 
-#body {
-    /*background-color: rgba(253, 253, 253, 0.75);*/
-    /*background-color: rgba(255, 255, 255, 0.90);*/
+/*#body {
+   
     background-color: white;
     padding: 15px;
     
     margin:60px 20px 0 200px;
     max-width:900px;
-    /*border-radius: 15px;*/
+   
     border-color: black;
     margin-bottom:50px;
 }
@@ -145,18 +143,18 @@ footer {
     font-size: .8em;
     height: 30px;
     clear: both;
-}
+}*/
 
 
 /* site title
 ----------------------------------------------------------*/
-.site-title {
+/*.site-title {
     color: #c8c8c8;
     font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
     font-size: 2.3em;
     margin: 0;
     margin-bottom: 25px;
-    /*margin-top: 10px;*/
+    
 }
 
     .site-title a, .site-title a:hover, .site-title a:active {
@@ -164,12 +162,12 @@ footer {
         color: #c8c8c8;
         outline: none;
         text-decoration: none;
-    }
+    }*/
 
 /* login
 ----------------------------------------------------------*/
-#login {
-    /*display: block;*/
+/*#login {
+    
     font-size: .85em;
     margin: 0 0 10px;
     text-align: right;
@@ -198,22 +196,22 @@ footer {
     #login li {
         display: inline;
         list-style: none;
-    }
+    }*/
 
 
 /* page elements
 ----------------------------------------------------------*/
-hgroup.title h1, hgroup.title h2 {
+/*hgroup.title h1, hgroup.title h2 {
     display: inline;
 }
 
 hgroup.title h2 {
     font-weight: normal;
     margin-left: 3px;
-}
+}*/
 
 /* ordered list */
-ol.round {
+/*ol.round {
     list-style-type: none;
     padding-left: 0;
 }
@@ -261,20 +259,20 @@ ol.round {
 
         ol.round li.nine {
             background: url("../Images/orderedList9.png") no-repeat;
-        }
+        }*/
 
 /* content */
-article {
+/*article {
     float: left;
     width: 95%;
 }
 
 .label {
     font-weight: 700;
-}
+}*/
 
 /* login page */
-#loginForm {
+/*#loginForm {
     border-right: solid 2px #c8c8c8;
     float: left;
     width: 55%;
@@ -323,10 +321,10 @@ article {
 
 #logoutForm {
     display: inline;
-}
+}*/
 
 /* contact */
-.contact h3 {
+/*.contact h3 {
     font-size: 1.2em;
 }
 
@@ -337,10 +335,10 @@ article {
 .contact iframe {
     border: 1px solid #333;
     margin: 5px 0 0 10px;
-}
+}*/
 
 /* forms */
-fieldset {
+/*fieldset {
     border: none;
     margin: 0;
     padding: 0;
@@ -413,10 +411,10 @@ td button {
     font-size: 1em;
     padding: 4px;
     margin-right: 4px;
-}
+}*/
 
 /* info and errors */
-.message-info {
+/*.message-info {
     border: 1px solid;
     clear: both;
     padding: 10px 20px;
@@ -439,10 +437,10 @@ td button {
 
 .error {
     color: #e80c4d;
-}
+}*/
 
 /* styles for validation helpers */
-.field-validation-error {
+/*.field-validation-error {
     color: #e80c4d;
     font-weight: bold;
 }
@@ -467,12 +465,12 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
-}
+}*/
 
 
 /* tables
 ----------------------------------------------------------*/
-table {
+/*table {
     border-collapse: collapse;
     border-spacing: 0;
     margin-top: 0.75em;
@@ -529,29 +527,29 @@ td {
 
 tr.pager td {
     padding: 0 0.25em 0 0;
-}
+}*/
 
 
 /********************
 *   Mobile Styles   *
 ********************/
-@media only screen and (max-width: 850px) {
+/*@media only screen and (max-width: 850px) {*/
 
     /* header
     ----------------------------------------------------------*/
-    header .float-left,
+    /*header .float-left,
     header .float-right {
         float: none;
-    }
+    }*/
 
     /* logo */
-    header .site-title {
+    /*header .site-title {
         margin: 10px;
         text-align: center;
-    }
+    }*/
 
     /* login */
-    #login {
+    /*#login {
         font-size: .85em;
         margin: 0 0 12px;
         text-align: center;
@@ -579,11 +577,11 @@ tr.pager td {
 
             #login a:hover {
                 color: #333;
-            }
+            }*/
 
     /* main layout
     ----------------------------------------------------------*/
-    .main-content,
+    /*.main-content,
     .featured + .main-content {
         background-position: 10px 0;
     }
@@ -595,16 +593,16 @@ tr.pager td {
 
     .featured .content-wrapper {
         padding: 10px;
-    }
+    }*/
 
     /* page content */
-    article, aside {
+    /*article, aside {
         float: none;
         width: 100%;
-    }
+    }*/
 
     /* ordered list */
-    ol.round {
+    /*ol.round {
         list-style-type: none;
         padding-left: 0;
     }
@@ -625,10 +623,10 @@ tr.pager td {
             ol.round li.eight,
             ol.round li.nine {
                 background: none;
-            }
+            }*/
 
     /* features */
-    section.feature {
+    /*section.feature {
         float: none;
         padding: 10px;
         width: auto;
@@ -639,15 +637,15 @@ tr.pager td {
             content: attr(alt);
             font-size: 1.5em;
             font-weight: 600;
-        }
+        }*/
 
     /* forms */
-    input {
+    /*input {
         width: 90%;
-    }
+    }*/
 
     /* login page */
-    #loginForm {
+    /*#loginForm {
         border-right: none;
         float: none;
         width: auto;
@@ -662,12 +660,12 @@ tr.pager td {
         margin-left: 0;
         float: none;
         width: auto;
-    }
+    }*/
 
 
     /* footer
     ----------------------------------------------------------*/
-    footer .float-left,
+    /*footer .float-left,
     footer .float-right {
         float: none;
     }
@@ -681,4 +679,4 @@ tr.pager td {
         footer p {
             margin: 0;
         }
-}
+}*/

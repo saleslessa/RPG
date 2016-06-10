@@ -1,7 +1,7 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300);
-@charset "UTF-8";
+﻿/*@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300);*/
+/*@charset "UTF-8";*/
 /* Base Styles */
-#cssmenu,
+/*#cssmenu,
 #cssmenu ul,
 #cssmenu li,
 #cssmenu a {
@@ -35,8 +35,8 @@
 }
 #cssmenu > ul > li:last-child {
   margin: 0;
-}
-#cssmenu > ul > li > a {
+}*/
+/*#cssmenu > ul > li > a {
   font-size: small;
   display: block;
   color: #ffffff;
@@ -46,7 +46,6 @@
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #565656), color-stop(100%, #323232));
   background: -webkit-linear-gradient(#565656 0%, #323232 100%);
   background: linear-gradient(#565656 0%, #323232 100%);
-  /*border: 1px solid #000;*/
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -74,19 +73,17 @@
   background: linear-gradient(goldenrod 0%, goldenrod 100%);
   color: #fff;
   text-shadow: 0 1px 1px #000;
-  /*border: 1px solid black;*/
 }
-#cssmenu > ul > li.active > a span {
-  /*border: 1px solid #97be10;*/
-}
+
 #cssmenu > ul > li.has-sub > a span {
   background: url('../Images/icon_plus.png') 98% center no-repeat;
 }
 #cssmenu > ul > li.has-sub.active > a span {
   background: url('../Images/icon_minus.png') 98% center no-repeat;
-}
+}*/
+
 /* Sub menu */
-#cssmenu ul ul {
+/*#cssmenu ul ul {
   padding: 5px 12px;
   display: none;
 }
@@ -101,4 +98,4 @@
 }
 #cssmenu ul ul a:hover {
   color: goldenrod;
-}
+}*/
