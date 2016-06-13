@@ -9,7 +9,7 @@
 @model IEnumerable<DaemonCharacter.Models.AttributeModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of Attributes";
 }
 
 <h2>Index</h2>
@@ -17,19 +17,13 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table border="1" cellpadding="5" cellspacing="5">
+<table>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.minimum)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type.name)
+            @Html.DisplayNameFor(model => model.type)
         </th>
         <th></th>
     </tr>
@@ -40,13 +34,7 @@
             @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.minimum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.type.name)
+            @Html.DisplayFor(modelItem => item.type)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

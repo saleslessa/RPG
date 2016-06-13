@@ -1,20 +1,13 @@
-﻿@if (!Request.IsAuthenticated)
+﻿@model DaemonCharacter.Models.AttributeModel
+
+<h2 class="background double animated wow fadeInUp" data-wow-delay="0.2s">Create new attribute form</h2>
+
+@using (Html.BeginForm())
 {
-    <script type="text/javascript">
-        window.location.href = '@Url.Action("Index","Home")';
-    </script>
-}
-
-
-@model DaemonCharacter.Models.AttributeModel
-
-@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>AttributeModel</legend>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.name)
         </div>
@@ -30,7 +23,7 @@
             @Html.EditorFor(model => model.description)
             @Html.ValidationMessageFor(model => model.description)
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.minimum)
         </div>
@@ -43,7 +36,7 @@
             @Html.LabelFor(model => model.type)
         </div>
         <div class="editor-field">
-           @Html.DropDownList("idAttributeType", String.Empty)
+            @Html.DropDownList("idAttributeType", String.Empty)
         </div>
         <div class="editor-label">
             <label>Bonus to:</label>
@@ -55,7 +48,7 @@
             <input type="submit" value="Create" />
         </p>
     </fieldset>
-}
+                }
 <div style="color:red">
     @ViewBag.message
 </div>

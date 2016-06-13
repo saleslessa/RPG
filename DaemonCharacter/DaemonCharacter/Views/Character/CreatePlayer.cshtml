@@ -1,11 +1,4 @@
-﻿@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
-{
-    <script type="text/javascript">
-        window.location.href = '@Url.Action("Index","Home")';
-    </script>
-}
-
-@model DaemonCharacter.Models.PlayerModel
+﻿@model DaemonCharacter.Models.PlayerModel
 
 <head>
     <title>Creating a new character</title>
@@ -13,8 +6,10 @@
           rel="stylesheet" type="text/css" />
 </head>
 
-<h3>Create Character Form</h3>
-
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-logoCreateCharacter animated wow fadeInDown"></i>
+    &nbsp;Create Character Form
+</h2>
 <p id="messages">
 </p>
 

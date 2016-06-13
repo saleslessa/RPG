@@ -1,16 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public enum CampaignStatus
-{
-    Beginning = 1,
-    Started = 2,
-    Finished = 3
-}
 
 namespace DaemonCharacter.Models
 {

@@ -2,24 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public enum Genders
-{
-    Male,
-    Female,
-    Other
-}
-
-public enum NonPlayerTypes
-{
-    Enemy,
-    NPC,
-    SideQuest,
-    Other
-}
-
 namespace DaemonCharacter.Models
 {
-
 
     [Table("tb_character")]
     public class CharacterModel
@@ -38,7 +22,7 @@ namespace DaemonCharacter.Models
         public virtual UserProfileModel user { get; set; }
 
         [Display(Name = "Race")]
-        public virtual RaceModel race { get; set; }
+        public Races race { get; set; }
 
         [Display(Name ="Gender")]
         public Genders gender { get; set; }
@@ -186,17 +170,5 @@ namespace DaemonCharacter.Models
     //    [ForeignKey("idSession")]
     //    public virtual CampaignSessionModel session { get; set; }
     //}
-
-
-    [Table("tb_race")]
-    public class RaceModel
-    {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-
-        [Required, Display(Name = "Name")]
-        public string name { get; set; }
-
-    }
 
 }

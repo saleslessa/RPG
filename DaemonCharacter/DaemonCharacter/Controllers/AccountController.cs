@@ -37,7 +37,6 @@ namespace DaemonCharacter.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                Session["LoggedUser"] = model.UserName;
                 return RedirectToLocal(returnUrl);
             }
 

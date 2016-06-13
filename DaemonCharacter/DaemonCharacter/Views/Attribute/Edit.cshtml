@@ -1,26 +1,16 @@
-﻿@if (!Request.IsAuthenticated)
-{
-    <script type="text/javascript">
-        window.location.href = '@Url.Action("Index","Home")';
-    </script>
-}
-
-
-@model DaemonCharacter.Models.AttributeModel
+﻿@model DaemonCharacter.Models.AttributeModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Attribute";
 }
 
-<h2>Edit</h2>
+<h2 class="background double animated wow fadeInUp" data-wow-delay="0.2s">Edit Attribute</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>AttributeModel</legend>
-
         @Html.HiddenFor(model => model.id)
 
         <div class="editor-label">
@@ -47,7 +37,7 @@
             @Html.ValidationMessageFor(model => model.minimum)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.type.name)
+            @Html.LabelFor(model => model.type)
         </div>
         <div class="editor-field">
             @Html.DropDownList("idAttributeType", String.Empty)

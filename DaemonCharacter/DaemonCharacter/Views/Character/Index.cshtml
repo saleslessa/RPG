@@ -1,21 +1,16 @@
-﻿@if (!Request.IsAuthenticated)
-{
-    <script type="text/javascript">
-        window.location.href = '@Url.Action("Index","Home")';
-    </script>
-}
-
-
-@model IEnumerable<DaemonCharacter.Models.CharacterModel>
+﻿@model IEnumerable<DaemonCharacter.Models.CharacterModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of Characters";
 }
 
-<h2>Index</h2>
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-logo animated wow fadeInDown"></i>
+    &nbsp;List of Characters
+</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create Player", "CreatePlayer") | @Html.ActionLink("Create NPC", "CreateNPC", "Character")
 </p>
 <table>
     <tr>
@@ -37,7 +32,7 @@
             @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.race.name)
+            @Html.DisplayFor(modelItem => item.race)
         </td>
         <td>
             @Html.Raw(item.GetType().BaseType.Name.Replace("Model", ""))

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DaemonCharacter.Models
@@ -15,7 +14,7 @@ namespace DaemonCharacter.Models
         [Display(Name = "Item Name"), DataType(DataType.Text)]
         public string name { get; set; }
 
-        [Display(Name ="Other effects"), DataType(DataType.Text), StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength =5)]
+        [Display(Name ="Other effects"), DataType(DataType.MultilineText), StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength =5)]
         public string effect { get; set; }
 
     }
@@ -26,11 +25,19 @@ namespace DaemonCharacter.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        public ItemModel item { get; set; }
+        public virtual ItemModel item { get; set; }
 
-        public AttributeModel attribute { get; set; }
+        public virtual AttributeModel attribute { get; set; }
 
         [Required(ErrorMessage = "You must select a value to associate to this attribute")]
         public int value { get; set; }
+
+        public ItemAttributeModel() { }
+
+        internal ItemAttributeModel(AttributeModel _att, int _value)
+        {
+            this.attribute = _att;
+            this.value = _value;
+        }
     }
 }

@@ -1,0 +1,32 @@
+﻿@model DaemonCharacter.Models.ItemAttributeModel
+
+@{
+    Layout = null;
+}
+
+<div class="partial-create">
+
+    <input type="button" class="RemoveItemAttribute" value=" - " />&nbsp;
+
+    @Html.LabelFor(model => model.attribute.name)
+    @Html.DropDownList("Attributes", (SelectList)ViewBag.Attributes, new { id = "attributes_" + (string)ViewBag.id, Name = "attributes_" + (string)ViewBag.id, SelectedValue = ((SelectList)ViewBag.Attributes).SelectedValue })
+    &nbsp;
+    @Html.LabelFor(model => model.value)
+
+    @Html.TextBoxFor(model => model.value, new { id = "value_" + (string)ViewBag.id, type = "number", Name = "value_" + (string)ViewBag.id, Value = (string)ViewBag.value })
+    @Html.ValidationMessageFor(model => model.value)
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $('input[class=RemoveItemAttribute]').click(function () {
+
+            $(this).parent().fadeOut("slow", function () {
+                $(this).remove();
+            });
+        });
+
+    });
+
+</script>

@@ -1,19 +1,24 @@
-﻿@model DaemonCharacter.Models.RaceModel
+﻿@model DaemonCharacter.Models.ItemModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Item Details";
 }
 
-<h2>Details</h2>
+<h2>Item Details</h2>
 
 <fieldset>
-    <legend>RaceModel</legend>
-
     <div class="display-label">
          @Html.DisplayNameFor(model => model.name)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.effect)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.effect)
     </div>
 </fieldset>
 <p>

@@ -25,14 +25,14 @@
 
     <!-- Required plugin - Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
-    <link href="../fonts/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 
-    <title>@ViewBag.Title - Daemon Character</title>
+    <title>@ViewBag.Title - PLANET RPG</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
     <meta name="viewport" content="width=device-width" />
-    @*<link href="@Url.Content("~/Content/Menu.css")"
-        rel="stylesheet" type="text/css" />*@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -42,72 +42,14 @@
 </head>
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="~/Home/"><i class="fa fa-logo"></i>TEST TEST</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <!-- Left nav -->
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Menu<span id="Span1" class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" data-dropdown-in="fadeInUp" data-dropdown-out="fadeOutDown">
-                            <li>
-                                Attributes
-                                <ul class="dropdown">
-                                    <li>@Html.ActionLink("List Attr", "Index", "Attribute")</li>
-                                    <li>@Html.ActionLink("Create", "Create", "Attribute")</li>
-                                </ul>
-                            </li>
-                            <li>
-                                Attribute Types
-                                <ul class="dropdown">
-                                    <li>@Html.ActionLink("List Types", "Index", "AttributeType")</li>
-                                    <li>@Html.ActionLink("Create", "Create", "AttributeType")</li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#">blog-1</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                    <li id="contact"><a href="contact.htm">Contact</a></li>
-                    <li>
-                        <!-- add search form -->
-                        <div class="navbar-form" role="search">
-                            <div class="input-group">
-                                <input type="text" ID="txtsearch" placeholder="Search this site" class="form-control" />
-                                @*<span class="input-group-btn">
-                                        <input type="button" ID="lbsearch" ToolTip="Search" class="btn btn-default"
-                                                        Text='<i class="glyphicon glyphicon-search"></i>' />
-                                    </span>*@
-                            </div>
-                        </div>
-                    </li>
-                    <li id="login">
-                        @Html.Partial("_loginPartial")
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
+    @Html.Partial("_Menu")
+    
     <div id="body" class="container-fluid">
         <section class="content-wrapper main-content clear-fix">
             @RenderBody()
         </section>
     </div>
-
-
+    
     <footer id="fh5co-footer" class="padding100">
 
         <div class="fh5co-footer-content">
@@ -118,10 +60,6 @@
                         <ul>
                             <li><a href="#">Tour</a></li>
                             <li><a href="#">Company</a></li>
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">New Features</a></li>
-                            <li><a href="#">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.4s">
@@ -129,10 +67,6 @@
                         <ul>
                             <li><a href="#">Help Center</a></li>
                             <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Security</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">More Apps</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.6s">
@@ -141,14 +75,11 @@
                             <li><a href="#">Feedback</a></li>
                             <li><a href="#">Frequently Ask Questions</a></li>
                             <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">More Apps</a></li>
                         </ul>
                     </div>
 
                     <div class="col-md-3 col-sm-12 col-md-pull-9 animated wow fadeInLeft" data-wow-delay="0.8s">
-                        <div class="fh5co-footer-logo"><a href="index.html">TEST TEST</a></div>
+                        <div class="fh5co-footer-logo"><a href="javascript:void(0);"><i class="fa fa-logo"></i>PLANET RPG</a></div>
                         <p class="fh5co-copyright"><small>&copy; 2016. All Rights Reserved.</small></p>
                         <p class="fh5co-social-icons">
                             <a href="#"><i class="fa fa-twitter"></i></a>

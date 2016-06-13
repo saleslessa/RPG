@@ -11,16 +11,16 @@
         <legend>Attributes</legend>
 
         @{
-            var type = string.Empty;
+            var type = AttributeType.Characteristic;
         }
         <dl>
             @foreach (var items in Model)
             {
-                if (type != items.type.name)
+                if (type != items.type)
                 {
-                    type = items.type.name;
+                    type = items.type;
 
-                    <dd class="selector-Dynamic-header">@Html.DisplayName(type)</dd>
+                    <dd class="selector-Dynamic-header">@Html.DisplayName(type.ToString())</dd>
 
                 }
                 <dt class="selector-Dynamic-details">

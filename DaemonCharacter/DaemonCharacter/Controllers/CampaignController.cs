@@ -1,46 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
 using Newtonsoft.Json.Linq;
-using System.Web.Script.Serialization;
-using System.Collections;
 
 namespace DaemonCharacter.Controllers
 {
     public class CampaignController : Controller
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
+        private string loggedUser = string.Empty;
+
+        public CampaignController() : base()
+        {
+            //if (!User.Identity.IsAuthenticated)
+            //    RedirectToAction("Index", "Home");
+
+            //this.loggedUser = User.Identity.Name;
+        }
 
         //
         // GET: /Campaign/
 
         public ActionResult Index()
         {
-            if (!Request.IsAuthenticated)
+
+            if (db.UserProfiles.Where(w => w.UserName == loggedUser).First().accessLevel != accessLevel.Admin)
             {
-                return RedirectToAction("Index", "Home");
+                var campaignmodels = db.CampaignModels
+                .Where(w => w.userMaster.UserName == loggedUser);
+                return View(campaignmodels.ToList());
             }
             else
             {
-                string log = User.Identity.Name;
-
-                if (db.UserProfiles.Where(w => w.UserName == log).First().accessLevel != accessLevel.Admin)
-                {
-                    var campaignmodels = db.CampaignModels
-                    .Where(w => w.userMaster.UserName == log);
-                    return View(campaignmodels.ToList());
-                }
-                else
-                {
-                    var campaignmodels = db.CampaignModels;
-                    return View(campaignmodels.ToList());
-                }
+                var campaignmodels = db.CampaignModels;
+                return View(campaignmodels.ToList());
             }
+
         }
 
 
@@ -72,27 +69,22 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CampaignModel campaignmodel)
         {
-            if (Session["LoggedUser"] != null)
+
+            UserProfileModel idMaster = db.UserProfiles
+            .Where(w => w.UserName == User.Identity.Name)
+            .FirstOrDefault();
+
+            campaignmodel.userMaster = idMaster;
+            campaignmodel.campaignStatus = CampaignStatus.Beginning;
+            campaignmodel.remainingPlayers = campaignmodel.maxPlayers;
+
+            if (ModelState.IsValid)
             {
-                string log = Session["LoggedUser"].ToString();
-
-                UserProfileModel idMaster = db.UserProfiles
-                .Where(w => w.UserName == log)
-                .FirstOrDefault();
-
-                campaignmodel.userMaster = idMaster;
-                campaignmodel.campaignStatus = CampaignStatus.Beginning;
-                campaignmodel.remainingPlayers = campaignmodel.maxPlayers;
-
-                if (ModelState.IsValid)
-                {
-                    db.CampaignModels.Add(campaignmodel);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                db.CampaignModels.Add(campaignmodel);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            ViewBag.message = "Usuário não logado.";
 
             return View(campaignmodel);
         }
@@ -178,6 +170,8 @@ namespace DaemonCharacter.Controllers
 
         }
 
+
+        //TODO: Adjust output of this method!
         public JsonResult GetSelectedCampaign(int idCampaign = -1)
         {
 
@@ -205,11 +199,6 @@ namespace DaemonCharacter.Controllers
                 );
 
             string r = a.name + "|" + a.shortDescription + "|" + a.remainingPlayers.ToString() + "|" + a.userMaster.UserName;
-
-            //JavaScriptSerializer oSerializer = new JavaScriptSerializer();
-
-            //string sJSON = oSerializer.Serialize(result);
-
 
             return Json(r, JsonRequestBehavior.AllowGet);
         }

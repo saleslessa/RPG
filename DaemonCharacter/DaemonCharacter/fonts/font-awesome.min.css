@@ -1160,6 +1160,15 @@
     content: "\f002";
 }
 
+.fa-logo:before {
+    content: "\f009";
+}
+
+.fa-logoCreateCharacter:before {
+    content: "\f007";
+}
+
+
 .fa-tablet:before {
     content: "\f10a";
 }

@@ -1,56 +1,8 @@
-﻿/*html {
-    margin: 0;
-    padding: 0;
-}*/
-
-/*body {
-  
-    background-repeat:no-repeat;
-    background-color:#232323;
-
-
-    background: #FFF; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(90deg, #DDD, #FFF); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(90deg, #DDD, #FFF); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(90deg, #DDD, #FFF); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(90deg, #DDD, #FFF); /* Standard syntax */
-
-
-    border-top: solid 10px #000;
-    color: #333;
-    font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    margin: 0;
-    padding: 0; 
-}*/
-
-/*a {
-    color: #333;
-    outline: none;
-    padding-left: 3px;
-    padding-right: 3px;
-    text-decoration: underline;
-}
-
-    a:link, a:visited,
-    a:active, a:hover {
-        color: #333;
-    }
-
-    a:hover {
-        background-color: #c7d1d6;
-    }
-
-header, footer, hgroup,
+﻿header, footer, hgroup,
 nav, section {
     display: block;
 }
 
-mark {
-    background-color: #a6dbed;
-    padding-left: 5px;
-    padding-right: 5px;
-}
 
 .float-left {
     float: left;
@@ -68,150 +20,27 @@ mark {
     visibility: hidden;
 }
 
-h1, h2, h3,
-h4, h5, h6 {
-    color: #000;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-h1 {
-    font-size: 2em;
-}
-
-h2 {
-    font-size: 1.75em;
-}
-
-h3 {
-    font-size: 1.2em;
-}
-
-h4 {
-    font-size: 1.1em;
-}
-
-h5, h6 {
-    font-size: 1em;
-}
-
-    h5 a:link, h5 a:visited, h5 a:active {
-        padding: 0;
-        text-decoration: none;
-    }*/
-
 
 /* main layout
 ----------------------------------------------------------*/
-/*.content-wrapper {
+.content-wrapper {
     margin: 0 auto;
     max-width: 95%;
 }
 
-#site-logo {
-    margin-top: 20px;
-}*/
-
-/*#body {
-   
-    background-color: white;
-    padding: 15px;
-    
-    margin:60px 20px 0 200px;
-    max-width:900px;
-   
-    border-color: black;
-    margin-bottom:50px;
-}
-
-
-#site-menu {
-    top:110px;
-    left:10px;
-    position:absolute;
-}
-
-header .content-wrapper {
-    padding-top: 20px;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: goldenrod;
-    font-size: .8em;
-    height: 30px;
-    clear: both;
-}*/
-
-
-/* site title
-----------------------------------------------------------*/
-/*.site-title {
-    color: #c8c8c8;
-    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
-    font-size: 2.3em;
-    margin: 0;
-    margin-bottom: 25px;
-    
-}
-
-    .site-title a, .site-title a:hover, .site-title a:active {
-        background: none;
-        color: #c8c8c8;
-        outline: none;
-        text-decoration: none;
-    }*/
-
-/* login
-----------------------------------------------------------*/
-/*#login {
-    
-    font-size: .85em;
-    margin: 0 0 10px;
-    text-align: right;
-}
-
-    #login a {
-        background-color: #d3dce0;
-        margin-left: 10px;
-        margin-right: 30px;
-        padding: 2px 3px;
-        text-decoration: none;
-    }
-
-        #login a.username {
-            background: none;
-            margin: 0;
-            padding: 0;
-            text-decoration: underline;
-            color:white;
-        }
-
-    #login ul {
-        margin: 0;
-    }
-
-    #login li {
-        display: inline;
-        list-style: none;
-    }*/
-
-
 /* page elements
 ----------------------------------------------------------*/
-/*hgroup.title h1, hgroup.title h2 {
+hgroup.title h1, hgroup.title h2 {
     display: inline;
 }
 
 hgroup.title h2 {
     font-weight: normal;
     margin-left: 3px;
-}*/
+}
 
 /* ordered list */
-/*ol.round {
+ol.round {
     list-style-type: none;
     padding-left: 0;
 }
@@ -259,51 +88,9 @@ hgroup.title h2 {
 
         ol.round li.nine {
             background: url("../Images/orderedList9.png") no-repeat;
-        }*/
+        }
 
 /* content */
-/*article {
-    float: left;
-    width: 95%;
-}
-
-.label {
-    font-weight: 700;
-}*/
-
-/* login page */
-/*#loginForm {
-    border-right: solid 2px #c8c8c8;
-    float: left;
-    width: 55%;
-}
-
-    #loginForm .validation-error {
-        display: block;
-        margin-left: 15px;
-    }
-
-    #loginForm .validation-summary-errors ul {
-        margin: 0;
-        padding: 0;
-    }
-
-    #loginForm .validation-summary-errors li {
-        display: inline;
-        list-style: none;
-        margin: 0;
-    }
-
-    #loginForm input {
-        width: 250px;
-    }
-
-        #loginForm input[type="checkbox"],
-        #loginForm input[type="submit"],
-        #loginForm input[type="button"],
-        #loginForm button {
-            width: auto;
-        }
 
 #socialLoginForm {
     margin-left: 40px;
@@ -321,24 +108,11 @@ hgroup.title h2 {
 
 #logoutForm {
     display: inline;
-}*/
-
-/* contact */
-/*.contact h3 {
-    font-size: 1.2em;
 }
 
-.contact p {
-    margin: 5px 0 0 10px;
-}
-
-.contact iframe {
-    border: 1px solid #333;
-    margin: 5px 0 0 10px;
-}*/
 
 /* forms */
-/*fieldset {
+fieldset {
     border: none;
     margin: 0;
     padding: 0;
@@ -411,10 +185,10 @@ td button {
     font-size: 1em;
     padding: 4px;
     margin-right: 4px;
-}*/
+}
 
 /* info and errors */
-/*.message-info {
+.message-info {
     border: 1px solid;
     clear: both;
     padding: 10px 20px;
@@ -437,10 +211,10 @@ td button {
 
 .error {
     color: #e80c4d;
-}*/
+}
 
 /* styles for validation helpers */
-/*.field-validation-error {
+.field-validation-error {
     color: #e80c4d;
     font-weight: bold;
 }
@@ -465,12 +239,12 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
-}*/
+}
 
 
 /* tables
 ----------------------------------------------------------*/
-/*table {
+table {
     border-collapse: collapse;
     border-spacing: 0;
     margin-top: 0.75em;
@@ -527,29 +301,29 @@ td {
 
 tr.pager td {
     padding: 0 0.25em 0 0;
-}*/
+}
 
 
 /********************
 *   Mobile Styles   *
 ********************/
-/*@media only screen and (max-width: 850px) {*/
+@media only screen and (max-width: 850px) {
 
     /* header
     ----------------------------------------------------------*/
-    /*header .float-left,
+    header .float-left,
     header .float-right {
         float: none;
-    }*/
+    }
 
     /* logo */
-    /*header .site-title {
+    header .site-title {
         margin: 10px;
         text-align: center;
-    }*/
+    }
 
     /* login */
-    /*#login {
+    #login {
         font-size: .85em;
         margin: 0 0 12px;
         text-align: center;
@@ -577,11 +351,11 @@ tr.pager td {
 
             #login a:hover {
                 color: #333;
-            }*/
+            }
 
     /* main layout
     ----------------------------------------------------------*/
-    /*.main-content,
+    .main-content,
     .featured + .main-content {
         background-position: 10px 0;
     }
@@ -593,16 +367,16 @@ tr.pager td {
 
     .featured .content-wrapper {
         padding: 10px;
-    }*/
+    }
 
     /* page content */
-    /*article, aside {
+    article, aside {
         float: none;
         width: 100%;
-    }*/
+    }
 
     /* ordered list */
-    /*ol.round {
+    ol.round {
         list-style-type: none;
         padding-left: 0;
     }
@@ -623,10 +397,10 @@ tr.pager td {
             ol.round li.eight,
             ol.round li.nine {
                 background: none;
-            }*/
+            }
 
     /* features */
-    /*section.feature {
+    section.feature {
         float: none;
         padding: 10px;
         width: auto;
@@ -637,15 +411,15 @@ tr.pager td {
             content: attr(alt);
             font-size: 1.5em;
             font-weight: 600;
-        }*/
+        }
 
     /* forms */
-    /*input {
+    input {
         width: 90%;
-    }*/
+    }
 
     /* login page */
-    /*#loginForm {
+    #loginForm {
         border-right: none;
         float: none;
         width: auto;
@@ -660,12 +434,12 @@ tr.pager td {
         margin-left: 0;
         float: none;
         width: auto;
-    }*/
+    }
 
 
     /* footer
     ----------------------------------------------------------*/
-    /*footer .float-left,
+    footer .float-left,
     footer .float-right {
         float: none;
     }
@@ -679,4 +453,30 @@ tr.pager td {
         footer p {
             margin: 0;
         }
-}*/
+}
+
+.partial-create {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 7px 0px 7px 0px;
+    width:auto;
+}
+
+    .partial-create label {
+        display: inline;
+    }
+
+    .partial-create input
+    {
+        max-width:75px;
+        margin:5px;
+    }
+
+    .partial-create select {
+        margin:5px;
+    }
+
+    .partial-create button {
+        border-radius:30px;
+    }

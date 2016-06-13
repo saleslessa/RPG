@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
-using System.Collections;
 using System.Transactions;
 
 namespace DaemonCharacter.Controllers
@@ -13,6 +12,11 @@ namespace DaemonCharacter.Controllers
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
+        public CharacterAttributeController()
+        {
+            //if (!Request.IsAuthenticated)
+            //    RedirectToAction("Index", "Home");
+        }
 
         private void SelectAttributesFromSelectedCheckboxes(ref List<CharacterAttributeModel> arr, FormCollection f)
         {
@@ -28,7 +32,6 @@ namespace DaemonCharacter.Controllers
                         c.character = db.Characters.Find((int)Session["idCharacter"]);
                         c.attribute = db.Attributes.Find(Convert.ToInt32(f.Keys[i].Split('_')[1]));
                         c.value = Convert.ToInt32(((string[])f.GetValue("ValAttr_" + f.Keys[i].Split('_')[1].ToString()).RawValue)[0]);
-
 
                         arr.Add(c);
 
@@ -92,11 +95,28 @@ namespace DaemonCharacter.Controllers
 
         }
 
+        private CharacterModel GetCharacter(int id)
+        {
+            CharacterModel c = db.Characters.Find(id);
+
+            try
+            {
+                if (c == null)
+                    throw new Exception("Player not found");
+
+                return c;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private void ValidateSumAttributes(List<CharacterAttributeModel> attributes)
         {
             try
             {
-                PlayerModel c = db.Players.Find(Session["idCharacter"]);
+                PlayerModel c = (GetCharacter((int)Session["idCharacter"]) as PlayerModel);
                 int total = 0;
 
                 foreach (var item in attributes)
@@ -117,7 +137,6 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
-
                 ValidateCharacterAttributeBeforePersist(listOfAttributes);
 
                 foreach (CharacterAttributeModel item in listOfAttributes)
@@ -191,7 +210,6 @@ namespace DaemonCharacter.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //item.bonusValues = new List<CharacterAttributeModel>();
                     db.CharacterAttributes.Add(item);
                     db.SaveChanges();
                 }
@@ -202,49 +220,21 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        //private CharacterModel ValidateCharacter(string idCharacter)
-        //{
-        //    try
-        //    {
-        //        CharacterModel c = db.Characters.Find(Convert.ToInt32(idCharacter));
-
-        //        if (c == null)
-        //            throw new Exception("Invalid Character to input attributes. Please try again");
-
-        //        return c;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
         private object ValidateCharacter<T>(string model, int id)
         {
             try
             {
-
-                if (model == "PlayerModel")
+                switch (model)
                 {
-                    var result = db.Players.Find(id);
+                    case "PlayerModel":
+                        return (GetCharacter(id) as PlayerModel);
 
-                    if (result == null)
-                        throw new Exception("Invalid Player to input attributes. Please try again");
+                    case "NonPlayerModel":
+                        return (db.NonPlayers.Find(id) as NonPlayerModel);
 
-                    return result;
+                    default:
+                        throw new Exception("model doesn't exist");
                 }
-                else if (model == "NonPlayerModel")
-                {
-                    var result = db.NonPlayers.Find(id);
-
-                    if (result == null)
-                        throw new Exception("Invalid Player to input attributes. Please try again");
-
-
-                    return result;
-                }
-                else
-                    throw new Exception("model doesn't exist");
 
             }
             catch (Exception ex)
@@ -252,64 +242,7 @@ namespace DaemonCharacter.Controllers
                 throw ex;
             }
         }
-
-        //
-        // GET: /CharacterAttribute/Edit/5
-
-        public ActionResult Edit(int id = 0)
-        {
-            CharacterAttributeModel characterAttributeModel = db.CharacterAttributes.Find(id);
-            if (characterAttributeModel == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterAttributeModel.attribute.id);
-            return View(characterAttributeModel);
-        }
-
-        //
-        // POST: /CharacterAttribute/Edit/5
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(CharacterAttributeModel characterAttributeModel)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(characterAttributeModel).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.idAttribute = new SelectList(db.Attributes, "idAttribute", "name", characterAttributeModel.attribute.id);
-            return View(characterAttributeModel);
-        }
-
-        //
-        // GET: /CharacterAttribute/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            CharacterAttributeModel characterAttributeModel = db.CharacterAttributes.Find(id);
-            if (characterAttributeModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(characterAttributeModel);
-        }
-
-        //
-        // POST: /CharacterAttribute/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            CharacterAttributeModel characterAttributeModel = db.CharacterAttributes.Find(id);
-            db.CharacterAttributes.Remove(characterAttributeModel);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+ 
         protected internal void DeleteCharacter(int idCharacter)
         {
             try
@@ -336,7 +269,7 @@ namespace DaemonCharacter.Controllers
         {
             IEnumerable<AttributeModel> attributes;
 
-            attributes = db.Attributes.ToList().OrderBy(t => t.type.name);
+            attributes = db.Attributes.ToList().OrderBy(t => t.type);
             ViewBag.model = model;
 
             return PartialView(attributes);
@@ -352,13 +285,12 @@ namespace DaemonCharacter.Controllers
             return PartialView(GetCharacterAttributeWithNoBonus(id));
         }
 
-
         private IEnumerable<CharacterAttributeModel> GetCharacterAttributeWithBonus(int id)
         {
             List<CharacterAttributeModel> characterAttribute;
 
             characterAttribute = db.CharacterAttributes
-                .Where(t => t.character.id == id && t.attribute.type.useBonus == true)
+                .Where(t => t.character.id == id && t.attribute.type == AttributeType.Characteristic)
                 .ToList();
 
             foreach (CharacterAttributeModel item in characterAttribute)
@@ -374,41 +306,13 @@ namespace DaemonCharacter.Controllers
             IEnumerable<CharacterAttributeModel> characterAttribute;
 
             characterAttribute = db.CharacterAttributes
-                .Where(t => t.character.id == idPerson && t.attribute.type.useBonus == false)
+                .Where(t => t.character.id == idPerson && t.attribute.type != AttributeType.Characteristic)
                 .ToList();
 
             return characterAttribute;
         }
 
-        //private List<CharacterAttributeModel> LoadBonusValues(List<CharacterAttributeModel> characterAttribute, CharacterAttributeModel c)
-        //{
-        //    try
-        //    {
-        //        List<CharacterAttributeModel> result = new List<CharacterAttributeModel>();
-        //        List<AttributeBonusModel> attributeBonus = new List<AttributeBonusModel>();
-        //        attributeBonus = db.AttributeBonus.Where(t => c.idAttribute == t.idAttributeBonusClass).ToList();
-
-        //        foreach (AttributeBonusModel subitem in attributeBonus)
-        //        {
-        //            CharacterAttributeModel obj = characterAttribute.FirstOrDefault(t => t.idAttribute == subitem.attribute.idAttribute);
-
-        //            if (obj != null)
-        //            {
-        //                //if (obj.attribute.type.useModifier)
-        //                //    obj.value =  (obj.attribute.type.baseModifier - obj.value) / 2;
-
-        //                result.Add(obj);
-        //            }
-        //        }
-
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
+        
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

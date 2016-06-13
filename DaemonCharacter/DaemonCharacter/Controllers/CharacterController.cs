@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
 using System.Transactions;
+using System.Net;
 
 namespace DaemonCharacter.Controllers
 {
     public class CharacterController : Controller
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
+        private string loggedUser;
 
-        //
-        // GET: /Character/
+
+        public CharacterController() : base()
+        {
+
+            //if (!User.Identity.IsAuthenticated)
+            //    RedirectToAction("Index", "Home");
+
+            //this.loggedUser = User.Identity.Name;
+        }
+
 
         public ActionResult Index()
         {
             return View(db.Characters.ToList());
         }
-
 
         //
         // GET: /Character/PlayerDetails/5
@@ -47,65 +54,72 @@ namespace DaemonCharacter.Controllers
             return View(model);
         }
 
-
-
-        private void PrepareCreateScreen()
+        private void PrepareScreenCreate()
         {
             ViewBag.Genders = new SelectList(Enum.GetValues(typeof(Genders)).Cast<Genders>());
             ViewBag.display = "none";
-            ViewBag.isRegistered = false;
 
-            ViewBag.Races = new SelectList(db.Races.ToList(), "id", "name");
-
-
+            ViewBag.Races = new SelectList(Enum.GetValues(typeof(Races)).Cast<Races>());
             ViewBag.Types = new SelectList(Enum.GetValues(typeof(NonPlayerTypes)).Cast<NonPlayerTypes>());
         }
 
         public ActionResult CreateNPC()
         {
-            PrepareCreateScreen();
-            return View();
+            try
+            {
+                PrepareScreenCreate();
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public JsonResult CreateNPC(NonPlayerModel NonPlayer, FormCollection f)
         {
-
-
-            FillProperties(ref NonPlayer, f);
-
-            if (ModelState.IsValid)
+            try
             {
-                db.NonPlayers.Add(NonPlayer);
-                db.SaveChanges();
+                this.loggedUser = User.Identity.Name;
 
-                Session["idCharacter"] = NonPlayer.id;
+                FillProperties(ref NonPlayer, f);
 
-                return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
-            }
-
-            var Message = "The following error occured when trying to create a character:\n";
-
-            foreach (ModelState states in ViewData.ModelState.Values)
-            {
-                foreach (ModelError errors in states.Errors)
+                if (ModelState.IsValid)
                 {
-                    Message += errors.ErrorMessage + "\n";
+                    db.NonPlayers.Add(NonPlayer);
+                    db.SaveChanges();
+
+                    Session["idCharacter"] = NonPlayer.id;
+
+                    return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
                 }
+
+                var Message = "The following error occured when trying to create a character:\n";
+
+                foreach (ModelState states in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError errors in states.Errors)
+                    {
+                        Message += errors.ErrorMessage + "\n";
+                    }
+                }
+
+                return Json(Message, JsonRequestBehavior.DenyGet);
             }
-
-            return Json(Message, JsonRequestBehavior.DenyGet);
-
-
+            catch (Exception)
+            {
+                return Json(HttpStatusCode.Forbidden, JsonRequestBehavior.DenyGet);
+            }
         }
 
         //
         // GET: /Character/Create
         public ActionResult CreatePlayer()
         {
-            PrepareCreateScreen();
 
+            PrepareScreenCreate();
             CreateSelectListAvailableCampaigns();
 
             return View();
@@ -120,21 +134,16 @@ namespace DaemonCharacter.Controllers
 
         private void FillProperties<T>(ref T obj, FormCollection f)
         {
-
             try
             {
 
-                string log = Session["LoggedUser"].ToString();
-
                 (obj as CharacterModel).user = db.UserProfiles
-                           .Where(w => w.UserName == log)
+                           .Where(w => w.UserName == this.loggedUser)
                            .FirstOrDefault();
 
-                (obj as CharacterModel).race = db.Races.Find(Convert.ToInt32(((string[])f.GetValue("races").RawValue)[0]));
+                (obj as CharacterModel).race = (Races)Enum.Parse(typeof(Races), (((object[])f.GetValue("races").RawValue)[0]).ToString(), true);
 
                 (obj as CharacterModel).gender = (Genders)Enum.Parse(typeof(Genders), (((object[])f.GetValue("genders").RawValue)[0]).ToString(), true);
-
-
 
                 if (typeof(T) == typeof(PlayerModel))
                 {
@@ -160,17 +169,17 @@ namespace DaemonCharacter.Controllers
         // POST: /Character/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult CreatePlayer(PlayerModel character, FormCollection f)
+        public JsonResult CreatePlayer(PlayerModel player, FormCollection f)
         {
-
-            FillProperties(ref character, f);
+            this.loggedUser = User.Identity.Name;
+            FillProperties(ref player, f);
 
             if (ModelState.IsValid)
             {
-                db.Characters.Add(character);
+                db.Characters.Add(player);
                 db.SaveChanges();
 
-                Session["idCharacter"] = character.id;
+                Session["idCharacter"] = player.id;
 
                 return Json("Character Created. Please select the attributes below", JsonRequestBehavior.DenyGet);
             }
@@ -195,6 +204,9 @@ namespace DaemonCharacter.Controllers
         public ActionResult Edit(int id = 0)
         {
             CharacterModel CharacterModel = db.Characters.Find(id);
+
+            ViewBag.Races = new SelectList(Enum.GetValues(typeof(Races)).Cast<Races>(), CharacterModel.race);
+
             if (CharacterModel == null)
             {
                 return HttpNotFound();
@@ -207,10 +219,15 @@ namespace DaemonCharacter.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CharacterModel CharacterModel)
+        public ActionResult Edit(CharacterModel CharacterModel, FormCollection f)
         {
+            this.loggedUser = User.Identity.Name;
             if (ModelState.IsValid)
             {
+                CharacterModel.race = (Races)Enum.Parse(typeof(Races), (((object[])f.GetValue("races").RawValue)[0]).ToString(), true);
+                CharacterModel.gender = (Genders)Enum.Parse(typeof(Genders), (((object[])f.GetValue("genders").RawValue)[0]).ToString(), true);
+
+
                 db.Entry(CharacterModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -242,7 +259,7 @@ namespace DaemonCharacter.Controllers
 
             try
             {
-                
+
                 using (TransactionScope scope = new TransactionScope())
                 {
                     CharacterModel CharacterModel = db.Characters.Find(id);
@@ -254,7 +271,7 @@ namespace DaemonCharacter.Controllers
 
                     scope.Complete();
                 }
-                    
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

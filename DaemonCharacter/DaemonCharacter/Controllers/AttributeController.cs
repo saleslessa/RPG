@@ -13,39 +13,26 @@ namespace DaemonCharacter.Controllers
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
+        public AttributeController()
+        {
+            //if (!Request.IsAuthenticated)
+            //    RedirectToAction("Index", "Home");
+        }
+
         //
         // GET: /Attribute/
 
         public ActionResult Index()
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
-
             return View(db.Attributes.ToList());
-        }
-
-        public bool ValidateAuth()
-        {
-            if (!Request.IsAuthenticated)
-            {
-                RedirectToAction("Index", "Home");
-                return false;
-            }
-            return true;
-
         }
 
         public ActionResult ListBonus(int id = -1)
         {
-            //if (!ValidateAuth())
-            //    RedirectToAction("Index", "Home");
-
             ViewBag.selected = GetBonusAttributeId(id);
-
-            IEnumerable<AttributeModel> result = db.Attributes.Where(t => t.type.useBonus == true && t.id != id).ToList();
+            IEnumerable<AttributeModel> result = db.Attributes.Where(t => t.type != AttributeType.Characteristic && t.id != id).ToList();
 
             return View(result);
-
         }
 
         private List<int> GetBonusAttributeId(int id)
@@ -62,14 +49,11 @@ namespace DaemonCharacter.Controllers
 
         private List<AttributeModel> GetBonusAttribute(int id)
         {
-            if (id != -1)
-                return db.Attributes.Where(t => t.ParentAttribute.Contains(
-                            db.Attributes.Where(tt => tt.id == id).FirstOrDefault()
-                        )
+            return db.Attributes.Where(t => t.ParentAttribute.Contains(
+                        db.Attributes.Where(tt => tt.id == id).FirstOrDefault()
                     )
-                    .ToList();
-            else
-                return null;
+                )
+                .ToList();
         }
 
         //
@@ -77,8 +61,6 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
 
             AttributeModel AttributeModel = db.Attributes.Find(id);
             if (AttributeModel == null)
@@ -92,10 +74,7 @@ namespace DaemonCharacter.Controllers
         // GET: /Attribute/Create
         public ActionResult Create()
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
-
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name");
+            ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>());
             return View();
         }
 
@@ -137,13 +116,6 @@ namespace DaemonCharacter.Controllers
                 {
                     AttributeModel child = db.Attributes.Find(Bonus[i]);
 
-                    //if (child.AttributeBonus == null) child.AttributeBonus = new List<AttributeModel>();
-
-                    //if (attribute.ParentAttribute == null) attribute.ParentAttribute = new List<AttributeModel>();
-
-                    //attribute.ParentAttribute.Add(child);
-                    //child.AttributeBonus.Add(attribute);
-
                     if (child.ParentAttribute == null) child.ParentAttribute = new List<AttributeModel>();
 
                     if (attribute.AttributeBonus == null) attribute.AttributeBonus = new List<AttributeModel>();
@@ -163,43 +135,22 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        private AttributeTypeModel ValidateAttributeType(int idAttributeType)
-        {
-            try
-            {
-                if (idAttributeType == 0)
-                    throw new Exception("Invalid Attribute Type");
-
-                return db.AttributeTypes.Find(idAttributeType);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         //
         // POST: /Attribute/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AttributeModel Attribute, FormCollection f)
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
-
-            AttributeTypeModel a = ValidateAttributeType(Convert.ToInt32(((string[])f.GetValue("idAttributeType").RawValue)[0].ToString()));
-
-            Attribute.type = a;
 
             if (ModelState.IsValid)
             {
                 try
                 {
 
+                    Attribute.type = (AttributeType)Enum.Parse(typeof(AttributeType), (((object[])f.GetValue("idAttributeType").RawValue)[0]).ToString(), true);
+
                     using (TransactionScope scope = new TransactionScope())
                     {
-
-
                         SaveAttribute(ref Attribute);
                         SaveAttributeBonus(Attribute, SelectAttributeBonus(f));
 
@@ -210,7 +161,7 @@ namespace DaemonCharacter.Controllers
                 catch (Exception ex)
                 {
                     ViewBag.Retorno = "An error occured while trying to create this attribute: " + ex.Message;
-                    ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name");
+                    ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>());
                     return View(Attribute);
                 }
 
@@ -226,15 +177,13 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
-
             AttributeModel AttributeModel = db.Attributes.Find(id);
             if (AttributeModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name", AttributeModel.type.id);
+
+            ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>(), AttributeModel.type);
             return View(AttributeModel);
         }
 
@@ -245,18 +194,13 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AttributeModel Att, FormCollection f)
         {
-            //if (!ValidateAuth())
-            //    RedirectToAction("Index", "Home");
 
             try
             {
+                Att.type = (AttributeType)Enum.Parse(typeof(AttributeType), (((object[])f.GetValue("idAttributeType").RawValue)[0]).ToString(), true);
+
                 if (ModelState.IsValid)
                 {
-
-                    AttributeTypeModel a = new AttributeTypeModel();
-
-                    a = ValidateAttributeType(Convert.ToInt32(((string[])f.GetValue("id").RawValue)[0].ToString()));
-                    Att.type = a;
 
                     using (TransactionScope scope = new TransactionScope())
                     {
@@ -267,27 +211,24 @@ namespace DaemonCharacter.Controllers
                     }
 
                     return RedirectToAction("Index");
-
                 }
+                ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>());
+                ReturnErrorModelState(ModelState);
+                return View(Att);
             }
             catch (Exception ex)
             {
-                ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name", Att.type.id);
+                ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>());
                 ViewBag.Message = ex.Message;
                 return View(Att);
             }
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name", Att.type.id);
-            ReturnErrorModelState(ModelState);
-            return View(Att);
-
-
         }
 
         private void ReturnErrorModelState(ModelStateDictionary ModelState)
         {
             var errors = ModelState.Values.SelectMany(v => v.Errors);
 
-            ViewBag.idAttributeType = new SelectList(db.AttributeTypes, "id", "name");
+            ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>());
             ViewBag.message = "The following errors occured while trying to create this Attribute:\n";
 
             for (int i = 0; i < errors.ToList().Count; i++)
@@ -307,8 +248,6 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
 
             AttributeModel AttributeModel = db.Attributes.Find(id);
             if (AttributeModel == null)
@@ -325,8 +264,6 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //if (!ValidateAuth())
-            //    RedirectToAction("Index", "Home");
 
             using (TransactionScope scope = new TransactionScope())
             {
@@ -343,7 +280,7 @@ namespace DaemonCharacter.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         private void RemoveParents(AttributeModel attribute)
         {
             try
@@ -356,7 +293,7 @@ namespace DaemonCharacter.Controllers
             {
                 throw ex;
             }
-        } 
+        }
 
         private void RemoveChilds(AttributeModel attribute)
         {
@@ -384,45 +321,44 @@ namespace DaemonCharacter.Controllers
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// Method responsible for retrieve the list of associated attributes of a character
-        /// </summary>
-        /// <param name="idPerson">Edited character</param>
-        /// <returns>Returns a partial view</returns>
-        public ActionResult ListAttributesFromCharacter(int idPerson = 0)
-        {
-            if (!ValidateAuth())
-                RedirectToAction("Index", "Home");
+        ///// <summary>
+        ///// Method responsible for retrieve the list of associated attributes of a character
+        ///// </summary>
+        ///// <param name="idCharacter">Edited character</param>
+        ///// <returns>Returns a partial view</returns>
+        //public ActionResult ListAttributesFromCharacter(int idCharacter = 0)
+        //{
+        //    if (!ValidateAuth())
+        //        RedirectToAction("Index", "Home");
 
-            IEnumerable<AttributeModel> attributes;
-            //idPerson = 0 is a new Character being created. None attribute exist yet.
-            if (idPerson == 0)
-            {
-                return HttpNotFound();
-            }
-            //idPerson != 0 is a Character being edited
-            else
-            {
-                List<CharacterAttributeModel> character = db.CharacterAttributes.Where(t => t.character.id == idPerson).ToList();
-                if (character == null)
-                {
-                    return HttpNotFound();
-                }
+        //    IEnumerable<AttributeModel> attributes;
+        //    //idPerson = 0 is a new Character being created. None attribute exist yet.
+        //    if (idCharacter == 0)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    //idPerson != 0 is a Character being edited
+        //    else
+        //    {
+        //        List<CharacterAttributeModel> character = db.CharacterAttributes.Where(t => t.character.id == idCharacter).ToList();
+        //        if (character == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
 
-                attributes = db.Attributes.Where(t => character.Any(c => c.attribute.id == t.id)).OrderBy(t => t.type.name);
-            }
+        //        attributes = db.Attributes.Where(t => character.Any(c => c.attribute.id == t.id)).OrderBy(t => t.type.name);
+        //    }
 
-            return PartialView(attributes);
-        }
+        //    return PartialView(attributes);
+        //}
 
         public JsonResult FindMinimum(int id = -1)
         {
-
-            if (id == -1 || !ValidateAuth())
+            AttributeModel result = db.Attributes.Find(id);
+            if (result == null)
                 return Json(HttpNotFound());
 
-            return Json(db.Attributes.Find(id).minimum, JsonRequestBehavior.AllowGet);
-
+            return Json(result.minimum, JsonRequestBehavior.AllowGet);
         }
 
     }

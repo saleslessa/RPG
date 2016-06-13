@@ -1,21 +1,13 @@
-﻿@if (!Request.IsAuthenticated)
-{
-    <script type="text/javascript">
-        window.location.href = '@Url.Action("Index","Home")';
-    </script>
-}
-
-
+﻿
 @model DaemonCharacter.Models.AttributeModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Attribute Details";
 }
 
-<h2>Details</h2>
+<h2>Attribute Details</h2>
 
 <fieldset>
-    <legend>AttributeModel</legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.name)

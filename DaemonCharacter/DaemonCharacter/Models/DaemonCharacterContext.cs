@@ -29,12 +29,6 @@ namespace DaemonCharacter.Models
                 .WithMany()
                 .Map(t => t.MapKey("idUser")); 
 
-            modelBuilder.Entity<CharacterModel>()
-                .HasRequired(t => t.race)
-                .WithMany()
-                .Map(t => t.MapKey("idRace"));
-
-
             modelBuilder.Entity<PlayerModel>()
                 .HasOptional(t => t.campaign)
                 .WithMany()
@@ -55,11 +49,6 @@ namespace DaemonCharacter.Models
                 .WithMany()
                 .Map(t => t.MapKey("idMaster"));
 
-            modelBuilder.Entity<AttributeModel>()
-                .HasOptional(t => t.type)
-                .WithMany()
-                .Map(t => t.MapKey("idType"));
-
             //modelBuilder.Entity<NonPlayerCampaignModel>()
             //    .HasOptional(t => t.nonplayer)
             //    .WithMany()
@@ -78,27 +67,22 @@ namespace DaemonCharacter.Models
                     .MapRightKey("idAttributeBonus"));
 
             modelBuilder.Entity<ItemAttributeModel>()
-                .HasOptional(t => t.item)
+                .HasRequired(t => t.item)
                 .WithMany()
                 .Map(t => t.MapKey("idItem"));
 
             modelBuilder.Entity<ItemAttributeModel>()
-                .HasOptional(t => t.attribute)
+                .HasRequired(t => t.attribute)
                 .WithMany()
                 .Map(t => t.MapKey("idAttribute"));
 
         }
-
-        public DbSet<AttributeTypeModel> AttributeTypes { get; set; }
 
         public DbSet<AttributeModel> Attributes { get; set; }
 
         public DbSet<CampaignModel> CampaignModels { get; set; }
 
         public DbSet<UserProfileModel> UserProfiles { get; set; }
-
-        public DbSet<RaceModel> Races { get; set; }
-
 
         #region Characters 
         public DbSet<CharacterModel> Characters { get; set; }
@@ -116,6 +100,8 @@ namespace DaemonCharacter.Models
 
         public DbSet<CampaignSessionModel> CampaignSession { set; get; }
 
+        public DbSet<ItemModel> ItemModels { get; set; }
 
+        public DbSet<ItemAttributeModel> ItemAttributes { get; set; }
     }
 }

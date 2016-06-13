@@ -1,21 +1,11 @@
-﻿@if (!Request.IsAuthenticated)
-{
-    <script type="text/javascript">
-        
-        window.location.href = '@Url.Action("Index","Home")';
-    </script>
-}
-
-@model DaemonCharacter.Models.PlayerModel
+﻿@model DaemonCharacter.Models.PlayerModel
 
 @{
-    ViewBag.Title = "Character Form";
+    ViewBag.Title = "Player Sheet";
 }
 <head>
-    <title>Character Form</title>
     <script type="text/javascript" src="@Url.Content("~/Scripts/DynamicForm.js")"></script>
-    <link href="@Url.Content("~/Content/DynamicForm.css")"
-          rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/DynamicForm.css")" rel="stylesheet" type="text/css" />
 </head>
 <h2>@Html.DisplayFor(model => model.name)</h2>
 <table cellpadding="0" cellspacing="0" border="1">
@@ -28,7 +18,7 @@
         <td>@Html.DisplayFor(model => model.name)</td>
 
         <td><strong>@Html.DisplayNameFor(model => model.gender)</strong></td>
-        <td>@Html.DisplayFor(model => model.gender.name)</td>
+        <td>@Html.DisplayFor(model => model.gender)</td>
         
         <td><strong>@Html.DisplayNameFor(model => model.race)</strong></td>
         <td>@Html.DisplayFor(model => model.race.name)</td>
