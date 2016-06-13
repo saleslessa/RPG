@@ -15,15 +15,20 @@ namespace DaemonCharacter.Controllers
         private string loggedUser;
 
 
-        public CharacterController() : base()
+        private string GetLoggedUser()
         {
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                    return User.Identity.Name;
 
-            //if (!User.Identity.IsAuthenticated)
-            //    RedirectToAction("Index", "Home");
-
-            //this.loggedUser = User.Identity.Name;
+                throw new Exception("User not logged");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-
 
         public ActionResult Index()
         {
@@ -67,6 +72,7 @@ namespace DaemonCharacter.Controllers
         {
             try
             {
+                GetLoggedUser();
                 PrepareScreenCreate();
                 return View();
             }
@@ -128,7 +134,7 @@ namespace DaemonCharacter.Controllers
         private void CreateSelectListAvailableCampaigns(string selected = "")
         {
             CampaignController c = new CampaignController();
-            List<AvailableCampaignsModel> available = c.ListAvailableCampaigns();
+            List<AvailableCampaignsModel> available = c.GetAvailableCampaigns();
             ViewBag.campaigns = new SelectList(available, "id", "name", selected);
         }
 
@@ -149,7 +155,7 @@ namespace DaemonCharacter.Controllers
                 {
                     (obj as PlayerModel).remainingPoints = (obj as PlayerModel).pointsToDistribute;
                     (obj as PlayerModel).remainingLife = (obj as PlayerModel).maxLife;
-                    (obj as PlayerModel).campaign = db.CampaignModels.Find(Convert.ToInt32(((string[])f.GetValue("campaigns").RawValue)[0]));
+                    (obj as PlayerModel).campaign = db.Campaigns.Find(Convert.ToInt32(((string[])f.GetValue("campaigns").RawValue)[0]));
 
                 }
                 if (typeof(T) == typeof(NonPlayerModel))

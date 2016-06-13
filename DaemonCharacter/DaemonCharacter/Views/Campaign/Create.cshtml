@@ -8,18 +8,19 @@
 @model DaemonCharacter.Models.CampaignModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create new campaign Form";
 }
 
-<h2>Create</h2>
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-logo animated wow fadeInDown"></i>
+    &nbsp;Create new campaign Form
+</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>CampaignModel</legend>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.name)
         </div>

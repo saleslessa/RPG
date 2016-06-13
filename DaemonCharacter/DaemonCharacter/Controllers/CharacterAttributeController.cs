@@ -12,12 +12,6 @@ namespace DaemonCharacter.Controllers
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
-        public CharacterAttributeController()
-        {
-            //if (!Request.IsAuthenticated)
-            //    RedirectToAction("Index", "Home");
-        }
-
         private void SelectAttributesFromSelectedCheckboxes(ref List<CharacterAttributeModel> arr, FormCollection f)
         {
             try
@@ -301,6 +295,7 @@ namespace DaemonCharacter.Controllers
             return characterAttribute;
         }
 
+      
         private IEnumerable<CharacterAttributeModel> GetCharacterAttributeWithNoBonus(int idPerson)
         {
             IEnumerable<CharacterAttributeModel> characterAttribute;

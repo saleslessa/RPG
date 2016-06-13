@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<DaemonCharacter.Models.CampaignModel>
 
-@{
-    ViewBag.Title = "List of campaigns";
-}
-
 <h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
     <i class="fa fa-logo animated wow fadeInDown"></i>
-    &nbsp;My campaigns
+    @*<i class="icons8-Skull"></i>*@
+    &nbsp;List of available campaigns
 </h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shortDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.briefing)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.startYear)
@@ -23,11 +23,12 @@
         <th>
             @Html.DisplayNameFor(model => model.maxPlayers)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.remainingPlayers)
+        </th>
     </tr>
 
-@foreach (var item in Model)
-{
+@foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.name)
@@ -45,15 +46,9 @@
             @Html.DisplayFor(modelItem => item.maxPlayers)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.userMaster.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            @Html.DisplayFor(modelItem => item.remainingPlayers)
         </td>
     </tr>
 }
 
 </table>
-@{Html.RenderAction("ListAvailableCampaigns");}

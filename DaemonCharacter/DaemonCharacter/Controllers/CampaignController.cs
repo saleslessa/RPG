@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using DaemonCharacter.Models;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace DaemonCharacter.Controllers
 {
@@ -12,12 +13,20 @@ namespace DaemonCharacter.Controllers
         private DaemonCharacterContext db = new DaemonCharacterContext();
         private string loggedUser = string.Empty;
 
-        public CampaignController() : base()
-        {
-            //if (!User.Identity.IsAuthenticated)
-            //    RedirectToAction("Index", "Home");
 
-            //this.loggedUser = User.Identity.Name;
+        private string GetLoggedUser()
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                    return User.Identity.Name;
+
+                throw new Exception("User not logged");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         //
@@ -26,18 +35,45 @@ namespace DaemonCharacter.Controllers
         public ActionResult Index()
         {
 
-            if (db.UserProfiles.Where(w => w.UserName == loggedUser).First().accessLevel != accessLevel.Admin)
+            try
             {
-                var campaignmodels = db.CampaignModels
-                .Where(w => w.userMaster.UserName == loggedUser);
-                return View(campaignmodels.ToList());
+
+                this.loggedUser = GetLoggedUser();
+
+                if (db.UserProfiles.Where(w => w.UserName == loggedUser).First().accessLevel != accessLevel.Admin)
+                {
+                    var campaignmodels = db.Campaigns
+                    .Where(w => w.userMaster.UserName == loggedUser);
+                    return View(campaignmodels.ToList());
+                }
+                else
+                {
+                    var campaignmodels = db.Campaigns;
+                    return View(campaignmodels.ToList());
+                }
             }
-            else
+            catch (Exception)
             {
-                var campaignmodels = db.CampaignModels;
-                return View(campaignmodels.ToList());
+                return RedirectToAction("Index", "Home");
             }
 
+        }
+
+        public ActionResult ListAvailableCampaigns()
+        {
+            try
+            {
+                this.loggedUser = GetLoggedUser();
+                List<CampaignModel> campaignmodels = db.Campaigns.Where(t => t.remainingPlayers > 0
+                    && t.userMaster.UserName != loggedUser).ToList();
+
+                return campaignmodels.Count > 0 ? View(campaignmodels) : null;
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
 
@@ -46,12 +82,21 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            CampaignModel campaignmodel = db.CampaignModels.Find(id);
-            if (campaignmodel == null)
+            try
             {
-                return HttpNotFound();
+                GetLoggedUser();
+
+                CampaignModel campaignmodel = db.Campaigns.Find(id);
+                if (campaignmodel == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(campaignmodel);
             }
-            return View(campaignmodel);
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
@@ -59,7 +104,15 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                GetLoggedUser();
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
@@ -69,18 +122,19 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CampaignModel campaignmodel)
         {
+            this.loggedUser = GetLoggedUser();
 
-            UserProfileModel idMaster = db.UserProfiles
-            .Where(w => w.UserName == User.Identity.Name)
+            UserProfileModel user = db.UserProfiles
+            .Where(w => w.UserName == this.loggedUser)
             .FirstOrDefault();
 
-            campaignmodel.userMaster = idMaster;
+            campaignmodel.userMaster = user;
             campaignmodel.campaignStatus = CampaignStatus.Beginning;
             campaignmodel.remainingPlayers = campaignmodel.maxPlayers;
 
             if (ModelState.IsValid)
             {
-                db.CampaignModels.Add(campaignmodel);
+                db.Campaigns.Add(campaignmodel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -94,13 +148,22 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            CampaignModel campaignmodel = db.CampaignModels.Find(id);
-            if (campaignmodel == null)
+            try
             {
-                return HttpNotFound();
+                GetLoggedUser();
+
+                CampaignModel campaignmodel = db.Campaigns.Find(id);
+                if (campaignmodel == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.idMaster = new SelectList(db.UserProfiles, "UserId", "UserName", campaignmodel.userMaster.UserId);
+                return View(campaignmodel);
             }
-            ViewBag.idMaster = new SelectList(db.UserProfiles, "UserId", "UserName", campaignmodel.userMaster.UserId);
-            return View(campaignmodel);
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
@@ -125,12 +188,21 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            CampaignModel campaignmodel = db.CampaignModels.Find(id);
-            if (campaignmodel == null)
+            try
             {
-                return HttpNotFound();
+                GetLoggedUser();
+
+                CampaignModel campaignmodel = db.Campaigns.Find(id);
+                if (campaignmodel == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(campaignmodel);
             }
-            return View(campaignmodel);
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
@@ -140,8 +212,8 @@ namespace DaemonCharacter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CampaignModel campaignmodel = db.CampaignModels.Find(id);
-            db.CampaignModels.Remove(campaignmodel);
+            CampaignModel campaignmodel = db.Campaigns.Find(id);
+            db.Campaigns.Remove(campaignmodel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -152,10 +224,10 @@ namespace DaemonCharacter.Controllers
             base.Dispose(disposing);
         }
 
-        public List<AvailableCampaignsModel> ListAvailableCampaigns()
+        public List<AvailableCampaignsModel> GetAvailableCampaigns()
         {
 
-            return db.CampaignModels
+            return db.Campaigns
                 .Where(t => t.remainingPlayers > 0)
                 .Select(s => new AvailableCampaignsModel
                 {
@@ -177,7 +249,7 @@ namespace DaemonCharacter.Controllers
 
             AvailableCampaignsModel a = new AvailableCampaignsModel();
 
-            a = db.CampaignModels
+            a = db.Campaigns
                 .Where(t => t.remainingPlayers > 0 && t.id == idCampaign)
                 .Select(s => new AvailableCampaignsModel
                 {

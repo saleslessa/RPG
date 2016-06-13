@@ -80,7 +80,7 @@ namespace DaemonCharacter.Models
 
         public DbSet<AttributeModel> Attributes { get; set; }
 
-        public DbSet<CampaignModel> CampaignModels { get; set; }
+        public DbSet<CampaignModel> Campaigns { get; set; }
 
         public DbSet<UserProfileModel> UserProfiles { get; set; }
 

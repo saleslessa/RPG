@@ -3,12 +3,23 @@
 @{
     ViewBag.Title = "Player Sheet";
 }
+
 <head>
     <script type="text/javascript" src="@Url.Content("~/Scripts/DynamicForm.js")"></script>
     <link href="@Url.Content("~/Content/DynamicForm.css")" rel="stylesheet" type="text/css" />
 </head>
-<h2>@Html.DisplayFor(model => model.name)</h2>
-<table cellpadding="0" cellspacing="0" border="1">
+
+
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-logoCreateCharacter animated wow fadeInDown"></i>
+    &nbsp;@Html.DisplayFor(model => model.name)
+</h2>
+
+<fieldset>
+
+</fieldset>
+
+<table>
     <tr>
         <td><strong>@Html.DisplayNameFor(model => model.campaign)</strong></td>
         <td>@Html.DisplayFor(model => model.campaign.name)</td>
@@ -21,7 +32,7 @@
         <td>@Html.DisplayFor(model => model.gender)</td>
         
         <td><strong>@Html.DisplayNameFor(model => model.race)</strong></td>
-        <td>@Html.DisplayFor(model => model.race.name)</td>
+        <td>@Html.DisplayFor(model => model.race)</td>
 
         <td><strong>@Html.DisplayNameFor(model => model.age)</strong></td>
         <td>@Html.DisplayFor(model => model.age)</td>
@@ -46,10 +57,9 @@
         <td colspan="4">@Html.DisplayFor(model => model.background)</td>
     </tr>
 </table>
-<br />
-<section id="aside-character-form-right">
+@*<section id="aside-character-form-right">
     @{Html.RenderAction("ListCharacterWithBonus", "CharacterAttribute", new { Model.id });}
 </section>
 <section id="aside-character-form-left">
     @{Html.RenderAction("ListCharacterWithNoBonus", "CharacterAttribute", new { Model.id });}
-</section>
+</section>*@

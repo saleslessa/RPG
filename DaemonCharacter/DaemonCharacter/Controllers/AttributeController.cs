@@ -13,26 +13,52 @@ namespace DaemonCharacter.Controllers
     {
         private DaemonCharacterContext db = new DaemonCharacterContext();
 
-        public AttributeController()
+        private string GetLoggedUser()
         {
-            //if (!Request.IsAuthenticated)
-            //    RedirectToAction("Index", "Home");
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                    return User.Identity.Name;
+
+                throw new Exception("User not logged");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
 
         //
         // GET: /Attribute/
 
         public ActionResult Index()
         {
-            return View(db.Attributes.ToList());
+            try
+            {
+                GetLoggedUser();
+                return View(db.Attributes.ToList());
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult ListBonus(int id = -1)
         {
-            ViewBag.selected = GetBonusAttributeId(id);
-            IEnumerable<AttributeModel> result = db.Attributes.Where(t => t.type != AttributeType.Characteristic && t.id != id).ToList();
+            try
+            {
+                GetLoggedUser();
+                ViewBag.selected = GetBonusAttributeId(id);
+                IEnumerable<AttributeModel> result = db.Attributes.Where(t => t.type != AttributeType.Characteristic && t.id != id).ToList();
 
-            return View(result);
+                return View(result);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         private List<int> GetBonusAttributeId(int id)
@@ -61,21 +87,39 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Details(int id = 0)
         {
-
-            AttributeModel AttributeModel = db.Attributes.Find(id);
-            if (AttributeModel == null)
+            try
             {
-                return HttpNotFound();
+                GetLoggedUser();
+
+                AttributeModel AttributeModel = db.Attributes.Find(id);
+                if (AttributeModel == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(AttributeModel);
             }
-            return View(AttributeModel);
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
 
         //
         // GET: /Attribute/Create
         public ActionResult Create()
         {
-            ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>());
-            return View();
+            try
+            {
+                GetLoggedUser();
+
+                ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>());
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         private ArrayList SelectAttributeBonus(FormCollection f)
@@ -177,14 +221,23 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            AttributeModel AttributeModel = db.Attributes.Find(id);
-            if (AttributeModel == null)
+            try
             {
-                return HttpNotFound();
-            }
+                GetLoggedUser();
 
-            ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>(), AttributeModel.type);
-            return View(AttributeModel);
+                AttributeModel AttributeModel = db.Attributes.Find(id);
+                if (AttributeModel == null)
+                {
+                    return HttpNotFound();
+                }
+
+                ViewBag.idAttributeType = new SelectList(Enum.GetValues(typeof(AttributeType)).Cast<AttributeType>(), AttributeModel.type);
+                return View(AttributeModel);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
@@ -249,12 +302,21 @@ namespace DaemonCharacter.Controllers
         public ActionResult Delete(int id = 0)
         {
 
-            AttributeModel AttributeModel = db.Attributes.Find(id);
-            if (AttributeModel == null)
+            try
             {
-                return HttpNotFound();
+                GetLoggedUser();
+
+                AttributeModel AttributeModel = db.Attributes.Find(id);
+                if (AttributeModel == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(AttributeModel);
             }
-            return View(AttributeModel);
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
@@ -320,37 +382,6 @@ namespace DaemonCharacter.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-
-        ///// <summary>
-        ///// Method responsible for retrieve the list of associated attributes of a character
-        ///// </summary>
-        ///// <param name="idCharacter">Edited character</param>
-        ///// <returns>Returns a partial view</returns>
-        //public ActionResult ListAttributesFromCharacter(int idCharacter = 0)
-        //{
-        //    if (!ValidateAuth())
-        //        RedirectToAction("Index", "Home");
-
-        //    IEnumerable<AttributeModel> attributes;
-        //    //idPerson = 0 is a new Character being created. None attribute exist yet.
-        //    if (idCharacter == 0)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    //idPerson != 0 is a Character being edited
-        //    else
-        //    {
-        //        List<CharacterAttributeModel> character = db.CharacterAttributes.Where(t => t.character.id == idCharacter).ToList();
-        //        if (character == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-
-        //        attributes = db.Attributes.Where(t => character.Any(c => c.attribute.id == t.id)).OrderBy(t => t.type.name);
-        //    }
-
-        //    return PartialView(attributes);
-        //}
 
         public JsonResult FindMinimum(int id = -1)
         {

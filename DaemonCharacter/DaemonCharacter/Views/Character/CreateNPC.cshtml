@@ -4,14 +4,10 @@
     ViewBag.Title = "CreateNPC";
 }
 
-<h2>CreateNPC</h2>
-
-@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
-{
-    <script type="text/javascript">
-        window.location.href = '@Url.Action("Index","Home")';
-    </script>
-}
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-logoCreateCharacter animated wow fadeInDown"></i>
+    &nbsp;Create NPC Form
+</h2>
 
 <head>
     <title>Creating a new NPC</title>
@@ -24,8 +20,6 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>NonPlayer</legend>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.name)
         </div>

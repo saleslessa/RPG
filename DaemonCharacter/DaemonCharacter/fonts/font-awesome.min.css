@@ -2556,3 +2556,7 @@
 .fa-fonticons:before {
     content: "\f280";
 }
+
+.fa-shield:before {
+    content: "\f501";
+}

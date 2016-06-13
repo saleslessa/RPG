@@ -460,23 +460,38 @@ tr.pager td {
     border-radius: 5px;
     border: 1px solid black;
     margin: 7px 0px 7px 0px;
-    width:auto;
+    width: auto;
 }
 
     .partial-create label {
         display: inline;
     }
 
-    .partial-create input
-    {
-        max-width:75px;
-        margin:5px;
+    .partial-create input {
+        max-width: 75px;
+        margin: 5px;
     }
 
     .partial-create select {
-        margin:5px;
+        margin: 5px;
     }
 
     .partial-create button {
-        border-radius:30px;
+        border-radius: 30px;
     }
+
+
+
+
+
+/********ICONS *******************/
+.icons8-Skull { /* Customizes Skull icon */
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjAiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNDggNDgiIGZpbGw9IiNmYWxzZSIgPjxwYXRoIGZpbGw9IiNEN0NDQzgiIGQ9Ik0yNSw1aC0yQzEzLjYsNSw1LDExLDUsMjFjMCw3LDMsOSwzLDljMC4zLDAuMywwLjYsMC42LDEsMC45VjMzYzAsNCw2LDUsNiw1djVjMCwwLjYsMC40LDEsMSwxaDE2CWMwLjYsMCwxLTAuNCwxLTF2LTVjMCwwLDYtMSw2LTV2LTIuMWMwLjQtMC4zLDAuNy0wLjYsMS0wLjljMCwwLDMtMywzLTlDNDMsMTEsMzQuNCw1LDI1LDV6Ij48L3BhdGg+PHBhdGggZmlsbD0iIzc5NTU0OCIgZD0iTTI3LjUsMzcuOWMwLDAuOS0wLjYsMS40LTEuNCwxLjRjLTEuMSwwLTEuOS0xLjktMi4xLTIuN2MwLDEtMC44LDIuNy0yLjEsMi43Yy0wLjgsMC0xLjQtMC41LTEuNC0xLjQJYzAtMS45LDIuMi01LjYsMy41LTUuOUMyNS4zLDMyLjUsMjcuNSwzNiwyNy41LDM3Ljl6IE0yOC4zLDIzLjdjLTIuMiwwLjYtMywzLjUtMi40LDUuNmMxLDMsMy43LDQuMyw2LjgsMy4zYzEuNC0wLjUsMi43LTIuMiwxLjQtNglDMzMuNCwyNCwzMC44LDIyLjksMjguMywyMy43TDI4LjMsMjMuN3ogTTE5LjcsMjMuN2MtMi43LTEtNS4xLDAuMy01LjksMi45Yy0xLjMsMy44LDAuMiw1LjYsMS40LDZjMy4yLDAuOSw1LjktMC4zLDYuOC0zLjMJQzIyLjcsMjcuNCwyMS45LDI0LjUsMTkuNywyMy43TDE5LjcsMjMuN3oiPjwvcGF0aD48L3N2Zz4=') 50% 50% no-repeat;
+    background-size: 100%;
+    width: 48px;
+    height: 48px;
+}
+
+.icon { /* Customizes all icons at once */
+    display: inline-block;
+}
