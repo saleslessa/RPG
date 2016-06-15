@@ -200,6 +200,8 @@
     <Compile Include="Models\CharacterModel.cs" />
     <Compile Include="Models\DaemonCharacterContext.cs" />
     <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\PlayerSessionModel.cs" />
+    <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Auth.cs" />
     <Compile Include="Utils\Enums.cs" />

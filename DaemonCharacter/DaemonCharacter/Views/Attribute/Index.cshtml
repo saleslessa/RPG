@@ -1,12 +1,4 @@
-﻿@if (!Request.IsAuthenticated)
-{
-    <script type="text/javascript">
-        window.location.href = '@Url.Action("Index","Home")';
-    </script>
-}
-
-
-@model IEnumerable<DaemonCharacter.Models.AttributeModel>
+﻿@model IEnumerable<DaemonCharacter.Models.AttributeModel>
 
 @{
     ViewBag.Title = "List of Attributes";

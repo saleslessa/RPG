@@ -39,7 +39,7 @@ namespace DaemonCharacter.Controllers
                 GetLoggedUser();
                 return View(db.Attributes.ToList());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return RedirectToAction("Index", "Home");
             }

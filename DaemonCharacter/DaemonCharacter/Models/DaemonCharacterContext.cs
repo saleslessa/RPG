@@ -98,7 +98,7 @@ namespace DaemonCharacter.Models
 
         #endregion
 
-        public DbSet<CampaignSessionModel> CampaignSession { set; get; }
+        public DbSet<SessionModel> CampaignSession { set; get; }
 
         public DbSet<ItemModel> ItemModels { get; set; }
 
