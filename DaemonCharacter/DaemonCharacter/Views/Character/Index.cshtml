@@ -12,37 +12,18 @@
 <p>
     @Html.ActionLink("Create Player", "CreatePlayer") | @Html.ActionLink("Create NPC", "CreateNPC", "Character")
 </p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.race)
-        </th>
-        <th>
-            Type
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.race)
-        </td>
-        <td>
-            @Html.Raw(item.GetType().BaseType.Name.Replace("Model", ""))
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", Html.Raw(item.GetType().BaseType.Name.Replace("Model", "")) + "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-3 table-bordered animated form-group" style="margin:5px;border-radius:5px;">
+        <strong>@Html.DisplayFor(modelItem => item.name)</strong><br />
+        @Html.DisplayFor(modelItem => item.gender)&nbsp;|&nbsp; @Html.DisplayFor(modelItem => item.race) <br />
+
+        <a href="~/Character/Edit/@item.id" class="fa fa-edit animated wow fadeInDown" title="Edit"> </a>&nbsp;&nbsp;
+        <a href="~/Character/@Html.Raw(item.GetType().BaseType.Name.Replace("Model", ""))Details/@item.id" class="fa fa-details animated wow fadeInDown" title="Details"> </a>&nbsp;&nbsp;
+        <a href="~/Character/Delete/@item.id" class="fa fa-delete animated wow fadeInDown" title="Delete"> </a>
+    </div>
 }
 
-</table>
+

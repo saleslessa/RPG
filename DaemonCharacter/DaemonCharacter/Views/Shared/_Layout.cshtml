@@ -16,7 +16,7 @@
 
 
     <!-- Custom CSS -->
-    <link href="~/Content/1-col-portfolio.css" rel="stylesheet">
+    @*<link href="~/Content/1-col-portfolio.css" rel="stylesheet">*@
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,400,700' rel='stylesheet'
           type='text/css'>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,700italic,400,700"
@@ -25,7 +25,8 @@
 
     <!-- Required plugin - Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
-    
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 
     <title>@ViewBag.Title - PLANET RPG</title>
@@ -34,20 +35,24 @@
     <meta name="viewport" content="width=device-width" />
 
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/fonts")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
 
 </head>
 <body>
 
     @Html.Partial("_Menu")
-    
+
     <div id="body" class="container-fluid">
         <section class="content-wrapper main-content clear-fix">
             @RenderBody()
         </section>
     </div>
-    
-    <footer id="fh5co-footer" class="padding100">
+
+    <footer id="fh5co-footer" class="padding50">
 
         <div class="fh5co-footer-content">
             <div class="container">
@@ -105,12 +110,5 @@
     <script type="text/javascript" src="~/Scripts/jquery.smartmenus.bootstrap.js"></script>
     <script src="~/Scripts/contact.js" type="text/javascript"></script>
 
-
-    @*<link href="~/fonts/font-awesome.min.css" rel="stylesheet" type="text/css" />*@
-
-    @Scripts.Render("~/bundles/modernizr")
-
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

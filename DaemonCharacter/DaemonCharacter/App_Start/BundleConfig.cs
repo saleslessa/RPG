@@ -25,7 +25,8 @@ namespace DaemonCharacter
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"
-                , "~/Content/DynamicForm.css"));
+                , "~/Content/DynamicForm.css"
+                , "~/Content/1-col-portfolio.css"));
 
             bundles.Add(new StyleBundle("~/Content/fonts").Include("~/fonts/font-awesome.min.css"));
 

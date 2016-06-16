@@ -1,54 +1,24 @@
 ﻿@model IEnumerable<DaemonCharacter.Models.CampaignModel>
+@{ Layout = null;}
 
+<br /><br /><br /><br />
 <h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
     <i class="fa fa-logo animated wow fadeInDown"></i>
     @*<i class="icons8-Skull"></i>*@
     &nbsp;List of available campaigns
 </h2>
 
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.shortDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.briefing)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.startYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.maxPlayers)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.remainingPlayers)
-        </th>
-    </tr>
+@foreach (var item in Model)
+{
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.shortDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.briefing)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.startYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.maxPlayers)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.remainingPlayers)
-        </td>
-    </tr>
+    <div class="col-md-4 table-bordered animated wow" style="margin:5px;border-radius:5px;">
+        <strong>@Html.DisplayFor(modelItem => item.name)</strong><br />
+        @Html.DisplayFor(modelItem => item.shortDescription) <br />
+        <strong>Start Year: </strong>@Html.DisplayFor(modelItem => item.startYear) &nbsp; | &nbsp;
+        <strong>Remaining Players: </strong>@Html.DisplayFor(modelItem => item.remainingPlayers) <br />
+
+        <a href="~/Campaign/Details/@item.id" class="fa fa-details animated wow fadeInDown" title="Details"> </a>&nbsp;&nbsp;
+    </div>
+
 }
 
-</table>

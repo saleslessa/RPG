@@ -84,7 +84,6 @@
         var url = "/Character/CreatePlayer/";
         var form = $("#formCreatePlayer").serialize();
 
-
         $.ajax(
             {
                 dataType: 'json',

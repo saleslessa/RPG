@@ -2557,6 +2557,14 @@
     content: "\f280";
 }
 
-.fa-shield:before {
-    content: "\f501";
+.fa-edit:before {
+    content: "\f040";
+}
+
+.fa-details:before {
+    content: "\f129";
+}
+
+.fa-delete:before {
+    content: "\f1f8";
 }
