@@ -43,3 +43,10 @@ public enum NonPlayerTypes
     SideQuest,
     Other
 }
+
+public enum SessionStatus
+{
+    Planning,
+    Started,
+    Ended
+}

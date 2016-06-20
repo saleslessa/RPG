@@ -1,0 +1,66 @@
+﻿@model DaemonCharacter.Models.SessionModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>SessionModel</legend>
+
+        @Html.HiddenFor(model => model.id)
+
+        @Html.HiddenFor(model => model.dayScheduled)
+
+        @Html.HiddenFor(model => model.idCampaign)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.timeScheduled)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.timeScheduled)
+            @Html.ValidationMessageFor(model => model.timeScheduled)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.briefing)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.briefing)
+            @Html.ValidationMessageFor(model => model.briefing)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.privateBeforeAnnotations)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.privateBeforeAnnotations)
+            @Html.ValidationMessageFor(model => model.privateBeforeAnnotations)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.duringAnnotations)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.duringAnnotations)
+            @Html.ValidationMessageFor(model => model.duringAnnotations)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

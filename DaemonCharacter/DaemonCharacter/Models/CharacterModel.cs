@@ -19,6 +19,9 @@ namespace DaemonCharacter.Models
         [Required, Display(Name = "Maximum Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
         public int maxLife { get; set; }
 
+        [Required, Display(Name = "Remaining Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
+        public int remainingLife { get; set; }
+
         public virtual UserProfileModel user { get; set; }
 
         [Display(Name = "Race")]
@@ -27,90 +30,7 @@ namespace DaemonCharacter.Models
         [Display(Name ="Gender")]
         public Genders gender { get; set; }
  
-
     }
-
-    public class PlayerModel : CharacterModel
-    {
-
-        [Display(Name = "Campaign")]
-        public virtual CampaignModel campaign { get; set; }
-
-        [Required(ErrorMessage = "Player level is required")]
-        [Display(Name = "Character Level"), DefaultValue(1), Range(1, int.MaxValue)]
-        public int level { get; set; }
-
-        [Display(Name = "Age"), DefaultValue(0), Range(0, int.MaxValue)]
-        public int age { get; set; }
-
-        [Required, Display(Name = "Remaining Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
-        public int remainingLife { get; set; }
-
-        [Required(ErrorMessage = "Experience is necessary :)"), DefaultValue(0), Display(Name = "Player Experience")]
-        [Range(0, int.MaxValue)]
-        public int experience { get; set; }
-
-        [Display(Name = "Background"), DataType(DataType.MultilineText)]
-        public string background { get; set; }
-
-        [Required(ErrorMessage = "You must have an initial points to distribute among attributes"), DefaultValue(1)]
-        [Display(Name = "Points to distribute among Attributes")]
-        [Range(0, int.MaxValue)]
-        public int pointsToDistribute { get; set; }
-
-        [DefaultValue(0), Range(0, int.MaxValue)]
-        [Display(Name = "Remaining points to distribute among Attributes")]
-        public int remainingPoints { get; set; }
-    }
-
-    //public class EditPlayerModel
-    //{
-
-    //    [Required]
-    //    public int id { get; set; }
-
-    //    [Required(ErrorMessage = "Character name is required"), StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
-    //    [Display(Name = "Character Name")]
-    //    public string name { get; set; }
-
-    //    [Required(ErrorMessage = "Character level is required")]
-    //    [Display(Name = "Character Level"), DefaultValue(1), Range(1, int.MaxValue)]
-    //    public int level { get; set; }
-
-    //    [Display(Name = "Gender")]
-    //    public int idGender { get; set; }
-
-    //    [Display(Name = "Age"), DefaultValue(0), Range(0, int.MaxValue)]
-    //    public int age { get; set; }
-
-    //    [Required, Display(Name = "Maximum Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
-    //    public int maxLife { get; set; }
-
-    //    [Required, Display(Name = "Remaining Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
-    //    public int remainingLife { get; set; }
-
-    //    [Required(ErrorMessage = "Experience is necessary :)"), DefaultValue(0), Display(Name = "Character Experience")]
-    //    [Range(0, int.MaxValue)]
-    //    public int experience { get; set; }
-
-    //    [Required(ErrorMessage = "You must have an initial points to distribute among attributes"), DefaultValue(1)]
-    //    [Display(Name = "Points to distribute among Attributes")]
-    //    [Range(0, int.MaxValue)]
-    //    public int pointsToDistribute { get; set; }
-
-    //    [DefaultValue(0), Range(0, int.MaxValue)]
-    //    [Display(Name = "Remaining points to distribute among Attributes")]
-    //    public int remainingPoints { get; set; }
-
-    //    #region Virtual Attributes
-    //    public List<CharacterAttributeModel> attributes { get; set; }
-
-    //    [ForeignKey("idCampaign")]
-    //    public CampaignModel campaign { get; set; }
-
-    //    public Genders gender { get; set; }
-    //    #endregion
-    //}
 
     [Table("tb_character_attribute")]
     public class CharacterAttributeModel
@@ -128,9 +48,6 @@ namespace DaemonCharacter.Models
         public int value { get; set; }
 
         //public virtual List<CharacterAttributeModel> bonusValues { get; set; }
-
-        public CharacterAttributeModel() { }
-
        
     }
 

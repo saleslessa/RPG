@@ -1,0 +1,28 @@
+﻿@model IEnumerable<DaemonCharacter.Models.ListCampaignsModel>
+
+@{
+    ViewBag.Title = "List Sessions";
+}
+@section FirstScripts {
+    @Scripts.Render("~/bundles/javascripts")
+}
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-logo animated wow fadeInDown"></i>
+    &nbsp;List of Sessions
+</h2>
+
+<p>My Campaigns</p>
+<br />
+
+@foreach (var item in Model)
+{
+    <p><strong>@Html.DisplayFor(modelItem => item.name)</strong></p>
+    <p>
+        @{
+            Html.RenderAction("_ListSessions", new { id = item.id });
+        }
+    </p>
+    <br />
+
+}
+

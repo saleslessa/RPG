@@ -23,6 +23,10 @@ namespace DaemonCharacter
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/javascripts").Include(
+                        "~/Scripts/Campaign.js",
+                        "~/Scripts/CharacterForms.js",
+                        "~/Scripts/ItemForm.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"
                 , "~/Content/DynamicForm.css"

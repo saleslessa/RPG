@@ -23,7 +23,7 @@ namespace DaemonCharacter.Models
         [Display(Name = "Campaign")]
         public int idCampaign { get; set; }
 
-        [ForeignKey("idCampaign")]
+        [ForeignKey("idCampaign"), Display(Name ="Campaign")]
         public virtual CampaignModel campaign { get; set; }
 
         [Required]
@@ -33,11 +33,14 @@ namespace DaemonCharacter.Models
         [Display(Name = "Session Briefing"), DefaultValue("")]
         public string briefing { get; set; }
 
-        [Display(Name = "Annotations before session"), DataType(DataType.MultilineText)]
-        public string beforeAnnotations { get; set; }
+        [Display(Name = "Private annotations before session"), DataType(DataType.MultilineText)]
+        public string privateBeforeAnnotations { get; set; }
 
         [Display(Name = "Annotations during session"), DataType(DataType.MultilineText)]
         public string duringAnnotations { get; set; }
+
+        [DefaultValue(SessionStatus.Planning)]
+        public SessionStatus status { get; set; }
 
     }
 }
