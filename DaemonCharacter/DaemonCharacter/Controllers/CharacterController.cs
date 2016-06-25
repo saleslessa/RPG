@@ -287,6 +287,11 @@ namespace DaemonCharacter.Controllers
             }
         }
 
+        public ActionResult _ListNPCForSession()
+        {
+            return View(db.NonPlayers.ToList());
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

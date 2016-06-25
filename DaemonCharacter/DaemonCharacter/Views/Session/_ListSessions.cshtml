@@ -19,18 +19,13 @@
             <strong>Briefing: </strong>
             @Html.DisplayFor(modelItem => item.briefing)
         </span><br />
-        <span>
-            <a href="~/Session/Details/@Html.Raw(item.id)" class="fa fa-details animated wow fadeInDown" title="Details"> </a>
 
-            <a href="~/Session/Edit/@Html.Raw(item.id)" class="MySession fa fa-edit animated wow fadeInDown" title="Start Session"></a>
-            <a href="~/Session/Edit/@Html.Raw(item.id)" class="MySession fa fa-edit animated wow fadeInDown" title="Edit"></a>
-            <a href="~/Session/Delete/@Html.Raw(item.id)" class="MySession fa fa-delete animated wow fadeInDown" title="Delete"></a>
-            @*<script>
-                if(GetUserMaster(@Html.Raw(item.id)) != @Html.Raw(User.Identity.Name))
-                {
-                    HideSessionOptions();
-                }
-            </script>*@
+        <a href="~/Session/Details/@Html.Raw(item.id)" class="fa fa-details animated wow fadeInDown" title="Details"> </a>
+        <span id="@Html.Raw(item.id)" class="mysession">
+            <a href="~/Session/Edit/@Html.Raw(item.id)" class="fa fa-edit animated wow fadeInDown" title="Start Session"></a>
+            <a href="~/Session/Edit/@Html.Raw(item.id)" class="fa fa-edit animated wow fadeInDown" title="Edit"></a>
+            <a href="~/Session/Delete/@Html.Raw(item.id)" class="fa fa-delete animated wow fadeInDown" title="Delete"></a>
         </span>
     </div>
 }
+

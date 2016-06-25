@@ -51,7 +51,7 @@
     //Submission form with attributes
     $('input[id=submitAttributes]').click(function () {
         var url = "/CharacterAttribute/CreateCharacter/";
-        var form = $("#formCharacterAttributes").serialize();
+        var form = $("#formCreateNonPlayer").serialize();
 
         var model = document.getElementById('model').value;
 

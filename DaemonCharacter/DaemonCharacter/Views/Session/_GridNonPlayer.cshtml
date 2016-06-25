@@ -1,0 +1,34 @@
+﻿@model DaemonCharacter.Models.NonPlayerGridSession
+
+@{ Layout = null;}
+
+<tr>
+    <td>
+        <span class="glyphicon glyphicon-collapse-down" title="asd" id="RemoveRow"></span>
+    </td>
+    <td>
+        @Html.DisplayFor(m => Model.nonPlayer.name)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.nonPlayer.chalengeLevel)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.nonPlayer.maxLife)
+    </td>
+    <td>
+        @Html.EditorFor(m => m.order)
+        @Html.ValidationMessageFor(m => m.order)
+    </td>
+    <td>
+        @Html.EditorFor(m => m.remainingLife)
+        @Html.ValidationMessageFor(m => m.remainingLife)
+    </td>
+    <td>
+        @Html.EditorFor(m => m.qtd)
+        @Html.ValidationMessageFor(m => m.qtd)
+    </td>
+    <td>
+        @Html.EditorFor(m => m.privateAnnotations)
+        @Html.ValidationMessageFor(m => m.privateAnnotations)
+    </td>
+</tr>

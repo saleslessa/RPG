@@ -38,7 +38,7 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        private object ValidatePlayerBeforeCreate<T>(string model)
+        private object ValidateCharacterBeforeCreate<T>(string model)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace DaemonCharacter.Controllers
             try
             {
 
-                var obj = ValidatePlayerBeforeCreate<object>(((string[])f.GetValue("model").RawValue)[0]);
+                var obj = ValidateCharacterBeforeCreate<object>(((string[])f.GetValue("model").RawValue)[0]);
 
                 SelectAttributesFromSelectedCheckboxes(ref listOfAttributes, f);
 
@@ -88,6 +88,7 @@ namespace DaemonCharacter.Controllers
             }
 
         }
+       
 
         private CharacterModel GetCharacter(int id)
         {
@@ -259,7 +260,7 @@ namespace DaemonCharacter.Controllers
             }
         }
 
-        public ActionResult ListNonCharacter(string model)
+        public ActionResult _ListNonCharacter(string model)
         {
             IEnumerable<AttributeModel> attributes;
 

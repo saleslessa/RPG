@@ -18,8 +18,11 @@ namespace DaemonCharacter.Models
         [Display(Name ="Other effects"), DataType(DataType.MultilineText), StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength =5)]
         public string effect { get; set; }
 
+        [DataType(DataType.Text), DisplayName("Category")]
+        public string category { get; set; }
+
         [DataType(DataType.Currency), Range(0,int.MaxValue, ErrorMessage ="Price cannot be lower than 0")]
-        [DefaultValue(0), Required(ErrorMessage ="Preice of item is necessary")]
+        [DefaultValue(0), Required(ErrorMessage ="Price of item is necessary")]
         [Display(Name ="Price")]
         public int price { get; set; }
 

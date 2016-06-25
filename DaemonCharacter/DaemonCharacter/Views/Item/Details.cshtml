@@ -20,6 +20,13 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.effect)
     </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.category)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.category)
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |

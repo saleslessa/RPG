@@ -45,7 +45,7 @@ namespace DaemonCharacter.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            SessionModel sessionmodel = db.CampaignSession.Find(id);
+            SessionModel sessionmodel = db.CampaignSession.SingleOrDefault(t => t.id == id);
             if (sessionmodel == null)
             {
                 return HttpNotFound();
@@ -147,9 +147,28 @@ namespace DaemonCharacter.Controllers
         {
             var userMaster = db.CampaignSession
                 .Where(t => t.id == id)
-                .Select(s => new { s.campaign.userMaster.UserName });
+                .Select(s => new { s.campaign.userMaster.UserName }).SingleOrDefault();
 
-            return Json(userMaster, JsonRequestBehavior.AllowGet);
+            return Json(userMaster.UserName, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PrepareSession()
+        {
+            return View();
+        }
+
+        public ActionResult _GridNonPLayer(int idNPC)
+        {
+            var result = new NonPlayerGridSession() {
+                    nonPlayer = db.NonPlayers.SingleOrDefault(t=> t.id == idNPC)
+                };
+                
+            return View(result);
+        }
+
+        //public JsonResult ReturnNonPlayerCampaign(int idNonPLayer)
+        //{
+        //    return Json(db.NonPlayers.FirstOrDefault(t => t.id == idNonPLayer), JsonRequestBehavior.AllowGet);
+        //}
     }
 }

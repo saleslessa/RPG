@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<DaemonCharacter.Models.AttributeModel>
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCharacterAttributes" }))
+@*@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCharacterAttributes" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(true)*@
 
     @Html.Hidden("model", (string)ViewBag.model)
 
     <fieldset>
-        <legend>Attributes</legend>
-
         @{
             var type = AttributeType.Characteristic;
         }
@@ -35,4 +33,4 @@
             <span href="#" id="unselectAttributes" onclick="unselectAttributes()" style="cursor:pointer">Unselect all</span>
         </p>
     </fieldset>
-            }
+   @*         }*@

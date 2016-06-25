@@ -274,5 +274,7 @@ namespace DaemonCharacter.Controllers
 
             return Json(r, JsonRequestBehavior.AllowGet);
         }
+
+       
     }
 }

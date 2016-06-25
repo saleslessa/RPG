@@ -3,16 +3,18 @@
 @{
     ViewBag.Title = "List Sessions";
 }
-@section FirstScripts {
-    @Scripts.Render("~/bundles/javascripts")
-}
+
 <h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
     <i class="fa fa-logo animated wow fadeInDown"></i>
     &nbsp;List of Sessions
 </h2>
 
+<p>@Html.ActionLink("Prepare Session", "PrepareSession")</p>
+
 <p>My Campaigns</p>
 <br />
+
+@Html.Hidden("userID", User.Identity.Name)
 
 @foreach (var item in Model)
 {
@@ -26,3 +28,35 @@
 
 }
 
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('.mysession').each(function (index, element) {
+
+                var url = '/Session/GetUserMaster/';
+                var loggedUser = document.getElementById('userID').value;
+
+                $.ajax(
+                {
+                    //dataType: 'JSON',
+                    url: url,
+                    type: 'GET',
+                    data: 'id=' + element.id,
+
+                    success: function (userMaster) {
+
+                        if(userMaster != loggedUser)
+                        {
+                            element.style.display = 'none';
+                        }
+
+                    },
+                    error: function (xhr) {
+                        alert(xhr.statusText);
+                    }
+                });
+
+            });
+        });
+    </script>
+}

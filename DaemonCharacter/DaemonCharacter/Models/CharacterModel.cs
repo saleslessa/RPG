@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -50,42 +51,5 @@ namespace DaemonCharacter.Models
         //public virtual List<CharacterAttributeModel> bonusValues { get; set; }
        
     }
-
-    public class NonPlayerModel : CharacterModel
-    {
-        
-        [Required, Display(Name ="NPC Type"), DefaultValue(NonPlayerTypes.NPC)]
-        public NonPlayerTypes type { get; set; }
-
-        [DefaultValue(0), Display(Name = "Chalenge Level"), Range(0, 999)]
-        public int chalengeLevel { get; set; }
-
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Annotations that all players can see")]
-        public string publicAnnotations { get; set; }
-    }
-
-    //[Table("tb_nonplayer_session")]
-    //public class NonPlayerCampaignModel
-    //{
-    //    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    //    [Column(Order = 0)]
-    //    public int id { get; set; }
-
-    //    [Key, Column(Order = 1)]
-    //    public int idSession { set; get; }
-
-    //    [Required, Display(Name = "Remaining Life Points"), Range(0, int.MaxValue), DefaultValue(0)]
-    //    public int remainingLife { get; set; }
-
-    //    [DataType(DataType.MultilineText)]
-    //    [Display(Name = "Annotations that only you (master) can see")]
-    //    public string privateAnnotations { get; set; }
-
-    //    public virtual NonPlayerModel nonplayer { get; set; }
-
-    //    [ForeignKey("idSession")]
-    //    public virtual CampaignSessionModel session { get; set; }
-    //}
 
 }

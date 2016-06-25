@@ -201,6 +201,7 @@
     <Compile Include="Models\CharacterModel.cs" />
     <Compile Include="Models\DaemonCharacterContext.cs" />
     <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\NonPlayerModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Models\PlayerSessionModel.cs" />
     <Compile Include="Models\SessionModel.cs" />
@@ -338,6 +339,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\Menu.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Session.js" />
     <Content Include="Scripts\tutorial.js" />
     <Content Include="Scripts\wow.min.js" />
     <Content Include="Web.config">
@@ -391,7 +393,7 @@
     <Content Include="Views\Character\PlayerDetails.cshtml" />
     <Content Include="Views\Character\Edit.cshtml" />
     <Content Include="Views\Character\Delete.cshtml" />
-    <Content Include="Views\CharacterAttribute\ListNonCharacter.cshtml" />
+    <Content Include="Views\CharacterAttribute\_ListNonCharacter.cshtml" />
     <Content Include="Views\Character\CreatePlayer.cshtml" />
     <Content Include="Views\Attribute\ListBonus.cshtml" />
     <Content Include="Views\CharacterAttribute\ListCharacterWithBonus.cshtml" />
@@ -418,6 +420,9 @@
     <Content Include="Views\Session\Edit.cshtml" />
     <Content Include="Views\Session\Delete.cshtml" />
     <Content Include="Views\Session\_ListSessions.cshtml" />
+    <Content Include="Views\Session\PrepareSession.cshtml" />
+    <Content Include="Views\Character\_ListNPCForSession.cshtml" />
+    <Content Include="Views\Session\_GridNonPlayer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
