@@ -8,6 +8,8 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
         public AttributeConfig()
         {
 
+            HasKey(k => k.AttributeId);
+
             Property(p => p.AttributeId)
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
 
@@ -22,7 +24,6 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
                 .HasMaxLength(50);
 
             Property(p => p.AttributeMinimum)
-                .HasColumnType("tinyint")
                 .IsOptional();
 
             Property(p => p.AttributeDescription)

@@ -8,10 +8,6 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
         public PlayerConfig()
         {
-            HasKey(k => k.CharacterId);
-
-            Property(p => p.CharacterId)
-                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
 
             HasRequired(r => r.CharacterUser)
                 .WithMany()

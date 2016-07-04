@@ -17,7 +17,7 @@ namespace DaemonCharacter.Application.Interfaces
 
         void Remove(Guid AttributeId);
 
-        IEnumerable<AttributeBonusViewModel> ListAvailableForBonus(Guid SelectedAttribute);
+        IEnumerable<AttributeBonusViewModel> ListAvailableForBonus(Guid? SelectedAttribute);
 
     }
 }

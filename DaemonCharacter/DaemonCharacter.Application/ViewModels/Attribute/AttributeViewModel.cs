@@ -12,6 +12,8 @@ namespace DaemonCharacter.Application.ViewModels.Attribute
             AttributeId = Guid.NewGuid();
             ParentAttribute = new List<AttributeBonusViewModel>();
             AttributeBonus = new List<AttributeBonusViewModel>();
+
+            ValidationResult = new DomainValidation.Validation.ValidationResult();
         }
 
         [Key]

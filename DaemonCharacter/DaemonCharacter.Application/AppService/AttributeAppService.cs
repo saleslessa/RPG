@@ -31,7 +31,7 @@ namespace DaemonCharacter.Application.AppService
             {
                 if (AttBonus.Selected)
                 {
-                    var AttributeChild = _attributeService.Get(AttBonus.AttributeBonusId);
+                    var AttributeChild = _attributeService.Get(AttBonus.AttributeId);
 
                     att.AttributeBonus.Add(AttributeChild);
                     AttributeChild.ParentAttribute.Add(att);
@@ -63,9 +63,28 @@ namespace DaemonCharacter.Application.AppService
                 (_attributeService.ListAll());
         }
 
-        public IEnumerable<AttributeBonusViewModel> ListAvailableForBonus(Guid SelectedAttribute)
+        public IEnumerable<AttributeBonusViewModel> ListAvailableForBonus(Guid? SelectedAttribute)
         {
-            return _attributeService.sear
+            var result = Mapper.Map<IEnumerable<Attributes>, IEnumerable<AttributeBonusViewModel>>(_attributeService.ListAvailableForBonus(SelectedAttribute));
+
+            var att = _attributeService.Get(SelectedAttribute);
+
+            foreach (var item in result)
+            {
+                if (att != null)
+                {
+                    foreach (var selected in att.AttributeBonus)
+                    {
+                        item.Selected = item.AttributeId == selected.AttributeId;
+                    }
+                }
+                else
+                {
+                    item.Selected = false;
+                }
+            }
+
+            return result;
         }
 
         public void Remove(Guid AttributeId)

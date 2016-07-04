@@ -1,5 +1,4 @@
-﻿using DaemonCharacter.Domain.Validations;
-using DomainValidation.Validation;
+﻿using DomainValidation.Validation;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +14,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public AttributeType AttributeType { get; set; }
 
-        public int AttributeMinimum { get; set; }
+        public short? AttributeMinimum { get; set; }
 
         public virtual ICollection<Attributes> ParentAttribute { get; set; }
 
@@ -25,9 +24,11 @@ namespace DaemonCharacter.Domain.Entities
 
         public Attributes()
         {
-            AttributeId = new Guid();
+            AttributeId = Guid.NewGuid();
             ParentAttribute = new List<Attributes>();
             AttributeBonus = new List<Attributes>();
+
+            ValidationResult = new ValidationResult();
         }
 
     }

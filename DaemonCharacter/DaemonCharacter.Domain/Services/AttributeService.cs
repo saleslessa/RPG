@@ -44,6 +44,13 @@ namespace DaemonCharacter.Domain.Services
             return _attributeRepository.ListAll();
         }
 
+        public IEnumerable<Attributes> ListAvailableForBonus(Guid? SelectedAttribute)
+        {
+            return _attributeRepository.Search(t => t.AttributeType != AttributeType.Characteristic
+            && (t.AttributeId != SelectedAttribute || SelectedAttribute == null));
+        }
+
+       
         public void Remove(Guid AttributeId)
         {
             _attributeRepository.Remove(AttributeId);

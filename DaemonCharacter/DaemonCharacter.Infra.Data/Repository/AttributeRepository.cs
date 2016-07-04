@@ -28,6 +28,12 @@ namespace DaemonCharacter.Infra.Data.Repository
                 .FirstOrDefault();
         }
 
+        public Attributes GetUpdateable(Guid id, string name)
+        {
+            return Search(t => t.AttributeName.ToUpper().Trim() == name.ToUpper().Trim() && (t.AttributeId == id || id == null))
+                .FirstOrDefault();
+        }
+
         public IEnumerable<Attributes> ListWithBonus(Guid? id)
         {
             return Search(t => t.AttributeType != AttributeType.Characteristic && t.AttributeId != id).ToList();

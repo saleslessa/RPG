@@ -32,42 +32,42 @@ namespace DaemonCharacter.Infra.Data.Context
             modelBuilder.Properties<int>()
                 .Configure(p => p.HasColumnType("smallint"));
 
-            modelBuilder.Configurations.Add(new AttributeConfig());
-            modelBuilder.Configurations.Add(new CampaignConfig());
-            modelBuilder.Configurations.Add(new ItemConfig());
-            modelBuilder.Configurations.Add(new ItemAttributeConfig());
-
-            modelBuilder.Configurations.Add(new SessionConfig());
-
-            modelBuilder.Configurations.Add(new CharacterAttributeConfig());
-            modelBuilder.Configurations.Add(new NonPlayerConfig());
-
-            modelBuilder.Configurations.Add(new PlayerConfig());
-            modelBuilder.Configurations.Add(new PlayerItemConfig());
-            modelBuilder.Configurations.Add(new PlayerSessionConfig());
-
             modelBuilder.Configurations.Add(new UserConfig());
+
+            modelBuilder.Configurations.Add(new AttributeConfig());
+            //modelBuilder.Configurations.Add(new CampaignConfig());
+            //modelBuilder.Configurations.Add(new ItemConfig());
+            //modelBuilder.Configurations.Add(new ItemAttributeConfig());
+
+            //modelBuilder.Configurations.Add(new SessionConfig());
+
+            //modelBuilder.Configurations.Add(new CharacterAttributeConfig());
+            //modelBuilder.Configurations.Add(new NonPlayerConfig());
+
+            //modelBuilder.Configurations.Add(new PlayerConfig());
+            //modelBuilder.Configurations.Add(new PlayerItemConfig());
+            //modelBuilder.Configurations.Add(new PlayerSessionConfig());
 
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Attributes> Attributes { get; set; }
 
-        public DbSet<Campaign> Campaigns { get; set; }
+        //public DbSet<Campaign> Campaigns { get; set; }
 
         public DbSet<Users> Users { get; set; }
 
-        public DbSet<CharacterAttributes> CharacterAttributes { get; set; }
+        //public DbSet<CharacterAttributes> CharacterAttributes { get; set; }
 
-        public DbSet<Player> Players { get; set; }
+        //public DbSet<Player> Players { get; set; }
 
-        public DbSet<NonPlayers> NonPlayers { get; set; }
+        //public DbSet<NonPlayers> NonPlayers { get; set; }
 
-        public DbSet<Sessions> CampaignSession { set; get; }
+        //public DbSet<Sessions> CampaignSession { set; get; }
 
-        public DbSet<Items> Items { get; set; }
+        //public DbSet<Items> Items { get; set; }
 
-        public DbSet<ItemAttributes> ItemAttributes { get; set; }
+        //public DbSet<ItemAttributes> ItemAttributes { get; set; }
 
     }
 

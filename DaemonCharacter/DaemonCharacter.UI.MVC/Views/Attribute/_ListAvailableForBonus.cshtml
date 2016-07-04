@@ -1,0 +1,27 @@
+﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Attribute.AttributeBonusViewModel>
+
+@{ Layout = null;}
+
+<table class="table table-striped">
+    <tr>
+        <th style="display:none;"></th>
+        <th>Bonus to:</th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttributeName)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="display:none;">@Html.Raw(item.AttributeId)</td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.Selected)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttributeName)
+            </td>
+        </tr>
+    }
+
+</table>

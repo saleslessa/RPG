@@ -2,6 +2,7 @@
 using DaemonCharacter.Application.ViewModels.Attribute;
 using Microsoft.Ajax.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 
@@ -39,20 +40,26 @@ namespace DaemonCharacter.UI.MVC.Controllers
             return View();
         }
 
+        public ActionResult _ListAvailableForBonus(Guid? id)
+        {
+            return View(_attributeAppService.ListAvailableForBonus(id));
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AttributeViewModel att)
+        public ActionResult Create(AttributeViewModel att, IEnumerable<AttributeBonusViewModel> bonus)
         {
             if (ModelState.IsValid)
             {
                 att = _attributeAppService.Add(att);
 
-                if (att.ValidationResult.IsValid)
+                if (!att.ValidationResult.IsValid)
                 {
                     foreach (var error in att.ValidationResult.Erros)
                     {
                         ModelState.AddModelError(string.Empty, error.Message);
                     }
+
                     return View(att);
                 }
 
@@ -90,7 +97,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
                 if (!att.ValidationResult.Message.IsNullOrWhiteSpace())
                 {
-                    ViewBag.Success = att.ValidationResult.Message;
+                    ViewBag.Message = att.ValidationResult.Message;
                     return View(att);
                 }
 

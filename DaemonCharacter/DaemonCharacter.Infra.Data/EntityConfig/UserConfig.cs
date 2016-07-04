@@ -7,7 +7,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
     {
         public UserConfig()
         {
-            
+            HasKey(k => k.UserId);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace DaemonCharacter.Application.ViewModels.Attribute
     {
 
         [Key]
-        public Guid AttributeBonusId { get; set; }
+        public Guid AttributeId { get; set; }
 
         [DisplayName("Name")]
         public string AttributeName { get; set; }

@@ -16,6 +16,8 @@ namespace DaemonCharacter.Domain.Interfaces.Repository
 
         Attributes GetByName(string name);
 
+        Attributes GetUpdateable(Guid id, string name);
+
 
     }
 }

@@ -1,11 +1,6 @@
 ﻿using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Repository;
 using DomainValidation.Interfaces.Specification;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DaemonCharacter.Domain.Specifications.Attribute
 {
@@ -20,7 +15,10 @@ namespace DaemonCharacter.Domain.Specifications.Attribute
 
         public bool IsSatisfiedBy(Attributes entity)
         {
-            return _attributeRepository.GetByName(entity.AttributeName) == null;
+            //TODO: Adjust validation
+            //return _attributeRepository.GetUpdateable(entity.AttributeId, entity.AttributeName) == null;
+
+            return true;
         }
     }
 }

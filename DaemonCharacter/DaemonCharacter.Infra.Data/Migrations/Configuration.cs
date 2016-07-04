@@ -6,7 +6,7 @@ namespace DaemonCharacter.Infra.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(DaemonCharacter.Infra.Data.Context.DaemonCharacterContext context)

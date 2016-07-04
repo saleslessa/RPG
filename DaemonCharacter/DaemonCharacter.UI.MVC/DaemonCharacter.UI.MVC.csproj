@@ -297,6 +297,7 @@
     <Content Include="Views\Attribute\Create.cshtml" />
     <Content Include="Views\Attribute\Edit.cshtml" />
     <Content Include="Views\Attribute\Delete.cshtml" />
+    <Content Include="Views\Attribute\_ListAvailableForBonus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
