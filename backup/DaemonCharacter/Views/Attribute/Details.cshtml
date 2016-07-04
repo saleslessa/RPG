@@ -1,0 +1,36 @@
+﻿
+@model DaemonCharacter.Domain.AttributeModel
+
+@{
+    ViewBag.Title = "Attribute Details";
+}
+
+<h2>Attribute Details</h2>
+
+<fieldset>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.minimum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.minimum)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

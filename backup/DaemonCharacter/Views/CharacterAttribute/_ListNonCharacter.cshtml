@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DaemonCharacter.Domain.AttributeModel>
+
+@*@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCharacterAttributes" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)*@
+
+    @Html.Hidden("model", (string)ViewBag.model)
+
+    <fieldset>
+        @{
+            var type = AttributeType.Characteristic;
+        }
+        <dl>
+            @foreach (var items in Model)
+            {
+                if (type != items.type)
+                {
+                    type = items.type;
+
+                    <dd class="selector-Dynamic-header">@Html.DisplayName(type.ToString())</dd>
+
+                }
+                <dt class="selector-Dynamic-details">
+                    <input type="checkbox" class="chk-dynamic" id="ChkAttr_@Html.Raw(items.id)" name="ChkAttr_@Html.Raw(items.id)" />
+                    <span title="@Html.Raw(items.description)" onclick="setCheckbox(ChkAttr_@Html.Raw(items.id))">@Html.DisplayName(items.name)</span>
+                    <input type="number" class="dynamic-input" id="ValAttr_@Html.Raw(items.id)" name="ValAttr_@Html.Raw(items.id)" onchange="CalculateRemainingPoints(this)">
+                </dt>
+            }
+        </dl>
+        <p>
+            <input type="button" value="Finish" class="button" id="submitAttributes" />
+            <span href="#" id="unselectAttributes" onclick="unselectAttributes()" style="cursor:pointer">Unselect all</span>
+        </p>
+    </fieldset>
+   @*         }*@

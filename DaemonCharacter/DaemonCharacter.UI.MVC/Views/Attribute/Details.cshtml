@@ -1,0 +1,50 @@
+﻿@model DaemonCharacter.Application.ViewModels.Attribute.AttributeViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AttributeViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AttributeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttributeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AttributeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttributeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AttributeType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttributeType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AttributeMinimum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttributeMinimum)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AttributeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

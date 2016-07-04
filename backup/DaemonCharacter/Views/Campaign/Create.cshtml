@@ -1,0 +1,77 @@
+﻿@*@if (!Request.IsAuthenticated || Session["LoggedUser"] == null)
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index","Home")';
+    </script>
+}*@
+
+@model DaemonCharacter.Domain.CampaignModel
+
+@{
+    ViewBag.Title = "Create new campaign Form";
+}
+
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-logo animated wow fadeInDown"></i>
+    &nbsp;Create new campaign Form
+</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.shortDescription)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.shortDescription)
+            @Html.ValidationMessageFor(model => model.shortDescription)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.briefing)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.briefing)
+            @Html.ValidationMessageFor(model => model.briefing)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.startYear)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.startYear)
+            @Html.ValidationMessageFor(model => model.startYear)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.maxPlayers)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.maxPlayers)
+            @Html.ValidationMessageFor(model => model.maxPlayers)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+<div style="color:red">
+    @ViewBag.message
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

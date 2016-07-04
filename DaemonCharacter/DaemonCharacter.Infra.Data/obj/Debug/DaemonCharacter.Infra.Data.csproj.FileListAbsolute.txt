@@ -1,0 +1,13 @@
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\DaemonCharacter.Infra.Data.dll.config
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\DaemonCharacter.Infra.Data.dll
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\DaemonCharacter.Infra.Data.pdb
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\DaemonCharacter.Domain.dll
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\EntityFramework.dll
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\DomainValidation.dll
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\DaemonCharacter.Domain.pdb
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\EntityFramework.xml
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\obj\Debug\DaemonCharacter.Infra.Data.csprojResolveAssemblyReference.cache
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\obj\Debug\DaemonCharacter.Infra.Data.dll
+C:\GitHub\RPG\DaemonCharacter\DAemonCharacter.Infra.Data\obj\Debug\DaemonCharacter.Infra.Data.pdb

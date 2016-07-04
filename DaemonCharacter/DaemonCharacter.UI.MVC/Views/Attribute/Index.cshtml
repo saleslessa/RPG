@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Attribute.AttributeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AttributeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttributeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttributeType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttributeMinimum)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttributeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttributeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttributeType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttributeMinimum)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AttributeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AttributeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AttributeId })
+        </td>
+    </tr>
+}
+
+</table>

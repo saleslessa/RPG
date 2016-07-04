@@ -1,0 +1,6 @@
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\bin\Debug\DaemonCharacter.Domain.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\bin\Debug\DaemonCharacter.Domain.pdb
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\bin\Debug\DomainValidation.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.csprojResolveAssemblyReference.cache
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.pdb

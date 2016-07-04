@@ -1,0 +1,43 @@
+﻿@model DaemonCharacter.Domain.SessionModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>SessionModel</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.timeScheduled)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.timeScheduled)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.briefing)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.briefing)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.privateBeforeAnnotations)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.privateBeforeAnnotations)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.duringAnnotations)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.duringAnnotations)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

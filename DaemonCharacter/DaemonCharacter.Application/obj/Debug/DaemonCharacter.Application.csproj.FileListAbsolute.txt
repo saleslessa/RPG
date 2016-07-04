@@ -1,0 +1,13 @@
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Application.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Application.pdb
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\AutoMapper.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Domain.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Infra.Data.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DomainValidation.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\EntityFramework.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Domain.pdb
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Infra.Data.pdb
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\EntityFramework.xml
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.csprojResolveAssemblyReference.cache
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.dll
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.pdb

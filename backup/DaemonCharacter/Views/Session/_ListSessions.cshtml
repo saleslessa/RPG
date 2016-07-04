@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DaemonCharacter.Domain.SessionModel>
+
+@{Layout = null; }
+
+@foreach (var item in Model)
+{
+
+    <div class="col-md-4 table-bordered animated wow" style="margin:5px;border-radius:5px;">
+        <span>
+            <strong>Date: </strong>
+            @Html.DisplayFor(modelItem => item.dayScheduled) &nbsp;
+            @Html.DisplayFor(modelItem => item.timeScheduled)
+        </span><br />
+        <span>
+            <strong>Status:</strong>
+            @Html.DisplayFor(modelItem => item.status)
+        </span>
+        <span>
+            <strong>Briefing: </strong>
+            @Html.DisplayFor(modelItem => item.briefing)
+        </span><br />
+
+        <a href="~/Session/Details/@Html.Raw(item.id)" class="fa fa-details animated wow fadeInDown" title="Details"> </a>
+        <span id="@Html.Raw(item.id)" class="mysession">
+            <a href="~/Session/Edit/@Html.Raw(item.id)" class="fa fa-edit animated wow fadeInDown" title="Start Session"></a>
+            <a href="~/Session/Edit/@Html.Raw(item.id)" class="fa fa-edit animated wow fadeInDown" title="Edit"></a>
+            <a href="~/Session/Delete/@Html.Raw(item.id)" class="fa fa-delete animated wow fadeInDown" title="Delete"></a>
+        </span>
+    </div>
+}
+

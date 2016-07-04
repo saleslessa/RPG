@@ -1,0 +1,69 @@
+﻿@model DaemonCharacter.Domain.SessionModel
+
+@{
+    ViewBag.Title = "Create new session";
+}
+
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-logo animated wow fadeInDown"></i>
+    &nbsp;Create new session
+</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.campaign)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("idCampaign", (SelectList)ViewBag.idCampaign)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.dayScheduled)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dayScheduled)
+            @Html.ValidationMessageFor(model => model.dayScheduled)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.timeScheduled)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.timeScheduled)
+            @Html.ValidationMessageFor(model => model.timeScheduled)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.briefing)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.briefing)
+            @Html.ValidationMessageFor(model => model.briefing)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.privateBeforeAnnotations)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.privateBeforeAnnotations)
+            @Html.ValidationMessageFor(model => model.privateBeforeAnnotations)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
