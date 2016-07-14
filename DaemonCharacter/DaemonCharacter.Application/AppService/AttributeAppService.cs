@@ -6,6 +6,7 @@ using DaemonCharacter.Infra.Data.Interfaces;
 using DaemonCharacter.Domain.Interfaces.Service;
 using AutoMapper;
 using DaemonCharacter.Domain.Entities;
+using System.Linq;
 
 namespace DaemonCharacter.Application.AppService
 {
@@ -23,6 +24,8 @@ namespace DaemonCharacter.Application.AppService
         {
             var att = Mapper.Map<AttributeViewModel, Attributes>(AttributeViewModel);
 
+            att.AttributeBonus = new List<Attributes>();
+
             BeginTransaction();
 
             _attributeService.Add(att);
@@ -31,13 +34,8 @@ namespace DaemonCharacter.Application.AppService
             {
                 if (AttBonus.Selected)
                 {
-                    var AttributeChild = _attributeService.Get(AttBonus.AttributeId);
-
-                    att.AttributeBonus.Add(AttributeChild);
-                    AttributeChild.ParentAttribute.Add(att);
-
-                    _attributeService.Update(att);
-                    _attributeService.Update(AttributeChild);
+                    _attributeService.AddChild(att.AttributeId, AttBonus.AttributeId);
+                    _attributeService.AddParent(AttBonus.AttributeId, att.AttributeId);
                 }
             }
 
@@ -63,7 +61,7 @@ namespace DaemonCharacter.Application.AppService
                 (_attributeService.ListAll());
         }
 
-        public IEnumerable<AttributeBonusViewModel> ListAvailableForBonus(Guid? SelectedAttribute)
+        public List<AttributeBonusViewModel> ListAvailableForBonus(Guid? SelectedAttribute)
         {
             var result = Mapper.Map<IEnumerable<Attributes>, IEnumerable<AttributeBonusViewModel>>(_attributeService.ListAvailableForBonus(SelectedAttribute));
 
@@ -75,7 +73,11 @@ namespace DaemonCharacter.Application.AppService
                 {
                     foreach (var selected in att.AttributeBonus)
                     {
-                        item.Selected = item.AttributeId == selected.AttributeId;
+                        if (item.AttributeId == selected.AttributeId)
+                        {
+                            item.Selected = true;
+                            break;
+                        }
                     }
                 }
                 else
@@ -84,21 +86,50 @@ namespace DaemonCharacter.Application.AppService
                 }
             }
 
-            return result;
+            return result.ToList();
         }
 
         public void Remove(Guid AttributeId)
         {
+            BeginTransaction();
+
+            _attributeService.RemoveChilds(AttributeId);
+            _attributeService.RemoveParent(AttributeId);
+
             _attributeService.Remove(AttributeId);
+
+            Commit();
         }
 
         public AttributeViewModel Update(AttributeViewModel _AttributeViewModel)
         {
-            return Mapper.Map<Attributes, AttributeViewModel>(
-                _attributeService.Update(
-                    Mapper.Map<AttributeViewModel, Attributes>(_AttributeViewModel)
-                    )
-                );
+
+            var att = Mapper.Map<AttributeViewModel, Attributes>(_AttributeViewModel);
+
+            BeginTransaction();
+
+            att.AttributeBonus.Clear();
+
+            _attributeService.Update(att);
+
+
+            foreach (var item in _AttributeViewModel.AttributeBonus)
+                _attributeService.RemoveParent(item.AttributeId, _AttributeViewModel.AttributeId);
+
+            _attributeService.RemoveChilds(_AttributeViewModel.AttributeId);
+
+            foreach (var AttBonus in _AttributeViewModel.AttributeBonus)
+            {
+                if (AttBonus.Selected)
+                {
+                    _attributeService.AddChild(att.AttributeId, AttBonus.AttributeId);
+                    _attributeService.AddParent(AttBonus.AttributeId, att.AttributeId);
+                }
+            }
+
+            Commit();
+            return Mapper.Map<Attributes, AttributeViewModel>(att);
         }
+
     }
 }

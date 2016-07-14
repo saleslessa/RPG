@@ -19,5 +19,16 @@ namespace DaemonCharacter.Domain.Interfaces.Service
 
         IEnumerable<Attributes> ListAvailableForBonus(Guid? SelectedAttribute);
 
+        Attributes RemoveChilds(Guid _Attribute);
+
+        void RemoveParent(Guid AttributeId);
+
+        void RemoveParent(Guid att, Guid parent);
+
+        List<Attributes> ListBonusAttribute(Guid AttributeId);
+
+        void AddChild(Guid _attribute, Guid child);
+
+        void AddParent(Guid _attribute, Guid parent);
     }
 }

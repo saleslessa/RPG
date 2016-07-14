@@ -16,5 +16,10 @@ namespace DaemonCharacter.Infra.Data.Repository
         {
             return Search(t => t.CampaignRemainingPlayers > 0);
         }
+
+        public void Remove(Guid? id)
+        {
+            Remove(id);
+        }
     }
 }

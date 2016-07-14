@@ -8,14 +8,11 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
         public PlayerConfig()
         {
-
-            HasRequired(r => r.CharacterUser)
-                .WithMany()
-                .Map(m => m.MapKey("CharacterUserId"));
+            HasKey(p => p.CharacterId);
 
             HasRequired(r => r.Campaign)
-                .WithMany()
-                .Map(m=>m.MapKey("PlayerCampaignId"));
+                .WithMany(m => m.Players)
+                .Map(m => m.MapKey("PlayerCampaignId"));
 
             Property(p => p.CharacterName)
                 .IsRequired()
@@ -49,10 +46,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
             Property(p => p.PlayerExperience)
                 .IsOptional();
 
-            Property(p => p.CharacterUser.UserId)
-                .IsRequired();
-
-            Property(p => p.Campaign.CampaignId)
+            Property(p => p.CharacterUser)
                 .IsRequired();
 
             Property(p => p.CharacterRace)
@@ -60,7 +54,6 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.CharacterGender)
                 .IsRequired();
-
         }
     }
 }

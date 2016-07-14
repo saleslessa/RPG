@@ -1,4 +1,5 @@
 ﻿using DaemonCharacter.Domain.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace DaemonCharacter.Domain.Interfaces.Repository

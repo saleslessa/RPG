@@ -13,6 +13,11 @@ namespace DaemonCharacter.Infra.Data.Repository
         {
         }
 
+        public void Remove(Guid? id)
+        {
+            Remove(id);
+        }
+
         public IEnumerable<Attributes> GetBonusAttribute(Guid? id)
         {
             return Search(t => t.ParentAttribute.Contains(
@@ -51,7 +56,7 @@ namespace DaemonCharacter.Infra.Data.Repository
 
         public void RemoveParent(Guid? id)
         {
-            var obj = SearchById(id);
+            var obj = Get(id);
 
             obj.ParentAttribute.Clear();
             Update(obj);

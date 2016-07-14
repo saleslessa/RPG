@@ -3,8 +3,6 @@ using DaemonCharacter.Domain.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DaemonCharacter.Infra.Data.Context;
 
 namespace DaemonCharacter.Infra.Data.Repository

@@ -1,0 +1,60 @@
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="~/Home/"><i class="fa fa-logo"></i>PLANET RPG</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <!-- Left nav -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:void(0);">Wiki</a></li>
+                @*@if (Request.IsAuthenticated) {*@
+                    
+
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Game Configuration<span id="Span1" class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" data-dropdown-in="fadeInUp" data-dropdown-out="fadeOutDown">
+
+                            <li>@Html.ActionLink("Attributes", "Index", "Attribute")</li>
+                            <li>@Html.ActionLink("Items", "Index", "Item")</li>
+
+                        </ul>
+                    </li>
+
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Campaigns<span id="Span1" class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" data-dropdown-in="fadeInUp" data-dropdown-out="fadeOutDown">
+
+                                <li>@Html.ActionLink("Players", "Index", "Player")</li>
+                                <li>@Html.ActionLink("Campaigns", "Index", "Campaign")</li>
+                                <li>@Html.ActionLink("Sessions", "Index", "Session")</li>
+                                <li>@Html.ActionLink("Buy Items", "Index", "Campaign")</li>
+
+                            </ul>
+                        </li>
+                    @*  }*@
+                <li>
+                    <!-- add search form -->
+                    <div class="navbar-form" role="search">
+                        <div class="input-group">
+                            <input type="text" ID="txtsearch" placeholder="Search this site" class="form-control" />
+                            @*<span class="input-group-btn">
+                                    <input type="button" ID="lbsearch" ToolTip="Search" class="btn btn-default"
+                                                    Text='<i class="glyphicon glyphicon-search"></i>' />
+                                </span>*@
+                        </div>
+                    </div>
+                </li>
+                <li id="login">
+                    @Html.Partial("_loginPartial")
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,7 @@ namespace DaemonCharacter.Domain.Interfaces.Repository
     {
         TEntity Add(TEntity obj);
 
-        TEntity SearchById(Guid? id);
+        TEntity Get(Guid? id);
 
         IEnumerable<TEntity> ListAll();
 

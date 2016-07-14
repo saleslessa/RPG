@@ -20,7 +20,7 @@ namespace DaemonCharacter.UI.MVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("Identity", throwIfV1Schema: false)
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
@@ -29,6 +29,5 @@ namespace DaemonCharacter.UI.MVC.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<DaemonCharacter.Application.ViewModels.Attribute.AttributeBonusViewModel> AttributeBonusViewModels { get; set; }
     }
 }

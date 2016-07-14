@@ -1,0 +1,87 @@
+﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Player.PlayerViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterMaxLife)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterRace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterGender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerAge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerExperience)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerBackground)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerPointsToDistribute)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerMoney)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CharacterName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CharacterMaxLife)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CharacterRace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CharacterGender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerAge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerExperience)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerBackground)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerPointsToDistribute)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerMoney)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CharacterId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CharacterId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CharacterId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -2,14 +2,14 @@ namespace DaemonCharacter.Infra.Data.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DaemonCharacter.Infra.Data.Context.DaemonCharacterContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Context.DaemonCharacterContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(DaemonCharacter.Infra.Data.Context.DaemonCharacterContext context)
+        protected override void Seed(Context.DaemonCharacterContext context)
         {
             //  This method will be called after migrating to the latest version.
 

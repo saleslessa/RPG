@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomainValidation.Validation;
+using System;
 
 namespace DaemonCharacter.Domain.Entities
 {
@@ -14,15 +15,20 @@ namespace DaemonCharacter.Domain.Entities
 
         public int CharacterRemainingLife { get; set; }
 
-        public virtual Users CharacterUser { get; set; }
+        public string CharacterUser { get; set; }
 
         public Races CharacterRace { get; set; }
 
         public Genders CharacterGender { get; set; }
 
+        public virtual Campaign Campaign { get; set; }
+
+        public ValidationResult ValidationResult { get; set; }
+
         public Character()
         {
-            CharacterId = new Guid();
+            CharacterId = Guid.NewGuid();
+            ValidationResult = new ValidationResult();
         }
     }
 

@@ -7,12 +7,12 @@ namespace DaemonCharacter.Application.ViewModels.Attribute
 {
     public class AttributeViewModel
     {
+
         public AttributeViewModel()
         {
             AttributeId = Guid.NewGuid();
-            ParentAttribute = new List<AttributeBonusViewModel>();
-            AttributeBonus = new List<AttributeBonusViewModel>();
 
+            AttributeBonus = new List<AttributeBonusViewModel>();
             ValidationResult = new DomainValidation.Validation.ValidationResult();
         }
 
@@ -36,11 +36,8 @@ namespace DaemonCharacter.Application.ViewModels.Attribute
         [Range(0, short.MaxValue, ErrorMessage ="Maximum value allowed for this field is {1}")]
         public int AttributeMinimum { get; set; }
         
-        [ScaffoldColumn(false)]
-        public virtual ICollection<AttributeBonusViewModel> ParentAttribute { get; set; }
-
         [DisplayName("Bonus to")]
-        public virtual ICollection<AttributeBonusViewModel> AttributeBonus { get; set; }
+        public IList<AttributeBonusViewModel> AttributeBonus { get; set; }
 
         [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }

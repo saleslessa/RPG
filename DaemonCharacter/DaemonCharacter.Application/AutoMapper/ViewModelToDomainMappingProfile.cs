@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DaemonCharacter.Application.ViewModels.Attribute;
+using DaemonCharacter.Application.ViewModels.Campaign;
 using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Domain.Entities;
 
@@ -10,9 +11,12 @@ namespace DaemonCharacter.Application.AutoMapper
         protected override void Configure()
         {
             CreateMap<AttributeViewModel, Attributes>();
+            CreateMap<AttributeBonusViewModel, Attributes>();
 
             CreateMap<PlayerViewModel, Player>();
-            CreateMap<Campaign, PlayerCampaignViewModel>();
+
+
+            CreateMap<CampaignViewModel, Campaign>();
         }
     }
 }

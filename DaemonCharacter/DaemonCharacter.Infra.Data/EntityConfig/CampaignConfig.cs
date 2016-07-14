@@ -7,15 +7,6 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
     {
         public CampaignConfig()
         {
-            //HasRequired(r => r.CampaignUserMaster)
-            //    .WithMany()
-            //    .Map(m => m.MapKey("CampaignIdMaster"));
-
-            HasRequired(r => r.CampaignUserMaster)
-               .WithMany();
-
-            Property(p => p.CampaignUserMaster.UserId)
-                .HasColumnName("CampaignIdMaster");
 
             Property(p => p.CampaignName)
                 .IsRequired()
@@ -23,7 +14,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.CampaignMaxPlayers)
                 .IsRequired()
-                .HasColumnType("tinyint");
+                .HasColumnType("smallint");
 
             Property(p => p.CampaignBriefing)
                 .IsOptional()
@@ -35,7 +26,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.CampaignRemainingPlayers)
                 .IsOptional()
-                .HasColumnType("tinyint");
+                .HasColumnType("smallint");
 
             Property(p => p.CampaignImg)
                 .IsOptional()
@@ -43,6 +34,9 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.CampaignStatus)
                 .IsRequired();
+
+            Property(p => p.CampaignStartYear)
+                .IsOptional();
         }
     }
 }

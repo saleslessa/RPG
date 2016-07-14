@@ -17,12 +17,21 @@ namespace DaemonCharacter.Infra.CrossCutting.IoC
         {
             // App
             container.RegisterPerWebRequest<IAttributeAppService, AttributeAppService>();
+            container.RegisterPerWebRequest<ICampaignAppService, CampaignAppService>();
+            container.RegisterPerWebRequest<IPlayerAppService, PlayerAppService>();
+
 
             // Domain
             container.RegisterPerWebRequest<IAttributeService, AttributeService>();
+            container.RegisterPerWebRequest<ICampaignService, CampaignService>();
+            container.RegisterPerWebRequest<IPlayerService, PlayerService>();
 
             // Infra Dados
             container.RegisterPerWebRequest<IAttributeRepository, AttributeRepository>();
+            container.RegisterPerWebRequest<ICampaignRepository, CampaignRepository>();
+            container.RegisterPerWebRequest<IPlayerRepository, PlayerRepository>();
+
+
             container.RegisterPerWebRequest<IUnitOfWork, UnitOfWork>();
             container.RegisterPerWebRequest<DaemonCharacterContext>();
         }

@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaemonCharacter.Infra.Cross
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaemonCharacter.Infra.CrossCutting.MvcFilters", "DaemonCharacter.Infra.CrossCutting.MvcFilters\DaemonCharacter.Infra.CrossCutting.MvcFilters.csproj", "{2B83A3BA-3228-4CBD-9DDC-D4236EA95EB2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - UnitTests", "6 - UnitTests", "{78602C05-3E16-4EA9-8982-404AC3FD22E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

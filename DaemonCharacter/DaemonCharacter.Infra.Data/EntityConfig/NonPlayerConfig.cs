@@ -36,7 +36,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
             Property(p => p.CharacterMaxLife)
                 .IsRequired();
 
-            Property(p => p.CharacterUser.UserId)
+            Property(p => p.CharacterUser)
                 .IsRequired();
 
             Property(p => p.CharacterRace)

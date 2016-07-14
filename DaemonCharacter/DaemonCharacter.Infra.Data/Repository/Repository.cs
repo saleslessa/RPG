@@ -55,7 +55,7 @@ namespace DaemonCharacter.Infra.Data.Repository
             return DbSet.Where(predicate);
         }
 
-        public TEntity SearchById(Guid? id)
+        public TEntity Get(Guid? id)
         {
             return DbSet.Find(id);
         }

@@ -1,5 +1,4 @@
 ﻿using DaemonCharacter.Application.ViewModels.Attribute;
-using DaemonCharacter.Domain.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +16,7 @@ namespace DaemonCharacter.Application.Interfaces
 
         void Remove(Guid AttributeId);
 
-        IEnumerable<AttributeBonusViewModel> ListAvailableForBonus(Guid? SelectedAttribute);
+        List<AttributeBonusViewModel> ListAvailableForBonus(Guid? SelectedAttribute);
 
     }
 }

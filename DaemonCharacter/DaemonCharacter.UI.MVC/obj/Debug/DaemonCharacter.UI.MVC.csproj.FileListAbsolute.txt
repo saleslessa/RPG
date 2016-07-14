@@ -199,3 +199,5 @@ C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MV
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.csprojResolveAssemblyReference.cache
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.dll
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.pdb
+C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.Migrations.InitialCreate.resources
+C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.csproj.GenerateResource.Cache

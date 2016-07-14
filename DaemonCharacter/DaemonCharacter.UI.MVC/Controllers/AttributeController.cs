@@ -2,7 +2,6 @@
 using DaemonCharacter.Application.ViewModels.Attribute;
 using Microsoft.Ajax.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 
@@ -37,17 +36,14 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         public ActionResult Create()
         {
-            return View();
-        }
-
-        public ActionResult _ListAvailableForBonus(Guid? id)
-        {
-            return View(_attributeAppService.ListAvailableForBonus(id));
+            var model = new AttributeViewModel();
+            model.AttributeBonus = _attributeAppService.ListAvailableForBonus(model.AttributeId);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AttributeViewModel att, IEnumerable<AttributeBonusViewModel> bonus)
+        public ActionResult Create(AttributeViewModel att)
         {
             if (ModelState.IsValid)
             {
@@ -80,18 +76,20 @@ namespace DaemonCharacter.UI.MVC.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            AttributeViewModel att = _attributeAppService.Get(id);
-            if (att == null)
+            var model = _attributeAppService.Get(id);
+            model.AttributeBonus = _attributeAppService.ListAvailableForBonus(model.AttributeId);
+
+            if (model == null)
                 return HttpNotFound();
 
-            return View(att);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AttributeViewModel att)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _attributeAppService.Update(att);
 
@@ -125,6 +123,12 @@ namespace DaemonCharacter.UI.MVC.Controllers
         {
             _attributeAppService.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _attributeAppService.Dispose();
+            base.Dispose(disposing);
         }
 
     }

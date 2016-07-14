@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace DaemonCharacter.Application.ViewModels.Player
 {
     public class PlayerViewModel
@@ -11,6 +12,7 @@ namespace DaemonCharacter.Application.ViewModels.Player
         {
             CharacterId = Guid.NewGuid();
             Campaigns = new List<PlayerCampaignViewModel>();
+            ValidationResult = new DomainValidation.Validation.ValidationResult();
         }
 
         [Key]
@@ -54,6 +56,7 @@ namespace DaemonCharacter.Application.ViewModels.Player
         [DisplayName("Background")]
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, HtmlEncode = true)]
         [MaxLength(5000, ErrorMessage ="Maximum characters allowed for this field is {0}")]
+        [DataType(DataType.MultilineText)]
         public string PlayerBackground { get; set; }
 
         [Required]
@@ -66,15 +69,16 @@ namespace DaemonCharacter.Application.ViewModels.Player
         public int PlayerRemainingPoints { get; set; }
 
         [DisplayName("Money")]
+        [DataType(DataType.Currency)]
         public int PlayerMoney { get; set; }
 
-        public virtual IEnumerable<PlayerCampaignViewModel> Campaigns { get; set; }
+        public IList<PlayerCampaignViewModel> Campaigns { get; set; }
 
         [ScaffoldColumn(false)]
         public Guid UserId { get; set; }
 
         [ScaffoldColumn(false)]
-        public ValidationResult ValidationResult { get; set; }
+        public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
 
     }
 }

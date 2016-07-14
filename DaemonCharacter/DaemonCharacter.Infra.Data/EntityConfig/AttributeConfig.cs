@@ -23,8 +23,8 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
                 .IsRequired()
                 .HasMaxLength(50);
 
-            Property(p => p.AttributeMinimum)
-                .IsOptional();
+            //Property(p => p.AttributeMinimum)
+            //    .IsOptional();
 
             Property(p => p.AttributeDescription)
                 .IsOptional()

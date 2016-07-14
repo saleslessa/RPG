@@ -51,14 +51,18 @@
   <ItemGroup>
     <Compile Include="ApplicationService.cs" />
     <Compile Include="AppService\AttributeAppService.cs" />
+    <Compile Include="AppService\CampaignAppService.cs" />
+    <Compile Include="AppService\PlayerAppService.cs" />
     <Compile Include="AutoMapper\AutoMapperConfig.cs" />
     <Compile Include="AutoMapper\DomainToViewModelMappingProfile.cs" />
     <Compile Include="AutoMapper\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Interfaces\IAttributeAppService.cs" />
-    <Compile Include="Interfaces\IPlayerService.cs" />
+    <Compile Include="Interfaces\ICampaignAppService.cs" />
+    <Compile Include="Interfaces\IPlayerAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Attribute\AttributeBonusViewModel.cs" />
     <Compile Include="ViewModels\Attribute\AttributeViewModel.cs" />
+    <Compile Include="ViewModels\Campaign\CampaignViewModel.cs" />
     <Compile Include="ViewModels\Player\PlayerCampaignViewModel.cs" />
     <Compile Include="ViewModels\Player\PlayerViewModel.cs" />
   </ItemGroup>

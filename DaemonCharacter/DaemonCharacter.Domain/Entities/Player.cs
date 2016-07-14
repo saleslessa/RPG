@@ -2,8 +2,6 @@
 {
     public class Player : Character
     {
-        public virtual Campaign Campaign { get; set; }
-
         public int PlayerLevel { get; set; }
 
         public int PlayerAge { get; set; }
@@ -17,7 +15,11 @@
         public int PlayerRemainingPoints { get; set; }
 
         public int PlayerMoney { get; set; }
+
+        public Player() : base()
+        {
+        }
     }
 
-    
+
 }

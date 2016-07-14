@@ -1,0 +1,80 @@
+﻿@model DaemonCharacter.Application.ViewModels.Campaign.CampaignViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CampaignViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignShortDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignShortDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignBriefing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignBriefing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignStartYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignStartYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignMaxPlayers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignMaxPlayers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignImg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignImg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignStatus)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-success" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

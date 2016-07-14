@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DomainValidation.Validation;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DaemonCharacter.Domain.Entities
 {
@@ -12,22 +15,30 @@ namespace DaemonCharacter.Domain.Entities
 
         public string CampaignBriefing { get; set; }
 
-        public int CampaignStartYear { get; set; }
+        public short CampaignStartYear { get; set; }
 
-        public int CampaignMaxPlayers { get; set; }
+        public short CampaignMaxPlayers { get; set; }
 
-        public int CampaignRemainingPlayers { get; set; }
+        public short CampaignRemainingPlayers { get; set; }
 
         public byte[] CampaignImg { get; set; }
 
         public CampaignStatus CampaignStatus { get; set; }
 
-        public virtual Users CampaignUserMaster { get; set; }
+        public string CampaignUserMaster { get; set; }
+
+        public ValidationResult ValidationResult { get; set; }
+
+        public virtual ICollection<Player> Players { get; set; }
 
         public Campaign()
         {
             CampaignId = new Guid();
+            ValidationResult = new ValidationResult();
+            Players = new List<Player>();
         }
+
+        
 
     }
 

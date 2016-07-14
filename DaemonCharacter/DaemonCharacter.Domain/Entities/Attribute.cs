@@ -14,7 +14,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public AttributeType AttributeType { get; set; }
 
-        public short? AttributeMinimum { get; set; }
+        public int? AttributeMinimum { get; set; }
 
         public virtual ICollection<Attributes> ParentAttribute { get; set; }
 

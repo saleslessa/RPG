@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Campaign.CampaignViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CampaignName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CampaignShortDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CampaignBriefing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CampaignStartYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CampaignMaxPlayers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CampaignImg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CampaignStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CampaignName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CampaignShortDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CampaignBriefing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CampaignStartYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CampaignMaxPlayers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CampaignImg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CampaignStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CampaignId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CampaignId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CampaignId })
+        </td>
+    </tr>
+}
+
+</table>
