@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+using DaemonCharacter.Application.ViewModels.NonPlayer;
 
 namespace DaemonCharacter.UI.MVC.Models
 {
@@ -28,6 +30,5 @@ namespace DaemonCharacter.UI.MVC.Models
         {
             return new ApplicationDbContext();
         }
-
     }
 }

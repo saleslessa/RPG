@@ -6,6 +6,7 @@ using DaemonCharacter.Application.ViewModels.Player;
 using AutoMapper;
 using DaemonCharacter.Domain.Entities;
 using System.Collections.Generic;
+using DaemonCharacter.Application.ViewModels.Campaign;
 
 namespace DaemonCharacter.Application.AppService
 {
@@ -13,16 +14,24 @@ namespace DaemonCharacter.Application.AppService
     {
 
         private readonly IPlayerService _playerService;
+        private readonly ICampaignService _campaignService;
 
-        public PlayerAppService(IPlayerService playerService, IUnitOfWork uow) : base(uow)
+        public PlayerAppService(IPlayerService playerService, ICampaignService campaignService, IUnitOfWork uow) : base(uow)
         {
             _playerService = playerService;
+            _campaignService = campaignService;
         }
 
         public PlayerViewModel Add(PlayerViewModel player)
         {
             var p = Mapper.Map<PlayerViewModel, Player>(player);
-            return Mapper.Map<Player, PlayerViewModel>(_playerService.Add(p));
+            p.Campaign = _campaignService.Get(player.SelectedCampaign);
+
+            var result = _playerService.Add(p);
+
+            Commit();
+
+            return Mapper.Map<Player, PlayerViewModel>(result);
         }
 
         public void Dispose()
@@ -33,7 +42,11 @@ namespace DaemonCharacter.Application.AppService
 
         public PlayerViewModel Get(Guid? id)
         {
-            return Mapper.Map<Player, PlayerViewModel>(_playerService.Get(id));
+            var Player = _playerService.Get(id);
+            var result = Mapper.Map<Player, PlayerViewModel>(Player);
+            result.SelectedCampaign = Player.Campaign.CampaignId;
+
+            return result;
         }
 
         public IEnumerable<PlayerViewModel> ListAll()
@@ -49,7 +62,12 @@ namespace DaemonCharacter.Application.AppService
         public PlayerViewModel Update(PlayerViewModel player)
         {
             var p = Mapper.Map<PlayerViewModel, Player>(player);
-            return Mapper.Map<Player, PlayerViewModel>(_playerService.Update(p));
+            p.Campaign = _campaignService.Get(player.SelectedCampaign);
+            var result = _playerService.Update(p);
+
+            Commit();
+
+            return Mapper.Map<Player, PlayerViewModel>(result);
         }
     }
 }

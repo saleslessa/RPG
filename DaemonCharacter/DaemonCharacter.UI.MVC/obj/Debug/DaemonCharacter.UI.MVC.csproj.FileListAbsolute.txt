@@ -156,6 +156,7 @@ C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MV
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\System.Web.WebPages.Deployment.dll
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\System.Web.WebPages.dll
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\System.Web.WebPages.Razor.dll
+C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\WebActivator.dll
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\WebGrease.dll
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\DaemonCharacter.Infra.Data.dll
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\DaemonCharacter.Domain.dll
@@ -197,7 +198,7 @@ C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MV
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\DaemonCharacter.Infra.Data.pdb
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\DaemonCharacter.Domain.pdb
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.csprojResolveAssemblyReference.cache
-C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.dll
-C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.pdb
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.Migrations.InitialCreate.resources
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.csproj.GenerateResource.Cache
+C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.dll
+C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.pdb

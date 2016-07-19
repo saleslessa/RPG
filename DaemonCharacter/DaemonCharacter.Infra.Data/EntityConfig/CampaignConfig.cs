@@ -37,6 +37,8 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.CampaignStartYear)
                 .IsOptional();
+
+            Ignore(p => p.ValidationResult);
         }
     }
 }

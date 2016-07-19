@@ -16,5 +16,7 @@ namespace DaemonCharacter.Application.Interfaces
 
         void Remove(Guid id);
 
+        IEnumerable<PlayerCampaignViewModel> ListAvailableCampaigns();
+
     }
 }

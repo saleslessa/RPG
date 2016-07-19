@@ -4,7 +4,7 @@ using DaemonCharacter.Infra.Data.Context;
 
 namespace DaemonCharacter.Infra.Data.Repository
 {
-    public class NonPlayerRepository : Repository<Items>, INonPlayerRepository
+    public class NonPlayerRepository : Repository<NonPlayer>, INonPlayerRepository
     {
         public NonPlayerRepository(DaemonCharacterContext context) : base(context)
         {

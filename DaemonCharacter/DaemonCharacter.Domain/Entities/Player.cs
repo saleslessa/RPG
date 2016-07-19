@@ -12,12 +12,16 @@
 
         public int PlayerPointsToDistribute { get; set; }
 
-        public int PlayerRemainingPoints { get; set; }
-
         public int PlayerMoney { get; set; }
 
         public Player() : base()
         {
+        }
+
+        public bool IsValid()
+        {
+            //TODO: MAKE VALIDATION OF CONSISTENCY
+            return true;
         }
     }
 

@@ -1,6 +1,8 @@
-﻿namespace DaemonCharacter.Domain.Entities
+﻿using DaemonCharacter.Domain.Validations.NonPlayer;
+
+namespace DaemonCharacter.Domain.Entities
 {
-    public class NonPlayers : Character
+    public class NonPlayer : Character
     {
 
         public NonPlayerTypes NonPlayerType { get; set; }
@@ -8,5 +10,16 @@
         public int NonPlayerChalengeLevel { get; set; }
 
         public string NonPlayerPublicAnnotations { get; set; }
+
+        public NonPlayer() : base()
+        {
+        }
+
+        public bool IsValid()
+        {
+            ValidationResult = new NonPlayerConsistentValidator().Validate(this);
+
+            return ValidationResult.IsValid;
+        }
     }
 }

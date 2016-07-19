@@ -1,9 +1,6 @@
 ﻿using DaemonCharacter.Application.ViewModels.Player;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DaemonCharacter.Application.Interfaces
 {
@@ -18,5 +15,7 @@ namespace DaemonCharacter.Application.Interfaces
         PlayerViewModel Get(Guid? id);
 
         IEnumerable<PlayerViewModel> ListAll();
+
+        
     }
 }

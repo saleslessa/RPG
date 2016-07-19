@@ -150,8 +150,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebActivator">
-      <HintPath>..\..\..\..\Users\Sales\Downloads\CrudDDDModal\packages\WebActivator.1.4.4\lib\net40\WebActivator.dll</HintPath>
+    <Reference Include="WebActivator, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivator.1.4.4\lib\net40\WebActivator.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -222,9 +223,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttributeController.cs" />
     <Compile Include="Controllers\CampaignController.cs" />
+    <Compile Include="Controllers\CharacterAttributeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NonPlayerController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
+    <Compile Include="Controllers\PlayerItemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,11 +246,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\1-col-portfolio.css" />
+    <Content Include="Content\bootstrap-wysiwyg.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DynamicForm.css" />
     <Content Include="Content\jquery.smartmenus.bootstrap.css" />
     <Content Include="Content\Menu.css" />
+    <Content Include="Content\MultipleStepFormStyle.css" />
     <Content Include="Content\owl\owl.carousel.css" />
     <Content Include="Content\owl\owl.carousel.js" />
     <Content Include="Content\owl\owl.theme.css" />
@@ -350,6 +357,7 @@
     <Content Include="Images\triangular_%402X.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -388,6 +396,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\Menu.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MultipleStepFormScript.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Session.js" />
@@ -447,9 +456,19 @@
     <Content Include="Views\Player\Details.cshtml" />
     <Content Include="Views\Player\Edit.cshtml" />
     <Content Include="Views\Player\Index.cshtml" />
+    <Content Include="Views\Shared\_ErrorSummary.cshtml" />
+    <Content Include="Views\NonPlayer\Index.cshtml" />
+    <Content Include="Views\Shared\_editor.cshtml" />
+    <Content Include="Views\Player\_CreateBasicInformation.cshtml" />
+    <Content Include="Views\CharacterAttribute\Create.cshtml" />
+    <Content Include="Views\CharacterAttribute\_SearchAttributes.cshtml" />
+    <Content Include="Views\Item\Index.cshtml" />
+    <Content Include="Views\Item\Create.cshtml" />
+    <Content Include="Views\Item\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PlayerItem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

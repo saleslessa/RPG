@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Repository;
 using DaemonCharacter.Infra.Data.Context;
@@ -15,11 +14,6 @@ namespace DaemonCharacter.Infra.Data.Repository
         public IEnumerable<Campaign> ListAvailableCampaigns()
         {
             return Search(t => t.CampaignRemainingPlayers > 0);
-        }
-
-        public void Remove(Guid? id)
-        {
-            Remove(id);
         }
     }
 }

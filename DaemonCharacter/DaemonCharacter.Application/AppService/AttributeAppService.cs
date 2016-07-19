@@ -23,12 +23,12 @@ namespace DaemonCharacter.Application.AppService
         public AttributeViewModel Add(AttributeViewModel AttributeViewModel)
         {
             var att = Mapper.Map<AttributeViewModel, Attributes>(AttributeViewModel);
-
             att.AttributeBonus = new List<Attributes>();
 
-            BeginTransaction();
+            att = _attributeService.Add(att);
 
-            _attributeService.Add(att);
+            if (!att.ValidationResult.IsValid)
+                return Mapper.Map<Attributes, AttributeViewModel>(att);
 
             foreach (var AttBonus in AttributeViewModel.AttributeBonus)
             {
@@ -91,8 +91,6 @@ namespace DaemonCharacter.Application.AppService
 
         public void Remove(Guid AttributeId)
         {
-            BeginTransaction();
-
             _attributeService.RemoveChilds(AttributeId);
             _attributeService.RemoveParent(AttributeId);
 
@@ -105,8 +103,6 @@ namespace DaemonCharacter.Application.AppService
         {
 
             var att = Mapper.Map<AttributeViewModel, Attributes>(_AttributeViewModel);
-
-            BeginTransaction();
 
             att.AttributeBonus.Clear();
 
@@ -131,5 +127,14 @@ namespace DaemonCharacter.Application.AppService
             return Mapper.Map<Attributes, AttributeViewModel>(att);
         }
 
+        public List<AttributeViewModel> ListWithPagination(int skip, int take)
+        {
+            return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(_attributeService.ListWithPagination(skip, take).ToList());
+        }
+
+        public List<AttributeViewModel> SearchByNameWithPagination(int skip, int take, string name)
+        {
+            return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(_attributeService.SearchByNameWithPagination(skip, take, name).ToList());
+        }
     }
 }

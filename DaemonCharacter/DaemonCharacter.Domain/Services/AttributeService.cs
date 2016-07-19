@@ -19,11 +19,14 @@ namespace DaemonCharacter.Domain.Services
 
         public Attributes Add(Attributes att)
         {
+
+            if (!att.IsValid())
+                return att;
+
             att.ValidationResult = new CreateAttributeValidator(_attributeRepository).Validate(att);
             if (!att.ValidationResult.IsValid)
-            {
                 return att;
-            }
+            
 
             att.ValidationResult.Message = "Attribute created successfully";
             return _attributeRepository.Add(att);
@@ -116,6 +119,16 @@ namespace DaemonCharacter.Domain.Services
 
             att.ValidationResult.Message = "Attribute updated successfully";
             return _attributeRepository.Update(att);
+        }
+
+        public IEnumerable<Attributes> ListWithPagination(int skip, int take)
+        {
+            return _attributeRepository.ListWithPagination(o => o.AttributeType, skip, take);
+        }
+
+        public IEnumerable<Attributes> SearchByNameWithPagination(int skip, int take, string name)
+        {
+            return _attributeRepository.SearchWithPagination(o => o.AttributeType, skip, take, s => s.AttributeName.Contains(name) || name.Length == 0);
         }
     }
 }

@@ -22,9 +22,7 @@ namespace DaemonCharacter.Infra.Data.Repository
         public TEntity Add(TEntity obj)
         {
             var result = DbSet.Add(obj);
-
-            SaveChanges();
-
+            db.SaveChanges();
             return result;
         }
 
@@ -42,11 +40,6 @@ namespace DaemonCharacter.Infra.Data.Repository
         public void Remove(Guid id)
         {
             DbSet.Remove(DbSet.Find(id));
-            SaveChanges();
-        }
-
-        public void SaveChanges()
-        {
             db.SaveChanges();
         }
 
@@ -66,10 +59,22 @@ namespace DaemonCharacter.Infra.Data.Repository
             
             DbSet.Attach(obj);
             entry.State = EntityState.Modified;
-
-            SaveChanges();
-
+            db.SaveChanges();
             return obj;
+        }
+
+        public IEnumerable<TEntity> ListWithPagination(Expression<Func<TEntity, object>> OrderBy, int skip, int take)
+        {
+            return DbSet.ToList();
+            //TODO: AJUST PAGINATION
+            //return DbSet.OrderBy(OrderBy).Skip(skip).Take(take).ToList();
+        }
+
+        public IEnumerable<TEntity> SearchWithPagination(Expression<Func<TEntity, object>> OrderBy, int skip, int take, Expression<Func<TEntity, bool>> predicate)
+        {
+            return DbSet.Where(predicate);
+            //TODO: AJUST PAGINATION
+            //return DbSet.Where(predicate).OrderBy(OrderBy).Skip(skip).Take(take).ToList();
         }
     }
 }

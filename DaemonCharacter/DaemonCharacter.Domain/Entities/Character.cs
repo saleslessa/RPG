@@ -23,6 +23,8 @@ namespace DaemonCharacter.Domain.Entities
 
         public virtual Campaign Campaign { get; set; }
 
+        public byte[] CharacterImage { get; set; }
+
         public ValidationResult ValidationResult { get; set; }
 
         public Character()

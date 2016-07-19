@@ -14,8 +14,15 @@
     <div class="form-horizontal">
         <h4>PlayerViewModel</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Partial("_ErrorSummary")
         @Html.HiddenFor(model => model.CharacterId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Campaigns, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SelectedCampaign", new SelectList(Model.Campaigns, "CampaignId", "CampaignName", Model.SelectedCampaign))
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CharacterName, htmlAttributes: new { @class = "control-label col-md-2" })

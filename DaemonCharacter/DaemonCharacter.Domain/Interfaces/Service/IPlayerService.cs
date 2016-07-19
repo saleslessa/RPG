@@ -15,7 +15,8 @@ namespace DaemonCharacter.Domain.Interfaces.Service
         Player Get(Guid? id);
 
         void Remove(Guid id);
-
+         
         IEnumerable<Player> SearchByName(string name);
+
     }
 }

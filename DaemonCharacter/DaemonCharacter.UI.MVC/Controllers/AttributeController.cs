@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace DaemonCharacter.UI.MVC.Controllers
 {
+    [Authorize]
     public class AttributeController : Controller
     {
 
@@ -93,6 +94,16 @@ namespace DaemonCharacter.UI.MVC.Controllers
             {
                 _attributeAppService.Update(att);
 
+                if (!att.ValidationResult.IsValid)
+                {
+                    foreach (var error in att.ValidationResult.Erros)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Message);
+                    }
+
+                    return View(att);
+                }
+
                 if (!att.ValidationResult.Message.IsNullOrWhiteSpace())
                 {
                     ViewBag.Message = att.ValidationResult.Message;
@@ -123,6 +134,21 @@ namespace DaemonCharacter.UI.MVC.Controllers
         {
             _attributeAppService.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult _SearchAttributes(int skip, int take, string name)
+        {
+            var model = _attributeAppService.SearchByNameWithPagination(skip, take, name);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public JsonResult SearchAttributes(string name)
+        {
+            var model = _attributeAppService.SearchByNameWithPagination(0, 10, name);
+
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

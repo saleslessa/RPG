@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DaemonCharacter.Application.ViewModels.Campaign;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -72,10 +73,14 @@ namespace DaemonCharacter.Application.ViewModels.Player
         [DataType(DataType.Currency)]
         public int PlayerMoney { get; set; }
 
-        public IList<PlayerCampaignViewModel> Campaigns { get; set; }
+        [DisplayName("Campaign")]
+        public IEnumerable<PlayerCampaignViewModel> Campaigns { get; set; }
 
         [ScaffoldColumn(false)]
-        public Guid UserId { get; set; }
+        public Guid SelectedCampaign { get; set; }
+
+        [ScaffoldColumn(false)]
+        public string CharacterUser { get; set; }
 
         [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }

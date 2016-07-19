@@ -34,7 +34,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
             Property(p => p.PlayerPointsToDistribute)
                 .IsOptional();
 
-            Property(p => p.PlayerRemainingPoints)
+            Property(p => p.CharacterImage)
                 .IsOptional();
 
             Property(p => p.CharacterRemainingLife)
@@ -54,6 +54,8 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.CharacterGender)
                 .IsRequired();
+
+            Ignore(p => p.ValidationResult);
         }
     }
 }

@@ -10,15 +10,20 @@ namespace DaemonCharacter.Domain.Services
     public class PlayerService : IPlayerService
     {
         private readonly IPlayerRepository _playerRepository;
+        private readonly ICharacterRepository _characterRepository;
 
-        public PlayerService(IPlayerRepository playerRepository)
+        public PlayerService(IPlayerRepository playerRepository, ICharacterRepository characterRepository)
         {
             _playerRepository = playerRepository;
+            _characterRepository = characterRepository;
         }
 
         public Player Add(Player _player)
         {
-            _player.ValidationResult = new CreatePlayerValidation(_playerRepository).Validate(_player);
+            if (!_player.IsValid())
+                return _player;
+
+            _player.ValidationResult = new CreatePlayerValidation(_characterRepository).Validate(_player);
             if (!_player.ValidationResult.IsValid)
                 return _player;
 
@@ -54,7 +59,10 @@ namespace DaemonCharacter.Domain.Services
 
         public Player Update(Player _player)
         {
-            _player.ValidationResult = new UpdatePlayerValidation(_playerRepository).Validate(_player);
+            if (!_player.IsValid())
+                return _player;
+
+            _player.ValidationResult = new UpdatePlayerValidation(_characterRepository).Validate(_player);
             if (!_player.ValidationResult.IsValid)
                 return _player;
 

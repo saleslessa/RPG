@@ -13,7 +13,7 @@
 
     <div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Partial("_ErrorSummary")
         @Html.HiddenFor(model => model.AttributeId)
 
         <div class="form-group">
@@ -47,45 +47,15 @@
                 @Html.ValidationMessageFor(model => model.AttributeMinimum, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            <div class="control-label col-md-2"></div>
-
-            <div class="form-group col-md-4">
-                <table class="table table-striped table-bordered">
-                    <tr>
-                        <th style="display:none;"></th>
-                        <th>Bonus to:</th>
-                        <th>
-                        </th>
-                    </tr>
-
-                    @for (int cont = 0; cont < Model.AttributeBonus.Count; cont++)
-                {
-                        <tr>
-                            <td style="display:none;">
-                                @Html.HiddenFor(m => Model.AttributeBonus[cont].AttributeId@*, new { @Name = "AttributeBonusViewModel[" + cont.ToString() + "].AttributeId" }*@)
-                            </td>
-                            <td>
-                                @Html.CheckBoxFor(m => Model.AttributeBonus[cont].Selected@*, new { @Name = "AttributeBonusViewModel[" + cont.ToString() + "].Selected" }*@)
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(m => Model.AttributeBonus[cont].AttributeName@*, new { @Name = "AttributeBonusViewModel[" + cont.ToString() + "].AttributeName", @ReadOnly = "readonly" }*@)
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-
-            </div>
+       
+        <div class="form-group col-md-6">
+            @{Html.RenderPartial("_ListAvailableForBonus", Model);}
         </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 @Html.ActionLink("Back to List", "Index") | <input type="submit" value="Save" class="btn btn-success" />
             </div>
-        </div>
-        <hr />
-        <div class="form-control">
-            @ViewBag.Message
         </div>
     </div>
 }

@@ -6,14 +6,17 @@ using DaemonCharacter.Application.Interfaces;
 
 namespace DaemonCharacter.UI.MVC.Controllers
 {
+    [Authorize]
     public class PlayerController : Controller
     {
 
         private readonly IPlayerAppService _playerAppService;
+        private readonly ICampaignAppService _campaignAppService;
 
-        public PlayerController(IPlayerAppService playerAppService)
+        public PlayerController(IPlayerAppService playerAppService, ICampaignAppService campaignAppService)
         {
             _playerAppService = playerAppService;
+            _campaignAppService = campaignAppService;
         }
 
         // GET: Player
@@ -42,8 +45,13 @@ namespace DaemonCharacter.UI.MVC.Controllers
         // GET: Player/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new PlayerViewModel();
+            model.Campaigns = _campaignAppService.ListAvailableCampaigns();
+
+            return View(model);
         }
+
+
 
         // POST: Player/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -52,14 +60,32 @@ namespace DaemonCharacter.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PlayerViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
+                model.CharacterUser = User.Identity.Name;
 
-                _playerAppService.Add(model);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _playerAppService.Add(model);
+                    if (!model.ValidationResult.IsValid)
+                        throw new Exception();
+
+                    return RedirectToAction("Index");
+                }
+
+                throw new Exception();
+
             }
+            catch (Exception)
+            {
+                foreach (var error in model.ValidationResult.Erros)
+                {
+                    ModelState.AddModelError(string.Empty, error.Message);
+                }
 
-            return View(model);
+                model.Campaigns = _campaignAppService.ListAvailableCampaigns();
+                return View(model);
+            }
         }
 
         // GET: Player/Edit/5
@@ -70,13 +96,15 @@ namespace DaemonCharacter.UI.MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var playerViewModel = _playerAppService.Get(id);
-            if (playerViewModel == null)
+            var model = _playerAppService.Get(id);
+            model.Campaigns = _campaignAppService.ListAvailableCampaigns();
+
+            if (model == null)
             {
                 return HttpNotFound();
             }
 
-            return View(playerViewModel);
+            return View(model);
         }
 
         // POST: Player/Edit/5

@@ -1,28 +1,32 @@
-﻿@model IList<DaemonCharacter.Application.ViewModels.Attribute.AttributeBonusViewModel>
+﻿@model DaemonCharacter.Application.ViewModels.Attribute.AttributeViewModel
 
 @{ Layout = null;}
+<div class="form-group">
+    <div class="control-label col-md-2"></div>
+    <div class="col-md-4">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th style="display:none;"></th>
+                <th>Bonus to:</th>
+                <th>
+                </th>
+            </tr>
 
-<table class="table table-striped table-bordered">
-    <tr>
-        <th style="display:none;"></th>
-        <th>Bonus to:</th>
-        <th>
-        </th>
-    </tr>
+            @for (int cont = 0; cont < Model.AttributeBonus.Count; cont++)
+            {
+                <tr>
+                    <td style="display:none;">
+                        @Html.HiddenFor(m => Model.AttributeBonus[cont].AttributeId)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(m => Model.AttributeBonus[cont].Selected)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => Model.AttributeBonus[cont].AttributeName)
+                    </td>
+                </tr>
+            }
 
-    @for (int cont = 0; cont < Model.Count; cont++)
-    {
-        <tr>
-            <td style="display:none;">
-                @Html.HiddenFor(m => Model[cont].AttributeId, new { @Name = "AttributeBonusViewModel[" + cont.ToString() + "].AttributeId" })
-            </td>
-            <td>
-                @Html.CheckBoxFor(m => Model[cont].Selected, new { @Name = "AttributeBonusViewModel[" + cont.ToString() + "].Selected" })
-            </td>
-            <td>
-                @Html.TextBoxFor(m => Model[cont].AttributeName, new { @Name = "AttributeBonusViewModel[" + cont.ToString() + "].AttributeName", @ReadOnly = "readonly" })
-            </td>
-        </tr>
-    }
-
-</table>
+        </table>
+    </div>
+</div>

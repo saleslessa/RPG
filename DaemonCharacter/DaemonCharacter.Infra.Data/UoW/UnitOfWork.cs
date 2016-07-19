@@ -1,10 +1,6 @@
 ﻿using DaemonCharacter.Infra.Data.Context;
 using DaemonCharacter.Infra.Data.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DaemonCharacter.Infra.Data.UoW
 {
@@ -16,10 +12,6 @@ namespace DaemonCharacter.Infra.Data.UoW
         public UnitOfWork(DaemonCharacterContext context)
         {
             _context = context;
-        }
-
-        public void BeginTransaction()
-        {
             _disposed = false;
         }
 

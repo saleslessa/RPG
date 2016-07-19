@@ -12,12 +12,14 @@ namespace DaemonCharacter.Domain.Interfaces.Repository
 
         IEnumerable<TEntity> ListAll();
 
+        IEnumerable<TEntity> ListWithPagination(Expression<Func<TEntity, object>> OrderBy, int skip, int take);
+
         TEntity Update(TEntity obj);
 
         void Remove(Guid id);
 
         IEnumerable<TEntity> Search(Expression<Func<TEntity, bool>> predicate);
 
-        void SaveChanges();
+        IEnumerable<TEntity> SearchWithPagination(Expression<Func<TEntity, object>> OrderBy, int skip, int take, Expression<Func<TEntity, bool>> predicate);
     }
 }

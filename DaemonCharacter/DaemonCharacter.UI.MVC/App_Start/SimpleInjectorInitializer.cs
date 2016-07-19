@@ -1,13 +1,11 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Web.Mvc;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
-using DaemonCharacter.UI.MVC.App_Start;
 using DaemonCharacter.Infra.CrossCutting.IoC;
 
-[assembly: WebActivator.PostApplicationStartMethod(typeof(SimpleInjectorInitializer), "Initialize")]
-
+[assembly: WebActivator.PostApplicationStartMethod(typeof(DaemonCharacter.UI.MVC.App_Start.SimpleInjectorInitializer), "Initialize")]
 namespace DaemonCharacter.UI.MVC.App_Start
 {
     public static class SimpleInjectorInitializer
@@ -17,16 +15,16 @@ namespace DaemonCharacter.UI.MVC.App_Start
         {
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
-
+            
             InitializeContainer(container);
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
-
+            
             container.Verify();
-
+            
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
-
+     
         private static void InitializeContainer(Container container)
         {
             Bootstrapper.RegisterServices(container);

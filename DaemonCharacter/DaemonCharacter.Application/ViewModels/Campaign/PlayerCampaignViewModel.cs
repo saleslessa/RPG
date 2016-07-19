@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace DaemonCharacter.Application.ViewModels.Player
+namespace DaemonCharacter.Application.ViewModels.Campaign
 {
     public class PlayerCampaignViewModel
     {

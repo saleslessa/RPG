@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace DaemonCharacter.UI.MVC.Controllers
 {
+    [Authorize]
     public class CampaignController : Controller
     {
 

@@ -1,15 +1,17 @@
-﻿using System;
+﻿using DaemonCharacter.Domain.Validations.PlayerItem;
+using DomainValidation.Validation;
+using System;
 
 namespace DaemonCharacter.Domain.Entities
 {
-    public class PlayerItems
+    public class PlayerItem
     {
 
         public Guid PlayerItemId { get; set; }
 
         public Player Player { get; set; }
 
-        public Items Item { get; set; }
+        public Item Item { get; set; }
 
         public int PlayerItemQtd { get; set; }
 
@@ -19,9 +21,22 @@ namespace DaemonCharacter.Domain.Entities
 
         public bool PlayerItemApprovedByMaster { get; set; }
 
-        public PlayerItems()
+        public ValidationResult ValidationResult { get; set; }
+
+        public PlayerItem()
         {
             PlayerItemId = Guid.NewGuid();
+            ValidationResult = new ValidationResult();
+        }
+
+        public bool IsValid()
+        {
+            ValidationResult = new PlayerItemConsistentValidation().Validate(this);
+
+            if (ValidationResult.IsValid)
+                return true;
+
+            return false;
         }
     }
 }

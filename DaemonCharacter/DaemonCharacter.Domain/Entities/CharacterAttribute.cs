@@ -1,22 +1,32 @@
-﻿using System;
+﻿using DaemonCharacter.Domain.Validations.CharacterAttribute;
+using DomainValidation.Validation;
+using System;
 
 namespace DaemonCharacter.Domain.Entities
 {
-    public class CharacterAttributes
+    public class CharacterAttribute
     {
         public Guid CharacterAttributeId { get; set; }
 
-        public virtual Character Character { get; set; }
+        public virtual Player Character { get; set; }
 
         public virtual Attributes Attribute { get; set; }
 
         public int CharacterAttributeValue { get; set; }
 
+        public ValidationResult ValidationResult { get; set; }
 
-        public CharacterAttributes()
+        public CharacterAttribute()
         {
             CharacterAttributeId = Guid.NewGuid();
+            ValidationResult = new ValidationResult();
         }
-        //public virtual List<CharacterAttributeModel> bonusValues { get; set; }
+        
+        public bool IsValid()
+        {
+            ValidationResult = new CharacterAttributeIsConsistentValidator().Validate(this);
+
+            return ValidationResult.IsValid;
+        }
     }
 }

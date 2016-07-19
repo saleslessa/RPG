@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DomainValidation.Validation;
+using System;
 
 namespace DaemonCharacter.Domain.Entities
 {
 
-    public class Items
+    public class Item
     {
         public Guid ItemId { get; set; }
 
@@ -13,10 +14,12 @@ namespace DaemonCharacter.Domain.Entities
 
         public int ItemPrice { get; set; }
 
+        public ValidationResult ValidationResult { get; set; }
 
-        public Items()
+        public Item()
         {
-            ItemId = new Guid();
+            ItemId = Guid.NewGuid();
+            ValidationResult = new ValidationResult();
         }
     }
 

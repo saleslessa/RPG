@@ -7,26 +7,25 @@ using System.Linq;
 
 namespace DaemonCharacter.Infra.Data.Repository
 {
-    public class CharacterAttributeRepository : Repository<CharacterAttributes>, ICharacterAttributeRepository
+    public class CharacterAttributeRepository : Repository<CharacterAttribute>, ICharacterAttributeRepository
     {
         public CharacterAttributeRepository(DaemonCharacterContext context) : base(context)
         {
         }
 
-        public CharacterAttributes Get(Guid? CharacterId, Guid? AttributeId)
+        public CharacterAttribute Get(Guid? CharacterId, Guid? AttributeId)
         {
             return Search(t => t.Character.CharacterId == CharacterId && t.Attribute.AttributeId == AttributeId)
                 .FirstOrDefault();
-
         }
 
-        public IEnumerable<CharacterAttributes> ListFromAttribute(Guid? AttributeId)
+        public IEnumerable<CharacterAttribute> ListFromAttribute(Guid? AttributeId)
         {
             return Search(t => t.Attribute.AttributeId == AttributeId)
                 .ToList();
         }
 
-        public IEnumerable<CharacterAttributes> ListFromCharacter(Guid? CharacterId)
+        public IEnumerable<CharacterAttribute> ListFromCharacter(Guid? CharacterId)
         {
             return Search(t => t.Character.CharacterId == CharacterId)
                 .ToList();

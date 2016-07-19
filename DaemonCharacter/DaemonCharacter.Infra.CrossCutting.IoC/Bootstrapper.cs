@@ -16,24 +16,38 @@ namespace DaemonCharacter.Infra.CrossCutting.IoC
         public static void RegisterServices(Container container)
         {
             // App
-            container.RegisterPerWebRequest<IAttributeAppService, AttributeAppService>();
-            container.RegisterPerWebRequest<ICampaignAppService, CampaignAppService>();
-            container.RegisterPerWebRequest<IPlayerAppService, PlayerAppService>();
+            container.Register<IAttributeAppService, AttributeAppService>(Lifestyle.Scoped);
+            container.Register<ICampaignAppService, CampaignAppService>(Lifestyle.Scoped);
+            container.Register<IPlayerAppService, PlayerAppService>(Lifestyle.Scoped);
+            container.Register<ICharacterAttributeAppService, CharacterAttributeAppService>(Lifestyle.Scoped);
+            container.Register<INonPlayerAppService, NonPlayerAppService>(Lifestyle.Scoped);
+            container.Register<IItemAppService, ItemAppService>(Lifestyle.Scoped);
+            container.Register<IPlayerAppService, PlayerAppService>(Lifestyle.Scoped);
 
 
             // Domain
-            container.RegisterPerWebRequest<IAttributeService, AttributeService>();
-            container.RegisterPerWebRequest<ICampaignService, CampaignService>();
-            container.RegisterPerWebRequest<IPlayerService, PlayerService>();
+            container.Register<IAttributeService, AttributeService>(Lifestyle.Scoped);
+            container.Register<ICampaignService, CampaignService>(Lifestyle.Scoped);
+            container.Register<IPlayerService, PlayerService>(Lifestyle.Scoped);
+            container.Register<ICharacterAttributeService, CharacterAttributeService>(Lifestyle.Scoped);
+            container.Register<INonPlayerService, NonPlayerService>(Lifestyle.Scoped);
+            container.Register<IItemService, ItemService>(Lifestyle.Scoped);
+            container.Register<IPlayerService, PlayerService>(Lifestyle.Scoped);
+
 
             // Infra Dados
-            container.RegisterPerWebRequest<IAttributeRepository, AttributeRepository>();
-            container.RegisterPerWebRequest<ICampaignRepository, CampaignRepository>();
-            container.RegisterPerWebRequest<IPlayerRepository, PlayerRepository>();
+            container.Register<IAttributeRepository, AttributeRepository>(Lifestyle.Scoped);
+            container.Register<ICampaignRepository, CampaignRepository>(Lifestyle.Scoped);
+            container.Register<ICharacterRepository, CharacterRepository>(Lifestyle.Scoped);
+            container.Register<IPlayerRepository, PlayerRepository>(Lifestyle.Scoped);
+            container.Register<ICharacterAttributeRepository, CharacterAttributeRepository>(Lifestyle.Scoped);
+            container.Register<INonPlayerRepository, NonPlayerRepository>(Lifestyle.Scoped);
+            container.Register<IItemRepository, ItemRepository>(Lifestyle.Scoped);
+            container.Register<IPlayerItemRespository, PlayerItemRepository>(Lifestyle.Scoped);
 
 
-            container.RegisterPerWebRequest<IUnitOfWork, UnitOfWork>();
-            container.RegisterPerWebRequest<DaemonCharacterContext>();
+            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
+            container.Register<DaemonCharacterContext>(Lifestyle.Scoped);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DomainValidation.Validation;
+﻿using DaemonCharacter.Domain.Validations.Attribute;
+using DomainValidation.Validation;
 using System;
 using System.Collections.Generic;
 
@@ -20,7 +21,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public virtual ICollection<Attributes> AttributeBonus { get; set; }
 
-        public ValidationResult ValidationResult { get; set; }
+        public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
 
         public Attributes()
         {
@@ -31,6 +32,12 @@ namespace DaemonCharacter.Domain.Entities
             ValidationResult = new ValidationResult();
         }
 
+        public bool IsValid()
+        {
+            ValidationResult = new AttributeIsConsistentValidator().Validate(this);
+
+            return ValidationResult.IsValid;
+        }
     }
 
    

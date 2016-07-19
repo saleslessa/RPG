@@ -17,7 +17,9 @@ namespace DaemonCharacter.Domain.Services
 
         public Campaign Add(Campaign c)
         {
-            //TODO: PUT VALIDATION
+            if (!c.IsValid())
+                return c;
+
             c.ValidationResult.Message = "Campaign created successfully.";
             return _campaignRepository.Add(c);
         }
@@ -38,6 +40,11 @@ namespace DaemonCharacter.Domain.Services
             return _campaignRepository.ListAll();
         }
 
+        public IEnumerable<Campaign> ListAvailable()
+        {
+            return _campaignRepository.Search(c => c.CampaignStatus == CampaignStatus.Beginning && c.CampaignRemainingPlayers > 0);
+        }
+
         public void Remove(Guid id)
         {
             _campaignRepository.Remove(id);
@@ -45,7 +52,9 @@ namespace DaemonCharacter.Domain.Services
 
         public Campaign Update(Campaign c)
         {
-            //TODO: PUT VALIDATION
+            if (c.IsValid())
+                return c;
+
             c.ValidationResult.Message = "Campaign updated successfully";
             return _campaignRepository.Update(c);
         }

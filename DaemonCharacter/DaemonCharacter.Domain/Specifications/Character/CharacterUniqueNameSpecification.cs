@@ -1,13 +1,13 @@
 ﻿using DomainValidation.Interfaces.Specification;
 using DaemonCharacter.Domain.Interfaces.Repository;
 
-namespace DaemonCharacter.Domain.Specifications.Player
+namespace DaemonCharacter.Domain.Specifications.Character
 {
-    public class PlayerUniqueNameSpecification : ISpecification<Entities.Player>
+    public class CharacterUniqueNameSpecification : ISpecification<Entities.Player>
     {
-        private IPlayerRepository _playerRepository;
+        private ICharacterRepository _playerRepository;
 
-        public PlayerUniqueNameSpecification(IPlayerRepository playerRepository)
+        public CharacterUniqueNameSpecification(ICharacterRepository playerRepository)
         {
             _playerRepository = playerRepository;
         }

@@ -16,5 +16,7 @@ namespace DaemonCharacter.Domain.Interfaces.Service
 
         void Remove(Guid id);
 
+        IEnumerable<Campaign> ListAvailable();
+
     }
 }

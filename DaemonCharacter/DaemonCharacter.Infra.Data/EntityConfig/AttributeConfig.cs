@@ -7,11 +7,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
     {
         public AttributeConfig()
         {
-
             HasKey(k => k.AttributeId);
-
-            Property(p => p.AttributeId)
-                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
 
             HasMany(m => m.ParentAttribute)
                 .WithMany(m => m.AttributeBonus)
@@ -23,8 +19,8 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
                 .IsRequired()
                 .HasMaxLength(50);
 
-            //Property(p => p.AttributeMinimum)
-            //    .IsOptional();
+            Property(p => p.AttributeMinimum)
+                .IsOptional();
 
             Property(p => p.AttributeDescription)
                 .IsOptional()
@@ -32,6 +28,8 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.AttributeType)
                 .IsRequired();
+
+            Ignore(p => p.ValidationResult);
         }
     }
 }

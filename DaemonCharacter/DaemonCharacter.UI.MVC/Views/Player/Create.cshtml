@@ -1,112 +1,79 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Player.PlayerViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Creating a new player";
 }
 
-<h2>Create</h2>
+<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="fa fa-shield animated wow fadeInDown"></i>
+    &nbsp;Create Player Form
+</h2>
+@section CustomStyle {
+    @Styles.Render("~/Content/MultipleStepFormStyle.css")
+}
 
+<div class="stepwizard">
+    <div class="stepwizard-row setup-panel">
+        <div class="stepwizard-step">
+            <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
+            <p>Basic Information </p>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+            <p>Attributes</p>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+            <p>Items</p>
+        </div>
+    </div>
+</div>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>PlayerViewModel</h4>
+
+    @Html.Partial("_ErrorSummary")
+
+    <div class="row setup-content" id="step-1">
+        <h3>Basic information</h3>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.CharacterName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CharacterName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CharacterName, "", new { @class = "text-danger" })
-            </div>
+
+        <div class="col-md-12">
+            @Html.Partial("_CreateBasicInformation", Model)
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CharacterMaxLife, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CharacterMaxLife, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CharacterMaxLife, "", new { @class = "text-danger" })
-            </div>
+        <hr />
+        <input type="button" value="Next Step" class="btn btn-success nextBtn btn-lg pull-right" />
+    </div>
+
+    <div class="row setup-content" id="step-2">
+        <h3>Attributes</h3>
+        <hr />
+
+        <div class="col-md-12">
+            @{Html.RenderAction("Create", "CharacterAttribute");}
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CharacterRace, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.CharacterRace, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CharacterRace, "", new { @class = "text-danger" })
-            </div>
+        <hr />
+        <input type="button" value="Next Step" class="btn btn-success nextBtn btn-lg pull-right" />
+    </div>
+
+    <div class="row setup-content" id="step-3">
+        <h3>teste terceiro passo</h3>
+        <hr />
+
+        <div class="col-md-12">
+            @{Html.RenderAction("Create", "CharacterAttribute");}
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CharacterGender, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.CharacterGender, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CharacterGender, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayerLevel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayerLevel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayerLevel, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayerAge, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayerAge, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayerAge, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayerExperience, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayerExperience, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayerExperience, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayerBackground, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayerBackground, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayerBackground, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayerPointsToDistribute, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayerPointsToDistribute, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayerPointsToDistribute, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayerMoney, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayerMoney, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayerMoney, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+        <hr />
+        <input type="submit" value="Create Player" class="btn btn-success nextBtn btn-lg pull-right" />
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/MultipleStepFormScript.js")
+    @*@Scripts.Render("~/Scripts/bootstrap-wysiwyg.js")*@
 }

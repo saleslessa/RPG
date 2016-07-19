@@ -13,6 +13,8 @@ namespace DaemonCharacter.Domain.Interfaces.Service
 
         IEnumerable<Attributes> ListAll();
 
+        IEnumerable<Attributes> ListWithPagination(int take, int skip);
+
         Attributes Update(Attributes _attribute);
 
         void Remove(Guid AttributeId);
@@ -30,5 +32,7 @@ namespace DaemonCharacter.Domain.Interfaces.Service
         void AddChild(Guid _attribute, Guid child);
 
         void AddParent(Guid _attribute, Guid parent);
+
+        IEnumerable<Attributes> SearchByNameWithPagination(int skip, int take, string name);
     }
 }

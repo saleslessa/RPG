@@ -15,10 +15,7 @@ namespace DaemonCharacter.Domain.Specifications.Attribute
 
         public bool IsSatisfiedBy(Attributes entity)
         {
-            //TODO: Adjust validation
-            //return _attributeRepository.GetUpdateable(entity.AttributeId, entity.AttributeName) == null;
-
-            return true;
+            return _attributeRepository.GetUpdateable(entity.AttributeId, entity.AttributeName) == null;
         }
     }
 }

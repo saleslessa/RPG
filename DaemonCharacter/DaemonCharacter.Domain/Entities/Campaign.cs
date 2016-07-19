@@ -1,7 +1,7 @@
-﻿using DomainValidation.Validation;
+﻿using DaemonCharacter.Domain.Validations.Campaign;
+using DomainValidation.Validation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DaemonCharacter.Domain.Entities
 {
@@ -38,7 +38,12 @@ namespace DaemonCharacter.Domain.Entities
             Players = new List<Player>();
         }
 
-        
+        public bool IsValid()
+        {
+            ValidationResult = new CampaignConsistentValidator().Validate(this);
+
+            return ValidationResult.IsValid;
+        }
 
     }
 

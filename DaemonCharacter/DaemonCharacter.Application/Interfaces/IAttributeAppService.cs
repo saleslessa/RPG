@@ -18,5 +18,9 @@ namespace DaemonCharacter.Application.Interfaces
 
         List<AttributeBonusViewModel> ListAvailableForBonus(Guid? SelectedAttribute);
 
+        List<AttributeViewModel> ListWithPagination(int skip, int take);
+
+        List<AttributeViewModel> SearchByNameWithPagination(int skip, int take, string name);
+
     }
 }

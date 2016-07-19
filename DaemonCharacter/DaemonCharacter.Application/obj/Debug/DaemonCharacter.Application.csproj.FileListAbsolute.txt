@@ -11,9 +11,6 @@ C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\EntityFramew
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.csprojResolveAssemblyReference.cache
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.pdb
-C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.csprojResolveAssemblyReference.cache
-C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.dll
-C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.pdb
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Application.dll
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Application.pdb
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\AutoMapper.dll
@@ -24,3 +21,6 @@ C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Appli
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Domain.pdb
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\DaemonCharacter.Infra.Data.pdb
 C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\EntityFramework.xml
+C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.csprojResolveAssemblyReference.cache
+C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.dll
+C:\Users\sales.de.alencar\Source\Repos\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.pdb

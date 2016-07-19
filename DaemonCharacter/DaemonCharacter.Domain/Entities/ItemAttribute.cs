@@ -7,7 +7,7 @@ namespace DaemonCharacter.Domain.Entities
     {
         public Guid ItemAttributeId { get; set; }
 
-        public virtual Items Item { get; set; }
+        public virtual Item Item { get; set; }
 
         public virtual Attributes Attribute { get; set; }
 

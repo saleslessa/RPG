@@ -11,11 +11,6 @@ namespace DaemonCharacter.Application
             _uow = uow;
         }
 
-        public void BeginTransaction()
-        {
-            _uow.BeginTransaction();
-        }
-
         public void Commit()
         {
             _uow.Commit();

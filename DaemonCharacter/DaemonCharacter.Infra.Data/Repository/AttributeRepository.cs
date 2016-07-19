@@ -35,7 +35,7 @@ namespace DaemonCharacter.Infra.Data.Repository
 
         public Attributes GetUpdateable(Guid id, string name)
         {
-            return Search(t => t.AttributeName.ToUpper().Trim() == name.ToUpper().Trim() && (t.AttributeId == id || id == null))
+            return Search(t => t.AttributeName.ToUpper().Trim() == name.ToUpper().Trim() && (t.AttributeId != id))
                 .FirstOrDefault();
         }
 

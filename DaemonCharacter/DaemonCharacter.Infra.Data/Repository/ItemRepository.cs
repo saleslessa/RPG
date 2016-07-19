@@ -4,7 +4,7 @@ using DaemonCharacter.Infra.Data.Context;
 
 namespace DaemonCharacter.Infra.Data.Repository
 {
-    public class ItemRepository : Repository<Items>, IItemRepository
+    public class ItemRepository : Repository<Item>, IItemRepository
     {
         public ItemRepository(DaemonCharacterContext context) : base(context)
         {

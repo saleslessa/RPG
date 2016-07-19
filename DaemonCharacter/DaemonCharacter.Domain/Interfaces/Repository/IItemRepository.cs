@@ -2,7 +2,8 @@
 
 namespace DaemonCharacter.Domain.Interfaces.Repository
 {
-    public interface IItemRepository : IRepository<Items>
+    public interface IItemRepository : IRepository<Item>
     {
+
     }
 }

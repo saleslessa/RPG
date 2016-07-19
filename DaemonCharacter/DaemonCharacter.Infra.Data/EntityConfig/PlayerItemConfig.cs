@@ -3,10 +3,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace DaemonCharacter.Infra.Data.EntityConfig
 {
-    public class PlayerItemConfig : EntityTypeConfiguration<PlayerItems>
+    public class PlayerItemConfig : EntityTypeConfiguration<PlayerItem>
     {
         public PlayerItemConfig()
         {
+            HasKey(k => k.PlayerItemId);
 
             HasRequired(r => r.Player)
                 .WithMany()
@@ -28,6 +29,8 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.PlayerItemApprovedByMaster)
                 .IsOptional();
+
+            Ignore(i => i.ValidationResult);
         }
     }
 }
