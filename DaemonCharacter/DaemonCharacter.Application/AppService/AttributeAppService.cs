@@ -136,5 +136,18 @@ namespace DaemonCharacter.Application.AppService
         {
             return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(_attributeService.SearchByNameWithPagination(skip, take, name).ToList());
         }
+
+        public List<AttributeViewModel> SearchByName(string name)
+        {
+            return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(_attributeService.SearchByName(name).ToList());
+        }
+
+        public List<AttributeViewModel> SearchByAttributeType(AttributeType? type)
+        {
+            if (type != null)
+                return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(_attributeService.Search(t => t.AttributeType == type).ToList());
+            else
+                return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(_attributeService.ListAll().ToList());
+        }
     }
 }

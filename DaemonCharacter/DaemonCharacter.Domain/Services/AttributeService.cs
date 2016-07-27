@@ -5,6 +5,7 @@ using DaemonCharacter.Domain.Interfaces.Service;
 using DaemonCharacter.Domain.Interfaces.Repository;
 using DaemonCharacter.Domain.Validations.Attribute;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DaemonCharacter.Domain.Services
 {
@@ -128,7 +129,17 @@ namespace DaemonCharacter.Domain.Services
 
         public IEnumerable<Attributes> SearchByNameWithPagination(int skip, int take, string name)
         {
-            return _attributeRepository.SearchWithPagination(o => o.AttributeType, skip, take, s => s.AttributeName.Contains(name) || name.Length == 0);
+            return _attributeRepository.SearchWithPagination(o => o.AttributeType, skip, take, s => s.AttributeName.ToUpper().Trim() == name.ToUpper().Trim());
+        }
+
+        public IEnumerable<Attributes> SearchByName(string name)
+        {
+            return _attributeRepository.SearchByName(name);
+        }
+
+        public IEnumerable<Attributes> Search(Expression<Func<Attributes, bool>> predicate)
+        {
+            return _attributeRepository.Search(predicate);
         }
     }
 }

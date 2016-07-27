@@ -76,5 +76,6 @@ namespace DaemonCharacter.Infra.Data.Repository
             //TODO: AJUST PAGINATION
             //return DbSet.Where(predicate).OrderBy(OrderBy).Skip(skip).Take(take).ToList();
         }
+
     }
 }

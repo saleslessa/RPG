@@ -18,5 +18,7 @@ namespace DaemonCharacter.Domain.Interfaces.Repository
 
         Attributes GetUpdateable(Guid id, string name);
 
+        IEnumerable<Attributes> SearchByName(string name);
+
     }
 }

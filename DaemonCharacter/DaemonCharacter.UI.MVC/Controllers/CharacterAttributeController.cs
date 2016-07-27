@@ -15,7 +15,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
             _attributeAppService = attributeAppService;
         }
 
-        public ActionResult Create()
+        public ActionResult _Create()
         {
             var model = new CharacterAttributeViewModel();
             model.ListOfAvailableAttributes = _attributeAppService.ListWithPagination(0, 10);
@@ -28,8 +28,6 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _characterAttributeAppService.Dispose();
-            _attributeAppService.Dispose();
             base.Dispose(disposing);
         }
     }

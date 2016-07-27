@@ -460,15 +460,16 @@
     <Content Include="Views\NonPlayer\Index.cshtml" />
     <Content Include="Views\Shared\_editor.cshtml" />
     <Content Include="Views\Player\_CreateBasicInformation.cshtml" />
-    <Content Include="Views\CharacterAttribute\Create.cshtml" />
+    <Content Include="Views\CharacterAttribute\_Create.cshtml" />
     <Content Include="Views\CharacterAttribute\_SearchAttributes.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\Create.cshtml" />
     <Content Include="Views\Item\Edit.cshtml" />
+    <Content Include="Views\PlayerItem\_Create.cshtml" />
+    <Content Include="Views\PlayerItem\_SearchItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\PlayerItem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -482,6 +483,10 @@
     <ProjectReference Include="..\DaemonCharacter.Application\DaemonCharacter.Application.csproj">
       <Project>{058fd7e1-d725-470d-b00e-1754aa2930c8}</Project>
       <Name>DaemonCharacter.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DaemonCharacter.Domain\DaemonCharacter.Domain.csproj">
+      <Project>{9F36C32A-D6EA-41DF-89B4-02705B55B8DC}</Project>
+      <Name>DaemonCharacter.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\DaemonCharacter.Infra.CrossCutting.IoC\DaemonCharacter.Infra.CrossCutting.IoC.csproj">
       <Project>{cbb2cbfd-89e4-4739-a48f-1803c9d0e766}</Project>

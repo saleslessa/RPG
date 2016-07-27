@@ -62,5 +62,9 @@ namespace DaemonCharacter.Infra.Data.Repository
             Update(obj);
         }
 
+        public IEnumerable<Attributes> SearchByName(string name)
+        {
+            return Search(t => t.AttributeName == name);
+        }
     }
 }

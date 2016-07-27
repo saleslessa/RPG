@@ -106,7 +106,6 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _campaignAppService.Dispose();
             base.Dispose(disposing);
         }
 

@@ -1,6 +1,7 @@
 ﻿using DaemonCharacter.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace DaemonCharacter.Domain.Interfaces.Service
 {
@@ -34,5 +35,9 @@ namespace DaemonCharacter.Domain.Interfaces.Service
         void AddParent(Guid _attribute, Guid parent);
 
         IEnumerable<Attributes> SearchByNameWithPagination(int skip, int take, string name);
+
+        IEnumerable<Attributes> SearchByName(string name);
+
+        IEnumerable<Attributes> Search(Expression<Func<Attributes, bool>> predicate);
     }
 }

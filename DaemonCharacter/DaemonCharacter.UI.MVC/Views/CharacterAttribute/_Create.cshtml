@@ -1,0 +1,57 @@
+﻿@model DaemonCharacter.Application.ViewModels.CharacterAttribute.CharacterAttributeViewModel
+
+@{Layout = null;}
+<h3>Select Attributes</h3>
+<hr />
+<div class="col-md-6">
+    <h4>List of available attributes</h4>
+    @*TODO: implementar a pesquisa com paginação*@
+
+    @{List<SelectListItem> list = new List<SelectListItem>();
+        var EnumValues = Enum.GetValues(typeof(AttributeType));
+        var EnumNames = Enum.GetNames(typeof(AttributeType));
+
+
+        list.Add(new SelectListItem()
+        {
+            Text = "",
+            Value = "-1",
+            Selected = false
+        });
+
+        for (int i = 0; i < EnumValues.Length; i++)
+        {
+            var enumList = new SelectListItem()
+            {
+                Text = EnumNames[i],
+                Value = EnumValues.GetValue(i).ToString()
+            };
+
+            list.Add(enumList);
+
+        };
+
+    }
+    @Html.DropDownList("AttributeTypeSearch", list, htmlAttributes: new { @class = "form-control" })
+    <input type="text" class="form-control col-md-12" placeholder="Search" id="SearchAvailable" />
+
+    <div id="SearchAttributeContainer">
+        @{Html.RenderPartial("_SearchAttributes", Model.ListOfAvailableAttributes);}
+    </div>
+</div>
+<div class="col-md-6">
+    <h4>Selected attributes</h4>
+    @*TODO: implementar a pesquisa com paginação*@
+
+    @Html.DropDownList("AttributeTypeSelected", list, htmlAttributes: new { @class = "form-control" })
+    <input type="text" class="form-control col-md-12" placeholder="Search" />
+    <table id="TableSelected" class="table table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

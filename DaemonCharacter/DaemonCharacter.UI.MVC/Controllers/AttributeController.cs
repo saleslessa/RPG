@@ -2,6 +2,7 @@
 using DaemonCharacter.Application.ViewModels.Attribute;
 using Microsoft.Ajax.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 
@@ -146,14 +147,26 @@ namespace DaemonCharacter.UI.MVC.Controllers
         [HttpGet]
         public JsonResult SearchAttributes(string name)
         {
-            var model = _attributeAppService.SearchByNameWithPagination(0, 10, name);
+            var model = _attributeAppService.SearchByName(name);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult SearchByType(AttributeType? type)
+        {
+            List<AttributeViewModel> model = new List<AttributeViewModel>();
+
+            if ((int)type == -1)
+                model = _attributeAppService.SearchByAttributeType(null);
+            else
+                model = _attributeAppService.SearchByAttributeType(type);
+
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
         {
-            _attributeAppService.Dispose();
             base.Dispose(disposing);
         }
 

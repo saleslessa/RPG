@@ -36,9 +36,6 @@
     @Html.Partial("_ErrorSummary")
 
     <div class="row setup-content" id="step-1">
-        <h3>Basic information</h3>
-        <hr />
-
         <div class="col-md-12">
             @Html.Partial("_CreateBasicInformation", Model)
         </div>
@@ -48,11 +45,8 @@
     </div>
 
     <div class="row setup-content" id="step-2">
-        <h3>Attributes</h3>
-        <hr />
-
         <div class="col-md-12">
-            @{Html.RenderAction("Create", "CharacterAttribute");}
+            @{Html.RenderAction("_Create", "CharacterAttribute");}
         </div>
 
         <hr />
@@ -60,11 +54,8 @@
     </div>
 
     <div class="row setup-content" id="step-3">
-        <h3>teste terceiro passo</h3>
-        <hr />
-
         <div class="col-md-12">
-            @{Html.RenderAction("Create", "CharacterAttribute");}
+            @{Html.RenderAction("_Create", "PlayerItem");}
         </div>
 
         <hr />

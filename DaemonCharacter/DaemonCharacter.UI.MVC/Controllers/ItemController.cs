@@ -67,7 +67,6 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _itemAppService.Dispose();
             base.Dispose(disposing);
         }
     }

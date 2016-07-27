@@ -22,7 +22,7 @@ namespace DaemonCharacter.Infra.CrossCutting.IoC
             container.Register<ICharacterAttributeAppService, CharacterAttributeAppService>(Lifestyle.Scoped);
             container.Register<INonPlayerAppService, NonPlayerAppService>(Lifestyle.Scoped);
             container.Register<IItemAppService, ItemAppService>(Lifestyle.Scoped);
-            container.Register<IPlayerAppService, PlayerAppService>(Lifestyle.Scoped);
+            container.Register<IPlayerItemAppService, PlayerItemAppService>(Lifestyle.Scoped);
 
 
             // Domain
@@ -32,7 +32,7 @@ namespace DaemonCharacter.Infra.CrossCutting.IoC
             container.Register<ICharacterAttributeService, CharacterAttributeService>(Lifestyle.Scoped);
             container.Register<INonPlayerService, NonPlayerService>(Lifestyle.Scoped);
             container.Register<IItemService, ItemService>(Lifestyle.Scoped);
-            container.Register<IPlayerService, PlayerService>(Lifestyle.Scoped);
+            container.Register<IPlayerItemService, PlayerItemService>(Lifestyle.Scoped);
 
 
             // Infra Dados

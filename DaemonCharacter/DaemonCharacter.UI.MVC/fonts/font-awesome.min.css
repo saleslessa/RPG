@@ -1157,7 +1157,7 @@
 }
 
 .fa-laptop:before {
-    content: "\f002";
+    content: "\f109";
 }
 
 .fa-logo:before {
@@ -1311,6 +1311,10 @@
 
 .fa-shield:before {
     content: "\f132";
+}
+
+.fa-boot:before {
+    content: "\f502";
 }
 
 .fa-calendar-o:before {

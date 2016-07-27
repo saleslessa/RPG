@@ -16,7 +16,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
             _itemAppService = itemAppService;
         }
 
-        public ActionResult Create()
+        public ActionResult _Create()
         {
             var model = new PlayerItemViewModel();
             model.ListAvailableItems = _itemAppService.ListAll().ToList();
@@ -26,7 +26,6 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _playerItemAppService.Dispose();
             base.Dispose(disposing);
         }
     }

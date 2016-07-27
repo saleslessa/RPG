@@ -143,11 +143,9 @@
 
     $('#TableSearch').on('click', '.clickable-row', function (event) {
 
-        //alert(this.id);
-
         var row = '<tr id="' + this.id + '">';
 
-        row += '<td class="clickable-row" style="cursor:pointer">' + this.cells[1].innerText + '</td>';
+        row += '<td class="clickable-row" style="cursor:pointer">' + this.cells[0].innerText + '</td>';
         row += '<td><input type="number" name="CharacterAttributeValue" min="0" class="form-control" /></td>';
 
         row += '</tr>';
@@ -155,36 +153,52 @@
         $('#TableSelected tbody').append(row);
 
         $(this).remove();
-
-        //$(this).addClass('active').siblings().removeClass('active');
     });
 
 
     $('#TableSelected').on('click', '.clickable-row', function (event) {
-        $(this).remove();
+        SearchAvailable($('#AttributeTypeSearch').val());
+        $(this).closest('tr').remove();
+    });
 
-        var value = $('#SearchAvailable').val();
-        SearchAttribute(value);
+    //Search By Attribute Type
+    $('#AttributeTypeSearch').on('change', null, function (event) {
+        SearchAvailable($(this).val());
     });
 
 });
 
-function SearchAttribute(value)
-{
-    var url = '/Attribute/SearchAttributes/?name=' + value;
-    //skip=0&take=10&
-    $.ajax({
+function SearchAvailable(value) {
 
-        url: url,
-        type: "get",
-        success: function (response) {
+    var url = '/Attribute/SearchByType/?type=' + value;
 
-            alert(response);
+    $('#TableSearch tbody').empty();
 
-            document.getElementById('SearchAttributeContainer').innerHTML = response;
-        },
-        error: function (xhr) {
-        alert(xhr.statusText);
-    }
+    $.getJSON(url, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            var item = JSON.parse(JSON.stringify(data[i]));
+
+            if (!VerifySelectedId(item.AttributeId)) {
+                var row = "<tr class='clickable-row' style='cursor:pointer' id='" + item.AttributeId + "'>";
+                row += "<td>" + item.AttributeName + "</td>";
+                row += "<td>" + item.AttributeDescription + "</td>";
+                row += "</tr>";
+
+                $('#TableSearch tbody').append(row);
+            }
+        }
     });
+
+    $(this).closest('tr').remove();
+}
+
+function VerifySelectedId(value) {
+    var result = false;
+    $.each($('#TableSelected tbody tr'), function (index, element) {
+        if (value == element.id) result = true;
+
+    });
+
+    return result;
 }

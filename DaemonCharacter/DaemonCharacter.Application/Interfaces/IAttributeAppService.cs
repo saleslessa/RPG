@@ -22,5 +22,9 @@ namespace DaemonCharacter.Application.Interfaces
 
         List<AttributeViewModel> SearchByNameWithPagination(int skip, int take, string name);
 
+        List<AttributeViewModel> SearchByName(string name);
+
+        List<AttributeViewModel> SearchByAttributeType(AttributeType? type);
+
     }
 }

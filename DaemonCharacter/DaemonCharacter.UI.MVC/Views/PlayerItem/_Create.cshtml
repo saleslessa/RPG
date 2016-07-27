@@ -1,0 +1,21 @@
+﻿@model DaemonCharacter.Application.ViewModels.PlayerItem.PlayerItemViewModel
+
+@{Layout = null;}
+
+<div class="form-group col-md-12">
+    <h3>Buy Items</h3>
+    <div class="col-md-4 float-left">
+        <label class="control-label"><b>Total Money:</b></label>
+        <input type="number" readonly="readonly" class="form-control" value="">
+    </div>
+
+    <div class="col-md-4 float-right">
+        <label class="control-label"><b>Total Invested:</b></label>
+        <input type="number" readonly="readonly" class="form-control" value="">
+    </div>
+</div>
+<hr />
+<div class="col-md-8">
+    <h4>List of available items</h4>
+    <input type="text" class="form-control col-md-12" placeholder="Search" id="SearchAvailable" />
+</div>

@@ -149,7 +149,6 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _playerAppService.Dispose();
             base.Dispose(disposing);
         }
     }
