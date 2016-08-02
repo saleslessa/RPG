@@ -75,6 +75,7 @@
     <Compile Include="ViewModels\CharacterAttribute\CharacterAttributeViewModel.cs" />
     <Compile Include="ViewModels\CharacterAttribute\SelectedCharacterAttributeViewModel.cs" />
     <Compile Include="ViewModels\Item\ItemViewModel.cs" />
+    <Compile Include="ViewModels\Item\SelectedItemViewModel.cs" />
     <Compile Include="ViewModels\NonPlayer\NonPlayerViewModel.cs" />
     <Compile Include="ViewModels\PlayerItem\PlayerItemViewModel.cs" />
     <Compile Include="ViewModels\PlayerItem\SelectedPlayerItemViewModel.cs" />

@@ -24,7 +24,7 @@ namespace DaemonCharacter.Domain.Entities
         
         public bool IsValid()
         {
-            ValidationResult = new CharacterAttributeIsConsistentValidator().Validate(this);
+            ValidationResult = new CharacterAttributeIsConsistentValidation().Validate(this);
 
             return ValidationResult.IsValid;
         }

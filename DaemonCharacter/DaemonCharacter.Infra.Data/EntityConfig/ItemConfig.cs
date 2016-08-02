@@ -10,14 +10,12 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
         {
             HasKey(k => k.ItemId);
 
-            Property(p => p.ItemId)
-                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-
             Property(p => p.ItemName)
                 .IsRequired()
                 .HasMaxLength(50);
 
             Property(p => p.ItemPrice)
+                .HasColumnType("float")
                 .IsRequired();
 
             Property(p => p.ItemEffect)

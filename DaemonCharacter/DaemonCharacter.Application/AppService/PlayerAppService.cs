@@ -6,7 +6,6 @@ using DaemonCharacter.Application.ViewModels.Player;
 using AutoMapper;
 using DaemonCharacter.Domain.Entities;
 using System.Collections.Generic;
-using DaemonCharacter.Application.ViewModels.Campaign;
 
 namespace DaemonCharacter.Application.AppService
 {

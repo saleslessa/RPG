@@ -1,4 +1,5 @@
-﻿using DomainValidation.Validation;
+﻿using DaemonCharacter.Domain.Validations.Item;
+using DomainValidation.Validation;
 using System;
 
 namespace DaemonCharacter.Domain.Entities
@@ -12,7 +13,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public string ItemEffect { get; set; }
 
-        public int ItemPrice { get; set; }
+        public double ItemPrice { get; set; }
 
         public ValidationResult ValidationResult { get; set; }
 
@@ -20,6 +21,13 @@ namespace DaemonCharacter.Domain.Entities
         {
             ItemId = Guid.NewGuid();
             ValidationResult = new ValidationResult();
+        }
+
+        public bool IsValid()
+        {
+            ValidationResult = new ItemIsConsistentValidation().Validate(this);
+
+            return ValidationResult.IsValid;
         }
     }
 

@@ -4,9 +4,9 @@ using DomainValidation.Validation;
 
 namespace DaemonCharacter.Domain.Validations.Attribute
 {
-    public class AttributeIsConsistentValidator : Validator<Attributes>
+    public class AttributeIsConsistentValidation : Validator<Attributes>
     {
-        public AttributeIsConsistentValidator()
+        public AttributeIsConsistentValidation()
         {
             var hasName = new AttributeHasNameSpecification();
             var hasDescription = new AttributeHasDescriptionSpecification();
@@ -15,7 +15,7 @@ namespace DaemonCharacter.Domain.Validations.Attribute
 
             base.Add("hasName", new Rule<Attributes>(hasName, "Attribute Name must be filled"));
             base.Add("hasDescription", new Rule<Attributes>(hasDescription, "Attribute Description must be filled"));
-            base.Add("minimumOk", new Rule<Attributes>(minimumOk, "Attribute Minimum must be greater than zero"));
+            base.Add("minimumOk", new Rule<Attributes>(minimumOk, "Attribute Minimum must be greater than zero or has invalid value"));
         }
     }
 }

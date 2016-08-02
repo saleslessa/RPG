@@ -18,5 +18,16 @@ namespace DaemonCharacter.Application.ViewModels.CharacterAttribute
         [Required(ErrorMessage = "Character Value must be filled.")]
         [Range(1, short.MaxValue, ErrorMessage = "Character Value must be between {0} and {1}")]
         public int Value { get; set; }
+
+        [ScaffoldColumn(false)]
+        public Guid CharacterId { get; set; }
+
+        [ScaffoldColumn(false)]
+        public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
+
+        public SelectedCharacterAttributeViewModel()
+        {
+            ValidationResult = new DomainValidation.Validation.ValidationResult();
+        }
     }
 }

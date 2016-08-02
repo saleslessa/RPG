@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace DaemonCharacter.Infra.Data.EntityConfig
 {
-    public class ItemAttributeConfig : EntityTypeConfiguration<ItemAttributes>
+    public class ItemAttributeConfig : EntityTypeConfiguration<ItemAttribute>
     {
 
         public ItemAttributeConfig()

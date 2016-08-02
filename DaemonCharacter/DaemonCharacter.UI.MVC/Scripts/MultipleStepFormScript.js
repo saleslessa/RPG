@@ -15,7 +15,7 @@
             navListItems.removeClass('btn-success').addClass('btn-default');
             $item.addClass('btn-success');
             allWells.hide();
-            $target.show();
+            $target.fadeIn("slow");
             $target.find('input:eq(0)').focus();
         }
     });
@@ -41,81 +41,6 @@
 
     $('div.setup-panel div a.btn-success').trigger('click');
 
-
-    //custom code by @naresh for file input sep
-
-    var fileInput = document.getElementById('sep_json');
-    var fileDisplayArea = document.getElementById('sep_jsondisplay');
-    var fileInput1 = document.getElementById('action_json');
-    var fileDisplayArea1 = document.getElementById('action_jsondisplay');
-
-
-    //fileInput.addEventListener('change', function (e) {
-    //    var file = fileInput.files[0];
-    //    var textType = /text.*/;
-
-    //    if (file.type.match(textType)) {
-    //        var reader = new FileReader();
-
-    //        reader.onload = function (e) {
-    //            var res = reader.result;
-    //            function isJSON(something) {
-    //                if (typeof something != 'string')
-    //                    something = JSON.stringify(something);
-
-    //                try {
-    //                    JSON.parse(something);
-    //                    return true;
-    //                } catch (e) {
-    //                    return false;
-    //                }
-    //            }
-    //            if (isJSON(res)) {
-    //                fileDisplayArea.innerText = JSON.stringify(res);
-    //            } else {
-    //                fileDisplayArea.innerText = "File content is not JSON"
-    //            }
-    //        }
-
-    //        reader.readAsText(file);
-    //    } else {
-    //        fileDisplayArea.innerText = "File not supported!"
-    //    }
-    //});
-    //fileInput1.addEventListener('change', function (e) {
-    //    var file = fileInput1.files[0];
-    //    var textType = /text.*/;
-
-    //    if (file.type.match(textType)) {
-    //        var reader = new FileReader();
-
-    //        reader.onload = function (e) {
-    //            var res = reader.result;
-    //            function isJSON(something) {
-    //                if (typeof something != 'string')
-    //                    something = JSON.stringify(something);
-
-    //                try {
-    //                    JSON.parse(something);
-    //                    return true;
-    //                } catch (e) {
-    //                    return false;
-    //                }
-    //            }
-    //            if (isJSON(res)) {
-    //                fileDisplayArea1.innerText = JSON.stringify(res);
-    //            } else {
-    //                fileDisplayArea1.innerText = "File content is not JSON"
-    //            }
-    //        }
-
-    //        reader.readAsText(file);
-    //    } else {
-    //        fileDisplayArea1.innerText = "File not supported!"
-    //    }
-    //});
-
-    //@naresh action dynamic childs
     var next = 0;
     $("#add-more").click(function (e) {
         e.preventDefault();
@@ -142,11 +67,11 @@
 
 
     $('#TableSearch').on('click', '.clickable-row', function (event) {
+        var row = '<tr id="' + $(this).attr('id') + '">';
 
-        var row = '<tr id="' + this.id + '">';
-
-        row += '<td class="clickable-row" style="cursor:pointer">' + this.cells[0].innerText + '</td>';
-        row += '<td><input type="number" name="CharacterAttributeValue" min="0" class="form-control" /></td>';
+        row += '<td>' + this.cells[0].innerText + '</td>';
+        row += '<td class="TdAttributeValue"><input type="number" name="CharacterAttributeValue" class="CharacterAttributeValue" min="0" class="form-control" /></td>';
+        row += '<td><input type="button" class="clickable-row btn btn-default" value=" - " />';
 
         row += '</tr>';
 
@@ -161,12 +86,196 @@
         $(this).closest('tr').remove();
     });
 
-    //Search By Attribute Type
+
     $('#AttributeTypeSearch').on('change', null, function (event) {
         SearchAvailable($(this).val());
     });
 
+    $('input[name=ItemQtd]').on('change', null, function (event) {
+        var price = GetPricePlayerItem($(this));
+        var qtd = $(this).val();
+
+        if (price == 0 || qtd == 0)
+            $(this).parent().siblings(".TdItemTotal").children().val("");
+        else
+            $(this).parent().siblings(".TdItemTotal").children().val(price * qtd);
+    });
+
+    $('#table-item-available').on('click', '.btnIncludeItem', function (event) {
+        var selectedItem = FindItemName(GetItemNamePlayerItem($(this)));
+
+        if (selectedItem == null && GetQtdPlayerItem($(this)) > 0) {
+            var row = "<tr id='" + $(this).attr('id') + "'>";
+
+            row += "<td class='TdItemName'>" + GetItemNamePlayerItem($(this)) + "</td>";
+            row += "<td class='TdItemPrice'>" + GetPricePlayerItem($(this)) + "</td>";
+            row += "<td class='TdItemQtd'>" + GetQtdPlayerItem($(this)) + "</td>";
+            row += "<td class='TdItemTotal'>" + GetPricePlayerItem($(this)) * GetQtdPlayerItem($(this)) + "</td>";
+            row += "<td><input type='button' class='btnRemoveItem btn btn-danger' value=' - ' alt='Remove Item' /></td>";
+
+            row += "</tr>";
+
+            $("#table-item-selected tbody").append(row);
+        }
+        else {
+            if (GetQtdPlayerItem($(this)) > 0)
+                SetSelectedItem($(this), GetItemNamePlayerItem($(this)));
+        }
+
+        GetTotalInvested();
+    });
+
+    $('#table-item-selected').on('click', '.btnRemoveItem', function (event) {
+        $(this).parent().parent().remove();
+        GetTotalInvested();
+    });
+
+    $("input[name=btnCreatePlayer]").on('click', null, function (event) {
+        var objBasicInfo = MountBasicInformation();
+        var objAttributes = MountAttributes();
+        var objItems = MountItems();
+
+
+        objBasicInfo.SelectedAttributes = objAttributes;
+        objBasicInfo.SelectedItems = objItems;
+
+        var url = '/Player/Create/';
+
+        //console.log('before:' + JSON.stringify({ Basic: objBasicInfo, Attributes: objAttributes, Items: objItems }));
+
+        $("#FormPlayer").submit();
+
+        //$.ajax(
+        //{
+        //    dataType: 'JSON',
+        //    url: url,
+        //    type: 'POST',
+        //    contentType: 'application/json',
+        //    data: JSON.stringify({ model: objBasicInfo }),
+
+        //    success: function (response) {
+
+        //        //alert(response);
+
+        //    },
+        //    error: function (xhr) {
+
+        //        alert(xhr.statusText);
+
+        //    }
+        //});
+    });
+
 });
+
+function MountBasicInformation() {
+    var objBasicInfo = new Object();
+    objBasicInfo.SelectedCampaign = $('#SelectedCampaign').val();
+    objBasicInfo.CharacterName = $('#CharacterName').val();
+    objBasicInfo.CharacterMaxLife = $('#CharacterMaxLife').val();
+    objBasicInfo.PlayerAge = $('#PlayerAge').val();
+    objBasicInfo.PlayerExperience = $('#PlayerExperience').val();
+    objBasicInfo.PlayerLevel = $('#PlayerLevel').val();
+    objBasicInfo.PlayerMoney = $('#PlayerMoney').val();
+    objBasicInfo.PlayerPointsToDistribute = $('#PlayerPointsToDistribute').val();
+    objBasicInfo.CharacterRace = $('#CharacterRace').val();
+    objBasicInfo.CharacterGender = $('#CharacterGender').val();
+    objBasicInfo.PlayerBackground = $('#PlayerBackground').val();
+
+
+    return objBasicInfo;
+}
+
+function MountAttributes() {
+    var objAttributes = [];
+
+    $("#TableSelected > tbody > tr").each(function (index, element) {
+        if (parseInt(jQuery(element).children('.TdAttributeValue').children('.CharacterAttributeValue').val()) > 0) {
+            var item = {};
+            item['AttributeId'] = element.id;
+            item['Value'] = jQuery(element).children('.TdAttributeValue').children('.CharacterAttributeValue').val();
+            objAttributes.push(item);
+        }
+    });
+
+    return objAttributes;
+}
+
+function MountItems() {
+    var objItems = [];
+
+    $("#table-item-selected > tbody > tr").each(function (index, element) {
+        if (parseInt(GetPricePlayerItem(element)) > 0) {
+            var item = {};
+            item['ItemId'] = element.id;
+            item['PlayerItemQtd'] = GetQtdPlayerItem(element);
+            item['PlayerItemUnitPrice'] = GetPricePlayerItem(element);
+            objItems.push(item);
+        }
+    });
+
+    return objItems;
+}
+
+function SetSelectedItem(obj, ItemName) {
+    $("#table-item-selected > tbody > tr").each(function (index, element) {
+        if (GetItemNamePlayerItem(element) == ItemName) {
+            $(this).children(".TdItemQtd").text(GetQtdPlayerItem(obj) + GetQtdPlayerItem(element));
+            $(this).children(".TdItemTotal").text(GetPricePlayerItem(obj) * GetQtdPlayerItem(element));
+        }
+    });
+}
+
+function FindItemName(ItemName) {
+    var result = null;
+
+    $("#table-item-selected > tbody > tr").each(function (index, element) {
+        if (GetItemNamePlayerItem(element) == ItemName)
+            result = element;
+    });
+
+    return result;
+}
+
+function GetTotalInvested() {
+    var total = 0;
+    $("#table-item-selected > tbody > tr").each(function (index, element) {
+        total += GetTotalPlayerItem(element);
+    });
+
+    if (total > 0)
+        $("#input-total-invested").val(total);
+    else
+        $("#input-total-invested").val("");
+}
+
+function GetItemNamePlayerItem(obj) {
+    if (jQuery(obj).prop("tagName") == "TR")
+        return jQuery(obj).children(".TdItemName").text();
+    else
+        return jQuery(obj).parent().siblings(".TdItemName").text();
+}
+
+function GetPricePlayerItem(obj) {
+    if (jQuery(obj).prop("tagName") == "TR")
+        return parseFloat(jQuery(obj).children('.TdItemPrice').text());
+    else
+        return parseFloat(obj.parent().siblings(".TdItemPrice").children().val());
+}
+
+function GetTotalPlayerItem(obj) {
+    if (jQuery(obj).prop("tagName") == "TR")
+        return parseFloat(jQuery(obj).children(".TdItemTotal").text());
+    else
+        return parseFloat(jQuery(obj).find('.TdItemTotal').text());
+}
+
+function GetQtdPlayerItem(obj) {
+    if (jQuery(obj).prop("tagName") == "TR")
+        return parseInt(jQuery(obj).children(".TdItemQtd").text());
+    else
+        return parseInt(obj.parent().siblings(".TdItemQtd").children().val());
+}
 
 function SearchAvailable(value) {
 

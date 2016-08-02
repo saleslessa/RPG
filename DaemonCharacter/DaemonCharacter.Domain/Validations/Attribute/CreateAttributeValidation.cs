@@ -5,9 +5,9 @@ using DomainValidation.Validation;
 
 namespace DaemonCharacter.Domain.Validations.Attribute
 {
-    public class UpdateAttributeValidator : Validator<Attributes>
+    public class CreateAttributeValidation : Validator<Attributes>
     {
-        public UpdateAttributeValidator(IAttributeRepository attributeRepository)
+        public CreateAttributeValidation(IAttributeRepository attributeRepository)
         {
             var duplicatedName = new AttributeUniqueNameSpecification(attributeRepository);
 

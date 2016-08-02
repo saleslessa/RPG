@@ -22,7 +22,7 @@
 }
 
 .stepwizard-row:before {
-    top: 14px;
+    top: 12px;
     position: absolute;
     content: " ";
     width: 100%;

@@ -40,7 +40,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public bool IsValid()
         {
-            ValidationResult = new CampaignConsistentValidator().Validate(this);
+            ValidationResult = new CampaignConsistentValidation().Validate(this);
 
             return ValidationResult.IsValid;
         }

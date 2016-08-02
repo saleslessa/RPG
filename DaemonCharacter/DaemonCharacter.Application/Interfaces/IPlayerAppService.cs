@@ -16,6 +16,5 @@ namespace DaemonCharacter.Application.Interfaces
 
         IEnumerable<PlayerViewModel> ListAll();
 
-        
     }
 }

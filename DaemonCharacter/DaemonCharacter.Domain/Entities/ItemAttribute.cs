@@ -1,9 +1,11 @@
-﻿using System;
+﻿using DaemonCharacter.Domain.Validations.ItemAttribute;
+using DomainValidation.Validation;
+using System;
 
 namespace DaemonCharacter.Domain.Entities
 {
 
-    public class ItemAttributes
+    public class ItemAttribute
     {
         public Guid ItemAttributeId { get; set; }
 
@@ -13,13 +15,18 @@ namespace DaemonCharacter.Domain.Entities
 
         public int ItemAttributeValue { get; set; }
 
-        public ItemAttributes() { }
+        public ValidationResult ValidationResult { get; set; }
 
-        internal ItemAttributes(Attributes _att, int _value)
+        public ItemAttribute()
         {
             ItemAttributeId = Guid.NewGuid();
-            this.Attribute = _att;
-            this.ItemAttributeValue = _value;
+            ValidationResult = new ValidationResult();
+        }
+
+        public bool IsValid()
+        {
+            ValidationResult = new ItemAttributeIsConsistentValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

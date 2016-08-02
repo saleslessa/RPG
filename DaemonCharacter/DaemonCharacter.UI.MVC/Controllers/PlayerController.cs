@@ -3,6 +3,9 @@ using System.Net;
 using System.Web.Mvc;
 using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Application.Interfaces;
+using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+using DaemonCharacter.Application.ViewModels.Item;
+using System.Collections.Generic;
 
 namespace DaemonCharacter.UI.MVC.Controllers
 {
@@ -51,41 +54,21 @@ namespace DaemonCharacter.UI.MVC.Controllers
             return View(model);
         }
 
-
-
-        // POST: Player/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(PlayerViewModel model)
         {
-            try
-            {
-                model.CharacterUser = User.Identity.Name;
+            //model.CharacterUser = User.Identity.Name;
 
-                if (ModelState.IsValid)
-                {
-                    _playerAppService.Add(model);
-                    if (!model.ValidationResult.IsValid)
-                        throw new Exception();
+            //if (ModelState.IsValid)
+            //{
+            //    _playerAppService.Add(model);
+            //}
 
-                    return RedirectToAction("Index");
-                }
+            ModelState.AddModelError("", "Erro Teste");
+            return View(model);
 
-                throw new Exception();
 
-            }
-            catch (Exception)
-            {
-                foreach (var error in model.ValidationResult.Erros)
-                {
-                    ModelState.AddModelError(string.Empty, error.Message);
-                }
-
-                model.Campaigns = _campaignAppService.ListAvailableCampaigns();
-                return View(model);
-            }
         }
 
         // GET: Player/Edit/5

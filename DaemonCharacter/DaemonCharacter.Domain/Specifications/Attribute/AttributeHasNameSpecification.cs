@@ -7,7 +7,7 @@ namespace DaemonCharacter.Domain.Specifications.Attribute
     {
         public bool IsSatisfiedBy(Attributes entity)
         {
-            return entity.AttributeName.Trim().Length > 0 && entity.AttributeName.Trim().Length <= 50;
+            return entity.AttributeName != null && entity.AttributeName.Trim().Length > 0 && entity.AttributeName.Trim().Length <= 50;
         }
     }
 }

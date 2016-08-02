@@ -482,6 +482,13 @@ tr.pager td {
 
 
 
+.form-control-player {
+    width:100%;
+    height:100%;
+    top:0;
+    margin:0;
+}
+
 
 
 /********ICONS *******************/
@@ -494,4 +501,9 @@ tr.pager td {
 
 .icon { /* Customizes all icons at once */
     display: inline-block;
+}
+
+.textbox-small
+{
+    max-width:80px;
 }

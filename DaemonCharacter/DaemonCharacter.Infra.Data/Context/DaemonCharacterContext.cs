@@ -36,7 +36,7 @@ namespace DaemonCharacter.Infra.Data.Context
             modelBuilder.Configurations.Add(new NonPlayerConfig());
             modelBuilder.Configurations.Add(new ItemConfig());
             modelBuilder.Configurations.Add(new PlayerItemConfig());
-            //modelBuilder.Configurations.Add(new ItemAttributeConfig());
+            modelBuilder.Configurations.Add(new ItemAttributeConfig());
 
             //modelBuilder.Configurations.Add(new SessionConfig());
 
@@ -53,12 +53,11 @@ namespace DaemonCharacter.Infra.Data.Context
         public IDbSet<NonPlayer> NonPlayers { get; set; }
         public IDbSet<Item> Item { get; set; }
         public IDbSet<PlayerItem> PlayerItem { get; set; }
+        public IDbSet<ItemAttribute> ItemAttribute { get; set; }
+
 
         //public DbSet<Sessions> CampaignSession { set; get; }
 
-
-
-        //public DbSet<ItemAttributes> ItemAttributes { get; set; }
 
     }
 

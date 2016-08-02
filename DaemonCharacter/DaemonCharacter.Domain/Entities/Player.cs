@@ -12,7 +12,7 @@
 
         public int PlayerPointsToDistribute { get; set; }
 
-        public int PlayerMoney { get; set; }
+        public double PlayerMoney { get; set; }
 
         public Player() : base()
         {

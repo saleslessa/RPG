@@ -3,9 +3,9 @@ using DomainValidation.Validation;
 
 namespace DaemonCharacter.Domain.Validations.CharacterAttribute
 {
-    public class CharacterAttributeIsConsistentValidator : Validator<Entities.CharacterAttribute>
+    public class CharacterAttributeIsConsistentValidation : Validator<Entities.CharacterAttribute>
     {
-        public CharacterAttributeIsConsistentValidator()
+        public CharacterAttributeIsConsistentValidation()
         {
             var hasCharacter = new CharacterAttributeHasCharacterSpecification();
             var hasAttribute = new CharacterAttributeHasAttributeSpecification();

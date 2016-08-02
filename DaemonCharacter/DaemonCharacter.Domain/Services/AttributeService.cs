@@ -24,7 +24,7 @@ namespace DaemonCharacter.Domain.Services
             if (!att.IsValid())
                 return att;
 
-            att.ValidationResult = new CreateAttributeValidator(_attributeRepository).Validate(att);
+            att.ValidationResult = new CreateAttributeValidation(_attributeRepository).Validate(att);
             if (!att.ValidationResult.IsValid)
                 return att;
             
@@ -111,7 +111,7 @@ namespace DaemonCharacter.Domain.Services
 
         public Attributes Update(Attributes att)
         {
-            att.ValidationResult = new UpdateAttributeValidator(_attributeRepository).Validate(att);
+            att.ValidationResult = new UpdateAttributeValidation(_attributeRepository).Validate(att);
 
             if (!att.ValidationResult.IsValid)
             {

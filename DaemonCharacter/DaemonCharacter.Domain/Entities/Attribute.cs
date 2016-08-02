@@ -34,8 +34,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public bool IsValid()
         {
-            ValidationResult = new AttributeIsConsistentValidator().Validate(this);
-
+            ValidationResult = new AttributeIsConsistentValidation().Validate(this);
             return ValidationResult.IsValid;
         }
     }

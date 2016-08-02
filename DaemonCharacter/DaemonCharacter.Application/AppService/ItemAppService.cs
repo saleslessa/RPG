@@ -53,7 +53,10 @@ namespace DaemonCharacter.Application.AppService
         public ItemViewModel Update(ItemViewModel model)
         {
             var item = Mapper.Map<ItemViewModel, Item>(model);
-            //TODO: VALIDATIONS
+
+            if (!item.IsValid())
+                return Mapper.Map<Item, ItemViewModel>(item);
+
             item = _itemService.Update(item);
 
             return Mapper.Map<Item, ItemViewModel>(item);

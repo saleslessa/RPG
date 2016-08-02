@@ -8,7 +8,11 @@ namespace DaemonCharacter.Domain.Specifications.Attribute
     {
         public bool IsSatisfiedBy(Attributes model)
         {
-            return model.AttributeMinimum > 10;
+            if (model.AttributeType == AttributeType.Characteristic)
+                return model.AttributeMinimum == null;
+
+            return model.AttributeMinimum != null && model.AttributeMinimum > 0;
+
         }
     }
 }

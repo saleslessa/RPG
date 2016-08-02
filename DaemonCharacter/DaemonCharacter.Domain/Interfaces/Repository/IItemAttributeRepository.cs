@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 namespace DaemonCharacter.Domain.Interfaces.Repository
 {
-    public interface IItemAttributeRepository : IRepository<ItemAttributes>
+    public interface IItemAttributeRepository : IRepository<ItemAttribute>
     {
-        IEnumerable<ItemAttributes> ListFromItem(Guid? AttributeId);
+        IEnumerable<ItemAttribute> ListFromItem(Guid? AttributeId);
 
-        IEnumerable<ItemAttributes> ListFromAttribute(Guid? AttributeId);
+        IEnumerable<ItemAttribute> ListFromAttribute(Guid? AttributeId);
 
-        ItemAttributes Get(Guid? ItemId, Guid? AttributeId);
+        ItemAttribute Get(Guid? ItemId, Guid? AttributeId);
+
     }
 }

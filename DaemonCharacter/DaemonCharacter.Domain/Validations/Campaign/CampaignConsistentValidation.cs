@@ -3,9 +3,9 @@ using DomainValidation.Validation;
 
 namespace DaemonCharacter.Domain.Validations.Campaign
 {
-    public class CampaignConsistentValidator : Validator<Entities.Campaign>
+    public class CampaignConsistentValidation : Validator<Entities.Campaign>
     {
-        public CampaignConsistentValidator()
+        public CampaignConsistentValidation()
         {
             var hasName = new CampaignHasNameSpecification();
             var hasShortDescription = new CampaignHasShortDescriptionSpecification();

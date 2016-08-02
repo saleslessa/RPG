@@ -22,7 +22,7 @@ namespace DaemonCharacter.Application.ViewModels.PlayerItem
 
         [DataType(DataType.Currency)]
         [Required(ErrorMessage = "You must pay for this item. Please out a price :)")]
-        public int PlayerItemUnitPrice { get; set; }
+        public float PlayerItemUnitPrice { get; set; }
 
         [ScaffoldColumn(false)]
         public bool PlayerItemApprovedByMaster { get; set; }

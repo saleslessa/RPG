@@ -1,7 +1,7 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Player.PlayerViewModel
 
 @{
-    ViewBag.Title = "Creating a new player";
+    ViewBag.Title = "Creating a new Player";
 }
 
 <h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Player", FormMethod.Post, new { name = "FormPlayer", id = "FormPlayer" }))
 {
     @Html.AntiForgeryToken()
 
@@ -59,9 +59,10 @@
         </div>
 
         <hr />
-        <input type="submit" value="Create Player" class="btn btn-success nextBtn btn-lg pull-right" />
+        <input type="button" value="Create Player" name="btnCreatePlayer" class="btn btn-success nextBtn btn-lg float-right" />
+        <input type="button" value="Preview" class="btn btn-info float-right" />
     </div>
-}
+                }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

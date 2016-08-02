@@ -17,7 +17,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public DateTime PlayerItemDateBought { get; set; }
 
-        public int PlayerItemUnitPrice { get; set; }
+        public float PlayerItemUnitPrice { get; set; }
 
         public bool PlayerItemApprovedByMaster { get; set; }
 
@@ -33,10 +33,7 @@ namespace DaemonCharacter.Domain.Entities
         {
             ValidationResult = new PlayerItemConsistentValidation().Validate(this);
 
-            if (ValidationResult.IsValid)
-                return true;
-
-            return false;
+            return ValidationResult.IsValid;
         }
     }
 }

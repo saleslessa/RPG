@@ -17,7 +17,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public bool IsValid()
         {
-            ValidationResult = new NonPlayerConsistentValidator().Validate(this);
+            ValidationResult = new NonPlayerConsistentValidation().Validate(this);
 
             return ValidationResult.IsValid;
         }

@@ -1,4 +1,6 @@
 ﻿using DaemonCharacter.Application.ViewModels.Campaign;
+using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+using DaemonCharacter.Application.ViewModels.PlayerItem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,7 +63,7 @@ namespace DaemonCharacter.Application.ViewModels.Player
         public string PlayerBackground { get; set; }
 
         [Required]
-        [Range(5, int.MaxValue, ErrorMessage ="You mus distribute between {0} and {1} points")]
+        [Range(0, int.MaxValue, ErrorMessage ="You mus distribute between {0} and {1} points")]
         [DisplayName("Points to distribute")]
         public int PlayerPointsToDistribute { get; set; }
 
@@ -73,6 +75,10 @@ namespace DaemonCharacter.Application.ViewModels.Player
         [DataType(DataType.Currency)]
         public int PlayerMoney { get; set; }
 
+        [DisplayName("Image")]
+        [DataType(DataType.ImageUrl)]
+        public byte[] CharacterImage { get; set; }
+
         [DisplayName("Campaign")]
         public IEnumerable<PlayerCampaignViewModel> Campaigns { get; set; }
 
@@ -81,6 +87,12 @@ namespace DaemonCharacter.Application.ViewModels.Player
 
         [ScaffoldColumn(false)]
         public string CharacterUser { get; set; }
+
+        [ScaffoldColumn(false)]
+        public IEnumerable<SelectedCharacterAttributeViewModel> SelectedAttributes { get; set; }
+
+        [ScaffoldColumn(false)]
+        public IEnumerable<SelectedPlayerItemViewModel> SelectedItems { get; set; }
 
         [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }

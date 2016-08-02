@@ -3,9 +3,9 @@ using DomainValidation.Validation;
 
 namespace DaemonCharacter.Domain.Validations.NonPlayer
 {
-    public class NonPlayerConsistentValidator : Validator<Entities.NonPlayer>
+    public class NonPlayerConsistentValidation : Validator<Entities.NonPlayer>
     {
-        public NonPlayerConsistentValidator()
+        public NonPlayerConsistentValidation()
         {
             var hasName = new CharacterHasNameSpecification();
 

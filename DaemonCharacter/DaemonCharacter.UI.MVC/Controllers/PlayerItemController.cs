@@ -1,5 +1,7 @@
 ﻿using DaemonCharacter.Application.Interfaces;
+using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Application.ViewModels.PlayerItem;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -16,10 +18,11 @@ namespace DaemonCharacter.UI.MVC.Controllers
             _itemAppService = itemAppService;
         }
 
-        public ActionResult _Create()
+        public ActionResult _Create(PlayerViewModel player)
         {
             var model = new PlayerItemViewModel();
             model.ListAvailableItems = _itemAppService.ListAll().ToList();
+            model.SelectedItems = player.SelectedItems == null ? new List<SelectedPlayerItemViewModel>() : player.SelectedItems.ToList();
 
             return View(model);
         }

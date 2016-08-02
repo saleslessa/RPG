@@ -1,11 +1,6 @@
-﻿using DomainValidation.Validation;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DaemonCharacter.Application.ViewModels.Item
 {
@@ -21,8 +16,8 @@ namespace DaemonCharacter.Application.ViewModels.Item
         public string ItemEffect { get; set; }
 
         [DisplayName("Price")]
-        [DataType(DataType.Currency)]
-        public int ItemPrice { get; set; }
+        //[DataType(DataType.Currency)]
+        public double ItemPrice { get; set; }
 
         [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }

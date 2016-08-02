@@ -33,6 +33,7 @@ namespace DaemonCharacter.Infra.CrossCutting.IoC
             container.Register<INonPlayerService, NonPlayerService>(Lifestyle.Scoped);
             container.Register<IItemService, ItemService>(Lifestyle.Scoped);
             container.Register<IPlayerItemService, PlayerItemService>(Lifestyle.Scoped);
+            
 
 
             // Infra Dados
