@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DaemonCharacter.Domain.Entities;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,9 +7,11 @@ namespace DaemonCharacter.Application.ViewModels.PlayerItem
 {
     public class SelectedPlayerItemViewModel
     {
-
         [Key]
         public Guid ItemId { get; set; }
+
+        [ScaffoldColumn(false)]
+        public Guid PlayerId { get; set; }
 
         [DisplayName("Item")]
         public string ItemName { get; set; }
@@ -21,8 +24,7 @@ namespace DaemonCharacter.Application.ViewModels.PlayerItem
         public DateTime PlayerItemDateBought { get; set; }
 
         [DataType(DataType.Currency)]
-        [Required(ErrorMessage = "You must pay for this item. Please out a price :)")]
-        public float PlayerItemUnitPrice { get; set; }
+        public double PlayerItemUnitPrice { get; set; }
 
         [ScaffoldColumn(false)]
         public bool PlayerItemApprovedByMaster { get; set; }

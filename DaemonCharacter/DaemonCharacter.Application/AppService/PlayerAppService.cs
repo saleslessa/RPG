@@ -3,9 +3,11 @@ using System;
 using DaemonCharacter.Infra.Data.Interfaces;
 using DaemonCharacter.Domain.Interfaces.Service;
 using DaemonCharacter.Application.ViewModels.Player;
-using AutoMapper;
 using DaemonCharacter.Domain.Entities;
 using System.Collections.Generic;
+using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+using AutoMapper;
+using DaemonCharacter.Application.AutoMapper;
 
 namespace DaemonCharacter.Application.AppService
 {
@@ -14,23 +16,48 @@ namespace DaemonCharacter.Application.AppService
 
         private readonly IPlayerService _playerService;
         private readonly ICampaignService _campaignService;
+        private readonly ICharacterAttributeService _characterAttributeService;
+        private readonly IPlayerItemService _playerItemService;
+        private readonly IItemService _itemService;
+        private readonly IAttributeService _attributeService;
 
-        public PlayerAppService(IPlayerService playerService, ICampaignService campaignService, IUnitOfWork uow) : base(uow)
+        public PlayerAppService(IPlayerService playerService, ICampaignService campaignService, IPlayerItemService playerItemService
+            , ICharacterAttributeService characterAttributeService, IItemService itemService, IAttributeService attributeService
+            , IUnitOfWork uow) : base(uow)
         {
             _playerService = playerService;
             _campaignService = campaignService;
+            _characterAttributeService = characterAttributeService;
+            _playerItemService = playerItemService;
+            _itemService = itemService;
+            _attributeService = attributeService;
         }
 
-        public PlayerViewModel Add(PlayerViewModel player)
+        public PlayerViewModel Add(PlayerViewModel model)
         {
-            var p = Mapper.Map<PlayerViewModel, Player>(player);
-            p.Campaign = _campaignService.Get(player.SelectedCampaign);
+            var player = Mapper.Map<PlayerViewModel, Player>(model);
+            player.Campaign = _campaignService.Get(model.SelectedCampaign);
 
-            var result = _playerService.Add(p);
+            player = _playerService.Add(player);
+
+            if(!player.ValidationResult.IsValid)
+                return Mapper.Map<Player, PlayerViewModel>(player);
+
+            foreach (var attribute in model.SelectedAttributes)
+            {
+                attribute.CharacterId = player.CharacterId;
+                _characterAttributeService.Add(new SelectedCharacterAttributeViewModelToCharacterAttribute(_attributeService, _playerService).Map(attribute));
+            }
+
+            foreach (var item in model.SelectedItems)
+            {
+                item.PlayerId = player.CharacterId;
+                _playerItemService.Add(new SelectedPlayerItemViewModelToPlayerItem(_itemService, _playerService).Map(item));
+            }
 
             Commit();
 
-            return Mapper.Map<Player, PlayerViewModel>(result);
+            return Mapper.Map<Player, PlayerViewModel>(player);
         }
 
         public void Dispose()
@@ -58,10 +85,10 @@ namespace DaemonCharacter.Application.AppService
             _playerService.Remove(id);
         }
 
-        public PlayerViewModel Update(PlayerViewModel player)
+        public PlayerViewModel Update(PlayerViewModel model)
         {
-            var p = Mapper.Map<PlayerViewModel, Player>(player);
-            p.Campaign = _campaignService.Get(player.SelectedCampaign);
+            var p = Mapper.Map<PlayerViewModel, Player>(model);
+            p.Campaign = _campaignService.Get(model.SelectedCampaign);
             var result = _playerService.Update(p);
 
             Commit();

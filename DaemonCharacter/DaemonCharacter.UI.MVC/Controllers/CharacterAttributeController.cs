@@ -22,7 +22,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
         {
             var model = new CharacterAttributeViewModel();
             model.ListOfAvailableAttributes = _attributeAppService.ListWithPagination(0, 10);
-            model.SelectedAttributes = player.SelectedAttributes == null ? new List<SelectedCharacterAttributeViewModel>() : player.SelectedAttributes.ToList();
+            model.SelectedAttributes = player == null || player.SelectedAttributes == null ? new List<SelectedCharacterAttributeViewModel>() : player.SelectedAttributes.ToList();
 
 
             ViewBag.PaginationSkip = 0;

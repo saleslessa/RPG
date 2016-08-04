@@ -22,7 +22,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
         {
             var model = new PlayerItemViewModel();
             model.ListAvailableItems = _itemAppService.ListAll().ToList();
-            model.SelectedItems = player.SelectedItems == null ? new List<SelectedPlayerItemViewModel>() : player.SelectedItems.ToList();
+            model.SelectedItems = player == null || player.SelectedItems == null ? new List<SelectedPlayerItemViewModel>() : player.SelectedItems.ToList();
 
             return View(model);
         }

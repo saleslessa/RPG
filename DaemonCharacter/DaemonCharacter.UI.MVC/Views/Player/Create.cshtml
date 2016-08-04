@@ -32,9 +32,9 @@
 @using (Html.BeginForm("Create", "Player", FormMethod.Post, new { name = "FormPlayer", id = "FormPlayer" }))
 {
     @Html.AntiForgeryToken()
-
-    @Html.Partial("_ErrorSummary")
-
+    <div id="errorSummary">
+        @Html.Partial("_ErrorSummary")
+    </div>
     <div class="row setup-content" id="step-1">
         <div class="col-md-12">
             @Html.Partial("_CreateBasicInformation", Model)
@@ -46,7 +46,7 @@
 
     <div class="row setup-content" id="step-2">
         <div class="col-md-12">
-            @{Html.RenderAction("_Create", "CharacterAttribute");}
+            @{Html.RenderAction("_Create", "CharacterAttribute", new { player = Model.SelectedAttributes });}
         </div>
 
         <hr />
@@ -55,7 +55,7 @@
 
     <div class="row setup-content" id="step-3">
         <div class="col-md-12">
-            @{Html.RenderAction("_Create", "PlayerItem");}
+            @{Html.RenderAction("_Create", "PlayerItem", new { player = Model.SelectedItems });}
         </div>
 
         <hr />

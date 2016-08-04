@@ -6,7 +6,7 @@ namespace DaemonCharacter.Domain.Validations.Player
 {
     public class CreatePlayerValidation : Validator<Entities.Player>
     {
-        public CreatePlayerValidation(ICharacterRepository playerRepository)
+        public CreatePlayerValidation(IPlayerRepository playerRepository)
         {
             var duplicatedName = new CharacterUniqueNameSpecification(playerRepository);
             var hasCampaign = new PlayerHasCampaignSpecification();

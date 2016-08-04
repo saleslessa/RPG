@@ -131,42 +131,68 @@
     });
 
     $("input[name=btnCreatePlayer]").on('click', null, function (event) {
-        var objBasicInfo = MountBasicInformation();
+        var model = MountBasicInformation();
         var objAttributes = MountAttributes();
         var objItems = MountItems();
 
+        model.SelectedAttributes = objAttributes;
+        model.SelectedItems = objItems;
 
-        objBasicInfo.SelectedAttributes = objAttributes;
-        objBasicInfo.SelectedItems = objItems;
+        $("#errorSummary").hide();
+        $("#errorSummary").empty();
 
-        var url = '/Player/Create/';
+        $.ajax(
+        {
+            dataType: 'JSON',
+            url: '/Player/Create/',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ model: model }),
 
-        //console.log('before:' + JSON.stringify({ Basic: objBasicInfo, Attributes: objAttributes, Items: objItems }));
+            success: function (response) {
+                if (response.error == "")
+                    $("#errorSummary").append('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button><h3>' + response.message + '</h3></div>');
 
-        $("#FormPlayer").submit();
+                if (response.error == "ModelStateError")
+                    MountModelStateErrorMessage(response.model);
 
-        //$.ajax(
-        //{
-        //    dataType: 'JSON',
-        //    url: url,
-        //    type: 'POST',
-        //    contentType: 'application/json',
-        //    data: JSON.stringify({ model: objBasicInfo }),
+                if (response.error == "ValildationResultError")
+                    MountValildationResultError(response.model);
 
-        //    success: function (response) {
+                $("#errorSummary").slideToggle('slow');
+            },
+            error: function (xhr) {
+                alert("An error occured when trying to create your character. Plase try again later");
+            }
+        });
 
-        //        //alert(response);
-
-        //    },
-        //    error: function (xhr) {
-
-        //        alert(xhr.statusText);
-
-        //    }
-        //});
+        
     });
 
 });
+
+function MountValildationResultError(model) {
+    var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><h3>Oops! something goes wrong:</h3><ul>';
+
+    for (var i = 0; i < model.Erros.length; i++) {
+        div += '<li>' + model.Erros[i].Message + '</li>';
+    }
+
+
+    div += '</ul></div>';
+    $("#errorSummary").append(div);
+}
+
+function MountModelStateErrorMessage(model) {
+    var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><h3>Oops! something goes wrong:</h3><ul>';
+
+    for (var i = 0; i < model.length; i++) {
+        div += '<li>' + model[i].Key.replace("model.", "") + ': ' + model[i].Value + '</li>';
+    }
+
+    div += '</ul></div>';
+    $("#errorSummary").append(div);
+}
 
 function MountBasicInformation() {
     var objBasicInfo = new Object();
@@ -181,7 +207,6 @@ function MountBasicInformation() {
     objBasicInfo.CharacterRace = $('#CharacterRace').val();
     objBasicInfo.CharacterGender = $('#CharacterGender').val();
     objBasicInfo.PlayerBackground = $('#PlayerBackground').val();
-
 
     return objBasicInfo;
 }

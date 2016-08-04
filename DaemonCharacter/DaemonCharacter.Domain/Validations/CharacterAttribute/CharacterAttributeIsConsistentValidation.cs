@@ -11,7 +11,7 @@ namespace DaemonCharacter.Domain.Validations.CharacterAttribute
             var hasAttribute = new CharacterAttributeHasAttributeSpecification();
 
             base.Add("HasCharacter", new Rule<Entities.CharacterAttribute>(hasCharacter, "You must select a Character for this Attribute"));
-            base.Add("HasCharacter", new Rule<Entities.CharacterAttribute>(hasCharacter, "You must select a Attribute for this Character"));
+            base.Add("HasAttribute", new Rule<Entities.CharacterAttribute>(hasAttribute, "You must select a Attribute for this Character"));
         }
     }
 }

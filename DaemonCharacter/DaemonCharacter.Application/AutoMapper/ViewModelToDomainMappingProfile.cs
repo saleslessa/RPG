@@ -19,10 +19,11 @@ namespace DaemonCharacter.Application.AutoMapper
 
             CreateMap<PlayerViewModel, Player>();
             CreateMap<PlayerItemViewModel, PlayerItem>();
-
+            
             CreateMap<CampaignViewModel, Campaign>();
 
             CreateMap<CharacterAttributeViewModel, CharacterAttribute>();
+            CreateMap<SelectedCharacterAttributeViewModel, CharacterAttribute>();
 
             CreateMap<NonPlayerViewModel, NonPlayer>();
 

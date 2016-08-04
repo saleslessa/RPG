@@ -20,6 +20,8 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             Property(p => p.CharacterAttributeValue)
                 .IsRequired();
+
+            Ignore(p => p.ValidationResult);
         }
     }
 }

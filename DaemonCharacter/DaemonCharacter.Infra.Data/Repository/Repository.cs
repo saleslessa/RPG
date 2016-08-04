@@ -22,7 +22,7 @@ namespace DaemonCharacter.Infra.Data.Repository
         public TEntity Add(TEntity obj)
         {
             var result = DbSet.Add(obj);
-            db.SaveChanges();
+            //db.SaveChanges();
             return result;
         }
 
@@ -40,7 +40,7 @@ namespace DaemonCharacter.Infra.Data.Repository
         public void Remove(Guid id)
         {
             DbSet.Remove(DbSet.Find(id));
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
         public IEnumerable<TEntity> Search(Expression<Func<TEntity, bool>> predicate)
@@ -59,7 +59,7 @@ namespace DaemonCharacter.Infra.Data.Repository
             
             DbSet.Attach(obj);
             entry.State = EntityState.Modified;
-            db.SaveChanges();
+            //db.SaveChanges();
             return obj;
         }
 

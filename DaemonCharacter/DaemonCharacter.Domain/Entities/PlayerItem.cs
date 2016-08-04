@@ -17,7 +17,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public DateTime PlayerItemDateBought { get; set; }
 
-        public float PlayerItemUnitPrice { get; set; }
+        public double PlayerItemUnitPrice { get; set; }
 
         public bool PlayerItemApprovedByMaster { get; set; }
 

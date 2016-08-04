@@ -23,7 +23,7 @@ namespace DaemonCharacter.Domain.Services
             if (!_player.IsValid())
                 return _player;
 
-            _player.ValidationResult = new CreatePlayerValidation(_characterRepository).Validate(_player);
+            _player.ValidationResult = new CreatePlayerValidation(_playerRepository).Validate(_player);
             if (!_player.ValidationResult.IsValid)
                 return _player;
 

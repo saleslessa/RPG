@@ -6,6 +6,8 @@ using DaemonCharacter.Application.Interfaces;
 using DaemonCharacter.Application.ViewModels.CharacterAttribute;
 using DaemonCharacter.Application.ViewModels.Item;
 using System.Collections.Generic;
+using DaemonCharacter.Application.ViewModels.PlayerItem;
+using System.Linq;
 
 namespace DaemonCharacter.UI.MVC.Controllers
 {
@@ -55,20 +57,67 @@ namespace DaemonCharacter.UI.MVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(PlayerViewModel model)
+        // [ValidateAntiForgeryToken]
+        public JsonResult Create(PlayerViewModel model)
         {
-            //model.CharacterUser = User.Identity.Name;
+            if (!ModelState.IsValid)
+            {
+                LoadPlayerErrors(model);
 
-            //if (ModelState.IsValid)
-            //{
-            //    _playerAppService.Add(model);
-            //}
+                var errorList = ModelState.ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    );
 
-            ModelState.AddModelError("", "Erro Teste");
-            return View(model);
+                return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
+            }
 
 
+            model.ValidationResult = new DomainValidation.Validation.ValidationResult();
+            model.CharacterUser = User.Identity.Name;
+            model = _playerAppService.Add(model);
+
+            if (!model.ValidationResult.IsValid)
+            {
+                LoadPlayerErrors(model);
+                return Json(new { error = "ValildationResultError", model = model.ValidationResult });
+            }
+
+            return Json(new { error = "", message = "Player created successfully" });
+        }
+
+        private void LoadPlayerErrors(PlayerViewModel model)
+        {
+            foreach (var error in model.ValidationResult.Erros)
+            {
+                ModelState.AddModelError(string.Empty, error.Message);
+            }
+            LoadSelectedAttributeErrors(model);
+            LoadSelectedItemErrors(model);
+        }
+
+        private void LoadSelectedItemErrors(PlayerViewModel model)
+        {
+            if (model.SelectedItems != null)
+                foreach (var it in model.SelectedItems)
+                {
+                    foreach (var error in it.ValidationResult.Erros)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Message);
+                    }
+                }
+        }
+
+        private void LoadSelectedAttributeErrors(PlayerViewModel model)
+        {
+            if (model.SelectedAttributes != null)
+                foreach (var att in model.SelectedAttributes)
+                {
+                    foreach (var error in att.ValidationResult.Erros)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Message);
+                    }
+                }
         }
 
         // GET: Player/Edit/5

@@ -6,9 +6,9 @@ namespace DaemonCharacter.Application.Interfaces
 {
     public interface IPlayerAppService : IDisposable
     {
-        PlayerViewModel Add(PlayerViewModel player);
+        PlayerViewModel Add(PlayerViewModel model);
 
-        PlayerViewModel Update(PlayerViewModel player);
+        PlayerViewModel Update(PlayerViewModel model);
 
         void Remove(Guid id);
 
