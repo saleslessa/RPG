@@ -9,7 +9,7 @@
     </div>
     <div class="control-group col-md-6">
         @Html.LabelFor(model => model.Campaigns, htmlAttributes: new { @class = "control-label" })
-        @Html.DropDownList("SelectedCampaign", new SelectList(Model.Campaigns, "CampaignId", "CampaignName"), htmlAttributes: new { @class = "form-control" })
+        @Html.DropDownList("SelectedCampaignId", new SelectList(Model.Campaigns, "CampaignId", "CampaignName"), htmlAttributes: new { @class = "form-control" })
     </div>
     <div class="control-group col-md-12">
         @Html.LabelFor(model => model.CharacterName, htmlAttributes: new { @class = "control-label" })
@@ -85,7 +85,7 @@
 <div class="col-md-4">
     @Html.LabelFor(model => model.PlayerBackground, htmlAttributes: new { @class = "control-label" })
 
-    @Html.EditorFor(model => model.PlayerBackground, new { htmlAttributes = new { @class = "form-control", style = "height:425px;width:auto" } })
+    @Html.TextAreaFor(model => model.PlayerBackground, new { @class = "form-control", style = "height:425px;width:100%"  })
     @Html.ValidationMessageFor(model => model.PlayerBackground, "", new { @class = "text-danger" })
 
     @*@Html.Partial("_editor")*@

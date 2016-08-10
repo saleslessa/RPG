@@ -7,9 +7,9 @@ namespace DaemonCharacter.Domain.Interfaces.Repository
 {
     public interface IPlayerSessionRepository : IRepository<PlayerSessions>
     {
-        PlayerSessions Get(Guid? PlayerId, Guid? SessionId);
+        PlayerSessions Get(Guid? CharacterId, Guid? SessionId);
 
-        IEnumerable<PlayerSessions> ListFromPlayer(Guid? PlayerId);
+        IEnumerable<PlayerSessions> ListFromPlayer(Guid? CharacterId);
 
         IEnumerable<PlayerSessions> ListFromSession(Guid? SessionId);
     }

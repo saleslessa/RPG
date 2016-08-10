@@ -1,6 +1,7 @@
 ﻿using DomainValidation.Validation;
 using DaemonCharacter.Domain.Interfaces.Repository;
 using DaemonCharacter.Domain.Specifications.Character;
+using DaemonCharacter.Domain.Specifications.Player;
 
 namespace DaemonCharacter.Domain.Validations.Player
 {

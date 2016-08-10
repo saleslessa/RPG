@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Service;
 using DaemonCharacter.Domain.Interfaces.Repository;
+using System.Linq;
 
 namespace DaemonCharacter.Domain.Services
 {
@@ -40,6 +41,11 @@ namespace DaemonCharacter.Domain.Services
         public void Remove(Guid id)
         {
             _itemRepository.Remove(id);
+        }
+
+        public Item SearchByName(string name)
+        {
+            return _itemRepository.Search(t => t.ItemName.ToUpper().Trim() == name.Trim().ToUpper()).FirstOrDefault();
         }
 
         public Item Update(Item model)

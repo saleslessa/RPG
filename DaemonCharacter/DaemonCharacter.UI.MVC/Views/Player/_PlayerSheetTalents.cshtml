@@ -1,0 +1,22 @@
+﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.CharacterAttribute.SelectedCharacterAttributeViewModel>
+
+@if (Model.ToList().Count > 0)
+{
+    <table class="table table-responsive table-striped PlayerSheet PlayerSheetAttributes">
+        <thead>
+            <tr>
+                <th class="small text-center inverse">
+                    <i class="fa fa-star"></i>&nbsp;&nbsp;@Html.DisplayFor(m => Model.FirstOrDefault().AttributeType)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderBy(o => o.AttributeName).ToList())
+            {
+                <tr>
+                    <td class="small" style="vertical-align:middle" colspan="2">@Html.DisplayFor(m => item.AttributeName)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

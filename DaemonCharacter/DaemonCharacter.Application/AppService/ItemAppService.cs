@@ -59,6 +59,8 @@ namespace DaemonCharacter.Application.AppService
 
             item = _itemService.Update(item);
 
+            Commit();
+
             return Mapper.Map<Item, ItemViewModel>(item);
         }
     }

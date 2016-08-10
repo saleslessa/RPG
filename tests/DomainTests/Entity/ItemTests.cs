@@ -43,5 +43,7 @@ namespace DomainTests.Entity
             Assert.IsTrue(item.ValidationResult.Erros.Any(e => e.Message == "All item must have a price. Please chose a valid value."));
             Assert.IsTrue(item.ValidationResult.Erros.Any(e => e.Message == "The Item name is invalid. Please chose one."));
         }
+
+        
     }
 }

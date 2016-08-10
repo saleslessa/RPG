@@ -20,7 +20,7 @@ namespace DaemonCharacter.Application.AutoMapper
             var result = new PlayerItem();
 
             result.Item = _itemService.Get(ViewModel.ItemId);
-            result.Player = _playerService.Get(ViewModel.PlayerId);
+            result.Player = _playerService.Get(ViewModel.CharacterId);
 
             result.PlayerItemApprovedByMaster = ViewModel.PlayerItemApprovedByMaster;
             result.PlayerItemDateBought = ViewModel.PlayerItemDateBought;

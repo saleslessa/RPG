@@ -45,7 +45,7 @@ namespace DaemonCharacter.Domain.Services
 
         public IEnumerable<PlayerItem> ListFromPlayer(Guid CharacterId)
         {
-            return ListFromPlayer(CharacterId);
+            return _playerItemRespository.ListFromPlayer(CharacterId);
         }
 
         public void Remove(Guid id)
@@ -62,6 +62,7 @@ namespace DaemonCharacter.Domain.Services
 
             model.ValidationResult.Message = "Item added to player successfully";
             return _playerItemRespository.Update(model);
+
         }
     }
 }

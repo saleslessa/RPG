@@ -3,10 +3,6 @@ using System.Net;
 using System.Web.Mvc;
 using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Application.Interfaces;
-using DaemonCharacter.Application.ViewModels.CharacterAttribute;
-using DaemonCharacter.Application.ViewModels.Item;
-using System.Collections.Generic;
-using DaemonCharacter.Application.ViewModels.PlayerItem;
 using System.Linq;
 
 namespace DaemonCharacter.UI.MVC.Controllers
@@ -37,7 +33,9 @@ namespace DaemonCharacter.UI.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var playerViewModel = _playerAppService.Get(id);
+            
 
             if (playerViewModel == null)
             {
@@ -60,6 +58,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
         // [ValidateAntiForgeryToken]
         public JsonResult Create(PlayerViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 LoadPlayerErrors(model);
@@ -75,6 +74,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
             model.ValidationResult = new DomainValidation.Validation.ValidationResult();
             model.CharacterUser = User.Identity.Name;
+            
             model = _playerAppService.Add(model);
 
             if (!model.ValidationResult.IsValid)

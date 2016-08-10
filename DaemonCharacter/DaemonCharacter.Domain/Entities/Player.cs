@@ -1,4 +1,6 @@
-﻿namespace DaemonCharacter.Domain.Entities
+﻿using DaemonCharacter.Domain.Validations.Player;
+
+namespace DaemonCharacter.Domain.Entities
 {
     public class Player : Character
     {
@@ -14,14 +16,16 @@
 
         public double PlayerMoney { get; set; }
 
+        public string PrivateAnnotations { get; set; }
+
         public Player() : base()
         {
         }
 
         public bool IsValid()
         {
-            //TODO: MAKE VALIDATION OF CONSISTENCY
-            return true;
+            ValidationResult = new PlayerConsistentValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 

@@ -9,9 +9,9 @@ namespace DaemonCharacter.Domain.Entities
 
         public Guid PlayerItemId { get; set; }
 
-        public Player Player { get; set; }
+        public virtual Player Player { get; set; }
 
-        public Item Item { get; set; }
+        public virtual Item Item { get; set; }
 
         public int PlayerItemQtd { get; set; }
 
@@ -21,11 +21,14 @@ namespace DaemonCharacter.Domain.Entities
 
         public bool PlayerItemApprovedByMaster { get; set; }
 
+        public bool UsingItem { get; set; }
+
         public ValidationResult ValidationResult { get; set; }
 
         public PlayerItem()
         {
             PlayerItemId = Guid.NewGuid();
+            UsingItem = false;
             ValidationResult = new ValidationResult();
         }
 

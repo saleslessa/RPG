@@ -36,11 +36,11 @@ namespace DaemonCharacter.Application.AppService
         public PlayerViewModel Add(PlayerViewModel model)
         {
             var player = Mapper.Map<PlayerViewModel, Player>(model);
-            player.Campaign = _campaignService.Get(model.SelectedCampaign);
+            player.Campaign = _campaignService.Get(model.SelectedCampaignId);
 
             player = _playerService.Add(player);
 
-            if(!player.ValidationResult.IsValid)
+            if (!player.ValidationResult.IsValid)
                 return Mapper.Map<Player, PlayerViewModel>(player);
 
             foreach (var attribute in model.SelectedAttributes)
@@ -51,7 +51,7 @@ namespace DaemonCharacter.Application.AppService
 
             foreach (var item in model.SelectedItems)
             {
-                item.PlayerId = player.CharacterId;
+                item.CharacterId = player.CharacterId;
                 _playerItemService.Add(new SelectedPlayerItemViewModelToPlayerItem(_itemService, _playerService).Map(item));
             }
 
@@ -70,7 +70,13 @@ namespace DaemonCharacter.Application.AppService
         {
             var Player = _playerService.Get(id);
             var result = Mapper.Map<Player, PlayerViewModel>(Player);
-            result.SelectedCampaign = Player.Campaign.CampaignId;
+            result.SelectedCampaignId = Player.Campaign.CampaignId;
+            result.SelectedCampaign = Player.Campaign;
+
+            result.SelectedItems = new PlayerItemToSelectedPlayerItemViewModel().Map(_playerItemService.ListFromPlayer(result.CharacterId));
+
+            result.SelectedAttributes = new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService)
+                .Map(_characterAttributeService.ListFromCharacter(result.CharacterId));
 
             return result;
         }
@@ -83,12 +89,13 @@ namespace DaemonCharacter.Application.AppService
         public void Remove(Guid id)
         {
             _playerService.Remove(id);
+            Commit();
         }
 
         public PlayerViewModel Update(PlayerViewModel model)
         {
             var p = Mapper.Map<PlayerViewModel, Player>(model);
-            p.Campaign = _campaignService.Get(model.SelectedCampaign);
+            p.Campaign = model.SelectedCampaign;
             var result = _playerService.Update(p);
 
             Commit();

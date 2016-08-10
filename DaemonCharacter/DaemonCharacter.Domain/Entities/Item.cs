@@ -15,6 +15,10 @@ namespace DaemonCharacter.Domain.Entities
 
         public double ItemPrice { get; set; }
 
+        public ItemCategory ItemCategory { get; set; }
+
+        public bool UniqueUse { get; set; }
+
         public ValidationResult ValidationResult { get; set; }
 
         public Item()
@@ -26,7 +30,6 @@ namespace DaemonCharacter.Domain.Entities
         public bool IsValid()
         {
             ValidationResult = new ItemIsConsistentValidation().Validate(this);
-
             return ValidationResult.IsValid;
         }
     }

@@ -32,7 +32,7 @@ namespace DaemonCharacter.Application.ViewModels.Player
         [Required(ErrorMessage = "This field required.")]
         public int CharacterMaxLife { get; set; }
 
-        [ScaffoldColumn(false)]
+        [DisplayName("Remaining Life")]
         public int CharacterRemainingLife { get; set; }
 
         [DisplayName("Race")]
@@ -83,10 +83,16 @@ namespace DaemonCharacter.Application.ViewModels.Player
         public IEnumerable<PlayerCampaignViewModel> Campaigns { get; set; }
 
         [ScaffoldColumn(false)]
-        public Guid SelectedCampaign { get; set; }
+        public Guid SelectedCampaignId { get; set; }
+
+        [DisplayName("Campaign")]
+        public Domain.Entities.Campaign SelectedCampaign { get; set; }
 
         [ScaffoldColumn(false)]
         public string CharacterUser { get; set; }
+
+        [DisplayName("Private Annotations")]
+        public string PrivateAnnotation { get; set; }
 
         [ScaffoldColumn(false)]
         public IEnumerable<SelectedCharacterAttributeViewModel> SelectedAttributes { get; set; }

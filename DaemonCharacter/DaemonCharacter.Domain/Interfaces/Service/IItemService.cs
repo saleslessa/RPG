@@ -16,5 +16,7 @@ namespace DaemonCharacter.Domain.Interfaces.Service
         Item Update(Item model);
 
         void Remove(Guid id);
+
+        Item SearchByName(string name);
     }
 }

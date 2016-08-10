@@ -1,6 +1,5 @@
 ﻿using DomainValidation.Interfaces.Specification;
 using DaemonCharacter.Domain.Interfaces.Repository;
-using System.Linq;
 
 namespace DaemonCharacter.Domain.Specifications.Character
 {
@@ -15,7 +14,8 @@ namespace DaemonCharacter.Domain.Specifications.Character
 
         public bool IsSatisfiedBy(Entities.Player entity)
         {
-            return _playerRepository.SearchByName(entity.CharacterName) == null;
+            var obj = _playerRepository.SearchByName(entity.CharacterName);
+            return obj == null || obj.CharacterId == entity.CharacterId;
         }
     }
 }

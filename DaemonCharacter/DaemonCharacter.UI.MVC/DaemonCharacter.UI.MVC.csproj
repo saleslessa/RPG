@@ -326,14 +326,18 @@
     <Content Include="Images\700x300.jpg" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\agsquare_%402X.png" />
+    <Content Include="Images\aragorn.jpg" />
     <Content Include="Images\banner.jpg" />
     <Content Include="Images\bullet.png" />
+    <Content Include="Images\corner.svg" />
     <Content Include="Images\icon_minus.png" />
     <Content Include="Images\icon_plus.png" />
     <Content Include="Images\item01.jpg" />
     <Content Include="Images\item02.jpg" />
     <Content Include="Images\item03.jpg" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\logo_trevmay.jpg" />
+    <Content Include="Images\no_image.svg" />
     <Content Include="Images\orderedList0.png" />
     <Content Include="Images\orderedList1.png" />
     <Content Include="Images\orderedList2.png" />
@@ -396,6 +400,7 @@
     <Content Include="Scripts\Menu.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MultipleStepFormScript.js" />
+    <Content Include="Scripts\PlayerSheet.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Session.js" />
@@ -466,6 +471,9 @@
     <Content Include="Views\Item\Edit.cshtml" />
     <Content Include="Views\PlayerItem\_Create.cshtml" />
     <Content Include="Views\PlayerItem\_SearchItems.cshtml" />
+    <Content Include="Views\Player\_PlayerSheetAttributes.cshtml" />
+    <Content Include="Views\Player\_PlayerSheetTalents.cshtml" />
+    <Content Include="Views\Player\_PlayerSheetItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

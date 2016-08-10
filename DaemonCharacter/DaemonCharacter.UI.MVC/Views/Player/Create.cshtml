@@ -4,68 +4,70 @@
     ViewBag.Title = "Creating a new Player";
 }
 
-<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+<h2 class="animated wow fadeInUp white" data-wow-delay="0.2s">
     <i class="fa fa-shield animated wow fadeInDown"></i>
     &nbsp;Create Player Form
 </h2>
+
 @section CustomStyle {
     @Styles.Render("~/Content/MultipleStepFormStyle.css")
 }
-
-<div class="stepwizard">
-    <div class="stepwizard-row setup-panel">
-        <div class="stepwizard-step">
-            <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
-            <p>Basic Information </p>
-        </div>
-        <div class="stepwizard-step">
-            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-            <p>Attributes</p>
-        </div>
-        <div class="stepwizard-step">
-            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-            <p>Items</p>
+<div class="Playercontainer">
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
+                <p>Basic Information </p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                <p>Attributes</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                <p>Items</p>
+            </div>
         </div>
     </div>
+
+    @using (Html.BeginForm("Create", "Player", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <fieldset>
+            @Html.AntiForgeryToken()
+            <div id="errorSummary">
+                @Html.Partial("_ErrorSummary")
+            </div>
+            <div class="row setup-content" id="step-1">
+                <div class="col-md-12">
+                    @Html.Partial("_CreateBasicInformation", Model)
+                </div>
+
+                <hr />
+                <input type="button" value="Next Step" class="btn btn-success nextBtn btn-lg pull-right" />
+            </div>
+
+            <div class="row setup-content" id="step-2">
+                <div class="col-md-12">
+                    @{Html.RenderAction("_Create", "CharacterAttribute", new { player = Model.SelectedAttributes });}
+                </div>
+
+                <hr />
+                <input type="button" value="Next Step" class="btn btn-success nextBtn btn-lg pull-right" />
+            </div>
+
+            <div class="row setup-content" id="step-3">
+                <div class="col-md-12">
+                    @{Html.RenderAction("_Create", "PlayerItem", new { player = Model.SelectedItems });}
+                </div>
+
+                <hr />
+                <input type="button" value="Create Player" name="btnCreatePlayer" class="btn btn-success nextBtn btn-lg float-right" />
+                <input type="button" value="Preview" class="btn btn-info float-right" />
+            </div>
+        </fieldset>
+                        }
 </div>
-
-@using (Html.BeginForm("Create", "Player", FormMethod.Post, new { name = "FormPlayer", id = "FormPlayer" }))
-{
-    @Html.AntiForgeryToken()
-    <div id="errorSummary">
-        @Html.Partial("_ErrorSummary")
-    </div>
-    <div class="row setup-content" id="step-1">
-        <div class="col-md-12">
-            @Html.Partial("_CreateBasicInformation", Model)
-        </div>
-
-        <hr />
-        <input type="button" value="Next Step" class="btn btn-success nextBtn btn-lg pull-right" />
-    </div>
-
-    <div class="row setup-content" id="step-2">
-        <div class="col-md-12">
-            @{Html.RenderAction("_Create", "CharacterAttribute", new { player = Model.SelectedAttributes });}
-        </div>
-
-        <hr />
-        <input type="button" value="Next Step" class="btn btn-success nextBtn btn-lg pull-right" />
-    </div>
-
-    <div class="row setup-content" id="step-3">
-        <div class="col-md-12">
-            @{Html.RenderAction("_Create", "PlayerItem", new { player = Model.SelectedItems });}
-        </div>
-
-        <hr />
-        <input type="button" value="Create Player" name="btnCreatePlayer" class="btn btn-success nextBtn btn-lg float-right" />
-        <input type="button" value="Preview" class="btn btn-info float-right" />
-    </div>
-                }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/MultipleStepFormScript.js")
-    @*@Scripts.Render("~/Scripts/bootstrap-wysiwyg.js")*@
 }

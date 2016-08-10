@@ -11,7 +11,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
 
             HasRequired(r => r.Player)
                 .WithMany()
-                .Map(m => m.MapKey("PlayerId"));
+                .Map(m => m.MapKey("CharacterId"));
 
             HasRequired(r => r.Item)
                 .WithMany()

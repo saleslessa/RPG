@@ -13,15 +13,15 @@ namespace DaemonCharacter.Infra.Data.Repository
         {
         }
 
-        public PlayerSessions Get(Guid? PlayerId, Guid? SessionId)
+        public PlayerSessions Get(Guid? CharacterId, Guid? SessionId)
         {
-            return Search(t => t.Player.CharacterId == PlayerId && t.Session.SessionId == SessionId)
+            return Search(t => t.Player.CharacterId == CharacterId && t.Session.SessionId == SessionId)
                 .FirstOrDefault();
         }
 
-        public IEnumerable<PlayerSessions> ListFromPlayer(Guid? PlayerId)
+        public IEnumerable<PlayerSessions> ListFromPlayer(Guid? CharacterId)
         {
-            return Search(t => t.Player.CharacterId == PlayerId)
+            return Search(t => t.Player.CharacterId == CharacterId)
                 .ToList();
         }
 

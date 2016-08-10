@@ -1,10 +1,7 @@
 ﻿using DaemonCharacter.Application.Interfaces;
 using DaemonCharacter.Application.ViewModels.Item;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DaemonCharacter.UI.MVC.Controllers

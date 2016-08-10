@@ -3,6 +3,7 @@ using DaemonCharacter.Domain.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
 using DaemonCharacter.Infra.Data.Context;
+using System.Linq;
 
 namespace DaemonCharacter.Infra.Data.Repository
 {
@@ -14,7 +15,7 @@ namespace DaemonCharacter.Infra.Data.Repository
 
         public IEnumerable<PlayerItem> ListFromPlayer(Guid id)
         {
-            return Search(p => p.Player.CharacterId == id);
+            return Search(p => p.Player.CharacterId == id).ToList();
         }
     }
 }

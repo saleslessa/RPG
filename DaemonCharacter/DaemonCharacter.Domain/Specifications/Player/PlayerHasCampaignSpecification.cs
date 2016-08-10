@@ -1,6 +1,6 @@
 ﻿using DomainValidation.Interfaces.Specification;
 
-namespace DaemonCharacter.Domain.Specifications.Character
+namespace DaemonCharacter.Domain.Specifications.Player
 {
     public class PlayerHasCampaignSpecification : ISpecification<Entities.Player>
     {

@@ -55,6 +55,10 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
             Property(p => p.CharacterGender)
                 .IsRequired();
 
+            Property(p => p.PrivateAnnotations)
+                .IsOptional()
+                .HasMaxLength(5000);
+
             Ignore(p => p.ValidationResult);
         }
     }

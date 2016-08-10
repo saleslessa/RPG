@@ -56,3 +56,18 @@ public enum UserProfileStatus
     Admin,
     Regular
 }
+
+public enum ItemCategory
+{
+    Helms,
+    Bracelets,
+    Armors,
+    Shields,
+    Weapons,
+    Rings,
+    Potions,
+    Vehicles,
+    Clothes,
+    Amulets,
+    Misc,
+}

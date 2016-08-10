@@ -1,98 +1,111 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Player.PlayerViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Player Form";
 }
 
-<h2>Details</h2>
+<h2 class="animated wow fadeInUp white" data-wow-delay="0.3s">
+    <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
+    Player Form
+</h2>
 
-<div>
-    <h4>PlayerViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CharacterName)
-        </dt>
+<div class="col-md-offset-1 col-md-10 Playercontainer" id="PlayerSheetContainer">
 
-        <dd>
-            @Html.DisplayFor(model => model.CharacterName)
-        </dd>
+    <h3 class="animated wow fadeInUp text-center" style="margin-top:-20px;" data-wow-delay="0.3s">
+        <i class="fa fa-user animated wow fadeInDown"></i>&nbsp;
+        <strong>@Html.Raw(Model.CharacterName)</strong>
+    </h3>
+    <div class="col-md-10">
+        <div class="col-md-offset-1 col-md-10">
+            <table class="table table-responsive borderless PlayerSheet" id="TableHeader">
+                <tbody>
+                    <tr>
+                        <td class="inline-flex">
+                            @Html.LabelFor(model => model.SelectedCampaign, new { @class = "label-form" })
+                            @Html.TextBoxFor(model => model.SelectedCampaign.CampaignName, new { @class = "form-control", @readonly = "readonly" })
+                        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CharacterMaxLife)
-        </dt>
+                        <td class="inline-flex">
+                            @Html.LabelFor(model => model.CharacterRace, new { @class = "label-form" })
+                            @Html.TextBoxFor(model => model.CharacterRace, new { @class = "form-control textbox-medium", @readonly = "readonly" })
+                        </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.CharacterMaxLife)
-        </dd>
+                        <td class="inline-flex">
+                            @Html.LabelFor(model => model.CharacterGender, new { @class = "label-form" })
+                            @Html.TextBoxFor(model => model.CharacterGender, new { @class = "form-control textbox-medium", @readonly = "readonly" })
+                        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CharacterRace)
-        </dt>
+                        <td class="inline-flex">
+                            @Html.LabelFor(model => model.PlayerAge, new { @class = "label-form" })
+                            <input type="number" class="form-control textbox-small" value="@Html.Raw(Model.PlayerAge)" />
+                        </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.CharacterRace)
-        </dd>
+                        <td class="inline-flex">
+                            @Html.LabelFor(model => model.PlayerLevel, new { @class = "label-form" })
+                            <input type="number" class="form-control textbox-medium" value="@Html.Raw(Model.PlayerLevel)" />
+                        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CharacterGender)
-        </dt>
+                        <td class="inline-flex">
+                            @Html.LabelFor(model => model.CharacterRemainingLife, new { @class = "label-form" })
+                            <input type="number" class="form-control textbox-medium" max="@Html.Raw(Model.CharacterMaxLife)" value="@Html.Raw(Model.CharacterRemainingLife)" alt="Max life: @Html.Raw(Model.CharacterMaxLife)" />
+                        </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.CharacterGender)
-        </dd>
+                        <td class="inline-flex">
+                            @Html.LabelFor(model => model.PlayerExperience, new { @class = "label-form" })
+                            <input type="number" class="form-control textbox-medium" value="@Html.Raw(Model.PlayerExperience)" />
+                        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayerLevel)
-        </dt>
+                        <td class="inline-flex">
+                            @Html.LabelFor(model => model.PlayerMoney, new { @class = "label-form" })
+                            <input type="number" class="form-control textbox-medium" value="@Html.Raw(Model.PlayerMoney)" />
+                        </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.PlayerLevel)
-        </dd>
+                        <td>
+                            <img src="~/Images/aragorn.jpg" width="150" height="125" style="border-radius:10px;" />
+                        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayerAge)
-        </dt>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PlayerAge)
-        </dd>
+        <div class="col-md-12" style="top:-30px;"><hr class="style18" /></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayerExperience)
-        </dt>
+        <div class="col-md-12" style="top:-40px;">
+            <div class="col-md-3">
+                @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Characteristic).ToList())
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PlayerExperience)
-        </dd>
+            <div class="col-md-3">
+                @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Misc).ToList())
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayerBackground)
-        </dt>
+            <div class="col-md-3">
+                @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Skill).ToList())
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PlayerBackground)
-        </dd>
+            <div class="col-md-3">
+                @Html.Partial("_PlayerSheetTalents", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList())
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayerPointsToDistribute)
-        </dt>
+        <div class="col-md-12"><hr class="style18" /></div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PlayerPointsToDistribute)
-        </dd>
+        <div class="col-md-12" style="top:-30px;">
+            @Html.Partial("_PlayerSheetItems", Model.SelectedItems.ToList())
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayerMoney)
-        </dt>
+    <div class="col-md-2">
+        @Html.LabelFor(m => Model.PlayerBackground)
+        @Html.TextAreaFor(m => m.PlayerBackground, new { @class = "form-control", style = "height:275px;width:100%;", @readonly = "readonly" })
 
-        <dd>
-            @Html.DisplayFor(model => model.PlayerMoney)
-        </dd>
 
-    </dl>
+        @Html.LabelFor(m => Model.PrivateAnnotation)
+        @Html.TextAreaFor(m => m.PrivateAnnotation, new { @class = "form-control", style = "height:275px;width:100%" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CharacterId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/PlayerSheet.js")
+}

@@ -5,18 +5,17 @@
 }
 
 
-<h2>Creating new Item</h2>
-
+<h2 class="white">Creating new Item</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal Playercontainer">
         <hr />
         @Html.Partial("_ErrorSummary")
         <div class="form-group">
-            @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-4">
                 @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
@@ -24,7 +23,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ItemEffect, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ItemEffect, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-4">
                 @Html.EditorFor(model => model.ItemEffect, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ItemEffect, "", new { @class = "text-danger" })
@@ -32,10 +31,25 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ItemPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ItemPrice, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-2">
                 @Html.EditorFor(model => model.ItemPrice, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ItemPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemCategory, htmlAttributes: new { @class = "control-label" })
+            <div class="col-md-2">
+                @Html.EnumDropDownListFor(model => model.ItemCategory, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ItemCategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UniqueUse, htmlAttributes: new { @class = "control-label" })
+            <div class="col-md-2">
+                @Html.CheckBoxFor(model => model.UniqueUse, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 
@@ -46,7 +60,8 @@
         </div>
 
     </div>
-                }
+}
+
 
 
 @section Scripts {

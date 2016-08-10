@@ -196,7 +196,7 @@ function MountModelStateErrorMessage(model) {
 
 function MountBasicInformation() {
     var objBasicInfo = new Object();
-    objBasicInfo.SelectedCampaign = $('#SelectedCampaign').val();
+    objBasicInfo.SelectedCampaignId = $('#SelectedCampaignId').val();
     objBasicInfo.CharacterName = $('#CharacterName').val();
     objBasicInfo.CharacterMaxLife = $('#CharacterMaxLife').val();
     objBasicInfo.PlayerAge = $('#PlayerAge').val();
@@ -336,3 +336,4 @@ function VerifySelectedId(value) {
 
     return result;
 }
+

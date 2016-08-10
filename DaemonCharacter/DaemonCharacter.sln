@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{822BFCBC-53D2-448E-A74F-DF3DD3558DCF}"
 EndProject
@@ -31,7 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaemonCharacter.Infra.Cross
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - UnitTests", "6 - UnitTests", "{78602C05-3E16-4EA9-8982-404AC3FD22E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "..\tests\DomainTests\DomainTests.csproj", "{8273C657-2925-4AA9-AFFF-BBE1EF2CEF48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4 - DomainTests", "..\tests\DomainTests\4 - DomainTests.csproj", "{8273C657-2925-4AA9-AFFF-BBE1EF2CEF48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3 - ApplicationTests", "..\tests\ApplicationTests\3 - ApplicationTests.csproj", "{FD46A0A6-97DA-458E-BB2B-F0A4B3F3B1D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{8273C657-2925-4AA9-AFFF-BBE1EF2CEF48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8273C657-2925-4AA9-AFFF-BBE1EF2CEF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8273C657-2925-4AA9-AFFF-BBE1EF2CEF48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD46A0A6-97DA-458E-BB2B-F0A4B3F3B1D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD46A0A6-97DA-458E-BB2B-F0A4B3F3B1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD46A0A6-97DA-458E-BB2B-F0A4B3F3B1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD46A0A6-97DA-458E-BB2B-F0A4B3F3B1D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +87,6 @@ Global
 		{CBB2CBFD-89E4-4739-A48F-1803C9D0E766} = {A9C8B692-BCCE-4587-BA36-9EE2A2BDA6E1}
 		{2B83A3BA-3228-4CBD-9DDC-D4236EA95EB2} = {A9C8B692-BCCE-4587-BA36-9EE2A2BDA6E1}
 		{8273C657-2925-4AA9-AFFF-BBE1EF2CEF48} = {78602C05-3E16-4EA9-8982-404AC3FD22E3}
+		{FD46A0A6-97DA-458E-BB2B-F0A4B3F3B1D0} = {78602C05-3E16-4EA9-8982-404AC3FD22E3}
 	EndGlobalSection
 EndGlobal

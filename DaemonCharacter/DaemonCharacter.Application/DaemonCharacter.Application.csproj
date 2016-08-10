@@ -58,7 +58,9 @@
     <Compile Include="AppService\PlayerAppService.cs" />
     <Compile Include="AppService\PlayerItemAppService.cs" />
     <Compile Include="AutoMapper\AutoMapperConfig.cs" />
+    <Compile Include="AutoMapper\CharacterAttributeToSelectedCharacterAttributeViewModel.cs" />
     <Compile Include="AutoMapper\DomainToViewModelMappingProfile.cs" />
+    <Compile Include="AutoMapper\PlayerItemToSelectedPlayerItemViewModel.cs" />
     <Compile Include="AutoMapper\SelectedCharacterAttributeViewModelToCharacterAttribute.cs" />
     <Compile Include="AutoMapper\SelectedPlayerItemViewModelToPlayerItem.cs" />
     <Compile Include="AutoMapper\ViewModelToDomainMappingProfile.cs" />

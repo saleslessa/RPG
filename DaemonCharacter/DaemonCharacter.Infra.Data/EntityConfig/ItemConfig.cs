@@ -21,6 +21,9 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
             Property(p => p.ItemEffect)
                 .IsOptional()
                 .HasMaxLength(255);
+
+            Property(p => p.ItemCategory)
+                .IsRequired();
         }
     }
 }

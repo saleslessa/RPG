@@ -9,7 +9,7 @@ namespace DaemonCharacter.Application.ViewModels.PlayerItem
     public class PlayerItemViewModel
     {
         [ScaffoldColumn(false)]
-        public Guid PlayerId { get; set; }
+        public Guid CharacterId { get; set; }
 
         [DisplayName("Available Items")]
         public List<ItemViewModel> ListAvailableItems { get; set; }

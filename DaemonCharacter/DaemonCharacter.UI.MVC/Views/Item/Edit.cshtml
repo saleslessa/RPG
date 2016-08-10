@@ -4,14 +4,14 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2 class="white">Edit</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal Playercontainer">
         <hr />
         @Html.Partial("_ErrorSummary")
         @Html.HiddenFor(model => model.ItemId)
@@ -39,9 +39,26 @@
                 @Html.ValidationMessageFor(model => model.ItemPrice, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EnumDropDownListFor(model => model.ItemCategory, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ItemCategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UniqueUse, htmlAttributes: new { @class = "control-label" })
+            <div class="col-md-2">
+                @Html.CheckBoxFor(model => model.UniqueUse, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Back to List", "Index") | <input type="submit" value="Save" class="btn btn-success" />
+                <input type="button" class="btn btn-default" value="Back to List" onclick="window.location.href = '/Item'" /> | <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </div>
     </div>

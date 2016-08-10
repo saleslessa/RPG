@@ -11,7 +11,7 @@ namespace DaemonCharacter.Application.ViewModels.PlayerItem
         public Guid ItemId { get; set; }
 
         [ScaffoldColumn(false)]
-        public Guid PlayerId { get; set; }
+        public Guid CharacterId { get; set; }
 
         [DisplayName("Item")]
         public string ItemName { get; set; }

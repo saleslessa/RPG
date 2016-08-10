@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.CharacterAttribute.SelectedCharacterAttributeViewModel>
+
+@if (Model.ToList().Count > 0)
+{
+    <table class="table table-responsive table-striped PlayerSheet PlayerSheetAttributes">
+        <thead>
+            <tr>
+                <th class="small text-center inverse">
+                    @switch (Model.FirstOrDefault().AttributeType)
+                    {
+                        case AttributeType.Characteristic:
+                            <i class="fa fa-cog"></i>
+                            break;
+                        case AttributeType.Misc:
+                            @*<i class="fa fa-cube"></i>*@
+                            @Html.DisplayFor(m => Model.FirstOrDefault().AttributeType)
+                            break;
+                        case AttributeType.Skill:
+                            <i class="fa fa-magic"></i>
+                            @Html.DisplayFor(m => Model.FirstOrDefault().AttributeType)
+                            break;
+                    }
+                </th>
+
+                <th class="small text-center inverse">Value</th>
+                <th class="small text-center inverse">Bonus</th>
+                <th class="small text-center inverse">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderBy(o => o.AttributeName).ToList())
+            {
+                <tr>
+                    <td class="small" style="vertical-align:middle">@Html.DisplayFor(m => item.AttributeName)</td>
+                    <td class="small" style="vertical-align:middle"><input type="number" value="@Html.Raw(item.Value)" class="form-control textbox-small" /></td>
+                    <td class="small" style="vertical-align:middle"><input type="number" value="@Html.Raw(item.Value)" class="form-control textbox-small" readonly="readonly" /></td>
+                    <td class="small" style="vertical-align:middle"><input type="number" value="@Html.Raw(item.Value)" class="form-control textbox-small" readonly="readonly" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
