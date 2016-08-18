@@ -1,6 +1,6 @@
-# RPG Daemon
+# Role Play Hub
 
-RPG Daemon is a site which can join people worldwide in order to have fun and know different people with same passion: Role Playing Games!
+Role Play Hub is a site which can join people worldwide in order to have fun and know different people with same passion: Role Playing Games!
 
 It's a .NET project with following technologies and patterns:
   - Domain Driven Design
