@@ -7,6 +7,7 @@ It's a .NET project with following technologies and patterns:
   - HTML5/jQuery/Bootstrap
   - ASP.NET MVC 6
   - Entity Framework
+  - Specification and Validation Patterns
 
 This project has a completely opened code. This main functionalities are:
 
