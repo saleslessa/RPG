@@ -33,10 +33,10 @@ namespace DaemonCharacter.Infra.CrossCutting.IoC
             container.Register<INonPlayerService, NonPlayerService>(Lifestyle.Scoped);
             container.Register<IItemService, ItemService>(Lifestyle.Scoped);
             container.Register<IPlayerItemService, PlayerItemService>(Lifestyle.Scoped);
-            
+            container.Register<IItemAttributeService, ItemAttributeService>(Lifestyle.Scoped);         
 
 
-            // Infra Dados
+            // Infra Data
             container.Register<IAttributeRepository, AttributeRepository>(Lifestyle.Scoped);
             container.Register<ICampaignRepository, CampaignRepository>(Lifestyle.Scoped);
             container.Register<ICharacterRepository, CharacterRepository>(Lifestyle.Scoped);
@@ -45,6 +45,7 @@ namespace DaemonCharacter.Infra.CrossCutting.IoC
             container.Register<INonPlayerRepository, NonPlayerRepository>(Lifestyle.Scoped);
             container.Register<IItemRepository, ItemRepository>(Lifestyle.Scoped);
             container.Register<IPlayerItemRespository, PlayerItemRepository>(Lifestyle.Scoped);
+            container.Register<IItemAttributeRepository, ItemAttributeRepository>(Lifestyle.Scoped);
 
 
             container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);

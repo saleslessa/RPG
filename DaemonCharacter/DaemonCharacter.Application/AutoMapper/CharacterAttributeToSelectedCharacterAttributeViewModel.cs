@@ -2,6 +2,7 @@
 using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Service;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DaemonCharacter.Application.AutoMapper
 {
@@ -42,6 +43,11 @@ namespace DaemonCharacter.Application.AutoMapper
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<SelectedCharacterAttributeViewModel>> MapAsync(IEnumerable<CharacterAttribute> model)
+        {
+            return await Task.Run(() => Map(model));
         }
     }
 }

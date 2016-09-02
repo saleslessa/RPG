@@ -17,5 +17,7 @@ namespace DaemonCharacter.Application.Interfaces
         void Remove(Guid id);
 
         IEnumerable<PlayerItemViewModel> ListFromPlayer(Guid CharacterId);
+
+        Dictionary<string, int> ListBonusOfAllUsedItemsFromAttribute(Guid CharacterId, Guid AttributeId);
     }
 }

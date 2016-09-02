@@ -6,16 +6,19 @@ using DaemonCharacter.Application.ViewModels.PlayerItem;
 using DaemonCharacter.Domain.Interfaces.Service;
 using AutoMapper;
 using DaemonCharacter.Domain.Entities;
+using System.Linq;
 
 namespace DaemonCharacter.Application.AppService
 {
     public class PlayerItemAppService : ApplicationService, IPlayerItemAppService
     {
         private readonly IPlayerItemService _playerItemService;
+        private readonly IItemAttributeService _itemAttributeService;
 
-        public PlayerItemAppService(IPlayerItemService playerItemService, IUnitOfWork uow) : base(uow)
+        public PlayerItemAppService(IPlayerItemService playerItemService, IItemAttributeService itemAttributeService, IUnitOfWork uow) : base(uow)
         {
             _playerItemService = playerItemService;
+            _itemAttributeService = itemAttributeService;
         }
 
         public PlayerItemViewModel Add(PlayerItemViewModel model)
@@ -45,6 +48,26 @@ namespace DaemonCharacter.Application.AppService
         public IEnumerable<PlayerItemViewModel> ListAll()
         {
             return Mapper.Map<IEnumerable<PlayerItem>, IEnumerable<PlayerItemViewModel>>(_playerItemService.ListAll());
+        }
+
+        public Dictionary<string, int> ListBonusOfAllUsedItemsFromAttribute(Guid CharacterId, Guid AttributeId)
+        {
+            var result = new Dictionary<string, int>();
+            var items = _playerItemService.ListFromPlayer(CharacterId)
+                .Where(t => t.PlayerItemUsingItem == true);
+            
+            foreach (var playerItem in items)
+            {
+                var bonus = _itemAttributeService.ListFromItem(playerItem.Item.ItemId)
+                    .Where(t => t.ItemAttributeId == AttributeId)
+                    .Select(s => s.ItemAttributeValue)
+                    .ToList();
+
+                foreach (var bonusValues in bonus)
+                    result.Add("Item: " + playerItem.Item.ItemName, bonusValues);
+            }
+
+            return result;
         }
 
         public IEnumerable<PlayerItemViewModel> ListFromPlayer(Guid CharacterId)

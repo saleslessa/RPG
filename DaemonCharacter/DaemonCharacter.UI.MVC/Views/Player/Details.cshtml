@@ -112,29 +112,34 @@
         <div class="col-md-12"><hr class="style18" /></div>
 
         <div class="col-md-9">
-            <h4 class="animated wow fadeInUp text-center title-playersheet" style="margin-top:-20px;" data-wow-delay="0.3s" id="title-talents-container">
+            <h4 class="animated wow fadeInUp text-center title-playersheet" style="margin-top:-20px;" data-wow-delay="0.3s" id="title-magics-container">
                 <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
-                <strong>Talents and Magic</strong>
+                <strong>Magics</strong>
             </h4>
+            <div class="div-container" id="div-magics-container">
+                @Html.Partial("_PlayerSheetMagics", Model.SelectedItems.ToList())
+            </div>
         </div>
 
-        <div class="col-md-9 div-container" id="div-talents-container">
-            <div class="col-md-6 div-talents-container">
+        <div class="col-md-3">
+            <h4 class="animated wow fadeInUp text-center title-playersheet" style="margin-top:-20px;" data-wow-delay="0.3s" id="title-talents-container">
+                <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
+                <strong>Talents</strong>
+            </h4>
+            <div class="div-container" id="div-talents-container">
                 @Html.Partial("_PlayerSheetTalents", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList())
-            </div>
-
-            <div class="col-md-6 div-talents-container">
-                @Html.Partial("_PlayerSheetMagics", Model.SelectedItems.ToList())
             </div>
         </div>
     </div>
 
     <div class="col-md-3" style="top:-75px;">
-        <h4 class="animated wow fadeInUp text-center" data-wow-delay="0.3s" id="title-items-container">
+        <h4 class="animated wow fadeInUp text-center title-playersheet" data-wow-delay="0.3s" id="title-items-container">
             <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
             <strong>Items</strong>
         </h4>
-        @Html.Partial("_PlayerSheetItems", Model.SelectedItems.ToList())
+        <div id="div-items-container">
+            @Html.Partial("_PlayerSheetItems", Model.SelectedItems.ToList())
+        </div>
     </div>
 </div>
 

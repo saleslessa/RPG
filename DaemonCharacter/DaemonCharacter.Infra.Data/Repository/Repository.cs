@@ -5,6 +5,7 @@ using DaemonCharacter.Domain.Interfaces.Repository;
 using DaemonCharacter.Infra.Data.Context;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DaemonCharacter.Infra.Data.Repository
 {

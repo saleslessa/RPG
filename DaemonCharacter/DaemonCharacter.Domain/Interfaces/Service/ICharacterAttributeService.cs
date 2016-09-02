@@ -1,6 +1,7 @@
 ﻿using DaemonCharacter.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DaemonCharacter.Domain.Interfaces.Service
 {

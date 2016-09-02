@@ -1,6 +1,7 @@
 ﻿using DaemonCharacter.Application.Interfaces;
 using DaemonCharacter.Application.ViewModels.Item;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 
@@ -16,7 +17,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
             _itemAppService = itemAppService;
         }
 
-        
+
         public ActionResult Index()
         {
             return View(_itemAppService.ListAll());
@@ -43,7 +44,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
         public ActionResult Edit(Guid id)
         {
             var model = _itemAppService.Get(id);
-            if(model == null)
+            if (model == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             return View(model);
@@ -60,6 +61,18 @@ namespace DaemonCharacter.UI.MVC.Controllers
             ViewBag.Sucesso = model.ValidationResult.Message;
 
             return View(model);
+        }
+
+        [HttpGet]
+        public JsonResult GetInfo(Guid ItemId)
+        {
+            var obj = _itemAppService.Get(ItemId);
+            var result = new List<object>();
+
+            if (obj.ItemEffect != null)
+                result.Add(new { Key = "Effect", Value = obj.ItemEffect });
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

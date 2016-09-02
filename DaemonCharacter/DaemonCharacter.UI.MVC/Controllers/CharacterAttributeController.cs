@@ -35,10 +35,11 @@ namespace DaemonCharacter.UI.MVC.Controllers
         [HttpGet]
         public JsonResult GetBonusInfo(Guid CharacterId, Guid AttributeId)
         {
-            var obj = _characterAttributeAppService.GetTotalBonusAttributes(CharacterId, AttributeId);
+            var BonusByAttributes = _characterAttributeAppService.GetTotalBonusAttributes(CharacterId, AttributeId);
+
             var result = new List<object>();
 
-            foreach (var item in obj)
+            foreach (var item in BonusByAttributes)
             {
                 result.Add(new { Key = item.Key, Value = item.Value });
             }

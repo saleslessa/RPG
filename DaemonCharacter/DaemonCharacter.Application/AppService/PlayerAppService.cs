@@ -5,9 +5,11 @@ using DaemonCharacter.Domain.Interfaces.Service;
 using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Domain.Entities;
 using System.Collections.Generic;
-using DaemonCharacter.Application.ViewModels.CharacterAttribute;
 using AutoMapper;
 using DaemonCharacter.Application.AutoMapper;
+using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+using DaemonCharacter.Application.ViewModels.PlayerItem;
+using System.Threading.Tasks;
 
 namespace DaemonCharacter.Application.AppService
 {
@@ -101,6 +103,38 @@ namespace DaemonCharacter.Application.AppService
             Commit();
 
             return Mapper.Map<Player, PlayerViewModel>(result);
+        }
+
+        public PlayerViewModel GetBasicInfo(Guid? id)
+        {
+            var Player = _playerService.Get(id);
+            var result = Mapper.Map<Player, PlayerViewModel>(Player);
+            result.SelectedCampaignId = Player.Campaign.CampaignId;
+            result.SelectedCampaign = Player.Campaign;
+
+            return result;
+        } 
+
+        public async Task<IEnumerable<SelectedCharacterAttributeViewModel>> GetAttributesAsync(Guid id)
+        {
+            return await new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService)
+                .MapAsync(_characterAttributeService.ListFromCharacter(id));
+        }
+
+        public async Task<IEnumerable<SelectedPlayerItemViewModel>> GetItemsAsync(Guid id)
+        {
+            return await new PlayerItemToSelectedPlayerItemViewModel().MapAsync(_playerItemService.ListFromPlayer(id));
+        }
+
+        public IEnumerable<SelectedCharacterAttributeViewModel> GetAttributes(Guid id)
+        {
+            return new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService)
+                 .Map(_characterAttributeService.ListFromCharacter(id));
+        }
+
+        public IEnumerable<SelectedPlayerItemViewModel> GetItems(Guid id)
+        {
+            return new PlayerItemToSelectedPlayerItemViewModel().Map(_playerItemService.ListFromPlayer(id));
         }
     }
 }

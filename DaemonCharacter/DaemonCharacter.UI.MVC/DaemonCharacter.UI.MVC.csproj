@@ -319,6 +319,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="gulpfile.js" />
     <Content Include="Images\12.jpg" />
     <Content Include="Images\13.jpg" />
     <Content Include="Images\14.jpg" />
@@ -364,7 +365,6 @@
     <Content Include="Images\triangular_%402X.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="Scripts\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -381,11 +381,11 @@
     <Content Include="Scripts\CharacterForms.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\DynamicForm.js" />
-    <Content Include="Scripts\ItemForm.js" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include=".bin\node.cmd" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
@@ -492,6 +492,7 @@
     <Content Include="Views\Player\_PlayerSheetItems.cshtml" />
     <Content Include="Views\Player\_PlayerSheetMagics.cshtml" />
     <Content Include="Scripts\particles.json" />
+    <Content Include="Views\Player\_GetPlayerAttributes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

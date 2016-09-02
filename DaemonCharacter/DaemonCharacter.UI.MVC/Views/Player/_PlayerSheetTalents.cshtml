@@ -2,21 +2,24 @@
 
 @if (Model.ToList().Count > 0)
 {
-    <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <thead>
-            <tr>
-                <th class="small text-center">
-                    <i class="fa fa-star"></i>&nbsp;&nbsp;@Html.DisplayFor(m => Model.FirstOrDefault().AttributeType)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderBy(o => o.AttributeName).ToList())
-            {
+    <div class="div-items-container">
+        <h4 class="text-center"><strong>&nbsp;</strong></h4>
+        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
                 <tr>
-                    <td class="small">@Html.DisplayFor(m => item.AttributeName)</td>
+                    <th class="small text-center">
+                        <i class="fa fa-star"></i>&nbsp;&nbsp;@Html.DisplayFor(m => Model.FirstOrDefault().AttributeType)
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderBy(o => o.AttributeName).ToList())
+                {
+                    <tr>
+                        <td class="small">@Html.DisplayFor(m => item.AttributeName)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }

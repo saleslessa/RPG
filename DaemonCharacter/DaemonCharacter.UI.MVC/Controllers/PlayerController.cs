@@ -4,11 +4,12 @@ using System.Web.Mvc;
 using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Application.Interfaces;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DaemonCharacter.UI.MVC.Controllers
 {
     [Authorize]
-    public class PlayerController : Controller
+    public class PlayerController : AsyncController
     {
 
         private readonly IPlayerAppService _playerAppService;
@@ -35,7 +36,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
             }
 
             var playerViewModel = _playerAppService.Get(id);
-            
+
 
             if (playerViewModel == null)
             {
@@ -44,6 +45,16 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
             return View(playerViewModel);
         }
+
+        //public ActionResult _GetPlayerAttributes(Guid id)
+        //{
+        //    return PartialView(_playerAppService.GetAttributes(id));
+        //}
+
+        //public ActionResult _GetPlayerItems(Guid id)
+        //{
+        //    return PartialView(_playerAppService.GetItemsAsync(id));
+        //}
 
         // GET: Player/Create
         public ActionResult Create()
@@ -74,7 +85,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
             model.ValidationResult = new DomainValidation.Validation.ValidationResult();
             model.CharacterUser = User.Identity.Name;
-            
+
             model = _playerAppService.Add(model);
 
             if (!model.ValidationResult.IsValid)

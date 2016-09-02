@@ -4,6 +4,10 @@
         ShowToolTipAttributeBonusInfo($(this));
     });
 
+    $('.item-info').mouseover(function () {
+        ShowToolTipItemInfo($(this));
+    });
+
 
     $('.attribute-editable').on('change', null, function (event) {
         SetAttributeValue($(this).parent().parent().attr('id'), $(this).val());
@@ -20,6 +24,10 @@
         $("#div-talents-container").slideToggle('slow');
     });
 
+    $('#title-magics-container').click(function (event) {
+        $("#div-magics-container").slideToggle('slow');
+    });
+
     $('#title-privateAnnotations-container').click(function (event) {
         $("#div-privateAnnotations-container").slideToggle('slow');
     });
@@ -28,16 +36,20 @@
         $("#div-items-container").slideToggle('slow');
     });
 
-    $('.table tbody tr').mouseover(function () {
-        $(this).addClass('active');
-    });
-
-    $('.table tbody tr').mouseleave(function () {
-        $(this).removeClass('active');
-        $(this).removeClass('black');
-    });
-
 });
+
+function ShowToolTipItemInfo(obj) {
+    var url = '/Item/GetInfo/?ItemId=' + jQuery(obj).parent().attr('id');
+    var tooltip = $("div[id=tooltip_" + jQuery(obj).parent().attr('id'));
+
+    tooltip.empty();
+
+    $.getJSON(url, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            tooltip.append('<br>' + data[i]["Key"] + ' - ' + data[i]["Value"] + '<br>');
+        }
+    });
+}
 
 function RecalculateTotal(obj) {    
     var value = parseInt(jQuery(obj).parent().parent().children('.td-editable').children('.attribute-editable').val());
@@ -57,9 +69,16 @@ function ShowToolTipAttributeBonusInfo(obj) {
             tooltip.append('<br>' + data[i]["Key"] + ' - ' + data[i]["Value"] + '<br>');
         }
     });
+
 }
 
 function GetAttributeBonusInfo(obj) {
+    GetAttributeBonusInfoFromOtherAttributes(obj);
+    GetAttributeBonusInfoFromUsedItems(obj);
+}
+
+function GetAttributeBonusInfoFromOtherAttributes(obj)
+{
     var url = '/CharacterAttribute/GetBonusInfo/?CharacterId=' + $('#CharacterId').val() + '&AttributeId=' + jQuery(obj).parent().parent().attr('id');
     jQuery(obj).val(0);
     jQuery(obj).parent().parent().children('.td-total').children('.attribute-total').val(0);
@@ -67,7 +86,18 @@ function GetAttributeBonusInfo(obj) {
     $.getJSON(url, function (data) {
         for (var i = 0; i < data.length; i++) {
             jQuery(obj).val(parseInt(jQuery(obj).val()) + parseInt(data[i]["Value"]));
-            RecalculateTotal(obj);
+        }
+    });
+}
+
+function GetAttributeBonusInfoFromUsedItems(obj) {
+    var url = '/PlayerItem/GetBonusInfo/?CharacterId=' + $('#CharacterId').val() + '&AttributeId=' + jQuery(obj).parent().parent().attr('id');
+    jQuery(obj).val(0);
+    jQuery(obj).parent().parent().children('.td-total').children('.attribute-total').val(0);
+
+    $.getJSON(url, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            jQuery(obj).val(parseInt(jQuery(obj).val()) + parseInt(data[i]["Value"]));
         }
     });
 }
@@ -106,6 +136,7 @@ function SetAttributeValue(attribute, value) {
 function ReloadAttributeBonus() {
     $('.attribute-bonus').each(function (index, element) {
         GetAttributeBonusInfo(element);
+        RecalculateTotal(element);
     });
 }
 

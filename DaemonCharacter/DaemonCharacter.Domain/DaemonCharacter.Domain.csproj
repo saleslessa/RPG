@@ -75,6 +75,7 @@
     <Compile Include="Services\AttributeService.cs" />
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\CharacterAttributeService.cs" />
+    <Compile Include="Services\ItemAttributeService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\NonPlayerService.cs" />
     <Compile Include="Services\PlayerItemService.cs" />

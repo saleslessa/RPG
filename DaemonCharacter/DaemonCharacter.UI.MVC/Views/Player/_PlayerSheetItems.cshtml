@@ -16,8 +16,12 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td class="small">@Html.DisplayFor(m => item.ItemName)</td>
+                    <tr id="@Html.Raw(item.ItemId)">
+                        <td class="small item-info" id="td_@Html.Raw(item.ItemId)">
+                            @Html.DisplayFor(m => item.ItemName)
+                            <div id="tooltip_@Html.Raw(item.ItemId)" class="mdl-tooltip" data-mdl-for="td_@Html.Raw(item.ItemId)">
+                            </div>
+                        </td>
                         <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
 
                         @if (item.ItemUniqueUse)
@@ -56,7 +60,11 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="small">@Html.DisplayFor(m => item.ItemName)</td>
+                        <td class="small">
+                            @Html.DisplayFor(m => item.ItemName)
+                            <div id="tooltip_@Html.Raw(item.ItemName).ToString().Replace(" ","-")" class="mdl-tooltip" data-mdl-for="txt_@Html.Raw(item.ItemName).ToString().Replace(" ","-")">
+                            </div>
+                        </td>
                         <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
                         <td class="small">
                             <input type="button" value="Throw" class="btn btn-danger" />

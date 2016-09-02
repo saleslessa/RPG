@@ -118,5 +118,6 @@ namespace DaemonCharacter.Domain.Services
 
             return _characterAttributeRepository.Update(model);
         }
+        
     }
 }
