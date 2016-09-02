@@ -7,9 +7,9 @@ It's a .NET project with following technologies and patterns:
   - HTML5/jQuery/Bootstrap
   - ASP.NET MVC 6
   - Entity Framework
-  - Specification Patterns
+  - Specification Pattern
 
-This project has a completely opened code. This main functionalities are:
+This main functionalities are:
 
 - Creation of Players mainly for Daemon and D&D 3.5/4.0 Systems
 - Creation of Items. Players can buy items from an fake store and the campaign master can approve your shoppings
