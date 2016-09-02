@@ -1,0 +1,24 @@
+﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.PlayerItem.SelectedPlayerItemViewModel>
+
+@if (Model.Where(t => t.PlayerItemUsingItem == false).ToList().Count > 0)
+{
+    <div>
+        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
+                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="small">@Html.DisplayFor(m => item.ItemName)</td>
+                        <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

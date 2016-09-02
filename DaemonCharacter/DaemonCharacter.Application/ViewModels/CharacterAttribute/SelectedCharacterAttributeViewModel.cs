@@ -1,5 +1,4 @@
-﻿using DaemonCharacter.Domain.Entities;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,7 +6,6 @@ namespace DaemonCharacter.Application.ViewModels.CharacterAttribute
 {
     public class SelectedCharacterAttributeViewModel
     {
-
         [Key]
         [ScaffoldColumn(false)]
         public Guid AttributeId { get; set; }
@@ -27,6 +25,12 @@ namespace DaemonCharacter.Application.ViewModels.CharacterAttribute
         public int Value { get; set; }
 
         [ScaffoldColumn(false)]
+        public int BonusValue { get; set; }
+
+        [ScaffoldColumn(false)]
+        public int TotalValue { get; set; }
+
+        [ScaffoldColumn(false)]
         public Guid CharacterId { get; set; }
 
         [ScaffoldColumn(false)]
@@ -34,7 +38,7 @@ namespace DaemonCharacter.Application.ViewModels.CharacterAttribute
 
         public SelectedCharacterAttributeViewModel()
         {
-            ValidationResult = new DomainValidation.Validation.ValidationResult();
+            ValidationResult = new DomainValidation.Validation.ValidationResult();     
         }
     }
 }

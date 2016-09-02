@@ -1,5 +1,4 @@
-﻿using DaemonCharacter.Domain.Entities;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +15,8 @@ namespace DaemonCharacter.Application.ViewModels.PlayerItem
         [DisplayName("Item")]
         public string ItemName { get; set; }
 
+        public bool ItemUniqueUse { get; set; }
+
         [DefaultValue(1)]
         [DisplayName("Quantity")]
         public int PlayerItemQtd { get; set; }
@@ -30,6 +31,12 @@ namespace DaemonCharacter.Application.ViewModels.PlayerItem
         public bool PlayerItemApprovedByMaster { get; set; }
 
         [ScaffoldColumn(false)]
+        public bool PlayerItemActive { get; set; }
+
+        [ScaffoldColumn(false)]
+        public bool PlayerItemUsingItem { get; set; }
+
+        [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
 
         public SelectedPlayerItemViewModel()
@@ -37,6 +44,8 @@ namespace DaemonCharacter.Application.ViewModels.PlayerItem
             ValidationResult = new DomainValidation.Validation.ValidationResult();
             PlayerItemApprovedByMaster = false;
             PlayerItemDateBought = DateTime.Now.Date;
+            PlayerItemActive = true;
+            PlayerItemUsingItem = false;
         }
     }
 }

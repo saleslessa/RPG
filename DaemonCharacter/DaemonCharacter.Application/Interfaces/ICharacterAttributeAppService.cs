@@ -1,4 +1,5 @@
 ﻿using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+using DaemonCharacter.Domain.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +16,12 @@ namespace DaemonCharacter.Application.Interfaces
         void Remove(Guid CharacterAttributeId);
 
         IEnumerable<CharacterAttributeViewModel> ListAllAttributes();
+
+        int GetTotalBonus(Guid? CharacterId, Guid? AttributeId);
+
+        Dictionary<string, int> GetTotalBonusAttributes(Guid? CharacterId, Guid? AttributeId);
+
+        void SetValue(Guid CharacterId, Guid AttributeId, int Value);
 
     }
 }

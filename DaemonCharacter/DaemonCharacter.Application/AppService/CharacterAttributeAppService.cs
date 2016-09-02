@@ -58,5 +58,29 @@ namespace DaemonCharacter.Application.AppService
             Commit();
         }
 
+        public int GetTotalBonus(Guid? CharacterId, Guid? AttributeId)
+        {
+            if (!CharacterId.HasValue || !AttributeId.HasValue)
+                return 0;
+
+            return _characterAttributeService.GetTotalBonus(CharacterId.Value, AttributeId.Value);
+        }
+
+        public Dictionary<string,int> GetTotalBonusAttributes(Guid? CharacterId, Guid? AttributeId)
+        {
+            if (!CharacterId.HasValue || !AttributeId.HasValue)
+                return null;
+
+            return _characterAttributeService.GetTotalBonusAttributes(CharacterId.Value, AttributeId.Value);
+        }
+
+        public void SetValue(Guid CharacterId, Guid AttributeId, int Value)
+        {
+            var model = _characterAttributeService.Get(CharacterId, AttributeId);
+            model.CharacterAttributeValue = Value;
+
+            _characterAttributeService.Update(model);
+            Commit();
+        }
     }
 }

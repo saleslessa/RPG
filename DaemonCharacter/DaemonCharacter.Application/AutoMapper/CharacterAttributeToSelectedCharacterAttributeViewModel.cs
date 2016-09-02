@@ -9,11 +9,14 @@ namespace DaemonCharacter.Application.AutoMapper
     {
         private readonly IAttributeService _attributeService;
         private readonly IPlayerService _playerService;
+        private readonly ICharacterAttributeService _characterAttributeService;
 
-        public CharacterAttributeToSelectedCharacterAttributeViewModel(IAttributeService attributeService, IPlayerService playerService)
+        public CharacterAttributeToSelectedCharacterAttributeViewModel(IAttributeService attributeService, IPlayerService playerService
+            , ICharacterAttributeService characterAttributeService)
         {
             _attributeService = attributeService;
             _playerService = playerService;
+            _characterAttributeService = characterAttributeService;
         }
 
         public IEnumerable<SelectedCharacterAttributeViewModel> Map(IEnumerable<CharacterAttribute> model)
@@ -22,16 +25,20 @@ namespace DaemonCharacter.Application.AutoMapper
 
             foreach (var item in model)
             {
-                result.Add(new SelectedCharacterAttributeViewModel()
+                var obj = new SelectedCharacterAttributeViewModel()
                 {
                     AttributeId = item.Attribute.AttributeId,
                     AttributeName = item.Attribute.AttributeName,
                     CharacterId = item.Character.CharacterId,
                     Value = item.CharacterAttributeValue,
                     AttributeType = item.Attribute.AttributeType,
-                    AttributeDescription = item.Attribute.AttributeDescription
-                });
+                    AttributeDescription = item.Attribute.AttributeDescription,
+                    BonusValue = _characterAttributeService.GetTotalBonus(item.Character.CharacterId, item.Attribute.AttributeId)
+                };
 
+                obj.TotalValue = obj.Value + obj.BonusValue;
+
+                result.Add(obj);
             }
 
             return result;

@@ -2,10 +2,10 @@
 
 @if (Model.ToList().Count > 0)
 {
-    <table class="table table-responsive table-striped PlayerSheet PlayerSheetAttributes">
+    <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
         <thead>
             <tr>
-                <th class="small text-center inverse">
+                <th class="small">
                     @switch (Model.FirstOrDefault().AttributeType)
                     {
                         case AttributeType.Characteristic:
@@ -22,19 +22,25 @@
                     }
                 </th>
 
-                <th class="small text-center inverse">Value</th>
-                <th class="small text-center inverse">Bonus</th>
-                <th class="small text-center inverse">Total</th>
+                <th class="small text-center">Value</th>
+                <th class="small text-center">Bonus</th>
+                <th class="small text-center">Total</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.OrderBy(o => o.AttributeName).ToList())
             {
-                <tr>
-                    <td class="small" style="vertical-align:middle">@Html.DisplayFor(m => item.AttributeName)</td>
-                    <td class="small" style="vertical-align:middle"><input type="number" value="@Html.Raw(item.Value)" class="form-control textbox-small" /></td>
-                    <td class="small" style="vertical-align:middle"><input type="number" value="@Html.Raw(item.Value)" class="form-control textbox-small" readonly="readonly" /></td>
-                    <td class="small" style="vertical-align:middle"><input type="number" value="@Html.Raw(item.Value)" class="form-control textbox-small" readonly="readonly" /></td>
+                <tr id="@Html.Raw(item.AttributeId)">
+                    <td class="small">@Html.DisplayFor(m => item.AttributeName)</td>
+                    <td class="small td-editable">
+                        <input type="number" value="@Html.Raw(item.Value)" class="form-control textbox-table attribute-editable" />
+                    </td>
+                    <td class="small td-bonus">
+                        <input type="number" id="txt_@Html.Raw(item.AttributeName).ToString().Replace(" ","-")" value="@Html.Raw(item.BonusValue)" class="form-control textbox-table attribute-bonus" readonly="readonly" />
+                        <div id="tooltip_@Html.Raw(item.AttributeName).ToString().Replace(" ","-")" class="mdl-tooltip" data-mdl-for="txt_@Html.Raw(item.AttributeName).ToString().Replace(" ","-")">
+                        </div>
+                    </td>
+                    <td class="small td-total"><input type="number" value="@Html.Raw(item.TotalValue)" class="form-control textbox-table attribute-total" readonly="readonly" /></td>
                 </tr>
             }
         </tbody>

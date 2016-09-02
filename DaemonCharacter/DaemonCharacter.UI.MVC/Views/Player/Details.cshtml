@@ -4,22 +4,32 @@
     ViewBag.Title = "Player Form";
 }
 
-<h2 class="animated wow fadeInUp white" data-wow-delay="0.3s">
+@section CustomStyle {
+    <link rel="stylesheet" href="~/Content/PlayerSheet.css" />
+}
+
+<h2 class="animated wow fadeInUp" data-wow-delay="0.3s">
     <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
     Player Form
 </h2>
 
-<div class="col-md-offset-1 col-md-10 Playercontainer" id="PlayerSheetContainer">
+@Html.HiddenFor(m => Model.CharacterId)
+
+<div class="col-md-12 Playercontainer" id="PlayerSheetContainer">
 
     <h3 class="animated wow fadeInUp text-center" style="margin-top:-20px;" data-wow-delay="0.3s">
         <i class="fa fa-user animated wow fadeInDown"></i>&nbsp;
         <strong>@Html.Raw(Model.CharacterName)</strong>
     </h3>
-    <div class="col-md-10">
-        <div class="col-md-offset-1 col-md-10">
+
+    <div class="col-md-12" style="height:225px;">
+        <div class="col-md-8">
             <table class="table table-responsive borderless PlayerSheet" id="TableHeader">
                 <tbody>
                     <tr>
+                        <td>
+                            <img src="~/Images/aragorn.jpg" width="150" height="125" style="border-radius:10px;" />
+                        </td>
                         <td class="inline-flex">
                             @Html.LabelFor(model => model.SelectedCampaign, new { @class = "label-form" })
                             @Html.TextBoxFor(model => model.SelectedCampaign.CampaignName, new { @class = "form-control", @readonly = "readonly" })
@@ -59,53 +69,82 @@
                             @Html.LabelFor(model => model.PlayerMoney, new { @class = "label-form" })
                             <input type="number" class="form-control textbox-medium" value="@Html.Raw(Model.PlayerMoney)" />
                         </td>
-
-                        <td>
-                            <img src="~/Images/aragorn.jpg" width="150" height="125" style="border-radius:10px;" />
-                        </td>
-
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="col-md-12" style="top:-30px;"><hr class="style18" /></div>
+        <div class="col-md-2" style="height:150px;">
+            @Html.LabelFor(m => Model.PlayerBackground, new { @class = "label-form" })
+            @Html.TextAreaFor(m => m.PlayerBackground, new { @class = "form-control", @readonly = "readonly", style = "height:100%" })
+        </div>
 
-        <div class="col-md-12" style="top:-40px;">
-            <div class="col-md-3">
+        <div class="col-md-2" style="height:150px;">
+            @Html.LabelFor(m => m.PrivateAnnotation, new { @class = "label-form" })
+            @Html.TextAreaFor(m => m.PrivateAnnotation, new { @class = "form-control", style = "height:100%" })
+        </div>
+    </div>
+
+    <div class="col-md-12" style="top:-30px;"><hr class="style18" /></div>
+
+    <div class="col-md-9">
+        <div class="col-md-12">
+            <h4 class="animated wow fadeInUp text-center title-playersheet" style="margin-top:-50px;" data-wow-delay="0.3s" id="title-attribute-container">
+                <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
+                <strong>Attributes</strong>
+            </h4>
+        </div>
+
+        <div class="col-md-12 div-container" id="div-attribute-container">
+            <div class="col-md-4 div-attribute-container">
                 @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Characteristic).ToList())
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4 div-attribute-container">
                 @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Misc).ToList())
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4 div-attribute-container">
                 @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Skill).ToList())
-            </div>
-
-            <div class="col-md-3">
-                @Html.Partial("_PlayerSheetTalents", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList())
             </div>
         </div>
 
         <div class="col-md-12"><hr class="style18" /></div>
 
-        <div class="col-md-12" style="top:-30px;">
-            @Html.Partial("_PlayerSheetItems", Model.SelectedItems.ToList())
+        <div class="col-md-9">
+            <h4 class="animated wow fadeInUp text-center title-playersheet" style="margin-top:-20px;" data-wow-delay="0.3s" id="title-talents-container">
+                <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
+                <strong>Talents and Magic</strong>
+            </h4>
+        </div>
+
+        <div class="col-md-9 div-container" id="div-talents-container">
+            <div class="col-md-6 div-talents-container">
+                @Html.Partial("_PlayerSheetTalents", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList())
+            </div>
+
+            <div class="col-md-6 div-talents-container">
+                @Html.Partial("_PlayerSheetMagics", Model.SelectedItems.ToList())
+            </div>
         </div>
     </div>
 
-    <div class="col-md-2">
-        @Html.LabelFor(m => Model.PlayerBackground)
-        @Html.TextAreaFor(m => m.PlayerBackground, new { @class = "form-control", style = "height:275px;width:100%;", @readonly = "readonly" })
-
-
-        @Html.LabelFor(m => Model.PrivateAnnotation)
-        @Html.TextAreaFor(m => m.PrivateAnnotation, new { @class = "form-control", style = "height:275px;width:100%" })
+    <div class="col-md-3" style="top:-75px;">
+        <h4 class="animated wow fadeInUp text-center" data-wow-delay="0.3s" id="title-items-container">
+            <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
+            <strong>Items</strong>
+        </h4>
+        @Html.Partial("_PlayerSheetItems", Model.SelectedItems.ToList())
     </div>
 </div>
+
+<div id="update-message-container" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/PlayerSheet.js")
 }
+

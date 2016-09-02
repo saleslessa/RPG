@@ -11,11 +11,13 @@ namespace DaemonCharacter.Domain.Services
     {
         private readonly ICharacterAttributeRepository _characterAttributeRepository;
         private readonly IAttributeRepository _attributeRepository;
+        private readonly IAttributeService _attributeService;
 
-        public CharacterAttributeService(ICharacterAttributeRepository characterAttributeRepository, IAttributeRepository attributeRepository)
+        public CharacterAttributeService(ICharacterAttributeRepository characterAttributeRepository, IAttributeRepository attributeRepository, IAttributeService attributeService)
         {
             _characterAttributeRepository = characterAttributeRepository;
             _attributeRepository = attributeRepository;
+            _attributeService = attributeService;
         }
 
         public CharacterAttribute Add(CharacterAttribute model)
@@ -77,6 +79,44 @@ namespace DaemonCharacter.Domain.Services
             {
                 Remove(item.CharacterAttributeId);
             }
+        }
+
+        public int GetTotalBonus(Guid CharacterId, Guid AttributeId)
+        {
+            var listOfAttributesRelatedToThisAttribute = _attributeService.ListBonusAttribute(AttributeId);
+            var result = 0;
+
+            foreach (var item in listOfAttributesRelatedToThisAttribute)
+            {
+                var selectedItem = _characterAttributeRepository.Get(CharacterId, item.AttributeId);
+                result += selectedItem == null ? 0 : selectedItem.CharacterAttributeValue;
+            }
+
+            return result;
+        }
+
+        public Dictionary<string, int> GetTotalBonusAttributes(Guid CharacterId, Guid AttributeId)
+        {
+            var listOfAttributesRelatedToThisAttribute = _attributeService.ListBonusAttributeIds(AttributeId);
+            var result = new Dictionary<string, int>();
+
+            foreach (var item in listOfAttributesRelatedToThisAttribute)
+            {
+                var selectedItem = _characterAttributeRepository.Get(CharacterId, item);
+
+                if (selectedItem != null)
+                    result.Add(selectedItem.Attribute.AttributeName, selectedItem.CharacterAttributeValue);
+            }
+
+            return result;
+        }
+
+        public CharacterAttribute Update(CharacterAttribute model)
+        {
+            if (!model.IsValid())
+                return model;
+
+            return _characterAttributeRepository.Update(model);
         }
     }
 }

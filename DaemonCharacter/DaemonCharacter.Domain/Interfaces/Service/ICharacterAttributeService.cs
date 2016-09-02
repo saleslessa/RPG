@@ -20,5 +20,11 @@ namespace DaemonCharacter.Domain.Interfaces.Service
 
         void RemoveFromCharacter(Guid CharacterId);
 
+        int GetTotalBonus(Guid CharacterId, Guid AttributeId);
+
+        Dictionary<string, int> GetTotalBonusAttributes(Guid CharacterId, Guid AttributeId);
+
+        CharacterAttribute Update(CharacterAttribute model);
+
     }
 }

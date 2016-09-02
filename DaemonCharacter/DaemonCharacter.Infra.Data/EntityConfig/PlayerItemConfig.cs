@@ -30,6 +30,15 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
             Property(p => p.PlayerItemApprovedByMaster)
                 .IsOptional();
 
+            Property(p => p.Modified)
+                .HasColumnType("smalldatetime")
+                .IsOptional();
+
+            Property(p => p.PlayerItemActive)
+                .HasColumnName("Active")
+                .HasColumnType("bit")
+                .IsRequired();
+
             Ignore(i => i.ValidationResult);
         }
     }

@@ -21,14 +21,18 @@ namespace DaemonCharacter.Domain.Entities
 
         public bool PlayerItemApprovedByMaster { get; set; }
 
-        public bool UsingItem { get; set; }
+        public bool PlayerItemUsingItem { get; set; }
 
         public ValidationResult ValidationResult { get; set; }
+
+        public bool PlayerItemActive { get; set; }
+
+        public DateTime? Modified { get; set; }
 
         public PlayerItem()
         {
             PlayerItemId = Guid.NewGuid();
-            UsingItem = false;
+            PlayerItemUsingItem = false;
             ValidationResult = new ValidationResult();
         }
 

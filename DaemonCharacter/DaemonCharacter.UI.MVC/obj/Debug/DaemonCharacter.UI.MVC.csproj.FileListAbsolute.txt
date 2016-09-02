@@ -305,3 +305,4 @@ C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.U
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.csproj.GenerateResource.Cache
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.dll
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\obj\Debug\DaemonCharacter.UI.MVC.pdb
+C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\AutoMapper.xml

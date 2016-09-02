@@ -514,93 +514,23 @@ tr.pager td {
     font-size: smaller;
 }
 
+.textbox-table {
+    font-size: smaller;
+}
+
 
 .img-thumbnail {
     max-width: 100px !important;
     max-height: 200px !important;
 }
 
-#PlayerSheetContainer {
-    /*background-image: url(../Images/corner.svg);
-    background-position: top left;
-    background-repeat: no-repeat;
-    background-size: 300px;*/
-    background-color: #fff;
-    background-image: linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),linear-gradient(#eee .1em, transparent .1em);
-    background-size: 100% 1.2em;
-}
+
 
 .Playercontainer {
-    border-radius: 10px;
+    /*border-radius: 10px;*/
+    border:1px solid black;
     padding: 15px;
-    background-color: white;
-    color: black;
     padding: 50px;
-}
-
-.PlayerSheet {
     background-color: white;
     color: black;
 }
-
-    .PlayerSheet a, .Playercontainer a {
-        color: black;
-    }
-
-.PlayerSheetAttributes {
-    height: 300px;
-}
-
-    .PlayerSheetAttributes tbody {
-        overflow-y: scroll;
-        position: absolute;
-        height: 300px;
-        width: 95%;
-    }
-
-.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-    background-color: #cac8c8;
-}
-
-.inline-flex {
-    display: inline-flex !important;
-    vertical-align: text-bottom !important;
-    margin: 0 !important;
-}
-
-.label-form {
-    padding: 17px 10px 0px 0px;
-}
-
-.inverse {
-    color: white;
-    background-color: black;
-}
-
-hr.style18 {
-    height: 30px;
-    border-style: solid;
-    border-color: #8c8b8b;
-    border-width: 1px 0 0 0;
-    border-radius: 20px;
-}
-
-    hr.style18:before {
-        display: block;
-        content: "";
-        height: 30px;
-        margin-top: -31px;
-        border-style: solid;
-        border-color: #8c8b8b;
-        border-width: 0 0 1px 0;
-        border-radius: 20px;
-    }
-
-#TableHeader, .PlayerSheet {
-    opacity: 0.9;
-    background-color: rgba(244, 244, 244, 0.01);
-}
-
-    #TableHeader th, td {
-        border: 0px !important;
-    }

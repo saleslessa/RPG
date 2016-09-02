@@ -27,7 +27,7 @@ namespace DaemonCharacter.Domain.Services
             att.ValidationResult = new CreateAttributeValidation(_attributeRepository).Validate(att);
             if (!att.ValidationResult.IsValid)
                 return att;
-            
+
 
             att.ValidationResult.Message = "Attribute created successfully";
             return _attributeRepository.Add(att);
@@ -46,7 +46,7 @@ namespace DaemonCharacter.Domain.Services
 
         public List<Attributes> ListBonusAttribute(Guid AttributeId)
         {
-            return _attributeRepository.Search(t => t.ParentAttribute.Where(tt => tt.AttributeId == AttributeId).Count() > 0).ToList();
+            return _attributeRepository.Search(t => t.AttributeBonus.Where(tt => tt.AttributeId == AttributeId).Count() > 0).ToList();
         }
 
         public IEnumerable<Attributes> ListAll()
@@ -140,6 +140,11 @@ namespace DaemonCharacter.Domain.Services
         public IEnumerable<Attributes> Search(Expression<Func<Attributes, bool>> predicate)
         {
             return _attributeRepository.Search(predicate);
+        }
+
+        public IEnumerable<Guid> ListBonusAttributeIds(Guid AttributeId)
+        {
+            return _attributeRepository.Search(t => t.AttributeBonus.Where(tt => tt.AttributeId == AttributeId).Count() > 0).Select(s => s.AttributeId).ToList();
         }
     }
 }

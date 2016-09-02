@@ -75,7 +75,7 @@ namespace DaemonCharacter.Application.AppService
 
             result.SelectedItems = new PlayerItemToSelectedPlayerItemViewModel().Map(_playerItemService.ListFromPlayer(result.CharacterId));
 
-            result.SelectedAttributes = new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService)
+            result.SelectedAttributes = new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService)
                 .Map(_characterAttributeService.ListFromCharacter(result.CharacterId));
 
             return result;

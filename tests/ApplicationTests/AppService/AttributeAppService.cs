@@ -9,25 +9,60 @@ namespace ApplicationTests.AppService
     public class AttributeAppService
     {
         //ARRANGE, ACT, ASSERT
-        //[TestMethod]
-        //public void AttributeAppService_Add_True()
-        //{
-        //    var obj = new AttributeViewModel()
-        //    {
-        //        AttributeName = "Test",
-        //        AttributeMinimum = 1,
-        //        AttributeType = AttributeType.Misc,
-        //        AttributeDescription = "test"
-        //    };
+        [TestMethod]
+        public void AttributeAppService_Add_True()
+        {
+            var viewModel = new AttributeViewModel()
+            {
+                AttributeName = "Test",
+                AttributeMinimum = 1,
+                AttributeType = AttributeType.Misc,
+                AttributeDescription = "test"
+            };
+
+            viewModel.AttributeBonus.Add(new AttributeBonusViewModel() {
+                AttributeName = "teste2",
+                Selected = true
+            });
+
+            viewModel.AttributeBonus.Add(new AttributeBonusViewModel()
+            {
+                AttributeName = "teste3",
+                Selected = false
+            });
+
+            var appService = MockRepository.GenerateMock<IAttributeAppService>();
+
+            appService.Stub(s => s.Add(viewModel)).Return(viewModel);
+            
+
+            var resultAppService = viewModel.ValidationResult;
 
 
-        //    var appService = MockRepository.GenerateMock<IAttributeAppService>();
-        //    appService.Stub(s => s.Add(obj)).Return(obj);
+            Assert.IsTrue(resultAppService.IsValid);
+        }
 
-        //    var result = obj.ValidationResult;
+        //ARRANGE, ACT, ASSERT
+        [TestMethod]
+        public void AttributeAppService_Add_False()
+        {
+            var viewModel = new AttributeViewModel()
+            {
+                AttributeType = AttributeType.Misc,
+                AttributeDescription = "test"
+            };
 
-        //    Assert.IsTrue(result.IsValid);
-        //}
+            viewModel.AttributeBonus.Add(new AttributeBonusViewModel());
+
+            var appService = MockRepository.GenerateMock<IAttributeAppService>();
+
+            appService.Stub(s => s.Add(viewModel)).Return(viewModel);
+
+            viewModel = appService.Add(viewModel);
+            var resultAppService = viewModel.ValidationResult;
+
+            Assert.IsFalse(resultAppService.IsValid);
+        }
 
         ////ARRANGE, ACT, ASSERT
         //[TestMethod]

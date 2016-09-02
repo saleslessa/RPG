@@ -30,6 +30,8 @@ namespace DaemonCharacter.Domain.Interfaces.Service
 
         List<Attributes> ListBonusAttribute(Guid AttributeId);
 
+        IEnumerable<Guid> ListBonusAttributeIds(Guid AttributeId);
+
         void AddChild(Guid _attribute, Guid child);
 
         void AddParent(Guid _attribute, Guid parent);

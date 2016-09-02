@@ -1,22 +1,70 @@
 ﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.PlayerItem.SelectedPlayerItemViewModel>
 
-@if (Model.ToList().Count > 0)
+@if (Model.Where(t => !t.PlayerItemUsingItem).ToList().Count > 0)
 {
-<table class="table table-striped PlayerSheet">
-    <thead>
-        <tr>
-            <th class="small text-center inverse">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
-            <th class="small text-center inverse">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="small" style="vertical-align:middle">@Html.DisplayFor(m => item.ItemName)</td>
-                <td class="small" style="vertical-align:middle">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="div-items-container">
+        <h4 class="text-center"><strong>Using</strong></h4>
+
+        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
+                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
+                    <th class="small text-center"><i class="fa fa-cog"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="small">@Html.DisplayFor(m => item.ItemName)</td>
+                        <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
+
+                        @if (item.ItemUniqueUse)
+                        {
+                            <td class="small">
+                                <input type="button" value="Remove" class="btn btn-danger" />
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="small">
+                                <input type="button" value="Bag" class="btn btn-info" />
+                                <input type="button" value="Throw" class="btn btn-danger" />
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@if (Model.Where(t => !t.PlayerItemUsingItem).ToList().Count > 0)
+{
+    <div class="div-items-container">
+        <h4 class="text-center"><strong>Not Using</strong></h4>
+        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
+                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
+                    <th class="small text-center"><i class="fa fa-cog"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="small">@Html.DisplayFor(m => item.ItemName)</td>
+                        <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
+                        <td class="small">
+                            <input type="button" value="Throw" class="btn btn-danger" />
+                            <input type="button" value="Use" class="btn btn-success" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }

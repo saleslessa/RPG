@@ -1,0 +1,38 @@
+#particles canvas, img {
+    animation: appear 1.4s 1;
+    animation-fill-mode: forwards;
+    -webkit-animation: appear 1.4s 1;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes appear {
+    from {
+        -ms-transform: scale(0);
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes appear {
+    from {
+        -ms-transform: scale(0);
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}

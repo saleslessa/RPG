@@ -1,4 +1,7 @@
-﻿<div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel">
+﻿@section CustomStyle {
+    @Styles.Render("~/Content/homeCss")
+}
+<div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <li data-target='#carousel-example-generic' data-slide-to='0' class='active'>
@@ -19,12 +22,12 @@
             <div class="main-text hidden-xs">
                 <div class="col-md-12 text-center">
                     <h1>
-                         Just a Hub for <strong>RPG</strong>
+                        Just a Hub for <strong>RPG</strong>
                     </h1>
                     @*<div class="">
-                        <asp:HyperLink ID="HyperLink1" class="btn btn-clear btn-sm btn-min-block">Login</asp:HyperLink>
-                        <asp:HyperLink ID="HyperLink2" class="btn btn-clear btn-sm btn-min-block                           ">Registration</asp:HyperLink>
-                    </div>*@
+                            <asp:HyperLink ID="HyperLink1" class="btn btn-clear btn-sm btn-min-block">Login</asp:HyperLink>
+                            <asp:HyperLink ID="HyperLink2" class="btn btn-clear btn-sm btn-min-block                           ">Registration</asp:HyperLink>
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -35,9 +38,9 @@
                         A Goal without a plan<br />is just a wish
                     </h1>
                     @*<div class="">
-                        <asp:HyperLink ID="HyperLink3" class="btn btn-clear btn-sm btn-min-block">learn More</asp:HyperLink>
-                        <asp:HyperLink ID="HyperLink4" class="btn btn-clear btn-sm btn-min-block                           ">Download</asp:HyperLink>
-                    </div>*@
+                            <asp:HyperLink ID="HyperLink3" class="btn btn-clear btn-sm btn-min-block">learn More</asp:HyperLink>
+                            <asp:HyperLink ID="HyperLink4" class="btn btn-clear btn-sm btn-min-block                           ">Download</asp:HyperLink>
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -46,13 +49,13 @@
                 <div class="col-md-12 text-center">
                     <h1>Let's go fun?</h1>
                     @*<h1>
-                        You cannot<b class="yellow"> believe</b> in <b class="yellow">God</b><br />
-                        <span class="span">until you believe in yourself.</span>
-                    </h1>*@
+                            You cannot<b class="yellow"> believe</b> in <b class="yellow">God</b><br />
+                            <span class="span">until you believe in yourself.</span>
+                        </h1>*@
                     @*<div class="">
-                        <asp:HyperLink ID="HyperLink5" class="btn btn-clear btn-sm btn-min-block">Android</asp:HyperLink>
-                        <asp:HyperLink ID="HyperLink6" class="btn btn-clear btn-sm btn-min-block                           ">Apple</asp:HyperLink>
-                    </div>*@
+                            <asp:HyperLink ID="HyperLink5" class="btn btn-clear btn-sm btn-min-block">Android</asp:HyperLink>
+                            <asp:HyperLink ID="HyperLink6" class="btn btn-clear btn-sm btn-min-block                           ">Apple</asp:HyperLink>
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -66,7 +69,6 @@
     </a>
 </div>
 <!-- Carousel -->
-
 <!-- Service Section -->
 <section id="services" class="padding100">
     <div class="container">
@@ -113,117 +115,117 @@
     </div>
 
 </section>
-<!-- ./ End Service Section -->
 
+<!-- ./ End Service Section -->
 @*<!-- Page Content -->
-<section class="service-info padding100">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h4>
-                    Creative design
-                </h4>
-                <p>
-                    Akshara is a library to buy Bootstrap themes and templates for your business need.
-                    Want more Bootstrap themes & templates ?
-                </p>
-                <ul>
-                    <li><i class="fa fa-check"></i>Fully Responsive with bootstrap framework</li>
-                    <li><i class="fa fa-check"></i>Clean Code with HTML5 & CSS3</li>
-                    <li><i class="fa fa-check"></i>Working Contact Form with PHP Script</li>
-                    <li><i class="fa fa-check"></i>Dropbox login form \\\\</li>
-                    <li><i class="fa fa-check"></i>Best for mobiles and business sites & landing page.</li>
-                </ul>
-                <a href="#download" class="btn btn-download app">
-                    <i class="fa fa-android"></i><strong>
-                        Download App
-                    </strong> <span>Click to download</span>
-                </a>
+    <section class="service-info padding100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>
+                        Creative design
+                    </h4>
+                    <p>
+                        Akshara is a library to buy Bootstrap themes and templates for your business need.
+                        Want more Bootstrap themes & templates ?
+                    </p>
+                    <ul>
+                        <li><i class="fa fa-check"></i>Fully Responsive with bootstrap framework</li>
+                        <li><i class="fa fa-check"></i>Clean Code with HTML5 & CSS3</li>
+                        <li><i class="fa fa-check"></i>Working Contact Form with PHP Script</li>
+                        <li><i class="fa fa-check"></i>Dropbox login form \\\\</li>
+                        <li><i class="fa fa-check"></i>Best for mobiles and business sites & landing page.</li>
+                    </ul>
+                    <a href="#download" class="btn btn-download app">
+                        <i class="fa fa-android"></i><strong>
+                            Download App
+                        </strong> <span>Click to download</span>
+                    </a>
+                </div>
+                <!-- ./ app info box -->
+                <div class="col-md-6">
+                    <img src="~/Images/2.png" class="img-responsive" alt="" />
+                </div>
+                <!-- ./ app info box -->
             </div>
-            <!-- ./ app info box -->
-            <div class="col-md-6">
-                <img src="~/Images/2.png" class="img-responsive" alt="" />
-            </div>
-            <!-- ./ app info box -->
         </div>
-    </div>
-</section>*@
+    </section>*@
 <!-- /.container -->
 <!-- Products Section -->
 @*<section id="products" class="products-list padding100">
-    <div class="container">
-        <div class="row">
-            <div class="section-title col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-                <h2 class="animated wow fadeInLeft" data-wow-delay="0.4s">
-                    Our Innovative Latest <span class="common">' Products ' </span>All are free to download.
-                    Get more ...
-                </h2>
-            </div>
-        </div>
-        <!-- ./end row -->
-        <div class="row">
-            <div class="col-sm-12 animated wow fadeInUp" data-wow-delay="0.6s">
-                <div id="screens" class="owl-carousel">
-                    <div>
-                        <img src="~/Images/products/1.jpg" class="img-responsive" alt="screens">
-                    </div>
-                    <div>
-                        <img src="~/Images/products/2.jpg" class="img-responsive" alt="screens">
-                    </div>
-                    <div>
-                        <img src="~/Images/products/3.jpg" class="img-responsive" alt="screens">
-                    </div>
-                    <div>
-                        <img src="~/Images/products/1.jpg" class="img-responsive" alt="screens">
-                    </div>
-                    <div>
-                        <img src="~/Images/products/2.jpg" class="img-responsive" alt="screens">
-                    </div>
-                    <div>
-                        <img src="~/Images/products/3.jpg" class="img-responsive" alt="screens">
-                    </div>
-                    <div>
-                        <img src="~/Images/products/1.jpg" class="img-responsive" alt="screens">
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="section-title col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                    <h2 class="animated wow fadeInLeft" data-wow-delay="0.4s">
+                        Our Innovative Latest <span class="common">' Products ' </span>All are free to download.
+                        Get more ...
+                    </h2>
                 </div>
-                <!-- ./ end slider -->
             </div>
+            <!-- ./end row -->
+            <div class="row">
+                <div class="col-sm-12 animated wow fadeInUp" data-wow-delay="0.6s">
+                    <div id="screens" class="owl-carousel">
+                        <div>
+                            <img src="~/Images/products/1.jpg" class="img-responsive" alt="screens">
+                        </div>
+                        <div>
+                            <img src="~/Images/products/2.jpg" class="img-responsive" alt="screens">
+                        </div>
+                        <div>
+                            <img src="~/Images/products/3.jpg" class="img-responsive" alt="screens">
+                        </div>
+                        <div>
+                            <img src="~/Images/products/1.jpg" class="img-responsive" alt="screens">
+                        </div>
+                        <div>
+                            <img src="~/Images/products/2.jpg" class="img-responsive" alt="screens">
+                        </div>
+                        <div>
+                            <img src="~/Images/products/3.jpg" class="img-responsive" alt="screens">
+                        </div>
+                        <div>
+                            <img src="~/Images/products/1.jpg" class="img-responsive" alt="screens">
+                        </div>
+                    </div>
+                    <!-- ./ end slider -->
+                </div>
+            </div>
+            <!-- ./ end row -->
         </div>
-        <!-- ./ end row -->
-    </div>
-</section>*@
+    </section>*@
 <!-- Download Section -->
 @*<section id="download" class="padding100">
-    <div class="container">
-        <div class="row">
-            <div class="section-title col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-                <h2 class="animated wow fadeInLeft" data-wow-delay="0.4s">
-                    Waiting for what <span class="common">' DOWNLOAD NOW'</span>
-                </h2>
+        <div class="container">
+            <div class="row">
+                <div class="section-title col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                    <h2 class="animated wow fadeInLeft" data-wow-delay="0.4s">
+                        Waiting for what <span class="common">' DOWNLOAD NOW'</span>
+                    </h2>
 
-            </div>
-        </div>
-        <!-- ./end row -->
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-                <div class="download-wrap animated wow fadeInLeft" data-wow-delay="0.4s">
-                    <a href="#" class="btn btn-download wow fadeInUp">
-                        <i class="fa fa-android"></i><strong>
-                            Download App
-                        </strong> <span>From Play Store</span>
-                    </a><a href="#" class="btn btn-download app wow fadeInUp"
-                           data-wow-delay="0.2s">
-                        <i class="fa fa-apple"></i><strong>Download App</strong> <span>
-                            From App Store
-                        </span>
-                    </a><a href="#" class="btn btn-download window wow fadeInUp"
-                           data-wow-delay="0.2s">
-                        <i class="fa fa-windows"></i><strong>Download App</strong>
-                        <span>From windows store</span>
-                    </a>
                 </div>
             </div>
+            <!-- ./end row -->
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <div class="download-wrap animated wow fadeInLeft" data-wow-delay="0.4s">
+                        <a href="#" class="btn btn-download wow fadeInUp">
+                            <i class="fa fa-android"></i><strong>
+                                Download App
+                            </strong> <span>From Play Store</span>
+                        </a><a href="#" class="btn btn-download app wow fadeInUp"
+                               data-wow-delay="0.2s">
+                            <i class="fa fa-apple"></i><strong>Download App</strong> <span>
+                                From App Store
+                            </span>
+                        </a><a href="#" class="btn btn-download window wow fadeInUp"
+                               data-wow-delay="0.2s">
+                            <i class="fa fa-windows"></i><strong>Download App</strong>
+                            <span>From windows store</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- ./end row -->
         </div>
-        <!-- ./end row -->
-    </div>
-</section>*@
+    </section>*@
