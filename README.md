@@ -5,7 +5,7 @@ Role Play Hub is a site which can join people worldwide in order to have fun and
 It's a .NET project with following technologies and patterns:
   - Domain Driven Design
   - HTML5/jQuery/Bootstrap
-  - ASP.NET MVC 6
+  - ASP.NET MVC 5
   - Entity Framework
   - Specification Pattern
 
