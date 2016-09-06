@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using DaemonCharacter.Infra.Data.Interfaces;
-using DaemonCharacter.Application.ViewModels.PlayerItem;
+using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Domain.Interfaces.Service;
 using AutoMapper;
 using DaemonCharacter.Domain.Entities;
@@ -54,17 +54,14 @@ namespace DaemonCharacter.Application.AppService
         {
             var result = new Dictionary<string, int>();
             var items = _playerItemService.ListFromPlayer(CharacterId)
-                .Where(t => t.PlayerItemUsingItem == true);
-            
+                .Where(t => t.PlayerItemUsingItem == true)
+                .ToList();
+
             foreach (var playerItem in items)
             {
-                var bonus = _itemAttributeService.ListFromItem(playerItem.Item.ItemId)
-                    .Where(t => t.ItemAttributeId == AttributeId)
-                    .Select(s => s.ItemAttributeValue)
-                    .ToList();
-
-                foreach (var bonusValues in bonus)
-                    result.Add("Item: " + playerItem.Item.ItemName, bonusValues);
+                var bonus = _itemAttributeService.Get(playerItem.Item.ItemId, AttributeId);
+                if (bonus != null)
+                    result.Add("Item: " + playerItem.Item.ItemName, bonus.ItemAttributeValue);
             }
 
             return result;

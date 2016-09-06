@@ -1,9 +1,9 @@
-﻿@model DaemonCharacter.Application.ViewModels.CharacterAttribute.CharacterAttributeViewModel
+﻿@model DaemonCharacter.Application.ViewModels.Attribute.CharacterAttributeViewModel
 
 @{Layout = null;}
 <h3>Select Attributes</h3>
 <hr />
-<div class="col-md-6">
+<div class="col-md-4">
     <h4>List of available attributes</h4>
     @*TODO: implementar a pesquisa com paginação*@
 
@@ -36,16 +36,16 @@
     <input type="text" class="form-control col-md-12" placeholder="Search" id="SearchAvailable" />
 
     <div id="SearchAttributeContainer">
-        @{Html.RenderPartial("_SearchAttributes", Model.ListOfAvailableAttributes);}
+        @{Html.RenderPartial("_SearchAttributes", Model.ListOfAvailableAttributes.Where(t => t.AttributeType != AttributeType.Talent).ToList());}
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-4">
     <h4>Selected attributes</h4>
     @*TODO: implementar a pesquisa com paginação*@
 
     @Html.DropDownList("AttributeTypeSelected", list, htmlAttributes: new { @class = "form-control" })
     <input type="text" class="form-control col-md-12" placeholder="Search" />
-    <table id="TableSelected" class="table table-responsive table-striped">
+    <table id="TableSelected" class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
         <thead>
             <tr>
                 <th>Attribute</th>
@@ -55,4 +55,8 @@
         </thead>
         <tbody></tbody>
     </table>
+</div>
+<div class="col-md-4">
+    <h4>Talents</h4>
+    @{Html.RenderPartial("_SearchAttributes", Model.ListOfAvailableAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList());}
 </div>

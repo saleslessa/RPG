@@ -1,4 +1,4 @@
-﻿using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+﻿using DaemonCharacter.Application.ViewModels.Attribute;
 using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Service;
 

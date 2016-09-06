@@ -1,0 +1,29 @@
+﻿@model List<DaemonCharacter.Application.ViewModels.Item.ItemAttributeViewModel>
+
+@{ Layout = null;}
+
+<div class="control-label col-md-2">Bonus to</div>
+<div class="col-md-3" style="height:300px;overflow-y:auto;">
+    <table id="TableBonus" class="table mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Bonus</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int cont = 0; cont < Model.Count; cont++)
+            {
+                <tr id="@Html.Raw(Model[cont].Attribute.AttributeId)">
+                    <td class="tdAttributeName">
+                        @Html.DisplayFor(m => Model[cont].Attribute.AttributeName)
+                    </td>
+                    <td class="tdAttributeValue">
+                        @Html.EditorFor(model => model[cont].ItemAttributeValue, new { htmlAttributes = new { @class = "form-control textbox-small float-right ItemAttributeValue" } })
+                        @Html.ValidationMessageFor(model => model[cont].ItemAttributeValue, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

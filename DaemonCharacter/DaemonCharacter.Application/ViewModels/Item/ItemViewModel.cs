@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,13 +7,12 @@ namespace DaemonCharacter.Application.ViewModels.Item
 {
     public class ItemViewModel
     {
-        [Key]
         public Guid ItemId { get; set; }
 
         [DisplayName("Name")]
         public string ItemName { get; set; }
 
-        [DisplayName("Effect")]
+        [DisplayName("Textual Effects")]
         public string ItemEffect { get; set; }
 
         [DisplayName("Price")]
@@ -25,6 +25,9 @@ namespace DaemonCharacter.Application.ViewModels.Item
         [DisplayName("Category")]
         public ItemCategory ItemCategory { get; set; }
 
+        [DisplayName("Attribute Bonus")]
+        public List<ItemAttributeViewModel> ItemAttribute { get; set; }
+
         [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
 
@@ -32,6 +35,7 @@ namespace DaemonCharacter.Application.ViewModels.Item
         {
             ItemId = Guid.NewGuid();
             ValidationResult = new DomainValidation.Validation.ValidationResult();
+            ItemAttribute = new List<ItemAttributeViewModel>();
             UniqueUse = false;
         }
     }

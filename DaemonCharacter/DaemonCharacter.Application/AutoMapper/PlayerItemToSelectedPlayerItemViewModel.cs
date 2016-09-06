@@ -1,4 +1,4 @@
-﻿using DaemonCharacter.Application.ViewModels.PlayerItem;
+﻿using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;

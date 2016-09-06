@@ -37,7 +37,7 @@ namespace DaemonCharacter.Application.ViewModels.Attribute
         public int AttributeMinimum { get; set; }
         
         [DisplayName("Bonus to")]
-        public IList<AttributeBonusViewModel> AttributeBonus { get; set; }
+        public List<AttributeBonusViewModel> AttributeBonus { get; set; }
 
         [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }

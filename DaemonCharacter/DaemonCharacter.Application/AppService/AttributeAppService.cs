@@ -25,21 +25,21 @@ namespace DaemonCharacter.Application.AppService
             var att = Mapper.Map<AttributeViewModel, Attributes>(AttributeViewModel);
             att.AttributeBonus = new List<Attributes>();
 
-            att = _attributeService.Add(att);
-
-            if (!att.ValidationResult.IsValid)
-                return Mapper.Map<Attributes, AttributeViewModel>(att);
-
             foreach (var AttBonus in AttributeViewModel.AttributeBonus)
             {
                 if (AttBonus.Selected)
                 {
-                    _attributeService.AddChild(att.AttributeId, AttBonus.AttributeId);
-                    _attributeService.AddParent(AttBonus.AttributeId, att.AttributeId);
+                    att.AttributeBonus.Add(_attributeService.Get(AttBonus.AttributeId));
+                    _attributeService.AddParent(_attributeService.Get(AttBonus.AttributeId), att);
                 }
             }
 
+            att = _attributeService.Add(att);
+
             Commit();
+
+            if (!att.ValidationResult.IsValid)
+                return Mapper.Map<Attributes, AttributeViewModel>(att);
 
             return AttributeViewModel;
         }
@@ -118,8 +118,9 @@ namespace DaemonCharacter.Application.AppService
             {
                 if (AttBonus.Selected)
                 {
-                    _attributeService.AddChild(att.AttributeId, AttBonus.AttributeId);
-                    _attributeService.AddParent(AttBonus.AttributeId, att.AttributeId);
+                    var bonus = _attributeService.Get(AttBonus.AttributeId);
+                    _attributeService.AddChild(att, bonus);
+                    _attributeService.AddParent(bonus, att);
                 }
             }
 

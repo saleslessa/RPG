@@ -16,7 +16,11 @@ namespace DaemonCharacter.Domain.Interfaces.Service
 
         ItemAttribute Get(Guid ItemAttributeId);
 
+        ItemAttribute Get(Guid ItemId, Guid AttributeId);
+
         void Remove(Guid itemAttributeId);
+
+        void RemoveFromItem(Guid ItemId);
 
     }
 }

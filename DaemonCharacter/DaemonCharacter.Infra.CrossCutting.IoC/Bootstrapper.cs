@@ -47,9 +47,8 @@ namespace DaemonCharacter.Infra.CrossCutting.IoC
             container.Register<IPlayerItemRespository, PlayerItemRepository>(Lifestyle.Scoped);
             container.Register<IItemAttributeRepository, ItemAttributeRepository>(Lifestyle.Scoped);
 
-
-            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
             container.Register<DaemonCharacterContext>(Lifestyle.Scoped);
+            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
         }
     }
 }

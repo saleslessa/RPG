@@ -35,6 +35,11 @@ namespace DaemonCharacter.Domain.Services
             return _itemAttributeRepository.Get(ItemAttributeId);
         }
 
+        public ItemAttribute Get(Guid ItemId, Guid AttributeId)
+        {
+            return _itemAttributeRepository.Search(t => t.Attribute.AttributeId == AttributeId && t.Item.ItemId == ItemId).FirstOrDefault();
+        }
+
         public IEnumerable<ItemAttribute> ListFromAttribute(Guid? attributeId)
         {
             return _itemAttributeRepository.Search(t => t.Attribute.AttributeId == attributeId).ToList();
@@ -48,6 +53,11 @@ namespace DaemonCharacter.Domain.Services
         public void Remove(Guid itemAttributeId)
         {
             _itemAttributeRepository.Remove(itemAttributeId);
+        }
+
+        public void RemoveFromItem(Guid ItemId)
+        {
+            _itemAttributeRepository.Remove(_itemAttributeRepository.ListFromItem(ItemId));
         }
 
         public ItemAttribute Update(ItemAttribute model)

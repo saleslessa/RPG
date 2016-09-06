@@ -1,4 +1,5 @@
-﻿using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+﻿using DaemonCharacter.Application.Interfaces;
+using DaemonCharacter.Application.ViewModels.Attribute;
 using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Service;
 using System.Collections.Generic;
@@ -11,13 +12,15 @@ namespace DaemonCharacter.Application.AutoMapper
         private readonly IAttributeService _attributeService;
         private readonly IPlayerService _playerService;
         private readonly ICharacterAttributeService _characterAttributeService;
+        private readonly IPlayerItemAppService _playerItemAppService;
 
         public CharacterAttributeToSelectedCharacterAttributeViewModel(IAttributeService attributeService, IPlayerService playerService
-            , ICharacterAttributeService characterAttributeService)
+            , ICharacterAttributeService characterAttributeService, IPlayerItemAppService playerItemAppService)
         {
             _attributeService = attributeService;
             _playerService = playerService;
             _characterAttributeService = characterAttributeService;
+            _playerItemAppService = playerItemAppService;
         }
 
         public IEnumerable<SelectedCharacterAttributeViewModel> Map(IEnumerable<CharacterAttribute> model)
@@ -36,6 +39,12 @@ namespace DaemonCharacter.Application.AutoMapper
                     AttributeDescription = item.Attribute.AttributeDescription,
                     BonusValue = _characterAttributeService.GetTotalBonus(item.Character.CharacterId, item.Attribute.AttributeId)
                 };
+
+                var BonusFromUsedItems = _playerItemAppService.ListBonusOfAllUsedItemsFromAttribute(obj.CharacterId, obj.AttributeId);
+                foreach (var bonus in BonusFromUsedItems)
+                {
+                    obj.BonusValue += bonus.Value;
+                }
 
                 obj.TotalValue = obj.Value + obj.BonusValue;
 

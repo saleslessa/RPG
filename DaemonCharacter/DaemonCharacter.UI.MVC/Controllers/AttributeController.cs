@@ -3,6 +3,7 @@ using DaemonCharacter.Application.ViewModels.Attribute;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
@@ -44,33 +45,35 @@ namespace DaemonCharacter.UI.MVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(AttributeViewModel att)
+        public JsonResult Create(AttributeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                att = _attributeAppService.Add(att);
+                LoadAttributeErrors(model);
 
-                if (!att.ValidationResult.IsValid)
-                {
-                    foreach (var error in att.ValidationResult.Erros)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Message);
-                    }
+                var errorList = ModelState.ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    );
 
-                    return View(att);
-                }
-
-                if (!att.ValidationResult.Message.IsNullOrWhiteSpace())
-                {
-                    ViewBag.Success = att.ValidationResult.Message;
-                    return View(att);
-                }
-
-                return RedirectToAction("Index");
+                return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
             }
 
-            return View(att);
+            model = _attributeAppService.Add(model);
+
+            if (!model.ValidationResult.IsValid)
+            {
+                LoadAttributeErrors(model);
+                return Json(new { error = "ValildationResultError", model = model.ValidationResult });
+            }
+
+            return Json(new { error = "", message = model.ValidationResult.Message });
+        }
+
+        private void LoadAttributeErrors(AttributeViewModel model)
+        {
+            foreach (var error in model.ValidationResult.Erros)
+                ModelState.AddModelError(string.Empty, error.Message);
         }
 
         public ActionResult Edit(Guid? id)
@@ -88,33 +91,29 @@ namespace DaemonCharacter.UI.MVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(AttributeViewModel att)
+        public JsonResult Edit(AttributeViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _attributeAppService.Update(att);
+                LoadAttributeErrors(model);
 
-                if (!att.ValidationResult.IsValid)
-                {
-                    foreach (var error in att.ValidationResult.Erros)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Message);
-                    }
+                var errorList = ModelState.ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    );
 
-                    return View(att);
-                }
-
-                if (!att.ValidationResult.Message.IsNullOrWhiteSpace())
-                {
-                    ViewBag.Message = att.ValidationResult.Message;
-                    return View(att);
-                }
-
-                return RedirectToAction("Index");
+                return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
             }
 
-            return View(att);
+            model = _attributeAppService.Update(model);
+
+            if (!model.ValidationResult.IsValid)
+            {
+                LoadAttributeErrors(model);
+                return Json(new { error = "ValildationResultError", model = model.ValidationResult });
+            }
+
+            return Json(new { error = "", message = model.ValidationResult.Message });
         }
 
         public ActionResult Delete(Guid? id)

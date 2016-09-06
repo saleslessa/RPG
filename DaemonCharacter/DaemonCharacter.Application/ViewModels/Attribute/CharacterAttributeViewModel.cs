@@ -1,10 +1,9 @@
-﻿using DaemonCharacter.Application.ViewModels.Attribute;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace DaemonCharacter.Application.ViewModels.CharacterAttribute
+namespace DaemonCharacter.Application.ViewModels.Attribute
 {
     public class CharacterAttributeViewModel
     {

@@ -18,6 +18,8 @@ namespace DaemonCharacter.Domain.Interfaces.Repository
 
         void Remove(Guid id);
 
+        void Remove(IEnumerable<TEntity> entity);
+
         IEnumerable<TEntity> Search(Expression<Func<TEntity, bool>> predicate);
 
         IEnumerable<TEntity> SearchWithPagination(Expression<Func<TEntity, object>> OrderBy, int skip, int take, Expression<Func<TEntity, bool>> predicate);

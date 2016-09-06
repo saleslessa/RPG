@@ -8,7 +8,6 @@
         ShowToolTipItemInfo($(this));
     });
 
-
     $('.attribute-editable').on('change', null, function (event) {
         SetAttributeValue($(this).parent().parent().attr('id'), $(this).val());
         sleep(50).then(() => {
@@ -41,63 +40,49 @@
 function ShowToolTipItemInfo(obj) {
     var url = '/Item/GetInfo/?ItemId=' + jQuery(obj).parent().attr('id');
     var tooltip = $("div[id=tooltip_" + jQuery(obj).parent().attr('id'));
-
-    tooltip.empty();
+    ResetToolTip(obj);
 
     $.getJSON(url, function (data) {
         for (var i = 0; i < data.length; i++) {
-            tooltip.append('<br>' + data[i]["Key"] + ' - ' + data[i]["Value"] + '<br>');
+            tooltip.append('<br>' + data[i]["Key"] + ': ' + data[i]["Value"] + '<br>');
         }
     });
 }
 
-function RecalculateTotal(obj) {    
+function RecalculateTotal(obj) {
     var value = parseInt(jQuery(obj).parent().parent().children('.td-editable').children('.attribute-editable').val());
     var bonus = parseInt(jQuery(obj).parent().parent().children('.td-bonus').children('.attribute-bonus').val());
-
     jQuery(obj).parent().parent().children('.td-total').children('.attribute-total').val(parseInt(value + bonus));
 }
 
 function ShowToolTipAttributeBonusInfo(obj) {
-    var url = '/CharacterAttribute/GetBonusInfo/?CharacterId=' + $('#CharacterId').val() + '&AttributeId=' + jQuery(obj).parent().parent().attr('id');
     var tooltip = $("div[id=tooltip_" + jQuery(obj).attr('id').split('_')[1]);
+    ResetToolTip(obj);
 
-    tooltip.empty();
-
-    $.getJSON(url, function (data) {
-        for (var i = 0; i < data.length; i++) {
-            tooltip.append('<br>' + data[i]["Key"] + ' - ' + data[i]["Value"] + '<br>');
-        }
-    });
-
-}
-
-function GetAttributeBonusInfo(obj) {
-    GetAttributeBonusInfoFromOtherAttributes(obj);
-    GetAttributeBonusInfoFromUsedItems(obj);
-}
-
-function GetAttributeBonusInfoFromOtherAttributes(obj)
-{
     var url = '/CharacterAttribute/GetBonusInfo/?CharacterId=' + $('#CharacterId').val() + '&AttributeId=' + jQuery(obj).parent().parent().attr('id');
-    jQuery(obj).val(0);
-    jQuery(obj).parent().parent().children('.td-total').children('.attribute-total').val(0);
-
     $.getJSON(url, function (data) {
         for (var i = 0; i < data.length; i++) {
-            jQuery(obj).val(parseInt(jQuery(obj).val()) + parseInt(data[i]["Value"]));
+            tooltip.append('<br>' + data[i]["Key"] + ': ' + data[i]["Value"] + '<br>');
         }
     });
 }
 
-function GetAttributeBonusInfoFromUsedItems(obj) {
-    var url = '/PlayerItem/GetBonusInfo/?CharacterId=' + $('#CharacterId').val() + '&AttributeId=' + jQuery(obj).parent().parent().attr('id');
-    jQuery(obj).val(0);
-    jQuery(obj).parent().parent().children('.td-total').children('.attribute-total').val(0);
+function ResetToolTip(obj) {
+    var tooltip = $("div[id=tooltip_" + jQuery(obj).attr('id').split('_')[1]);
+    tooltip.empty();
+}
 
+function ResetValuesOfAttribute(obj) {
+    jQuery(obj).parent().parent().children('.td-total').children('.attribute-total').val(0);
+    jQuery(obj).val(0);
+}
+
+function GetBonusInfoAttributes(obj) {
+    var url = '/CharacterAttribute/GetBonusInfo/?CharacterId=' + $('#CharacterId').val() + '&AttributeId=' + jQuery(obj).parent().parent().attr('id');
     $.getJSON(url, function (data) {
         for (var i = 0; i < data.length; i++) {
-            jQuery(obj).val(parseInt(jQuery(obj).val()) + parseInt(data[i]["Value"]));
+            if (data[i]["Value"] != "--")
+                jQuery(obj).val(parseInt(jQuery(obj).val()) + parseInt(data[i]["Value"]));
         }
     });
 }
@@ -135,7 +120,8 @@ function SetAttributeValue(attribute, value) {
 
 function ReloadAttributeBonus() {
     $('.attribute-bonus').each(function (index, element) {
-        GetAttributeBonusInfo(element);
+        ResetValuesOfAttribute(element);
+        GetBonusInfoAttributes(element);
         RecalculateTotal(element);
     });
 }

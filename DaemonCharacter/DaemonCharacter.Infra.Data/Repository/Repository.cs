@@ -5,7 +5,6 @@ using DaemonCharacter.Domain.Interfaces.Repository;
 using DaemonCharacter.Infra.Data.Context;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DaemonCharacter.Infra.Data.Repository
 {
@@ -22,9 +21,13 @@ namespace DaemonCharacter.Infra.Data.Repository
 
         public TEntity Add(TEntity obj)
         {
-            var result = DbSet.Add(obj);
-            //db.SaveChanges();
-            return result;
+            return DbSet.Add(obj);
+
+            //var entry = db.Entry(obj);
+
+            //DbSet.Attach(obj);
+            //entry.State = EntityState.Added;
+            //return obj;
         }
 
         public void Dispose()
@@ -41,7 +44,6 @@ namespace DaemonCharacter.Infra.Data.Repository
         public void Remove(Guid id)
         {
             DbSet.Remove(DbSet.Find(id));
-            //db.SaveChanges();
         }
 
         public IEnumerable<TEntity> Search(Expression<Func<TEntity, bool>> predicate)
@@ -57,10 +59,9 @@ namespace DaemonCharacter.Infra.Data.Repository
         public TEntity Update(TEntity obj)
         {
             var entry = db.Entry(obj);
-            
+
             DbSet.Attach(obj);
             entry.State = EntityState.Modified;
-            //db.SaveChanges();
             return obj;
         }
 
@@ -78,5 +79,9 @@ namespace DaemonCharacter.Infra.Data.Repository
             //return DbSet.Where(predicate).OrderBy(OrderBy).Skip(skip).Take(take).ToList();
         }
 
+        public void Remove(IEnumerable<TEntity> entity)
+        {
+            DbSet.RemoveRange(entity);
+        }
     }
 }

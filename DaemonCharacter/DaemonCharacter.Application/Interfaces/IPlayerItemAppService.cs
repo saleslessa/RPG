@@ -1,4 +1,4 @@
-﻿using DaemonCharacter.Application.ViewModels.PlayerItem;
+﻿using DaemonCharacter.Application.ViewModels.Player;
 using System;
 using System.Collections.Generic;
 
@@ -19,5 +19,7 @@ namespace DaemonCharacter.Application.Interfaces
         IEnumerable<PlayerItemViewModel> ListFromPlayer(Guid CharacterId);
 
         Dictionary<string, int> ListBonusOfAllUsedItemsFromAttribute(Guid CharacterId, Guid AttributeId);
+
+
     }
 }

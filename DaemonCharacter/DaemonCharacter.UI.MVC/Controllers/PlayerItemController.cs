@@ -1,6 +1,5 @@
 ﻿using DaemonCharacter.Application.Interfaces;
 using DaemonCharacter.Application.ViewModels.Player;
-using DaemonCharacter.Application.ViewModels.PlayerItem;
 using System;
 using System.Collections.Generic;
 using System.Linq;

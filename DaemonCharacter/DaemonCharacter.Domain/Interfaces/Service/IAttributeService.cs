@@ -32,9 +32,9 @@ namespace DaemonCharacter.Domain.Interfaces.Service
 
         IEnumerable<Guid> ListBonusAttributeIds(Guid AttributeId);
 
-        void AddChild(Guid _attribute, Guid child);
+        void AddChild(Attributes attribute, Attributes child);
 
-        void AddParent(Guid _attribute, Guid parent);
+        void AddParent(Attributes attribute, Attributes parent);
 
         IEnumerable<Attributes> SearchByNameWithPagination(int skip, int take, string name);
 

@@ -1,0 +1,26 @@
+﻿@model IList<DaemonCharacter.Application.ViewModels.Attribute.AttributeBonusViewModel>
+
+@{ Layout = null;}
+
+<div class="control-label col-md-2">Bonus to</div>
+<div class="col-md-3" style="height:300px;overflow-y:auto;">
+    <table id="TableBonus" class="table mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <tr>
+            <th style="display:none;"></th>
+            <th colspan="2">Attribute</th>
+        </tr>
+
+        @for (int cont = 0; cont < Model.Count; cont++)
+            {
+            <tr id="@Html.Raw(Model[cont].AttributeId)">
+                <td class="tdAttributeName">
+                    @Html.DisplayFor(m => Model[cont].AttributeName)
+                </td>
+                <td class="tdSelectAttribute">
+                    @Html.CheckBoxFor(m => Model[cont].Selected, new { @class = "AttributeBonus" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

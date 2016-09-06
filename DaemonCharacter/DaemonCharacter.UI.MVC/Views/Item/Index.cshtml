@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Item.ItemViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of Items";
 }
 
 <h2 class="white">Index</h2>
@@ -10,7 +10,7 @@
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
-    <table class="table table-responsive table-striped PlayerSheet">
+    <table class="table mdl-data-table mdl-js-data-table mdl-shadow--2dp">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ItemName)
@@ -44,7 +44,6 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ItemId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ItemId }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.ItemId })
                 </td>
             </tr>

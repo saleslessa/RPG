@@ -1,5 +1,5 @@
 ﻿using DaemonCharacter.Application.Interfaces;
-using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+using DaemonCharacter.Application.ViewModels.Attribute;
 using DaemonCharacter.Application.ViewModels.Player;
 using System;
 using System.Collections.Generic;
@@ -12,11 +12,14 @@ namespace DaemonCharacter.UI.MVC.Controllers
     {
         private readonly ICharacterAttributeAppService _characterAttributeAppService;
         private readonly IAttributeAppService _attributeAppService;
+        private readonly IPlayerItemAppService _playerItemAppService;
 
-        public CharacterAttributeController(ICharacterAttributeAppService characterAttributeAppService, IAttributeAppService attributeAppService)
+        public CharacterAttributeController(ICharacterAttributeAppService characterAttributeAppService, IAttributeAppService attributeAppService
+            , IPlayerItemAppService playerItemAppService)
         {
             _characterAttributeAppService = characterAttributeAppService;
             _attributeAppService = attributeAppService;
+            _playerItemAppService = playerItemAppService;
         }
 
         public ActionResult _Create(PlayerViewModel player)
@@ -28,7 +31,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
             ViewBag.PaginationSkip = 0;
             ViewBag.PaginationTake = 10;
-            
+
             return View(model);
         }
 
@@ -36,13 +39,18 @@ namespace DaemonCharacter.UI.MVC.Controllers
         public JsonResult GetBonusInfo(Guid CharacterId, Guid AttributeId)
         {
             var BonusByAttributes = _characterAttributeAppService.GetTotalBonusAttributes(CharacterId, AttributeId);
+            var BonusByItems = _playerItemAppService.ListBonusOfAllUsedItemsFromAttribute(CharacterId, AttributeId);
 
             var result = new List<object>();
 
             foreach (var item in BonusByAttributes)
-            {
                 result.Add(new { Key = item.Key, Value = item.Value });
-            }
+
+            if (BonusByItems.Count > 0)
+                result.Add(new { Key = "Items", Value = "" });
+
+            foreach (var item in BonusByItems)
+                result.Add(new { Key = item.Key, Value = item.Value });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -58,7 +66,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
             catch (Exception ex)
             {
                 return Json(new { status = "error", error = ex.Message });
-            }   
+            }
         }
 
         protected override void Dispose(bool disposing)

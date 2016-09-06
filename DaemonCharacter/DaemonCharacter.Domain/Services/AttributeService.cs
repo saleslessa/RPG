@@ -56,7 +56,7 @@ namespace DaemonCharacter.Domain.Services
 
         public IEnumerable<Attributes> ListAvailableForBonus(Guid? SelectedAttribute)
         {
-            return _attributeRepository.Search(t => t.AttributeType != AttributeType.Characteristic
+            return _attributeRepository.Search(t => t.AttributeType != AttributeType.Talent
             && (t.AttributeId != SelectedAttribute || SelectedAttribute == null));
         }
 
@@ -74,22 +74,16 @@ namespace DaemonCharacter.Domain.Services
             return _attributeRepository.Update(att);
         }
 
-        public void AddParent(Guid _attribute, Guid parent)
+        public void AddParent(Attributes attribute, Attributes parent)
         {
-            var att = Get(_attribute);
-            var attParent = Get(parent);
-
-            att.ParentAttribute.Add(attParent);
-            _attributeRepository.Update(att);
+            attribute.ParentAttribute.Add(parent);
+            _attributeRepository.Update(attribute);
         }
 
-        public void AddChild(Guid _attribute, Guid child)
+        public void AddChild(Attributes attribute, Attributes child)
         {
-            var att = Get(_attribute);
-            var attChild = Get(child);
-
-            att.AttributeBonus.Add(attChild);
-            _attributeRepository.Update(att);
+            attribute.AttributeBonus.Add(child);
+            _attributeRepository.Update(attribute);
         }
 
         public void RemoveParent(Guid att, Guid parent)
@@ -97,7 +91,7 @@ namespace DaemonCharacter.Domain.Services
             var child = Get(att);
             var par = Get(parent);
 
-            if (child.ParentAttribute.Remove(par))
+            if (child != null && child.ParentAttribute != null && child.ParentAttribute.Remove(par))
                 _attributeRepository.Update(child);
         }
 

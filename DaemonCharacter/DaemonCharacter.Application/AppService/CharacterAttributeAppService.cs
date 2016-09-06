@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using DaemonCharacter.Infra.Data.Interfaces;
-using DaemonCharacter.Application.ViewModels.CharacterAttribute;
+using DaemonCharacter.Application.ViewModels.Attribute;
 using AutoMapper;
 using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Service;

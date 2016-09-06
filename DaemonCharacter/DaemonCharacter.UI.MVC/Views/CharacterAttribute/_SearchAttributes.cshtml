@@ -1,19 +1,45 @@
 ﻿@model List<DaemonCharacter.Application.ViewModels.Attribute.AttributeViewModel>
 
-<table class="table table-responsive table-striped" id="TableSearch">
-    <thead>
-        <tr>
-            <th>Attribute</th>
-            <th colspan="2">Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="clickable-row" style="cursor:pointer" id="@Html.Raw(item.AttributeId)">
-                <td>@Html.DisplayFor(m => item.AttributeName)</td>
-                <td colspan="2">@Html.DisplayFor(m => item.AttributeDescription)</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="col-md-12" style="height:375px;overflow-y:auto;">
+    @if (Model.FirstOrDefault().AttributeType != AttributeType.Talent)
+    {
+        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="TableSearch">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="clickable-row" style="cursor:pointer" id="@Html.Raw(item.AttributeId)">
+                        <td>@Html.DisplayFor(m => item.AttributeName)</td>
+                        <td>@Html.DisplayFor(m => item.AttributeDescription)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+
+        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="TableTalents">
+            <thead>
+                <tr>
+                    <th>Talent</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="clickable-row" style="cursor:pointer" id="@Html.Raw(item.AttributeId)">
+                        <td>@Html.DisplayFor(m => item.AttributeName)</td>
+                        <td>@Html.DisplayFor(m => item.AttributeDescription)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

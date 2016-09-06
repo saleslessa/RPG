@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace DaemonCharacter.Application.ViewModels.PlayerItem
+namespace DaemonCharacter.Application.ViewModels.Player
 {
     public class SelectedPlayerItemViewModel
     {

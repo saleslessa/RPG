@@ -14,6 +14,8 @@ namespace DaemonCharacter.Application.Interfaces
 
         ItemViewModel Update(ItemViewModel model);
 
+        IEnumerable<ItemAttributeViewModel> ListAvailableForBonus(Guid? itemId);
+
         void Remove(Guid id);
     }
 }

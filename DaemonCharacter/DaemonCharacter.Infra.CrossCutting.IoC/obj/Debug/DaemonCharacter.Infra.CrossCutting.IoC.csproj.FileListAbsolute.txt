@@ -68,3 +68,4 @@ C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.I
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\obj\Debug\DaemonCharacter.Infra.CrossCutting.IoC.dll
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\obj\Debug\DaemonCharacter.Infra.CrossCutting.IoC.pdb
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\AutoMapper.xml
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\AutoMapper.xml

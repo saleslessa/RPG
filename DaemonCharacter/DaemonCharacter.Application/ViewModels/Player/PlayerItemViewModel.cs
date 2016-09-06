@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using DaemonCharacter.Application.ViewModels.Item;
 
-namespace DaemonCharacter.Application.ViewModels.PlayerItem
+namespace DaemonCharacter.Application.ViewModels.Player
 {
     public class PlayerItemViewModel
     {

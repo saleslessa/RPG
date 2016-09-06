@@ -38,3 +38,4 @@ C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.A
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.dll
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\obj\Debug\DaemonCharacter.Application.pdb
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\AutoMapper.xml
+C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Application\bin\Debug\AutoMapper.xml

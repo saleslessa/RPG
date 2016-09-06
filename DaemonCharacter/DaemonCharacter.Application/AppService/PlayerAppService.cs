@@ -7,8 +7,7 @@ using DaemonCharacter.Domain.Entities;
 using System.Collections.Generic;
 using AutoMapper;
 using DaemonCharacter.Application.AutoMapper;
-using DaemonCharacter.Application.ViewModels.CharacterAttribute;
-using DaemonCharacter.Application.ViewModels.PlayerItem;
+using DaemonCharacter.Application.ViewModels.Attribute;
 using System.Threading.Tasks;
 
 namespace DaemonCharacter.Application.AppService
@@ -20,11 +19,12 @@ namespace DaemonCharacter.Application.AppService
         private readonly ICampaignService _campaignService;
         private readonly ICharacterAttributeService _characterAttributeService;
         private readonly IPlayerItemService _playerItemService;
+        private readonly IPlayerItemAppService _playerItemAppService;
         private readonly IItemService _itemService;
         private readonly IAttributeService _attributeService;
 
         public PlayerAppService(IPlayerService playerService, ICampaignService campaignService, IPlayerItemService playerItemService
-            , ICharacterAttributeService characterAttributeService, IItemService itemService, IAttributeService attributeService
+            , ICharacterAttributeService characterAttributeService, IItemService itemService, IPlayerItemAppService playerItemAppService, IAttributeService attributeService
             , IUnitOfWork uow) : base(uow)
         {
             _playerService = playerService;
@@ -33,6 +33,7 @@ namespace DaemonCharacter.Application.AppService
             _playerItemService = playerItemService;
             _itemService = itemService;
             _attributeService = attributeService;
+            _playerItemAppService = playerItemAppService;
         }
 
         public PlayerViewModel Add(PlayerViewModel model)
@@ -77,7 +78,7 @@ namespace DaemonCharacter.Application.AppService
 
             result.SelectedItems = new PlayerItemToSelectedPlayerItemViewModel().Map(_playerItemService.ListFromPlayer(result.CharacterId));
 
-            result.SelectedAttributes = new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService)
+            result.SelectedAttributes = new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService, _playerItemAppService)
                 .Map(_characterAttributeService.ListFromCharacter(result.CharacterId));
 
             return result;
@@ -117,7 +118,7 @@ namespace DaemonCharacter.Application.AppService
 
         public async Task<IEnumerable<SelectedCharacterAttributeViewModel>> GetAttributesAsync(Guid id)
         {
-            return await new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService)
+            return await new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService, _playerItemAppService)
                 .MapAsync(_characterAttributeService.ListFromCharacter(id));
         }
 
@@ -128,7 +129,7 @@ namespace DaemonCharacter.Application.AppService
 
         public IEnumerable<SelectedCharacterAttributeViewModel> GetAttributes(Guid id)
         {
-            return new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService)
+            return new CharacterAttributeToSelectedCharacterAttributeViewModel(_attributeService, _playerService, _characterAttributeService, _playerItemAppService)
                  .Map(_characterAttributeService.ListFromCharacter(id));
         }
 

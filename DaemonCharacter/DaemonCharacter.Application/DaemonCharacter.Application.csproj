@@ -76,13 +76,15 @@
     <Compile Include="ViewModels\Attribute\AttributeViewModel.cs" />
     <Compile Include="ViewModels\Campaign\CampaignViewModel.cs" />
     <Compile Include="ViewModels\Campaign\PlayerCampaignViewModel.cs" />
-    <Compile Include="ViewModels\CharacterAttribute\CharacterAttributeViewModel.cs" />
-    <Compile Include="ViewModels\CharacterAttribute\SelectedCharacterAttributeViewModel.cs" />
+    <Compile Include="ViewModels\Attribute\CharacterAttributeViewModel.cs" />
+    <Compile Include="ViewModels\Attribute\SelectedCharacterAttributeViewModel.cs" />
+    <Compile Include="ViewModels\Item\ItemAttributeViewModel.cs" />
     <Compile Include="ViewModels\Item\ItemViewModel.cs" />
+    <Compile Include="ViewModels\Item\SelectedItemAttributeViewModel.cs" />
     <Compile Include="ViewModels\Item\SelectedItemViewModel.cs" />
     <Compile Include="ViewModels\NonPlayer\NonPlayerViewModel.cs" />
-    <Compile Include="ViewModels\PlayerItem\PlayerItemViewModel.cs" />
-    <Compile Include="ViewModels\PlayerItem\SelectedPlayerItemViewModel.cs" />
+    <Compile Include="ViewModels\Player\PlayerItemViewModel.cs" />
+    <Compile Include="ViewModels\Player\SelectedPlayerItemViewModel.cs" />
     <Compile Include="ViewModels\Player\PlayerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

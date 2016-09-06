@@ -71,13 +71,17 @@
 
         row += '<td>' + this.cells[0].innerText + '</td>';
         row += '<td class="TdAttributeValue"><input type="number" name="CharacterAttributeValue" class="CharacterAttributeValue" min="0" class="form-control" /></td>';
-        row += '<td><input type="button" class="clickable-row btn btn-default" value=" - " />';
+        row += '<td><input type="button" class="clickable-row btn btn-danger" value=" - " />';
 
         row += '</tr>';
 
         $('#TableSelected tbody').append(row);
 
         $(this).remove();
+    });
+
+    $('#TableTalents').on('click', '.clickable-row', function (event) {
+        $(this).closest('tr').toggleClass("active");
     });
 
 
@@ -132,73 +136,26 @@
 
     $("input[name=btnCreatePlayer]").on('click', null, function (event) {
         var model = MountBasicInformation();
-        var objAttributes = MountAttributes();
-        var objItems = MountItems();
+        model.SelectedAttributes = MountAttributes();
+        model.SelectedItems = MountItems();
 
-        model.SelectedAttributes = objAttributes;
-        model.SelectedItems = objItems;
+        ResetMessageSummary();
 
-        $("#errorSummary").hide();
-        $("#errorSummary").empty();
-
-        $.ajax(
-        {
-            dataType: 'JSON',
-            url: '/Player/Create/',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ model: model }),
-
-            success: function (response) {
-                if (response.error == "")
-                    $("#errorSummary").append('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button><h3>' + response.message + '</h3></div>');
-
-                if (response.error == "ModelStateError")
-                    MountModelStateErrorMessage(response.model);
-
-                if (response.error == "ValildationResultError")
-                    MountValildationResultError(response.model);
-
-                $("#errorSummary").slideToggle('slow');
-            },
-            error: function (xhr) {
-                alert("An error occured when trying to create your character. Plase try again later");
-            }
-        });
-
-        
+        SaveModel(model, '/Player/Create/');
     });
 
+    $('#PlayerMoney').on('change', null, function (event) {
+        $('#input-total-money').val($(this).val());
+        VerifyTotalInvested();
+    });
 });
-
-function MountValildationResultError(model) {
-    var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><h3>Oops! something goes wrong:</h3><ul>';
-
-    for (var i = 0; i < model.Erros.length; i++) {
-        div += '<li>' + model.Erros[i].Message + '</li>';
-    }
-
-
-    div += '</ul></div>';
-    $("#errorSummary").append(div);
-}
-
-function MountModelStateErrorMessage(model) {
-    var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><h3>Oops! something goes wrong:</h3><ul>';
-
-    for (var i = 0; i < model.length; i++) {
-        div += '<li>' + model[i].Key.replace("model.", "") + ': ' + model[i].Value + '</li>';
-    }
-
-    div += '</ul></div>';
-    $("#errorSummary").append(div);
-}
 
 function MountBasicInformation() {
     var objBasicInfo = new Object();
     objBasicInfo.SelectedCampaignId = $('#SelectedCampaignId').val();
     objBasicInfo.CharacterName = $('#CharacterName').val();
     objBasicInfo.CharacterMaxLife = $('#CharacterMaxLife').val();
+    objBasicInfo.CharacterRemainingLife = $('#CharacterMaxLife').val();
     objBasicInfo.PlayerAge = $('#PlayerAge').val();
     objBasicInfo.PlayerExperience = $('#PlayerExperience').val();
     objBasicInfo.PlayerLevel = $('#PlayerLevel').val();
@@ -219,6 +176,14 @@ function MountAttributes() {
             var item = {};
             item['AttributeId'] = element.id;
             item['Value'] = jQuery(element).children('.TdAttributeValue').children('.CharacterAttributeValue').val();
+            objAttributes.push(item);
+        }
+    });
+
+    $("#TableTalents > tbody > tr").each(function (index, element) {
+        if ($(this).attr('class').indexOf('active') != -1) {
+            var item = {};
+            item['AttributeId'] = element.id;
             objAttributes.push(item);
         }
     });
@@ -272,6 +237,18 @@ function GetTotalInvested() {
         $("#input-total-invested").val(total);
     else
         $("#input-total-invested").val("");
+
+    VerifyTotalInvested();
+}
+
+function VerifyTotalInvested() {
+    if (parseInt($("#input-total-invested").val()) > parseInt($('#input-total-money').val())) {
+        $("#input-total-invested").addClass('alert-danger');
+        $("#label-total-invested").addClass('alert-danger');
+    } else {
+        $("#input-total-invested").removeClass('alert-danger');
+        $("#label-total-invested").removeClass('alert-danger');
+    }
 }
 
 function GetItemNamePlayerItem(obj) {

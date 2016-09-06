@@ -363,8 +363,10 @@
     <Content Include="Images\products\2.jpg" />
     <Content Include="Images\products\3.jpg" />
     <Content Include="Images\triangular_%402X.png" />
+    <Content Include="npmPlaceholder.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\Attribute.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -380,13 +382,13 @@
     <Content Include="Scripts\Campaign.js" />
     <Content Include="Scripts\CharacterForms.js" />
     <Content Include="Scripts\contact.js" />
-    <Content Include="Scripts\DynamicForm.js" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include=".bin\node.cmd" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\Item.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
@@ -421,6 +423,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Session.js" />
     <Content Include="Scripts\tutorial.js" />
+    <Content Include="Scripts\Util.js" />
     <Content Include="Scripts\wow.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -464,7 +467,7 @@
     <Content Include="Views\Attribute\Create.cshtml" />
     <Content Include="Views\Attribute\Edit.cshtml" />
     <Content Include="Views\Attribute\Delete.cshtml" />
-    <Content Include="Views\Attribute\_ListAvailableForBonus.cshtml" />
+    <Content Include="Views\Attribute\_ListAvailableAttributeForBonus.cshtml" />
     <Content Include="Views\Shared\_LayoutPartial.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Campaign\Index.cshtml" />
@@ -476,7 +479,7 @@
     <Content Include="Views\Player\Details.cshtml" />
     <Content Include="Views\Player\Edit.cshtml" />
     <Content Include="Views\Player\Index.cshtml" />
-    <Content Include="Views\Shared\_ErrorSummary.cshtml" />
+    <Content Include="Views\Shared\_MessageSummary.cshtml" />
     <Content Include="Views\NonPlayer\Index.cshtml" />
     <Content Include="Views\Shared\_editor.cshtml" />
     <Content Include="Views\Player\_CreateBasicInformation.cshtml" />
@@ -492,10 +495,12 @@
     <Content Include="Views\Player\_PlayerSheetItems.cshtml" />
     <Content Include="Views\Player\_PlayerSheetMagics.cshtml" />
     <Content Include="Scripts\particles.json" />
-    <Content Include="Views\Player\_GetPlayerAttributes.cshtml" />
+    <Content Include="Views\Item\_ListAvailableAttributeForBonus.cshtml" />
+    <Content Include="Views\Item\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="dist\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -561,7 +566,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Npm.js.1.3.15.7\build\npm.js.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Npm.js.1.3.15.7\build\npm.js.targets'))" />
+    <Error Condition="!Exists('..\packages\Gulp.js.1.0.2\build\gulp.js.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Gulp.js.1.0.2\build\gulp.js.targets'))" />
   </Target>
+  <Import Project="..\packages\Npm.js.1.3.15.7\build\npm.js.targets" Condition="Exists('..\packages\Npm.js.1.3.15.7\build\npm.js.targets')" />
+  <Import Project="..\packages\Gulp.js.1.0.2\build\gulp.js.targets" Condition="Exists('..\packages\Gulp.js.1.0.2\build\gulp.js.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

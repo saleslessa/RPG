@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace DaemonCharacter
 {
@@ -30,6 +29,7 @@ namespace DaemonCharacter
                         , "~/Content/owl/owl.carousel.js"
                         , "~/Scripts/jquery.smartmenus.js"
                         , "~/Scripts/jquery.smartmenus.bootstrap.js"
+                        , "~/Scripts/Util.js"
                         ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

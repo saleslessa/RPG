@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Player.PlayerViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of Players";
 }
 
-<h2 class="white">Index</h2>
+<h2 class="white">List of Players</h2>
 
 <div class="Playercontainer">
     <p>
@@ -57,7 +57,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.CharacterId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.CharacterId }) |
+                    @Html.ActionLink("See Player Sheet", "Details", new { id = item.CharacterId }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.CharacterId })
                 </td>
             </tr>

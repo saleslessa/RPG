@@ -21,7 +21,7 @@ namespace DaemonCharacter.Domain.Entities
 
         public virtual ICollection<Attributes> AttributeBonus { get; set; }
 
-        public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
+        public ValidationResult ValidationResult { get; set; }
 
         public Attributes()
         {

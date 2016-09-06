@@ -34,8 +34,8 @@
     {
         <fieldset>
             @Html.AntiForgeryToken()
-            <div id="errorSummary">
-                @Html.Partial("_ErrorSummary")
+            <div id="MessageSummary">
+                @Html.Partial("_MessageSummary")
             </div>
             <div class="row setup-content" id="step-1">
                 <div class="col-md-12">
@@ -68,6 +68,5 @@
                         }
 </div>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/MultipleStepFormScript.js")
 }

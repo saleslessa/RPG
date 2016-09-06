@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Application.Interfaces;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DaemonCharacter.UI.MVC.Controllers
 {
@@ -46,15 +45,6 @@ namespace DaemonCharacter.UI.MVC.Controllers
             return View(playerViewModel);
         }
 
-        //public ActionResult _GetPlayerAttributes(Guid id)
-        //{
-        //    return PartialView(_playerAppService.GetAttributes(id));
-        //}
-
-        //public ActionResult _GetPlayerItems(Guid id)
-        //{
-        //    return PartialView(_playerAppService.GetItemsAsync(id));
-        //}
 
         // GET: Player/Create
         public ActionResult Create()
@@ -69,15 +59,20 @@ namespace DaemonCharacter.UI.MVC.Controllers
         // [ValidateAntiForgeryToken]
         public JsonResult Create(PlayerViewModel model)
         {
-
             if (!ModelState.IsValid)
             {
                 LoadPlayerErrors(model);
 
                 var errorList = ModelState.ToDictionary(
-                        kvp => kvp.Key,
+                        kvp => string.Empty,
                         kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                     );
+
+                if (model.PlayerMoney < model.SelectedItems
+                    .GroupBy(g => g.ItemId)
+                    .Select(s => new { Total = s.Sum(t => t.PlayerItemUnitPrice * t.PlayerItemQtd) })
+                        .FirstOrDefault().Total)
+                    errorList.Add(string.Empty, new string[] { "You used more money than you have. Please change your items in your bag or put more money" });
 
                 return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
             }
