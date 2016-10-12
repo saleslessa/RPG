@@ -9,3 +9,25 @@ C:\Users\sales.de.alencar\Documents\GitHub\RPG\tests\DomainTests\bin\Debug\Rhino
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\tests\DomainTests\obj\Debug\4 - DomainTests.csprojResolveAssemblyReference.cache
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\tests\DomainTests\obj\Debug\DomainTests.dll
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\tests\DomainTests\obj\Debug\DomainTests.pdb
+C:\GitHub\RPG\tests\DomainTests\bin\Debug\DomainTests.dll
+C:\GitHub\RPG\tests\DomainTests\bin\Debug\DomainTests.pdb
+C:\GitHub\RPG\tests\DomainTests\bin\Debug\DaemonCharacter.Domain.dll
+C:\GitHub\RPG\tests\DomainTests\bin\Debug\DomainValidation.dll
+C:\GitHub\RPG\tests\DomainTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\GitHub\RPG\tests\DomainTests\bin\Debug\Rhino.Mocks.dll
+C:\GitHub\RPG\tests\DomainTests\bin\Debug\DaemonCharacter.Domain.pdb
+C:\GitHub\RPG\tests\DomainTests\bin\Debug\Rhino.Mocks.xml
+C:\GitHub\RPG\tests\DomainTests\obj\Debug\4 - DomainTests.csprojResolveAssemblyReference.cache
+C:\GitHub\RPG\tests\DomainTests\obj\Debug\DomainTests.dll
+C:\GitHub\RPG\tests\DomainTests\obj\Debug\DomainTests.pdb
+C:\RPG\tests\DomainTests\bin\Debug\DomainTests.dll
+C:\RPG\tests\DomainTests\bin\Debug\DomainTests.pdb
+C:\RPG\tests\DomainTests\bin\Debug\DaemonCharacter.Domain.dll
+C:\RPG\tests\DomainTests\bin\Debug\DomainValidation.dll
+C:\RPG\tests\DomainTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\RPG\tests\DomainTests\bin\Debug\Rhino.Mocks.dll
+C:\RPG\tests\DomainTests\bin\Debug\DaemonCharacter.Domain.pdb
+C:\RPG\tests\DomainTests\bin\Debug\Rhino.Mocks.xml
+C:\RPG\tests\DomainTests\obj\Debug\4 - DomainTests.csprojResolveAssemblyReference.cache
+C:\RPG\tests\DomainTests\obj\Debug\DomainTests.dll
+C:\RPG\tests\DomainTests\obj\Debug\DomainTests.pdb

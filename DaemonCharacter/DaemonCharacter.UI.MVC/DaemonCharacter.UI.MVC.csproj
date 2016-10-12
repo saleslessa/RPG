@@ -343,7 +343,6 @@
     <Content Include="Scripts\Campaign.js" />
     <Content Include="Scripts\CharacterForms.js" />
     <Content Include="Scripts\contact.js" />
-    <None Include=".bin\node.cmd" />
     <Content Include="Scripts\DataTable\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\DataTable\dataTables.colReorder.min.js" />
     <Content Include="Scripts\DataTable\dataTables.foundation.min.js" />
