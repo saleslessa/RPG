@@ -1,15 +1,39 @@
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="col-md-offset-1 col-md-10 container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="~/Home/"><i class="fa fa-logo"></i> Role Play Hub</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <!-- Left nav -->
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:void(0);">Wiki</a></li>
+<header id="topNav">
+    <div class="container">
+
+        <!-- Mobile Menu Button -->
+        <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <!-- Logo -->
+        <a class="logo pull-left" href="../Home">
+            <img src="~/images/logo_dark.png" alt="" />
+        </a>
+
+        <!--
+            Top Nav
+
+            AVAILABLE CLASSES:
+            submenu-dark = dark sub menu
+        -->
+        <div class="navbar-collapse pull-right nav-main-collapse collapse submenu-dark">
+            <nav class="nav-main">
+
+                <!--
+                    .nav-onepage
+                    Required for onepage navigation links
+
+                    Add .external for an external link!
+                -->
+                <ul id="topMain" class="nav nav-pills nav-main nav-external">
+                    <li class="active">
+                        <!-- HOME -->
+                        <a href="../Home">
+                            HOME
+                        </a>
+                    </li>
+                    <li><a href="javascript:void(0);">Wiki</a></li>
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             Game Configuration<span id="Span1" class="caret"></span>
@@ -22,36 +46,25 @@
                         </ul>
                     </li>
 
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Campaigns<span id="Span1" class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" data-dropdown-in="fadeInUp" data-dropdown-out="fadeOutDown">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Campaigns<span id="Span2" class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" data-dropdown-in="fadeInUp" data-dropdown-out="fadeOutDown">
 
-                                <li>@Html.ActionLink("Players", "Index", "Player")</li>
-                                <li>@Html.ActionLink("Non Players", "Index", "NonPlayer")</li>
-                                <li>@Html.ActionLink("Campaigns", "Index", "Campaign")</li>
-                                <li>@Html.ActionLink("Sessions", "Index", "Session")</li>
-                                @*<li>@Html.ActionLink("Buy Items", "Index", "Item")</li>*@
+                            <li>@Html.ActionLink("Players", "Index", "Player")</li>
+                            <li>@Html.ActionLink("Non Players", "Index", "NonPlayer")</li>
+                            <li>@Html.ActionLink("Campaigns", "Index", "Campaign")</li>
+                            <li>@Html.ActionLink("Sessions", "Index", "Session")</li>
+                            @*<li>@Html.ActionLink("Buy Items", "Index", "Item")</li>*@
 
-                            </ul>
-                        </li>
-                <li>
-                    <!-- add search form -->
-                    <div class="navbar-form" role="search">
-                        <div class="input-group">
-                            <input type="text" ID="txtsearch" placeholder="Search this site" class="form-control" />
-                            @*<span class="input-group-btn">
-                                    <input type="button" ID="lbsearch" ToolTip="Search" class="btn btn-default"
-                                                    Text='<i class="glyphicon glyphicon-search"></i>' />
-                                </span>*@
-                        </div>
-                    </div>
-                </li>
-                <li id="login">
-                    @Html.Partial("_loginPartial")
-                </li>
-            </ul>
+                        </ul>
+                    </li>
+                    <li id="login" class="dropdown">
+                        @Html.Partial("_loginPartial")
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
-</div>
+</header>

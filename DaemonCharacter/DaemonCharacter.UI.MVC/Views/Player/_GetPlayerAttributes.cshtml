@@ -1,0 +1,13 @@
+﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.CharacterAttribute.SelectedCharacterAttributeViewModel>
+
+<div class="col-md-4 div-attribute-container">
+    @Html.Partial("_PlayerSheetAttributes", Model.Where(t => t.AttributeType == AttributeType.Characteristic).ToList())
+</div>
+
+<div class="col-md-4 div-attribute-container">
+    @Html.Partial("_PlayerSheetAttributes", Model.Where(t => t.AttributeType == AttributeType.Misc).ToList())
+</div>
+
+<div class="col-md-4 div-attribute-container">
+    @Html.Partial("_PlayerSheetAttributes", Model.Where(t => t.AttributeType == AttributeType.Skill).ToList())
+</div>

@@ -1,51 +1,96 @@
 ﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Attribute.AttributeViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of Attributes";
+}
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Attributes")
+    @Styles.Render("~/bundles/Sprite/Acoes")
 }
 
-<h2>Index</h2>
+<h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="sprite sprite-List-Item animated wow fadeInDown div-icon"></i>
+    &nbsp;List of Attributes
+</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a class="sprite sprite-New-Item animated wow fadeInDown div-icon" href="~/Attribute/Create"></a>
 </p>
-<table class="table mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AttributeName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AttributeDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AttributeType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AttributeMinimum)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttributeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttributeDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttributeType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttributeMinimum)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AttributeId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AttributeId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AttributeId })
-        </td>
-    </tr>
-}
-
+<table class="table table-striped table-bordered table-hover" id="TabIndex">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AttributeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttributeDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttributeType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttributeMinimum)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttributeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttributeDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttributeType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttributeMinimum)
+                </td>
+                <td>
+                    <a class="sprite sprite-Edit-Item div-icon" href="~/Attribute/Edit/@item.AttributeId"></a>&nbsp;|&nbsp;
+                    <a class="sprite sprite-Installing-Updates-48 div-icon" href="~/Attribute/Details/@item.AttributeId"></a>&nbsp;|&nbsp;
+                    <a class="sprite sprite-Delete-Item div-icon" href="~/Attribute/Delete/@item.AttributeId"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+@section scripts {
+    @Scripts.Render("~/bundles/dataTables")
+    <script type="text/javascript">
+
+        function InitTable() {
+
+            var table = jQuery('#TabIndex');
+
+            /* Fixed header extension: http://datatables.net/extensions/scroller/ */
+
+            var oTable = table.dataTable({
+                "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
+                "scrollY": "300",
+                "deferRender": true,
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "pageLength": 10 // set the initial value
+            });
+
+
+            var tableWrapper = jQuery('#TabIndex'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+            tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+        }
+
+
+        // Table Init
+        InitTable();
+
+    </script>
+}

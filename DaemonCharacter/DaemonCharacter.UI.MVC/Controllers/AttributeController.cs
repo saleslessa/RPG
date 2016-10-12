@@ -1,6 +1,5 @@
 ﻿using DaemonCharacter.Application.Interfaces;
 using DaemonCharacter.Application.ViewModels.Attribute;
-using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,13 +106,9 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
             model = _attributeAppService.Update(model);
 
-            if (!model.ValidationResult.IsValid)
-            {
-                LoadAttributeErrors(model);
-                return Json(new { error = "ValildationResultError", model = model.ValidationResult });
-            }
-
-            return Json(new { error = "", message = model.ValidationResult.Message });
+            if (model.ValidationResult.IsValid) return Json(new {error = "", message = model.ValidationResult.Message});
+            LoadAttributeErrors(model);
+            return Json(new { error = "ValildationResultError", model = model.ValidationResult });
         }
 
         public ActionResult Delete(Guid? id)

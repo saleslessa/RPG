@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace DaemonCharacter
+namespace DaemonCharacter.UI.MVC
 {
     public class BundleConfig
     {
@@ -8,14 +8,25 @@ namespace DaemonCharacter
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-2.2.3.min.js"
+                        , "~/Scripts/jquery.validate.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/jquery-ui.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.unobtrusive*",
-                        "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
+                        "~/Scripts/DataTable/jquery.dataTables.min.js"
+                        , "~/Scripts/DataTable/dataTables.tableTools.min.js"
+                        , "~/Scripts/DataTable/dataTables.colReorder.min.js"
+                        , "~/Scripts/DataTable/dataTables.scroller.min.js"
+                        , "~/Scripts/DataTable/dataTables.bootstrap.min.js"
+                        , "~/Scripts/DataTable/select2.full.min.js"
+                        ));
+
+            //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            //            "~/Scripts/jquery.unobtrusive*",
+            //            "~/Scripts/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -23,29 +34,35 @@ namespace DaemonCharacter
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/javascripts").Include(
-                        // "~/Scripts/jquery.js",
-                        "~/Scripts/bootstrap.min.js"
-                        , "~/Scripts/wow.min.js"
-                        , "~/Content/owl/owl.carousel.js"
-                        , "~/Scripts/jquery.smartmenus.js"
-                        , "~/Scripts/jquery.smartmenus.bootstrap.js"
-                        , "~/Scripts/Util.js"
+                         "~/Scripts/Util.js"
+                         , "~/Scripts/scripts.js"
+                         , "~/Scripts/smoothscroll.js"
+                         , "~/Scripts/bootstrap.min.js"
                         ));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                 "~/Content/jquery.smartmenus.bootstrap.css"
-                , "~/Content/bootstrap.min.css"
-                , "~/fonts/font-awesome.min.css"
-                , "~/Content/1-col-portfolio.css"
-                , "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/css").Include(
+                         "~/Content/bootstrap.min.css"
+                         , "~/Content/Site.css"
+                         , "~/Content/essentials.css"
+                         , "~/Content/layout.css"
+                         , "~/Content/ItemLayouts/layout-datatables.css"
+                        ));
 
-            bundles.Add(new StyleBundle("~/Content/homeCss").Include(
-                 "~/Content/owl/owl.carousel.css"
-                , "~/Content/owl/owl.theme.css"
-                , "~/Content/owl/owl.transitions.css"
+
+            bundles.Add(new ScriptBundle("~/bundles/homeCss").Include(
+                         "~/Content/header-1.css"
+                         , "~/Content/ColorScheme/darkblue.css"
+                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Sprite/Attributes").Include(
+                "~/Content/Sprites/Atributos.css"
+                , "~/Images/Sprites/Atributos.png"
                 ));
 
-            //bundles.Add(new StyleBundle("~/Content/fonts").Include("~/fonts/font-awesome.min.css"));
+            bundles.Add(new ScriptBundle("~/bundles/Sprite/Acoes").Include(
+               "~/Content/Sprites/Acoes.css"
+               , "~/Images/Sprites/Acoes.png"
+               ));
 
 
         }

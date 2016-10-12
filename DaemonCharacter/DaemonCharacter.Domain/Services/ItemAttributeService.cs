@@ -30,14 +30,14 @@ namespace DaemonCharacter.Domain.Services
             GC.SuppressFinalize(this);
         }
 
-        public ItemAttribute Get(Guid ItemAttributeId)
+        public ItemAttribute Get(Guid itemAttributeId)
         {
-            return _itemAttributeRepository.Get(ItemAttributeId);
+            return _itemAttributeRepository.Get(itemAttributeId);
         }
 
-        public ItemAttribute Get(Guid ItemId, Guid AttributeId)
+        public ItemAttribute Get(Guid itemId, Guid attributeId)
         {
-            return _itemAttributeRepository.Search(t => t.Attribute.AttributeId == AttributeId && t.Item.ItemId == ItemId).FirstOrDefault();
+            return _itemAttributeRepository.Search(t => t.Attribute.AttributeId == attributeId && t.Item.ItemId == itemId).FirstOrDefault();
         }
 
         public IEnumerable<ItemAttribute> ListFromAttribute(Guid? attributeId)
@@ -55,9 +55,9 @@ namespace DaemonCharacter.Domain.Services
             _itemAttributeRepository.Remove(itemAttributeId);
         }
 
-        public void RemoveFromItem(Guid ItemId)
+        public void RemoveFromItem(Guid itemId)
         {
-            _itemAttributeRepository.Remove(_itemAttributeRepository.ListFromItem(ItemId));
+            _itemAttributeRepository.Remove(_itemAttributeRepository.ListFromItem(itemId));
         }
 
         public ItemAttribute Update(ItemAttribute model)

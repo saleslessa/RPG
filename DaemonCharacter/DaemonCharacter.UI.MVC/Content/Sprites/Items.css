@@ -1,0 +1,77 @@
+.sprite {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-Armored-Gauntlet {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -5px;
+}
+
+.sprite-Armored-Helmet {
+    width: 50px;
+    height: 50px;
+    background-position: -65px -5px;
+}
+
+.sprite-Catapult-Firing-Filled {
+    width: 50px;
+    height: 50px;
+    background-position: -125px -5px;
+}
+
+.sprite-Knight-Shield-50 {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -65px;
+}
+
+.sprite-Medal {
+    width: 50px;
+    height: 50px;
+    background-position: -65px -65px;
+}
+
+.sprite-Queen-UK {
+    width: 48px;
+    height: 48px;
+    background-position: -125px -65px;
+}
+
+.sprite-Sickle {
+    width: 50px;
+    height: 50px;
+    background-position: -125px -123px;
+}
+
+.sprite-Suitcase {
+    width: 48px;
+    height: 48px;
+    background-position: -185px -5px;
+}
+
+.sprite-Treasure-Map {
+    width: 50px;
+    height: 50px;
+    background-position: -185px -63px;
+}
+
+.sprite-Viking-Helmet {
+    width: 48px;
+    height: 48px;
+    background-position: -185px -123px;
+}
+
+.sprite-Viking-Ship {
+    width: 48px;
+    height: 48px;
+    background-position: -5px -181px;
+}
+
+.sprite-Windsock {
+    width: 48px;
+    height: 48px;
+    background-position: -63px -181px;
+}

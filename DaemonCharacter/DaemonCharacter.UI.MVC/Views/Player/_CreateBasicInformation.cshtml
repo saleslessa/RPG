@@ -1,103 +1,101 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Player.PlayerViewModel
 
-<h3>Basic information</h3>
-<hr />
 <div class="form-horizontal col-md-8">
-    <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.CharacterImage, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="file" name="CharacterImage" class="form-control" />
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.CharacterImage, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                <input type="file" name="CharacterImage" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.Campaigns, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownList("SelectedCampaignId", new SelectList(Model.Campaigns, "CampaignId", "CampaignName"), htmlAttributes: new { @class = "form-control" })
+            </div>
         </div>
     </div>
-    <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.Campaigns, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="form-group col-md-12 row">
+        @Html.LabelFor(model => model.CharacterName, htmlAttributes: new { @class = "control-label col-md-1" })
         <div class="col-md-10">
-            @Html.DropDownList("SelectedCampaignId", new SelectList(Model.Campaigns, "CampaignId", "CampaignName"), htmlAttributes: new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group col-md-6">
-        
-    </div>
-    <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.CharacterName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CharacterName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.CharacterName, new { htmlAttributes = new { @class = "form-control col-md-offset-1" } })
             @Html.ValidationMessageFor(model => model.CharacterName, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.CharacterMaxLife, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.CharacterMaxLife, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CharacterMaxLife, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-    <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.CharacterMaxLife, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CharacterMaxLife, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CharacterMaxLife, "", new { @class = "text-danger" })
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.PlayerAge, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.PlayerAge, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PlayerAge, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.PlayerExperience, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.PlayerExperience, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PlayerExperience, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
+    @*
 
-    <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.PlayerAge, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PlayerAge, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PlayerAge, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    
 
+    
 
-    <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.PlayerExperience, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PlayerExperience, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PlayerExperience, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
         @Html.LabelFor(model => model.PlayerLevel, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PlayerLevel, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="form-group">
+            @Html.EditorFor(model => model.PlayerLevel, new { htmlAttributes = new { @class = "form-control col-md-10" } })
             @Html.ValidationMessageFor(model => model.PlayerLevel, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.PlayerPointsToDistribute, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PlayerPointsToDistribute, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PlayerPointsToDistribute, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
     <div class="form-group col-md-4">
-        @Html.LabelFor(model => model.PlayerMoney, htmlAttributes: new { @class = "control-label col-md-3" })
-        <div class="col-md-9">
-            @Html.EditorFor(model => model.PlayerMoney, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.PlayerMoney, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.EditorFor(model => model.PlayerMoney, new { htmlAttributes = new { @class = "form-control col-md-10" } })
             @Html.ValidationMessageFor(model => model.PlayerMoney, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group col-md-4">
         @Html.LabelFor(model => model.CharacterRace, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.CharacterRace, htmlAttributes: new { @class = "form-control" })
+        <div class="form-group">
+            @Html.EnumDropDownListFor(model => model.CharacterRace, htmlAttributes: new { @class = "form-control col-md-10" })
             @Html.ValidationMessageFor(model => model.CharacterRace, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group col-md-4">
         @Html.LabelFor(model => model.CharacterGender, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.CharacterGender, htmlAttributes: new { @class = "form-control" })
+        <div class="form-group">
+            @Html.EnumDropDownListFor(model => model.CharacterGender, htmlAttributes: new { @class = "form-control col-md-10" })
             @Html.ValidationMessageFor(model => model.CharacterGender, "", new { @class = "text-danger" })
         </div>
-    </div>
+    </div>*@
 
 </div>
 <div class="col-md-4">
-    <div>
-        @Html.LabelFor(model => model.PlayerBackground, htmlAttributes: new { @class = "control-label col-md-2" })
-    </div>
-    <div class="col-md-10">
-        @Html.TextAreaFor(model => model.PlayerBackground, new { @class = "form-control col-md-12", style = "height:325px" })
+    <div class="col-md-10 fancy-form">
+        @Html.TextAreaFor(model => model.PlayerBackground, new { @class = "form-control markdown", @rows = "13", @data_maxlenght = "2000", @data_height = "300", @data_lang = "en", @placeholder = "Background" })
+        <i style="padding-left:10px;" class="fa fa-comments"><!-- icon --></i>
+        <span class="fancy-hint size-11 text-muted">
+            <strong>Hint:</strong> 2000 words allowed
+            <span class="pull-right">
+                <span id="textarea-words-info">0/2000</span> Words
+            </span>
+        </span>
         @Html.ValidationMessageFor(model => model.PlayerBackground, "", new { @class = "text-danger" })
     </div>
     @*@Html.Partial("_editor")*@

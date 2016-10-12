@@ -45,15 +45,19 @@
     <Compile Include="Entities\Enums.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\ItemAttribute.cs" />
+    <Compile Include="Entities\Magic.cs" />
+    <Compile Include="Entities\MagicAttribute.cs" />
     <Compile Include="Entities\NonPlayer.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\PlayerItem.cs" />
+    <Compile Include="Entities\PlayerMagic.cs" />
     <Compile Include="Entities\PlayerSession.cs" />
     <Compile Include="Interfaces\Repository\IAttributeRepository.cs" />
     <Compile Include="Interfaces\Repository\ICampaignRepository.cs" />
     <Compile Include="Interfaces\Repository\ICharacterAttributeRepository.cs" />
     <Compile Include="Interfaces\Repository\ICharacterRepository.cs" />
     <Compile Include="Interfaces\Repository\IItemAttributeRepository.cs" />
+    <Compile Include="Interfaces\Repository\IMagicRepository.cs" />
     <Compile Include="Interfaces\Repository\INonPlayerRepository.cs" />
     <Compile Include="Interfaces\Repository\IItemRepository.cs" />
     <Compile Include="Interfaces\Repository\IPlayerItemRespository.cs" />
@@ -66,6 +70,7 @@
     <Compile Include="Interfaces\Service\ICharacterAttributeService.cs" />
     <Compile Include="Interfaces\Service\IItemAttributeService.cs" />
     <Compile Include="Interfaces\Service\IItemService.cs" />
+    <Compile Include="Interfaces\Service\IMagicService.cs" />
     <Compile Include="Interfaces\Service\INonPlayerService.cs" />
     <Compile Include="Interfaces\Service\IPlayerItemService.cs" />
     <Compile Include="Interfaces\Service\IPlayerService.cs" />
@@ -77,6 +82,7 @@
     <Compile Include="Services\CharacterAttributeService.cs" />
     <Compile Include="Services\ItemAttributeService.cs" />
     <Compile Include="Services\ItemService.cs" />
+    <Compile Include="Services\MagicService.cs" />
     <Compile Include="Services\NonPlayerService.cs" />
     <Compile Include="Services\PlayerItemService.cs" />
     <Compile Include="Services\PlayerService.cs" />

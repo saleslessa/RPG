@@ -44,7 +44,7 @@ namespace DaemonCharacter.Application.ViewModels.Player
         [Range(1, 9999, ErrorMessage = "This field must be between 1 and 9999")]
         public int PlayerAge { get; set; }
 
-        [DisplayName("Experience")]
+        [DisplayName("XP")]
         [Range(0, int.MaxValue, ErrorMessage = "This field must be between 0 and 99999")]
         public int PlayerExperience { get; set; }
 
@@ -54,9 +54,9 @@ namespace DaemonCharacter.Application.ViewModels.Player
         [DataType(DataType.MultilineText)]
         public string PlayerBackground { get; set; }
 
-        [Required]
         [Range(0, 9999, ErrorMessage ="You mus distribute between 0 and 9999 points")]
         [DisplayName("Points to distribute")]
+        [ScaffoldColumn(false)]
         public int PlayerPointsToDistribute { get; set; }
 
         [ScaffoldColumn(false)]

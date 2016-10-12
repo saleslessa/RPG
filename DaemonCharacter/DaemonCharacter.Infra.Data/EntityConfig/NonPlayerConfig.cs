@@ -41,7 +41,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
             Property(p => p.CharacterGender)
                 .IsRequired();
 
-            Ignore(p => p.ValidationResult);
+            Ignore(i => i.ValidationResult);
         }
     }
 }

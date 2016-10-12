@@ -1,0 +1,89 @@
+.sprite {
+    background-image: url(../../Images/Sprites/Acoes.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-Add-User {
+    width: 48px;
+    height: 48px;
+    background-position: -5px -5px;
+}
+
+.sprite-Calendar {
+    width: 48px;
+    height: 48px;
+    background-position: -63px -5px;
+}
+
+.sprite-Delete-Item {
+    width: 50px;
+    height: 50px;
+    background-position: -121px -5px;
+}
+
+.sprite-Edit-Item {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -65px;
+}
+
+.sprite-Edit-User {
+    width: 48px;
+    height: 48px;
+    background-position: -65px -65px;
+}
+
+.sprite-Installing-Updates-48 {
+    width: 48px;
+    height: 48px;
+    background-position: -123px -65px;
+}
+
+.sprite-List-Item {
+    width: 52px;
+    height: 52px;
+    background-position: -65px -123px;
+}
+
+.sprite-List-User {
+    width: 48px;
+    height: 48px;
+    background-position: -127px -123px;
+}
+
+.sprite-New-Item {
+    width: 50px;
+    height: 50px;
+    background-position: -181px -5px;
+}
+
+.sprite-Remove-User {
+    width: 48px;
+    height: 48px;
+    background-position: -181px -65px;
+}
+
+.sprite-Save {
+    width: 50px;
+    height: 50px;
+    background-position: -185px -123px;
+}
+
+.sprite-Unlock {
+    width: 48px;
+    height: 48px;
+    background-position: -5px -183px;
+}
+
+.sprite-Up {
+    width: 50px;
+    height: 50px;
+    background-position: -127px -183px;
+}
+
+.sprite-Wait {
+    width: 48px;
+    height: 48px;
+    background-position: -187px -183px;
+}

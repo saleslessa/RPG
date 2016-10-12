@@ -68,10 +68,11 @@ namespace DaemonCharacter.UI.MVC.Controllers
                         kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                     );
 
-                if (model.PlayerMoney < model.SelectedItems
+                var firstOrDefault = model.SelectedItems
                     .GroupBy(g => g.ItemId)
                     .Select(s => new { Total = s.Sum(t => t.PlayerItemUnitPrice * t.PlayerItemQtd) })
-                        .FirstOrDefault().Total)
+                    .FirstOrDefault();
+                if (firstOrDefault != null && model.PlayerMoney < firstOrDefault.Total)
                     errorList.Add(string.Empty, new string[] { "You used more money than you have. Please change your items in your bag or put more money" });
 
                 return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
@@ -83,13 +84,9 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
             model = _playerAppService.Add(model);
 
-            if (!model.ValidationResult.IsValid)
-            {
-                LoadPlayerErrors(model);
-                return Json(new { error = "ValildationResultError", model = model.ValidationResult });
-            }
-
-            return Json(new { error = "", message = "Player created successfully" });
+            if (model.ValidationResult.IsValid) return Json(new {error = "", message = "Player created successfully"});
+            LoadPlayerErrors(model);
+            return Json(new { error = "ValildationResultError", model = model.ValidationResult });
         }
 
         private void LoadPlayerErrors(PlayerViewModel model)

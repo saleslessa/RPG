@@ -1,0 +1,47 @@
+.sprite {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-Ignore-48 {
+    width: 48px;
+    height: 48px;
+    background-position: -5px -5px;
+}
+
+.sprite-Kicking-50 {
+    width: 50px;
+    height: 50px;
+    background-position: -63px -5px;
+}
+
+.sprite-Mind-Map-50 {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -65px;
+}
+
+.sprite-Money {
+    width: 48px;
+    height: 48px;
+    background-position: -65px -65px;
+}
+
+.sprite-Stick-Fighting-50 {
+    width: 50px;
+    height: 50px;
+    background-position: -123px -5px;
+}
+
+.sprite-Talent {
+    width: 50px;
+    height: 50px;
+    background-position: -123px -65px;
+}
+
+.sprite-Wizard-48 {
+    width: 48px;
+    height: 48px;
+    background-position: -5px -125px;
+}

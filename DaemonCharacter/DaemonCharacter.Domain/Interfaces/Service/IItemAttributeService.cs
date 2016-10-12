@@ -14,13 +14,13 @@ namespace DaemonCharacter.Domain.Interfaces.Service
 
         IEnumerable<ItemAttribute> ListFromAttribute(Guid? attributeId);
 
-        ItemAttribute Get(Guid ItemAttributeId);
+        ItemAttribute Get(Guid itemAttributeId);
 
-        ItemAttribute Get(Guid ItemId, Guid AttributeId);
+        ItemAttribute Get(Guid itemId, Guid attributeId);
 
         void Remove(Guid itemAttributeId);
 
-        void RemoveFromItem(Guid ItemId);
+        void RemoveFromItem(Guid itemId);
 
     }
 }

@@ -59,7 +59,7 @@ namespace DaemonCharacter.Infra.Data.EntityConfig
                 .IsOptional()
                 .HasMaxLength(5000);
 
-            Ignore(p => p.ValidationResult);
+            Ignore(i => i.ValidationResult);
         }
     }
 }

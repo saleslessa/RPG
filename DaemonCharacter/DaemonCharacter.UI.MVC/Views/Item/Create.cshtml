@@ -51,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UniqueUse, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.CheckBoxFor(model => model.UniqueUse, htmlAttributes: new { @class = "form-control" })
+                    @Html.CheckBoxFor(model => model.UniqueUse, htmlAttributes: new { @class = "checkbox" })
             </div>
         </div>
 
@@ -66,7 +66,7 @@
         </div>
 
     </div>
-}
+                }
 
 @section Scripts {
     @Scripts.Render("~/Scripts/Item.js")

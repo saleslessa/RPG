@@ -1,12 +1,13 @@
 using System.Reflection;
 using System.Web.Mvc;
+using DaemonCharacter.Infra.CrossCutting.IoC;
+using DaemonCharacter.UI.MVC;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
-using DaemonCharacter.Infra.CrossCutting.IoC;
 
-[assembly: WebActivator.PostApplicationStartMethod(typeof(DaemonCharacter.UI.MVC.App_Start.SimpleInjectorInitializer), "Initialize")]
-namespace DaemonCharacter.UI.MVC.App_Start
+[assembly: WebActivator.PostApplicationStartMethod(typeof(SimpleInjectorInitializer), "Initialize")]
+namespace DaemonCharacter.UI.MVC
 {
     public static class SimpleInjectorInitializer
     {

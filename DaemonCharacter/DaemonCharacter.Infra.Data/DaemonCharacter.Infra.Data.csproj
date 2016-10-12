@@ -54,8 +54,11 @@
     <Compile Include="EntityConfig\AttributeConfig.cs" />
     <Compile Include="EntityConfig\CampaignConfig.cs" />
     <Compile Include="EntityConfig\CharacterAttributeConfig.cs" />
+    <Compile Include="EntityConfig\PlayerMagicConfig.cs" />
     <Compile Include="EntityConfig\ItemAttributeConfig.cs" />
     <Compile Include="EntityConfig\ItemConfig.cs" />
+    <Compile Include="EntityConfig\MagicAttributeConfig.cs" />
+    <Compile Include="EntityConfig\MagicConfig.cs" />
     <Compile Include="EntityConfig\NonPlayerConfig.cs" />
     <Compile Include="EntityConfig\PlayerConfig.cs" />
     <Compile Include="EntityConfig\PlayerItemConfig.cs" />

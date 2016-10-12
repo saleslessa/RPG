@@ -16,3 +16,9 @@ C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.D
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.csprojResolveAssemblyReference.cache
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.dll
 C:\Users\sales.de.alencar\Documents\GitHub\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.pdb
+C:\RPG\DaemonCharacter\DaemonCharacter.Domain\bin\Debug\DaemonCharacter.Domain.dll
+C:\RPG\DaemonCharacter\DaemonCharacter.Domain\bin\Debug\DaemonCharacter.Domain.pdb
+C:\RPG\DaemonCharacter\DaemonCharacter.Domain\bin\Debug\DomainValidation.dll
+C:\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.csprojResolveAssemblyReference.cache
+C:\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.dll
+C:\RPG\DaemonCharacter\DaemonCharacter.Domain\obj\Debug\DaemonCharacter.Domain.pdb

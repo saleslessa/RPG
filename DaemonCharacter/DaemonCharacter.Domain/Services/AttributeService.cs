@@ -13,14 +13,13 @@ namespace DaemonCharacter.Domain.Services
     {
         private readonly IAttributeRepository _attributeRepository;
 
-        public AttributeService(IAttributeRepository AttributeRepository)
+        public AttributeService(IAttributeRepository attributeRepository)
         {
-            _attributeRepository = AttributeRepository;
+            _attributeRepository = attributeRepository;
         }
 
         public Attributes Add(Attributes att)
         {
-
             if (!att.IsValid())
                 return att;
 

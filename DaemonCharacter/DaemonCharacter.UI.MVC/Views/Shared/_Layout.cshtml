@@ -2,42 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+    <meta name="Author" content="Sales Alencar [www.github.com/saleslessa]" />
     <title>@ViewBag.Title - Role Play Hub</title>
-    <link href="~/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/Icon.png" rel="shortcut icon" type="image/x-icon" />
 
-
-    <!-- Custom CSS -->
-    <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,400,700' rel='stylesheet' type='text/css'>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,700italic,400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
 
     <!-- Required plugin - Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">*@
 
-    @Styles.Render("~/Content/css")
-
+    @Styles.Render("~/bundles/css")
     @RenderSection("CustomStyle", required: false)
-
-    <!-- getmdl.io -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.indigo-red.min.css">
-    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
 
     <!-- Particles -->
     @*<link rel="stylesheet" href="~/Content/particles.css" />*@
 </head>
-<body>
+<body class="smoothscroll enable-animation">
+    <div id="wrapper">
+        <div id="header" class="sticky dark clearfix">
+            @Html.Partial("_Menu")
+        </div>
 
-    @Html.Partial("_Menu")
-
-    <div id="body" class="container-fluid">
-        <section class="content-wrapper main-content clear-fix">
+        <div id="page-wrapper" class="container-fluid">
             @RenderBody()
-        </section>
-    </div>
+        </div>
 
-    <footer id="fh5co-footer" class="padding50">
-        <div class="fh5co-footer-content">
+        <footer id="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.2s">
@@ -75,8 +66,19 @@
                     </div>
                 </div>
             </div>
+
+        </footer>
+    </div>
+    <!-- SCROLL TO TOP -->
+    <a href="#" id="toTop"></a>
+
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="inner">
+            <span class="loader"></span>
         </div>
-    </footer>
+    </div><!-- /PRELOADER -->
 
     @Scripts.Render("~/bundles/modernizr")
 
@@ -86,12 +88,19 @@
 
     @RenderSection("scripts", required: false)
 
+    <!-- getmdl.io -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.indigo-red.min.css">
+    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+
+
+
     @*<script src="~/Scripts/particles.min.js"></script>
-    <script type="text/javascript">
-        particlesJS.load('body', '/Scripts/particles.json', function () {
-            console.log('callback - particles.js config loaded');
-        });
-    </script>*@
+        <script type="text/javascript">
+            particlesJS.load('body', '/Scripts/particles.json', function () {
+                console.log('callback - particles.js config loaded');
+            });
+        </script>*@
 </body>
 
 </html>

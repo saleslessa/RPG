@@ -4,69 +4,117 @@
     ViewBag.Title = "Creating a new Player";
 }
 
-<h2 class="animated wow fadeInUp" data-wow-delay="0.2s">
+@section CustomStyle
+{
+    @Styles.Render("~/Content/Wizard/jquery.steps.css")
+}
+
+<h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
     <i class="fa fa-shield animated wow fadeInDown"></i>
     &nbsp;Create Player Form
-</h2>
-
-@section CustomStyle {
-    @Styles.Render("~/Content/MultipleStepFormStyle.css")
-}
-<div class="Playercontainer">
-    <div class="stepwizard">
-        <div class="stepwizard-row setup-panel">
-            <div class="stepwizard-step">
-                <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
-                <p>Basic Information </p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                <p>Attributes</p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                <p>Items</p>
-            </div>
-        </div>
-    </div>
-
+</h3>
+<div id="MessageSummary">
+    @Html.Partial("_MessageSummary")
+</div>
+<hr />
+<div class="col-md-offset-1 col-md-10">
     @using (Html.BeginForm("Create", "Player", FormMethod.Post, new { @class = "form-horizontal" }))
     {
-        <fieldset>
-            @Html.AntiForgeryToken()
-            <div id="MessageSummary">
-                @Html.Partial("_MessageSummary")
+        <div id="wizard" class="clearfix">
+            <h1>Basic Info</h1>
+            <div class="padding-20">
+                @Html.Partial("_CreateBasicInformation", Model)
             </div>
-            <div class="row setup-content" id="step-1">
-                <div class="col-md-12">
-                    @Html.Partial("_CreateBasicInformation", Model)
-                </div>
-
-                <hr />
-                <input type="button" value="Next Step" class="btn btn-success nextBtn btn-lg pull-right" />
+            <h1>Attributes</h1>
+            <div class="padding-20">
+                @{Html.RenderAction("_Create", "CharacterAttribute", new { player = Model.SelectedAttributes });}
             </div>
-
-            <div class="row setup-content" id="step-2">
-                <div class="col-md-12">
-                    @{Html.RenderAction("_Create", "CharacterAttribute", new { player = Model.SelectedAttributes });}
-                </div>
-
-                <hr />
-                <input type="button" value="Next Step" class="btn btn-success nextBtn btn-lg pull-right" />
+            <h1>Items</h1>
+            <div class="padding-20">
+                @{Html.RenderAction("_Create", "PlayerItem", new { player = Model.SelectedItems });}
             </div>
+            @*<input type="button" value="Create Player" name="btnCreatePlayer" class="btn btn-success nextBtn btn-lg float-right" />
+                <input type="button" value="Preview" class="btn btn-info float-right" />*@
+        </div>
 
-            <div class="row setup-content" id="step-3">
-                <div class="col-md-12">
-                    @{Html.RenderAction("_Create", "PlayerItem", new { player = Model.SelectedItems });}
-                </div>
 
-                <hr />
-                <input type="button" value="Create Player" name="btnCreatePlayer" class="btn btn-success nextBtn btn-lg float-right" />
-                <input type="button" value="Preview" class="btn btn-info float-right" />
-            </div>
-        </fieldset>
-                        }
+                    }
 </div>
 @section Scripts {
-    @Scripts.Render("~/Scripts/MultipleStepFormScript.js")
+    @Scripts.Render("~/Scripts/Wizard/jquery.steps.min.js")
+    @*@Scripts.Render("~/Scripts/inspinia.js")*@
+    @*@Scripts.Render("~/Scripts/Wizard/metisMenu.min.js")*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#wizard").steps();
+            $("#form").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18) {
+                        return false;
+                    }
+
+                    var form = $(this);
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex) {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                    // Suppress (skip) "Warning" step if the user is old enough.
+                    if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                        $(this).steps("next");
+                    }
+
+                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3) {
+                        $(this).steps("previous");
+                    }
+                },
+                onFinishing: function (event, currentIndex) {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+                    var form = $(this);
+
+                    // Submit form input
+                    form.submit();
+                }
+            }).validate({
+                errorPlacement: function (error, element) {
+                    element.before(error);
+                },
+                rules: {
+                    confirm: {
+                        equalTo: "#password"
+                    }
+                }
+            });
+
+        });
+    </script>
 }

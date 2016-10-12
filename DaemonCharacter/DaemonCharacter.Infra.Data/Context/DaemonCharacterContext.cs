@@ -37,6 +37,9 @@ namespace DaemonCharacter.Infra.Data.Context
             modelBuilder.Configurations.Add(new ItemConfig());
             modelBuilder.Configurations.Add(new PlayerItemConfig());
             modelBuilder.Configurations.Add(new ItemAttributeConfig());
+            modelBuilder.Configurations.Add(new MagicConfig());
+            modelBuilder.Configurations.Add(new MagicAttributeConfig());
+            modelBuilder.Configurations.Add(new PlayerMagicConfig());
 
             //modelBuilder.Configurations.Add(new SessionConfig());
 
@@ -54,7 +57,9 @@ namespace DaemonCharacter.Infra.Data.Context
         public IDbSet<Item> Item { get; set; }
         public IDbSet<PlayerItem> PlayerItem { get; set; }
         public IDbSet<ItemAttribute> ItemAttribute { get; set; }
-
+        public IDbSet<Magic> Magic { get; set; } 
+        public IDbSet<MagicAttribute> MagicAttribute { get; set; } 
+        public IDbSet<PlayerMagic> CharacterMagic { get; set; }
 
         //public DbSet<Sessions> CampaignSession { set; get; }
 

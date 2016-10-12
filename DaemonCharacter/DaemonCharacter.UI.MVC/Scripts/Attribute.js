@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("input[name=CreateAttribute]").on('click', null, function (event) {
+    $("a[name=CreateAttribute]").on('click', null, function (event) {
         ResetMessageSummary();
         SaveModel(GetModel(), '/Attribute/Create');
     });

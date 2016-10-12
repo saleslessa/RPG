@@ -1,0 +1,35 @@
+.sprite {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-deca-dice {
+    width: 50px;
+    height: 50px;
+    background-position: -5px -5px;
+}
+
+.sprite-octa-dice {
+    width: 48px;
+    height: 48px;
+    background-position: -65px -5px;
+}
+
+.sprite-six-dice {
+    width: 48px;
+    height: 48px;
+    background-position: -65px -63px;
+}
+
+.sprite-ten-dice {
+    width: 48px;
+    height: 48px;
+    background-position: -123px -5px;
+}
+
+.sprite-twenty-dice {
+    width: 48px;
+    height: 48px;
+    background-position: -123px -63px;
+}

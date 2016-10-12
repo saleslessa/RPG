@@ -1,70 +1,109 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Attribute.AttributeViewModel
 
 @{
-    ViewBag.Title = "Creating new attribute";
+    ViewBag.Title = "New Attribute";
 }
 
-<h2>Creating new attribute</h2>
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Attributes")
+    @Styles.Render("~/bundles/Sprite/Acoes")
+}
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="sprite sprite-New-Item animated wow fadeInDown div-icon"></i>
+    &nbsp;New Attribute
+</h3>
 
-    <div class="form-horizontal">
-        <hr />
-        <div id="MessageSummary">
-            @Html.Partial("_MessageSummary")
-        </div>
-        @Html.HiddenFor(model => model.AttributeId)
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(model => model.AttributeName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.AttributeName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AttributeName, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.AttributeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.AttributeDescription, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AttributeDescription, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.AttributeType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-2">
-                    @Html.EnumDropDownListFor(model => model.AttributeType, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.AttributeType, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group" id="div-minimum">
-                @Html.LabelFor(model => model.AttributeMinimum, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.AttributeMinimum, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AttributeMinimum, "", new { @class = "text-danger" })
-                </div>
+<div class="form-horizontal">
+    <hr />
+    <div id="MessageSummary">
+        @Html.Partial("_MessageSummary")
+    </div>
+    @Html.HiddenFor(model => model.AttributeId)
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.LabelFor(model => model.AttributeName, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.AttributeName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AttributeName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.AttributeDescription, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.AttributeDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AttributeDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AttributeType, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EnumDropDownListFor(model => model.AttributeType, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AttributeType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" id="div-minimum">
+            @Html.LabelFor(model => model.AttributeMinimum, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.AttributeMinimum, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AttributeMinimum, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Bonus To:</label>
+        <div class="col-md-4">
+
             @{Html.RenderPartial("_ListAvailableAttributeForBonus", Model.AttributeBonus);}
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Back to List", "Index") | <input type="button" value="Create" name="CreateAttribute" class="btn btn-success" />
-            </div>
-        </div>
-
     </div>
-                }
 
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a class="sprite sprite-List-Item div-icon" href="~/Attribute"></a> | <a class="sprite sprite-New-Item div-icon" name="CreateAttribute" href="#"></a> 
+        </div>
+    </div>
+
+</div>
 
 @section Scripts {
-  @Scripts.Render("~/Scripts/Attribute.js")
+    @Scripts.Render("~/Scripts/Attribute.js")
+    @Scripts.Render("~/bundles/dataTables")
+    <script type="text/javascript">
+
+        function InitTable() {
+
+            var table = jQuery('#TableBonus');
+
+            /* Fixed header extension: http://datatables.net/extensions/scroller/ */
+
+            var oTable = table.dataTable({
+                "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
+                "scrollY": "300",
+                "deferRender": true,
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "pageLength": 10 // set the initial value
+            });
+
+
+            var tableWrapper = jQuery('#TableBonus'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+            tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+        }
+
+        // Table Init
+        InitTable();
+
+    </script>
 }
