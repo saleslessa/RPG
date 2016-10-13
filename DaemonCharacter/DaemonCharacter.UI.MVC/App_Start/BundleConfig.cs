@@ -46,12 +46,13 @@ namespace DaemonCharacter.UI.MVC
                          , "~/Content/essentials.css"
                          , "~/Content/layout.css"
                          , "~/Content/ItemLayouts/layout-datatables.css"
+                         , "~/Content/ColorScheme/darkblue.css"
                         ));
 
 
             bundles.Add(new ScriptBundle("~/bundles/homeCss").Include(
                          "~/Content/header-1.css"
-                         , "~/Content/ColorScheme/darkblue.css"
+
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/Sprite/Attributes").Include(

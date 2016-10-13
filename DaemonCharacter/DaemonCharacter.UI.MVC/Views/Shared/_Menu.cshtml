@@ -17,7 +17,7 @@
             AVAILABLE CLASSES:
             submenu-dark = dark sub menu
         -->
-        <div class="navbar-collapse pull-right nav-main-collapse collapse submenu-dark">
+        <div class="navbar-collapse pull-right nav-main-collapse collapse">
             <nav class="nav-main">
 
                 <!--
@@ -27,7 +27,7 @@
                     Add .external for an external link!
                 -->
                 <ul id="topMain" class="nav nav-pills nav-main nav-external">
-                    <li class="active">
+                    <li>
                         <!-- HOME -->
                         <a href="../Home">
                             HOME
@@ -60,9 +60,25 @@
 
                         </ul>
                     </li>
-                    <li id="login" class="dropdown">
-                        @Html.Partial("_loginPartial")
-                    </li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>
+                            @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new {title = "Manage"})
+                        </li>
+                        <li>
+                            @Html.ActionLink("Logoff", "Logoff", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                        </li>
+                    }
                 </ul>
             </nav>
         </div>
