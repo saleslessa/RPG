@@ -24,18 +24,6 @@ namespace DaemonCharacter.UI.MVC.Controllers
             return View(_attributeAppService.ListAll());
         }
 
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            AttributeViewModel result = _attributeAppService.Get(id);
-            if (result == null)
-                return HttpNotFound();
-
-            return View(result);
-        }
-
         public ActionResult Create()
         {
             var model = new AttributeViewModel();

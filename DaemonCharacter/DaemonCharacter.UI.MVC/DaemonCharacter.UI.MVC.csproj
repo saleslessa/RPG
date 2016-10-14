@@ -292,6 +292,11 @@
     <Content Include="Images\item01.jpg" />
     <Content Include="Images\item02.jpg" />
     <Content Include="Images\item03.jpg" />
+    <Content Include="Images\Landscapes\Bird.jpg" />
+    <Content Include="Images\Landscapes\Boy.jpg" />
+    <Content Include="Images\Landscapes\Players.jpg" />
+    <Content Include="Images\Landscapes\Vikings.jpg" />
+    <Content Include="Images\Landscapes\Woman.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logo_dark.png" />
     <Content Include="Images\logo_trevmay.jpg" />
@@ -414,7 +419,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Attribute\Index.cshtml" />
-    <Content Include="Views\Attribute\Details.cshtml" />
     <Content Include="Views\Attribute\Create.cshtml" />
     <Content Include="Views\Attribute\Edit.cshtml" />
     <Content Include="Views\Attribute\Delete.cshtml" />

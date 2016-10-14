@@ -1,10 +1,18 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Attribute.AttributeViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Attribute";
 }
 
-<h2>Edit</h2>
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Attributes")
+    @Styles.Render("~/bundles/Sprite/Acoes")
+}
+
+<h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+    <i class="sprite sprite-Edit-Item animated wow fadeInDown div-icon"></i>
+    &nbsp;Edit Attribute&nbsp;@Html.Raw(Model.AttributeName)
+</h3>
 
 
 @using (Html.BeginForm())
@@ -52,20 +60,55 @@
         </div>
 
         <div class="form-group">
-            @{Html.RenderPartial("_ListAvailableAttributeForBonus", Model.AttributeBonus);}
+            <label class="control-label col-md-2">Bonus To:</label>
+            <div class="col-md-4">
+                @{Html.RenderPartial("_ListAvailableAttributeForBonus", Model.AttributeBonus);}
+            </div>
         </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Back to List", "Index") | <input type="button" name="SaveAttribute" value="Save" class="btn btn-success" />
+                <a class="sprite sprite-List-Item div-icon" href="~/Attribute" title="List"></a> | <input type="button" name="SaveAttribute" value="Save" class="btn btn-success"/>
             </div>
         </div>
     </div>
-                }
+                    }
 
 
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/Attribute.js")
+    @Scripts.Render("~/bundles/dataTables")
+    <script type="text/javascript">
+
+        function InitTable() {
+
+            var table = jQuery('#TableBonus');
+
+            /* Fixed header extension: http://datatables.net/extensions/scroller/ */
+
+            var oTable = table.dataTable({
+                "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
+                "scrollY": "300",
+                "deferRender": true,
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "pageLength": 10 // set the initial value
+            });
+
+
+            var tableWrapper = jQuery('#TableBonus'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+            tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+        }
+
+        // Table Init
+        InitTable();
+
+    </script>
 }
