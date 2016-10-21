@@ -4,53 +4,66 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Acoes")
+}
+<section id="slider" class="fullheight page-attribute">
+    <div class="form-horizontal">
+        <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+            <i class="sprite sprite-Delete-Item animated wow fadeInDown div-icon"></i>
+            &nbsp;Remove @Html.Raw(Model.AttributeName)
+        </h3>
+        <hr />
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>AttributeViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AttributeName)
-        </dt>
+        <h4>Are you sure you want to delete this?</h4>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.AttributeName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AttributeName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.AttributeName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AttributeDescription)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AttributeDescription)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AttributeDescription)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.AttributeDescription)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AttributeType)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AttributeType)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AttributeType)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.AttributeType)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AttributeMinimum)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AttributeMinimum)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AttributeMinimum)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.AttributeMinimum)
+                </dd>
 
-    </dl>
+            </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
+                <div class="form-actions">
+                    <a href="~/Attribute" title="List">
+                        <span class="sprite sprite-List-Item animated wow fadeInDown div-icon"></span>
+                        &nbsp;<span>List</span>
+                    </a> |
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </div>
+            }
         </div>
-    }
-</div>
+    </div>
+</section>

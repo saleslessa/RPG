@@ -2333,13 +2333,13 @@
 		
 		if(_container.length > 0) {
 			
-			loadScript(plugin_path + 'select2/js/select2.full.min.js', function() {
+			//loadScript(plugin_path + 'select2/js/select2.full.min.js', function() {
 		
 				if(jQuery().select2) {
 					jQuery('select.select2').select2();
 				}
 
-			});
+			//});
 		}
 
 	}

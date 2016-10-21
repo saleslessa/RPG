@@ -83,7 +83,7 @@ function MountAttributeBonus() {
         var item = {};
         item['AttributeId'] = jQuery(element).parent().parent().attr('id');
         item['AttributeName'] = jQuery(element).parent().siblings('.tdAttributeName').text().trim();
-        item['Selected'] = jQuery(element)[0].checked;
+        item['Selected'] = jQuery(element).children('input')[0].checked;
 
         objAttributes.push(item);
     });

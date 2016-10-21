@@ -4,50 +4,102 @@
     ViewBag.Title = "List of Items";
 }
 
-<h2 class="white">Index</h2>
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Acoes")
+}
 
-<div class="Playercontainer">
+<section id="slider" class="fullheight page-item">
+    <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+        <i class="sprite sprite-List-Item animated wow fadeInDown div-icon"></i>
+        &nbsp;List of Items
+    </h3>
+
     <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemEffect)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemCategory)
-            </th>
-            <th></th>
-        </tr>
+        <a href="~/Item/Create" title="Create new">
+            <span class="sprite sprite-New-Item animated wow fadeInDown div-icon"></span>
+            &nbsp;<span>Create New</span>
+        </a>
 
-        @foreach (var item in Model)
-        {
+    </p>
+    <hr />
+    <div class="col-md-8">
+        <table class="table table-bordered" id="TabIndex">
+            <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemEffect)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemCategory)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ItemId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ItemId })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemEffect)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemCategory)
+                </th>
+                <th>Actions</th>
             </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemEffect)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCategory)
+                    </td>
+                    <td>
+                        <a class="sprite sprite-Edit-Item div-icon" href="~/Item/Edit/@item.ItemId" title="Edit"></a>&nbsp;|&nbsp;
+                        <a class="sprite sprite-Delete-Item div-icon" href="~/Item/Delete/@item.ItemId" title="Remove"></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@section scripts {
+    @Scripts.Render("~/bundles/dataTables")
+    <script type="text/javascript">
+
+        function InitTable() {
+
+            var table = jQuery('#TabIndex');
+
+            /* Fixed header extension: http://datatables.net/extensions/scroller/ */
+
+            var oTable = table.dataTable({
+                "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
+                "scrollY": "300",
+                "deferRender": true,
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "pageLength": 10 // set the initial value
+            });
+
+
+            var tableWrapper = jQuery('#TabIndex'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+            tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
         }
 
-    </table>
-</div>
+
+        // Table Init
+        InitTable();
+
+    </script>
+}

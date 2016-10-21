@@ -1,56 +1,70 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Item.ItemViewModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Remove Item";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemName)
-        </dt>
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Acoes")
+}
 
-        <dd>
-            @Html.DisplayFor(model => model.ItemName)
-        </dd>
+<section id="slider" class="fullheight page-item">
+    <div class="form-horizontal">
+        <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+            <i class="sprite sprite-Delete-Item animated wow fadeInDown div-icon"></i>
+            &nbsp;Remove @Html.Raw(Model.ItemName)
+        </h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemEffect)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ItemName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ItemEffect)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemEffect)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemPrice)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ItemEffect)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ItemPrice)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemPrice)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UniqueUse)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ItemPrice)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UniqueUse)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UniqueUse)
+            </dt>
 
-    </dl>
+            <dd>
+                <label class="switch switch-info" id="UniqueUse" disabled="disabled">
+                    <input type="checkbox" checked="@Html.Raw(Model.UniqueUse)" disabled="disabled">
+                    <span class="switch-label" data-on="YES" data-off="NO" disabled="disabled"></span>
+                </label>
+            </dd>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+        </dl>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <a href="~/Item" title="List">
+                    <span class="sprite sprite-List-Item animated wow fadeInDown div-icon"></span>
+                    &nbsp;<span>List</span>
+                </a> |
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        }
+    </div>
+</section>

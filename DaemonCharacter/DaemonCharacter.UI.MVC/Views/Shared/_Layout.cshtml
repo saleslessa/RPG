@@ -6,7 +6,7 @@
     <meta name="Author" content="Sales Alencar [www.github.com/saleslessa]" />
     <title>@ViewBag.Title - Role Play Hub</title>
     <link href="~/Icon.png" rel="shortcut icon" type="image/x-icon" />
-
+  
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
 
     <!-- Required plugin - Animate.css -->
@@ -18,16 +18,17 @@
     <!-- Particles -->
     @*<link rel="stylesheet" href="~/Content/particles.css" />*@
 </head>
-<body class="smoothscroll enable-animation">
-    <div id="wrapper">
+<body class="smoothscroll enable-animation body">
+    <div id="wrapper" style="float: left;">
         <div id="header" class="sticky dark clearfix">
             @Html.Partial("_Menu")
         </div>
 
-        <div id="page-wrapper" class="container-fluid">
-            @RenderBody()
+        <div class="row" id="div-container">
+            <div id="page-wrapper" class="container-fluid col-md-10 col-md-offset-1">
+                @RenderBody()
+            </div>
         </div>
-
         <footer id="footer">
             <div class="container">
                 <div class="row">
@@ -96,7 +97,7 @@
 
     @*<script src="~/Scripts/particles.min.js"></script>
         <script type="text/javascript">
-            particlesJS.load('body', '/Scripts/particles.json', function () {
+            particlesJS.load('wrapper', '/Scripts/particles.json', function () {
                 console.log('callback - particles.js config loaded');
             });
         </script>*@

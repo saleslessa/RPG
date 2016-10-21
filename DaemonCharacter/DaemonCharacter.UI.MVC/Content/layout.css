@@ -1,3 +1,51 @@
+/** ********************************************** **
+	@Author			Dorin Grigoras
+	@Website		www.stepofweb.com
+	@Last Update	Tuesday, August 25, 2015
+
+	TABLE CONTENTS
+	-------------------------------
+		Globals
+		Boxed
+		Color Background
+		Slide Top
+		Parallax Social Icons
+		Page Header
+		Top Nav
+		Menu Vertical
+		Page Menu
+		Scroll To Top
+		Preloader
+		Misc
+		Landing Page
+		Featured Grid
+		Captions
+		Aside
+		Masonry Gallery
+		Image Hover
+		Sticky Side
+		Parallax Social icons
+		Word Rotator
+		Sliders
+		Standard Forms Messages
+		Portfolio
+		Item Box
+		Mixitup
+		Blog
+		Comments
+		Timeline
+		Contact
+		Error 404
+		Maintenance
+		Login & Register
+		Search Page
+		Block Review
+		Footer
+		Responsive
+		DEMO ONLY [remove on production]
+*************************************************** **/
+
+
 
 /** Globals
  **************************************************************** **/
@@ -805,7 +853,7 @@ section.page-header {
 			content:' ';
 			position:absolute;
 			left:0; right:0;
-			width:100%; height:50px;
+			width:100%; height:60px;
 			bottom:-60px;
 			background-image:url('../images/misc/shadow1.png');
 			background-size: 100% 100%;
@@ -814,7 +862,7 @@ section.page-header {
 			content:' ';
 			position:absolute;
 			left:0; right:0;
-			width:100%; height:50px;
+			width:100%; height:60px;
 			bottom:-60px;
 			background-image:url('../images/misc/shadow2.png');
 			background-size: 100% 100%;
@@ -986,7 +1034,7 @@ section.page-header .breadcrumb {
 	z-index:10;
 }
 section.page-header .breadcrumb>li+li:before {
-	content:"â€¢";
+	content:"•";
 }
 section.page-header .breadcrumb a {
 	color:#333;
@@ -1129,7 +1177,7 @@ section.dark.page-header ul.page-options a {
 		content:' ';
 		position:absolute;
 		left:0; right:0;
-		width:100%; height:50px;
+		width:100%; height:60px;
 		bottom:-60px;
 		background-image:url('../images/misc/shadow1.png');
 		background-size: 100% 100%;
@@ -1138,7 +1186,7 @@ section.dark.page-header ul.page-options a {
 		content:' ';
 		position:absolute;
 		left:0; right:0; top:0;
-		width:100%; height:50px;
+		width:100%; height:60px;
 		background-image:url('../images/misc/shadow1.png');
 		background-size: 100% 100%;
 	}
@@ -1147,7 +1195,7 @@ section.dark.page-header ul.page-options a {
 		content:' ';
 		position:absolute;
 		left:0; right:0;
-		width:100%; height:50px;
+		width:100%; height:60px;
 		bottom:-60px;
 		background-image:url('../images/misc/shadow2.png');
 		background-size: 100% 100%;
@@ -1156,7 +1204,7 @@ section.dark.page-header ul.page-options a {
 		content:' ';
 		position:absolute;
 		left:0; right:0; top:0;
-		width:100%; height:50px;
+		width:100%; height:60px;
 		background-image:url('../images/misc/shadow2.png');
 		background-size: 100% 100%;
 	}
@@ -1164,7 +1212,7 @@ section.dark.page-header ul.page-options a {
 		content:' ';
 		position:absolute;
 		left:0; right:0;
-		width:100%; height:50px;
+		width:100%; height:60px;
 		bottom:-60px;
 		background-image:url('../images/misc/shadow3.png');
 		background-size: 100% 100%;
@@ -1173,7 +1221,7 @@ section.dark.page-header ul.page-options a {
 		content:' ';
 		position:absolute;
 		left:0; right:0; top:0;
-		width:100%; height:50px;
+		width:100%; height:60px;
 		background-image:url('../images/misc/shadow3.png');
 		background-size: 100% 100%;
 	}
@@ -3386,7 +3434,8 @@ section.dark.page-header ul.page-options a {
 	filter: alpha(opacity=90);
 	text-decoration:none;
 	display:none;
-	z-index: 1000;#
+	z-index: 1000;
+
 	-webkit-border-radius: 2px !important;
 	-moz-border-radius: 2px !important;
 	border-radius: 2px !important;
@@ -3407,8 +3456,12 @@ section.dark.page-header ul.page-options a {
 
 
 
+
+
+
+
 /** Preloader
- ******************************************************************/
+ **************************************************************** **/
 #preloader {
     position: fixed;
     z-index: 9999999;
@@ -4963,7 +5016,6 @@ section#slider {
 	overflow:hidden !important;
 	border-bottom:0;
 	z-index:0;
-
 
 		-webkit-transition: all 0s;
 		   -moz-transition: all 0s;
@@ -7006,14 +7058,12 @@ ul.search-history {
 	background: -ms-linear-gradient(top, #555555 0%, #313131 100%);
 	background: linear-gradient(to bottom, #555555 0%,#313131 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#313131',GradientType=0 );
-    bottom: 0;
-    width: 100%;
-	bottom:0;
 }
 #footer>.container {
-	padding-top:10px;
+	padding-top:60px;
+	margin-bottom:60px;
 }
-	
+
 #footer>.copyright {
 	background-color:rgba(0,0,0,0.2);
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
@@ -7063,7 +7113,7 @@ ul.search-history {
 	}
 	#footer h4 {
 		font-size:15px;
-		margin-bottom:15px;
+		margin-bottom:25px;
 	}
 
 	#footer a {
@@ -7102,7 +7152,35 @@ ul.search-history {
 		color: rgba(255,255,255,0.8);
 		font-weight:600;
 	}
-	
+
+	/* footer form */
+	#footer form input,
+	#footer form textarea {
+		color: #999;
+		background-color: rgba(0,0,0,.2);
+		border-color: rgba(0,0,0,.25);
+		margin-bottom:6px;
+
+		-webkit-transition: all 0.2s;
+		   -moz-transition: all 0.2s;
+			 -o-transition: all 0.2s;
+				transition: all 0.2s;
+	}
+	#footer form input[type="submit"]:hover,
+	#footer form input:focus,
+	#footer form textarea:focus {
+		background-color: rgba(0,0,0,.3);
+	}
+	#footer form .input-group-addon {
+		color: #999;
+		background-color: rgba(0,0,0,.4);
+		border-color: rgba(0,0,0,.25);
+	}
+	#footer form .input-group input,
+	#footer form .input-group textarea {
+		margin-bottom:0;
+	}
+
 	@media only screen and (max-width: 480px) {
 		#footer h4 {
 			margin-top:60px;

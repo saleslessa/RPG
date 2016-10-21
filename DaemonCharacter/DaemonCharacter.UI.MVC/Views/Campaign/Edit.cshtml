@@ -4,22 +4,25 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Acoes")
+}
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
+<section class="fullheight page-campaign">
+    <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+        <i class="sprite sprite-Edit-Item animated wow fadeInDown div-icon"></i>
+        &nbsp;Edit Attribute&nbsp;@Html.Raw(Model.CampaignName)
+    </h3>
     <div class="form-horizontal">
-        <h4>CampaignViewModel</h4>
         <hr />
-        @Html.Partial("_MessageSummary")
+        <div id="MessageSummary">
+            @Html.Partial("_MessageSummary")
+        </div>
         @Html.HiddenFor(model => model.CampaignId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.CampaignName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.CampaignName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CampaignName, "", new { @class = "text-danger" })
             </div>
@@ -27,7 +30,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CampaignShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.CampaignShortDescription, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CampaignShortDescription, "", new { @class = "text-danger" })
             </div>
@@ -35,7 +38,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CampaignBriefing, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.CampaignBriefing, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CampaignBriefing, "", new { @class = "text-danger" })
             </div>
@@ -43,7 +46,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CampaignStartYear, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.CampaignStartYear, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CampaignStartYear, "", new { @class = "text-danger" })
             </div>
@@ -51,7 +54,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CampaignMaxPlayers, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.CampaignMaxPlayers, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CampaignMaxPlayers, "", new { @class = "text-danger" })
             </div>
@@ -59,7 +62,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CampaignImg, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.CampaignImg, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CampaignImg, "", new { @class = "text-danger" })
             </div>
@@ -67,28 +70,16 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CampaignStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EnumDropDownListFor(model => model.CampaignStatus, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CampaignStatus, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.DisplayFor(m => m.ValidationResult)
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</section>

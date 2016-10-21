@@ -1,17 +1,19 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Campaign.CampaignViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Campaign";
 }
 
-<h2>Create Campaign</h2>
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <aside class="form-horizontal">
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Acoes")
+}
+<section id="slider" class="fullheight page-campaign">
+    <div class="form-horizontal">
+        <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+            <i class="sprite sprite-New-Item animated wow fadeInDown div-icon"></i>
+            &nbsp;New Campaign
+        </h3>
         <hr />
         @Html.Partial("_MessageSummary")
         <div class="form-group">
@@ -84,13 +86,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-4">
-                @Html.ActionLink("Back to List", "Index") | <input type="submit" value="Create" class="btn btn-success" />
+                <a href="~/Campaign" title="List">
+                    <span class="sprite sprite-List-Item animated wow fadeInDown div-icon"></span>
+                    &nbsp;<span>List</span>
+                </a> | <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
-    </aside>
-}
+    </div>
+</section>
 
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+   
 }

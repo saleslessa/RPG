@@ -9403,4 +9403,96 @@ body.md-skin {
 .div-icon {
     zoom: 0.4 !important;
     display: inline-block !important;
+    vertical-align: middle;
+}
+
+.page-attribute {
+    background: url('../../Images/Landscapes/Vikings.jpg');
+    background-position: center right;
+    padding: 15px !important;
+    background-repeat: no-repeat;
+    -ms-background-size: cover;
+    background-size: cover;
+    opacity: 0.75;
+}
+
+    .page-attribute label, .page-attribute h3, .page-attribute h4, .page-attribute dd, .page-attribute dl, .page-attribute .dataTables_info, .page-attribute a {
+        color: white;
+    }
+
+    .page-attribute label {
+        font-weight: bold;
+    }
+
+    .page-attribute input, .page-attribute select {
+        color: black;
+    }
+
+
+.page-item {
+    background: url('../../Images/Landscapes/Vikings.jpg');
+    background-position: center right;
+    padding: 15px !important;
+    background-repeat: no-repeat;
+    -ms-background-size: cover;
+    background-size: cover;
+    opacity: 0.75;
+}
+
+    .page-item label, .page-item h3, .page-item h4, .page-item dd, .page-item dl, .page-item .dataTables_info, .page-item a, .page-item {
+        color: white;
+    }
+
+        .page-item label {
+            font-weight: bold;
+        }
+
+
+        .page-item input, .page-item select {
+            color: black;
+        }
+
+.page-campaign {
+    background: url('../../Images/Landscapes/Boy.jpg');
+    background-position: center right;
+    padding: 15px !important;
+    background-repeat: no-repeat;
+    -ms-background-size: cover;
+    background-size: cover;
+    opacity: 0.75;
+}
+
+    .page-campaign table tbody, .page-campaign label, .page-campaign h3, .page-campaign h4, .page-campaign dd, .page-campaign dl, .page-campaign .dataTables_info, .page-campaign a, .page-campaign {
+        color: white;
+    }
+
+        .page-campaign label {
+            font-weight: bold;
+        }
+
+        .page-campaign input, .page-campaign select, .page-campaign textarea {
+            color: black;
+        }
+
+        .page-campaign table tbody, .page-item table tbody, .page-attribute table tbody {
+            background-color: white;
+            color: black;
+            opacity: 0.9;
+        }
+
+        .page-campaign table thead, .page-item table thead, .page-attribute table thead {
+            background-color: gray;
+            color: white;
+            opacity: 0.9;
+        }
+
+.body {
+    background-color: #fff;
+    background-image: linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px), linear-gradient(#eee .1em, transparent .1em);
+    background-size: 100% 1.2em;
+}
+
+.select2 {
+    background-color: white;
+    opacity: 0.8;
 }

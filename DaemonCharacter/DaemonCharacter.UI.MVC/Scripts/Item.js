@@ -22,7 +22,7 @@ function MountObject() {
     obj.ItemName = $('#ItemName').val();
     obj.ItemEffect = $('#ItemEffect').val();
     obj.ItemPrice = $('#ItemPrice').val();
-    obj.UniqueUse = $('#UniqueUse')[0].checked;
+    obj.UniqueUse = $('#UniqueUse').children('input')[0].checked;
     obj.ItemCategory = $('#ItemCategory').val();
 
     return obj;

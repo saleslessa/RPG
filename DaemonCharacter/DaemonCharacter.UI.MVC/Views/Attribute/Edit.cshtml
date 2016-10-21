@@ -5,23 +5,16 @@
 }
 
 @section CustomStyle {
-    @Styles.Render("~/bundles/Sprite/Attributes")
     @Styles.Render("~/bundles/Sprite/Acoes")
 }
 
-<h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
-    <i class="sprite sprite-Edit-Item animated wow fadeInDown div-icon"></i>
-    &nbsp;Edit Attribute&nbsp;@Html.Raw(Model.AttributeName)
-</h3>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
+<section class="fullheight page-attribute">
+    <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+        <i class="sprite sprite-Edit-Item animated wow fadeInDown div-icon"></i>
+        &nbsp;Edit Attribute&nbsp;@Html.Raw(Model.AttributeName)
+    </h3>
     <div class="form-horizontal">
         <hr />
-
         <div id="MessageSummary">
             @Html.Partial("_MessageSummary")
         </div>
@@ -69,13 +62,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <a class="sprite sprite-List-Item div-icon" href="~/Attribute" title="List"></a> | <input type="button" name="SaveAttribute" value="Save" class="btn btn-success"/>
+                <a href="~/Attribute" title="List">
+                    <span class="sprite sprite-List-Item animated wow fadeInDown div-icon"></span>
+                    &nbsp;<span>List</span>
+                </a> |
+                <input type="button" name="SaveAttribute" value="Save" class="btn btn-success" />
             </div>
         </div>
     </div>
-                    }
-
-
+</section>
 
 @section Scripts {
     @Scripts.Render("~/Scripts/Attribute.js")
