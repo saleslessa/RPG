@@ -20,8 +20,7 @@ namespace DaemonCharacter.Domain.Services
 
         public Attributes Add(Attributes att)
         {
-            if (!att.IsValid())
-                return att;
+            if (!att.IsValid()) return att;
 
             att.ValidationResult = new CreateAttributeValidation(_attributeRepository).Validate(att);
             if (!att.ValidationResult.IsValid)

@@ -20,28 +20,22 @@ namespace DaemonCharacter.Application.AppService
             _attributeService = attributeService;
         }
 
-        public AttributeViewModel Add(AttributeViewModel AttributeViewModel)
+        public AttributeViewModel Add(AttributeViewModel model)
         {
-            var att = Mapper.Map<AttributeViewModel, Attributes>(AttributeViewModel);
+            var att = Mapper.Map<AttributeViewModel, Attributes>(model);
             att.AttributeBonus = new List<Attributes>();
 
-            foreach (var AttBonus in AttributeViewModel.AttributeBonus)
+            foreach (var attBonus in model.AttributeBonus.Where(attBonus => attBonus.Selected))
             {
-                if (AttBonus.Selected)
-                {
-                    att.AttributeBonus.Add(_attributeService.Get(AttBonus.AttributeId));
-                    _attributeService.AddParent(_attributeService.Get(AttBonus.AttributeId), att);
-                }
+                att.AttributeBonus.Add(_attributeService.Get(attBonus.AttributeId));
+                _attributeService.AddParent(_attributeService.Get(attBonus.AttributeId), att);
             }
 
             att = _attributeService.Add(att);
 
             Commit();
 
-            if (!att.ValidationResult.IsValid)
-                return Mapper.Map<Attributes, AttributeViewModel>(att);
-
-            return AttributeViewModel;
+            return Mapper.Map<Attributes, AttributeViewModel>(att);
         }
 
         public void Dispose()
@@ -71,13 +65,10 @@ namespace DaemonCharacter.Application.AppService
             {
                 if (att != null)
                 {
-                    foreach (var selected in att.AttributeBonus)
+                    foreach (var selected in att.AttributeBonus.Where(selected => item.AttributeId == selected.AttributeId))
                     {
-                        if (item.AttributeId == selected.AttributeId)
-                        {
-                            item.Selected = true;
-                            break;
-                        }
+                        item.Selected = true;
+                        break;
                     }
                 }
                 else
@@ -89,39 +80,34 @@ namespace DaemonCharacter.Application.AppService
             return result.ToList();
         }
 
-        public void Remove(Guid AttributeId)
+        public void Remove(Guid attributeId)
         {
-            _attributeService.RemoveChilds(AttributeId);
-            _attributeService.RemoveParent(AttributeId);
+            _attributeService.RemoveChilds(attributeId);
+            _attributeService.RemoveParent(attributeId);
 
-            _attributeService.Remove(AttributeId);
+            _attributeService.Remove(attributeId);
 
             Commit();
         }
 
-        public AttributeViewModel Update(AttributeViewModel _AttributeViewModel)
+        public AttributeViewModel Update(AttributeViewModel attributeViewModel)
         {
-
-            var att = Mapper.Map<AttributeViewModel, Attributes>(_AttributeViewModel);
+            var att = Mapper.Map<AttributeViewModel, Attributes>(attributeViewModel);
 
             att.AttributeBonus.Clear();
 
             _attributeService.Update(att);
 
 
-            foreach (var item in _AttributeViewModel.AttributeBonus)
-                _attributeService.RemoveParent(item.AttributeId, _AttributeViewModel.AttributeId);
+            foreach (var item in attributeViewModel.AttributeBonus)
+                _attributeService.RemoveParent(item.AttributeId, attributeViewModel.AttributeId);
 
-            _attributeService.RemoveChilds(_AttributeViewModel.AttributeId);
+            _attributeService.RemoveChilds(attributeViewModel.AttributeId);
 
-            foreach (var AttBonus in _AttributeViewModel.AttributeBonus)
+            foreach (var bonus in from attBonus in attributeViewModel.AttributeBonus where attBonus.Selected select _attributeService.Get(attBonus.AttributeId))
             {
-                if (AttBonus.Selected)
-                {
-                    var bonus = _attributeService.Get(AttBonus.AttributeId);
-                    _attributeService.AddChild(att, bonus);
-                    _attributeService.AddParent(bonus, att);
-                }
+                _attributeService.AddChild(att, bonus);
+                _attributeService.AddParent(bonus, att);
             }
 
             Commit();
@@ -145,10 +131,7 @@ namespace DaemonCharacter.Application.AppService
 
         public List<AttributeViewModel> SearchByAttributeType(AttributeType? type)
         {
-            if (type != null)
-                return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(_attributeService.Search(t => t.AttributeType == type).ToList());
-            else
-                return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(_attributeService.ListAll().ToList());
+            return Mapper.Map<List<Attributes>, List<AttributeViewModel>>(type != null ? _attributeService.Search(t => t.AttributeType == type).ToList() : _attributeService.ListAll().ToList());
         }
     }
 }

@@ -6,15 +6,15 @@ namespace DaemonCharacter.Application.Interfaces
 {
     public interface IAttributeAppService : IDisposable
     {
-        AttributeViewModel Add(AttributeViewModel _AttributeViewModel);
+        AttributeViewModel Add(AttributeViewModel model);
 
         AttributeViewModel Get(Guid? AttributeId);
 
         IEnumerable<AttributeViewModel> ListAll();
 
-        AttributeViewModel Update(AttributeViewModel _AttributeViewModel);
+        AttributeViewModel Update(AttributeViewModel attributeViewModel);
 
-        void Remove(Guid AttributeId);
+        void Remove(Guid attributeId);
 
         List<AttributeBonusViewModel> ListAvailableForBonus(Guid? SelectedAttribute);
 

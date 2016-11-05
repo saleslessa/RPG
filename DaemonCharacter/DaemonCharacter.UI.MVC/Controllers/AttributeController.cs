@@ -48,13 +48,10 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
             model = _attributeAppService.Add(model);
 
-            if (!model.ValidationResult.IsValid)
-            {
-                LoadAttributeErrors(model);
-                return Json(new { error = "ValildationResultError", model = model.ValidationResult });
-            }
+            if (model.ValidationResult.IsValid) return Json(new {error = "", message = model.ValidationResult.Message});
 
-            return Json(new { error = "", message = model.ValidationResult.Message });
+            LoadAttributeErrors(model);
+            return Json(new { error = "ValildationResultError", model = model.ValidationResult });
         }
 
         private void LoadAttributeErrors(AttributeViewModel model)
