@@ -51,7 +51,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
             if (!model.ValidationResult.IsValid)
             {
                 LoadAttributeErrors(model);
-                return Json(new { error = "ValidationResultError", model = model.ValidationResult });
+                return Json(new { error = "ValildationResultError", model = model.ValidationResult });
             }
 
             return Json(new { error = "", message = model.ValidationResult.Message });

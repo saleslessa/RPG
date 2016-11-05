@@ -8,7 +8,6 @@ using AutoMapper;
 using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Application.ViewModels.Attribute;
 using System.Linq;
-using DaemonCharacter.Domain.Validations.Item;
 
 namespace DaemonCharacter.Application.AppService
 {
@@ -28,11 +27,6 @@ namespace DaemonCharacter.Application.AppService
         public ItemViewModel Add(ItemViewModel model)
         {
             var item = Mapper.Map<ItemViewModel, Item>(model);
-
-            if(!item.IsValid()) return Mapper.Map<Item, ItemViewModel>(item);
-
-            item.ValidationResult = new CreateItemValidation(_itemService).Validate(item);
-            if (!item.ValidationResult.IsValid) return Mapper.Map<Item, ItemViewModel>(item);
 
             item = _itemService.Add(item);
 

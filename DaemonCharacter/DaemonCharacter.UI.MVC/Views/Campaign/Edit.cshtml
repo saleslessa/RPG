@@ -11,13 +11,13 @@
 <section class="fullheight page-campaign">
     <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
         <i class="sprite sprite-Edit-Item animated wow fadeInDown div-icon"></i>
-        &nbsp;Edit&nbsp;@Html.Raw(Model.CampaignName)
+        &nbsp;Edit Attribute&nbsp;@Html.Raw(Model.CampaignName)
     </h3>
     <div class="form-horizontal">
+        <hr />
         <div id="MessageSummary">
             @Html.Partial("_MessageSummary")
         </div>
-        <hr />
         @Html.HiddenFor(model => model.CampaignId)
 
         <div class="form-group">
@@ -77,15 +77,9 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-8">
-                <a href="~/Campaign" title="List" class="button btn btn-default">
-                    <span>List</span>
-                </a>
-                <input type="button" name="SaveCampaign" value="Save" class="btn btn-success" />
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </div>
     </div>
 </section>
-@section Scripts {
-    @Scripts.Render("~/Scripts/Campaign.js")
-}

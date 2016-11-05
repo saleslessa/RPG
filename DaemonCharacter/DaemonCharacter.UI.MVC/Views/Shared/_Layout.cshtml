@@ -6,7 +6,7 @@
     <meta name="Author" content="Sales Alencar [www.github.com/saleslessa]" />
     <title>@ViewBag.Title - Role Play Hub</title>
     <link href="~/Icon.png" rel="shortcut icon" type="image/x-icon" />
-
+  
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
 
     <!-- Required plugin - Animate.css -->
@@ -19,57 +19,56 @@
     @*<link rel="stylesheet" href="~/Content/particles.css" />*@
 </head>
 <body class="smoothscroll enable-animation body">
-    <div id="wrapper">
+    <div id="wrapper" style="float: left;">
         <div id="header" class="sticky dark clearfix">
             @Html.Partial("_Menu")
         </div>
 
-        <div class="row">
+        <div class="row" id="div-container">
             <div id="page-wrapper" class="container-fluid col-md-10 col-md-offset-1">
                 @RenderBody()
             </div>
         </div>
-    </div>
-    <footer id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.2s">
-                    <h3 class="fh5co-lead">About</h3>
-                    <ul>
-                        <li><a href="#">About RPG Systems</a></li>
-                        <li><a href="http://github.com/saleslessa" target="_blank">About Site Creator</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.4s">
-                    <h3 class="fh5co-lead">Rules are Rules</h3>
-                    <ul>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.6s">
-                    <h3 class="fh5co-lead">Photo and Images credits</h3>
-                    <ul>
-                        <li><a href="http://flickr.com" target="blank">Flickr</a></li>
-                        <li><i><a href="http://www.freerangestock.com" target="blank">Free Range Stock</a></i></li>
-                    </ul>
-                </div>
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.2s">
+                        <h3 class="fh5co-lead">About</h3>
+                        <ul>
+                            <li><a href="#">About RPG Systems</a></li>
+                            <li><a href="http://github.com/saleslessa" target="_blank">About Site Creator</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.4s">
+                        <h3 class="fh5co-lead">Rules are Rules</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-md-push-3 animated wow fadeInLeft" data-wow-delay="0.6s">
+                        <h3 class="fh5co-lead">Photo and Images credits</h3>
+                        <ul>
+                            <li><a href="http://flickr.com" target="blank">Flickr</a></li>
+                            <li><i><a href="http://www.freerangestock.com" target="blank">Free Range Stock</a></i></li>
+                        </ul>
+                    </div>
 
-                <div class="col-md-3 col-sm-12 col-md-pull-9 animated wow fadeInLeft" data-wow-delay="0.8s">
-                    <div class="fh5co-footer-logo"><a href="javascript:void(0);"><i class="fa fa-logo"></i> Role Play Hub</a></div>
-                    <p class="fh5co-copyright"><small>&copy; 2016. All Rights Reserved.</small></p>
-                    <p class="fh5co-social-icons">
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <a href="#"><i class="fa fa-youtube"></i></a>
-                    </p>
+                    <div class="col-md-3 col-sm-12 col-md-pull-9 animated wow fadeInLeft" data-wow-delay="0.8s">
+                        <div class="fh5co-footer-logo"><a href="javascript:void(0);"><i class="fa fa-logo"></i> Role Play Hub</a></div>
+                        <p class="fh5co-copyright"><small>&copy; 2016. All Rights Reserved.</small></p>
+                        <p class="fh5co-social-icons">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                            <a href="#"><i class="fa fa-youtube"></i></a>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </footer>
-
+        </footer>
+    </div>
     <!-- SCROLL TO TOP -->
     <a href="#" id="toTop"></a>
 

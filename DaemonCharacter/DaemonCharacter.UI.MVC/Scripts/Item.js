@@ -39,5 +39,6 @@ function MountItemAttribute() {
 
         obj.push(item);
     });
+    console.log(obj);
     return obj;
 }

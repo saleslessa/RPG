@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using DaemonCharacter.Application.ViewModels.Attribute;
 using DaemonCharacter.Application.ViewModels.Campaign;
 using DaemonCharacter.Application.ViewModels.Item;
@@ -11,7 +10,6 @@ namespace DaemonCharacter.Application.AutoMapper
 {
     public class DomainToViewModelMappingProfile : Profile
     {
-        [Obsolete("Create a constructor and configure inside of your profile\'s constructor instead. Will be removed in 6.0")]
         protected override void Configure()
         {
             CreateMap<Attributes, AttributeViewModel>();

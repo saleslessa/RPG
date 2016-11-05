@@ -9407,17 +9407,17 @@ body.md-skin {
 }
 
 .page-attribute {
-    /*background: url('../../Images/Landscapes/Vikings.jpg');
+    background: url('../../Images/Landscapes/Vikings.jpg');
     background-position: center right;
-     background-repeat: no-repeat;*/
-    /*-ms-background-size: cover;
+    padding: 15px !important;
+    background-repeat: no-repeat;
+    -ms-background-size: cover;
     background-size: cover;
     opacity: 0.75;
-    padding: 15px !important;*/
 }
 
     .page-attribute label, .page-attribute h3, .page-attribute h4, .page-attribute dd, .page-attribute dl, .page-attribute .dataTables_info, .page-attribute a {
-        color: black;
+        color: white;
     }
 
     .page-attribute label {
@@ -9430,17 +9430,17 @@ body.md-skin {
 
 
 .page-item {
-    /*background: url('../../Images/Landscapes/Vikings.jpg');
+    background: url('../../Images/Landscapes/Vikings.jpg');
     background-position: center right;
-    background-repeat: no-repeat;
     padding: 15px !important;
+    background-repeat: no-repeat;
     -ms-background-size: cover;
     background-size: cover;
-    opacity: 0.75;*/
+    opacity: 0.75;
 }
 
     .page-item label, .page-item h3, .page-item h4, .page-item dd, .page-item dl, .page-item .dataTables_info, .page-item a, .page-item {
-        color: black;
+        color: white;
     }
 
         .page-item label {
@@ -9453,17 +9453,17 @@ body.md-skin {
         }
 
 .page-campaign {
-    /*background: url('../../Images/Landscapes/Boy.jpg');
+    background: url('../../Images/Landscapes/Boy.jpg');
     background-position: center right;
-    background-repeat: no-repeat;
     padding: 15px !important;
+    background-repeat: no-repeat;
     -ms-background-size: cover;
     background-size: cover;
-    opacity: 0.75;*/
+    opacity: 0.75;
 }
 
     .page-campaign table tbody, .page-campaign label, .page-campaign h3, .page-campaign h4, .page-campaign dd, .page-campaign dl, .page-campaign .dataTables_info, .page-campaign a, .page-campaign {
-        color: black;
+        color: white;
     }
 
         .page-campaign label {
@@ -9494,5 +9494,5 @@ body.md-skin {
 
 .select2 {
     background-color: white;
-    /*opacity: 0.8;*/
+    opacity: 0.8;
 }

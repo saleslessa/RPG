@@ -29,20 +29,20 @@ namespace DaemonCharacter.UI.MVC.Controllers
         // GET: Player/Details/5
         public ActionResult Details(Guid? id)
         {
-            if (id != null)
+            if (id == null)
             {
-                var playerViewModel = _playerAppService.Get(id);
-
-
-                if (playerViewModel == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(playerViewModel);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var playerViewModel = _playerAppService.Get(id);
+
+
+            if (playerViewModel == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(playerViewModel);
         }
 
 
@@ -59,35 +59,34 @@ namespace DaemonCharacter.UI.MVC.Controllers
         // [ValidateAntiForgeryToken]
         public JsonResult Create(PlayerViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                model.ValidationResult = new DomainValidation.Validation.ValidationResult();
-                model.CharacterUser = User.Identity.Name;
-
-                model = _playerAppService.Add(model);
-
-                if (model.ValidationResult.IsValid)
-                    return Json(new {error = "", message = "Player created successfully"});
                 LoadPlayerErrors(model);
-                return Json(new {error = "ValidationResultError", model = model.ValidationResult});
+
+                var errorList = ModelState.ToDictionary(
+                        kvp => string.Empty,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    );
+
+                var firstOrDefault = model.SelectedItems
+                    .GroupBy(g => g.ItemId)
+                    .Select(s => new { Total = s.Sum(t => t.PlayerItemUnitPrice * t.PlayerItemQtd) })
+                    .FirstOrDefault();
+                if (firstOrDefault != null && model.PlayerMoney < firstOrDefault.Total)
+                    errorList.Add(string.Empty, new string[] { "You used more money than you have. Please change your items in your bag or put more money" });
+
+                return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
             }
 
 
+            model.ValidationResult = new DomainValidation.Validation.ValidationResult();
+            model.CharacterUser = User.Identity.Name;
+
+            model = _playerAppService.Add(model);
+
+            if (model.ValidationResult.IsValid) return Json(new {error = "", message = "Player created successfully"});
             LoadPlayerErrors(model);
-
-            var errorList = ModelState.ToDictionary(
-                kvp => string.Empty,
-                kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                );
-
-            var firstOrDefault = model.SelectedItems
-                .GroupBy(g => g.ItemId)
-                .Select(s => new { Total = s.Sum(t => t.PlayerItemUnitPrice * t.PlayerItemQtd) })
-                .FirstOrDefault();
-            if (firstOrDefault != null && model.PlayerMoney < firstOrDefault.Total)
-                errorList.Add(string.Empty, new string[] { "You used more money than you have. Please change your items in your bag or put more money" });
-
-            return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
+            return Json(new { error = "ValildationResultError", model = model.ValidationResult });
         }
 
         private void LoadPlayerErrors(PlayerViewModel model)
@@ -102,20 +101,26 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         private void LoadSelectedItemErrors(PlayerViewModel model)
         {
-            if (model.SelectedItems == null) return;
-            foreach (var error in model.SelectedItems.SelectMany(it => it.ValidationResult.Erros))
-            {
-                ModelState.AddModelError(string.Empty, error.Message);
-            }
+            if (model.SelectedItems != null)
+                foreach (var it in model.SelectedItems)
+                {
+                    foreach (var error in it.ValidationResult.Erros)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Message);
+                    }
+                }
         }
 
         private void LoadSelectedAttributeErrors(PlayerViewModel model)
         {
-            if (model.SelectedAttributes == null) return;
-            foreach (var error in model.SelectedAttributes.SelectMany(att => att.ValidationResult.Erros))
-            {
-                ModelState.AddModelError(string.Empty, error.Message);
-            }
+            if (model.SelectedAttributes != null)
+                foreach (var att in model.SelectedAttributes)
+                {
+                    foreach (var error in att.ValidationResult.Erros)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Message);
+                    }
+                }
         }
 
         // GET: Player/Edit/5
@@ -129,7 +134,12 @@ namespace DaemonCharacter.UI.MVC.Controllers
             var model = _playerAppService.Get(id);
             model.Campaigns = _campaignAppService.ListAvailableCampaigns();
 
-            return model == null ? (ActionResult) HttpNotFound() : View(model);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(model);
         }
 
         // POST: Player/Edit/5
@@ -139,24 +149,28 @@ namespace DaemonCharacter.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PlayerViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            _playerAppService.Update(model);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _playerAppService.Update(model);
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
         }
 
         // GET: Player/Delete/5
         public ActionResult Delete(Guid? id)
         {
-            if (id != null)
+            if (id == null)
             {
-                var playerViewModel = _playerAppService.Get(id);
-                if (playerViewModel == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(playerViewModel);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var playerViewModel = _playerAppService.Get(id);
+            if (playerViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(playerViewModel);
         }
 
         // POST: Player/Delete/5
@@ -166,6 +180,11 @@ namespace DaemonCharacter.UI.MVC.Controllers
         {
             _playerAppService.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
     }
 }

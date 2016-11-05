@@ -6,9 +6,9 @@ namespace DaemonCharacter.Domain.Validations.Item
 {
     public class CreateItemValidation : Validator<Entities.Item>
     {
-        public CreateItemValidation(IItemService itemService)
+        public CreateItemValidation(IItemService _itemService)
         {
-            var hasUniqueName = new ItemHasUniqueNameSpecification(itemService);
+            var hasUniqueName = new ItemHasUniqueNameSpecification(_itemService);
             var hasEffect = new ItemHasEffectSpecification();
 
             base.Add("hasUniqueName", new Rule<Entities.Item>(hasUniqueName, "This name is already used by another item. Please chose another."));
