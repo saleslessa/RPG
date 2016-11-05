@@ -38,7 +38,7 @@ namespace DaemonCharacter.Application.ViewModels.Campaign
 
         [DisplayName("Max Players")]
         [Required(ErrorMessage = "This field is obrigatory. Please select a value")]
-        [Range(1, 10, ErrorMessage ="Maximum players must be between {0} and {1}")]
+        [Range(1, 99, ErrorMessage ="Maximum players must be between {0} and {1}")]
         public short CampaignMaxPlayers { get; set; }
 
         [DisplayName("Image")]

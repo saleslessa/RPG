@@ -9406,7 +9406,7 @@ body.md-skin {
     vertical-align: middle;
 }
 
-.page-attribute {
+/*.page-attribute {
     background: url('../../Images/Landscapes/Vikings.jpg');
     background-position: center right;
     padding: 15px !important;
@@ -9414,22 +9414,22 @@ body.md-skin {
     -ms-background-size: cover;
     background-size: cover;
     opacity: 0.75;
+}*/
+
+/*.page-attribute label, .page-attribute h3, .page-attribute h4, .page-attribute dd, .page-attribute dl, .page-attribute .dataTables_info, .page-attribute a {
+        color: white;
+    }*/
+
+.page-attribute label {
+    font-weight: bold;
 }
 
-    .page-attribute label, .page-attribute h3, .page-attribute h4, .page-attribute dd, .page-attribute dl, .page-attribute .dataTables_info, .page-attribute a {
-        color: white;
-    }
-
-    .page-attribute label {
-        font-weight: bold;
-    }
-
-    .page-attribute input, .page-attribute select {
-        color: black;
-    }
+.page-attribute input, .page-attribute select {
+    color: black;
+}
 
 
-.page-item {
+/*.page-item {
     background: url('../../Images/Landscapes/Vikings.jpg');
     background-position: center right;
     padding: 15px !important;
@@ -9441,18 +9441,18 @@ body.md-skin {
 
     .page-item label, .page-item h3, .page-item h4, .page-item dd, .page-item dl, .page-item .dataTables_info, .page-item a, .page-item {
         color: white;
-    }
+    }*/
 
-        .page-item label {
-            font-weight: bold;
-        }
+.page-item label {
+    font-weight: bold;
+}
 
 
-        .page-item input, .page-item select {
-            color: black;
-        }
+.page-item input, .page-item select {
+    color: black;
+}
 
-.page-campaign {
+/*.page-campaign {
     background: url('../../Images/Landscapes/Boy.jpg');
     background-position: center right;
     padding: 15px !important;
@@ -9464,27 +9464,50 @@ body.md-skin {
 
     .page-campaign table tbody, .page-campaign label, .page-campaign h3, .page-campaign h4, .page-campaign dd, .page-campaign dl, .page-campaign .dataTables_info, .page-campaign a, .page-campaign {
         color: white;
-    }
+    }*/
 
-        .page-campaign label {
-            font-weight: bold;
-        }
+.page-campaign label {
+    font-weight: bold;
+}
 
-        .page-campaign input, .page-campaign select, .page-campaign textarea {
-            color: black;
-        }
+.page-campaign input, .page-campaign select, .page-campaign textarea {
+    color: black;
+}
 
-        .page-campaign table tbody, .page-item table tbody, .page-attribute table tbody {
-            background-color: white;
-            color: black;
-            opacity: 0.9;
-        }
+.page-campaign table tbody, .page-item table tbody, .page-attribute table tbody {
+    background-color: white;
+    color: black;
+    opacity: 0.9;
+}
 
-        .page-campaign table thead, .page-item table thead, .page-attribute table thead {
-            background-color: gray;
-            color: white;
-            opacity: 0.9;
-        }
+.page-campaign table thead, .page-item table thead, .page-attribute table thead {
+    background-color: gray;
+    color: white;
+    opacity: 0.9;
+}
+
+
+
+.page-player label {
+    font-weight: bold;
+}
+
+.page-player input, .page-player select, .page-player textarea {
+    color: black;
+}
+
+.page-player table tbody, .page-player table tbody, .page-player table tbody {
+    background-color: white;
+    color: black;
+    opacity: 0.9;
+}
+
+.page-player table thead, .page-player table thead, .page-player table thead {
+    background-color: gray;
+    color: white;
+    opacity: 0.9;
+}
+
 
 .body {
     background-color: #fff;

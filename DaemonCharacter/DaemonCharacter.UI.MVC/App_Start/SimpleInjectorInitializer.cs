@@ -7,6 +7,7 @@ using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 
 [assembly: WebActivator.PostApplicationStartMethod(typeof(SimpleInjectorInitializer), "Initialize")]
+
 namespace DaemonCharacter.UI.MVC
 {
     public static class SimpleInjectorInitializer
@@ -16,16 +17,16 @@ namespace DaemonCharacter.UI.MVC
         {
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
-            
+
             InitializeContainer(container);
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
-            
+
             container.Verify();
-            
+
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
-     
+
         private static void InitializeContainer(Container container)
         {
             Bootstrapper.RegisterServices(container);

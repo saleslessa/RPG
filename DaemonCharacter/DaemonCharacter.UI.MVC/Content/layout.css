@@ -5012,7 +5012,7 @@ section#slider {
 	padding:0;
 	margin:0;
 	box-shadow:none;
-	background-color:#151515;
+	
 	overflow:hidden !important;
 	border-bottom:0;
 	z-index:0;
@@ -5101,7 +5101,7 @@ section#slider .btn-default {
 	.slider h5,
 	#slider h6,
 	.slider h6 {
-		color:#fff;
+		color:#000;
 	}
 	
 	
@@ -5683,7 +5683,7 @@ section#slider .btn-default {
 	#slider h5,
 	#slider h6,
 	#slider p {
-		color:#fff;
+		color:#000;
 		text-shadow:rgba(0,0,0,0.16) 1px 1px 1px;
 	}
 	#slider h1 {

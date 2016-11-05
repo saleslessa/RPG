@@ -52,7 +52,7 @@ namespace DaemonCharacter.Domain.Services
 
         public Campaign Update(Campaign c)
         {
-            if (c.IsValid())
+            if (!c.IsValid())
                 return c;
 
             c.ValidationResult.Message = "Campaign updated successfully";

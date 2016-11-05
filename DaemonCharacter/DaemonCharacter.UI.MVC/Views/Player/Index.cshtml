@@ -3,65 +3,115 @@
 @{
     ViewBag.Title = "List of Players";
 }
+@section CustomStyle {
+    @Styles.Render("~/bundles/Sprite/Acoes")
+}
 
-<h2 class="white">List of Players</h2>
+<section id="slider" class="fullheight page-player">
+    <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+        <i class="sprite sprite-List-Item animated wow fadeInDown div-icon"></i>
+        &nbsp;List of Players
+    </h3>
 
-<div class="Playercontainer">
     <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table table-responsive table-striped PlayerSheet">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CharacterName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CharacterRace)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CharacterGender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlayerLevel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlayerAge)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlayerMoney)
-            </th>
-            <th></th>
-        </tr>
+        <a href="~/Player/Create" title="Create new">
+            <span class="sprite sprite-New-Item animated wow fadeInDown div-icon"></span>
+            &nbsp;<span>Create New</span>
+        </a>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CharacterName)
-                </td>
-            
-                <td>
-                    @Html.DisplayFor(modelItem => item.CharacterRace)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CharacterGender)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlayerLevel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlayerAge)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlayerMoney)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CharacterId }) |
-                    @Html.ActionLink("See Player Sheet", "Details", new { id = item.CharacterId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CharacterId })
-                </td>
-            </tr>
+    </p>
+    <hr />
+    <div class="col-md-10">
+        <table class="table table-bordered" id="TabIndex">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CharacterName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CharacterRace)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CharacterGender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PlayerLevel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PlayerAge)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PlayerMoney)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CharacterName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CharacterRace)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CharacterGender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PlayerLevel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PlayerAge)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PlayerMoney)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CharacterId }) |
+                            @Html.ActionLink("See Player Sheet", "Details", new { id = item.CharacterId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CharacterId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+@section scripts {
+    @Scripts.Render("~/bundles/dataTables")
+    <script type="text/javascript">
+
+        function InitTable() {
+
+            var table = jQuery('#TabIndex');
+
+            /* Fixed header extension: http://datatables.net/extensions/scroller/ */
+
+            var oTable = table.dataTable({
+                "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
+                "scrollY": "300",
+                "deferRender": true,
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                "pageLength": 10 // set the initial value
+            });
+
+
+            var tableWrapper = jQuery('#TabIndex'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+            tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
         }
 
-    </table>
-</div>
+
+        // Table Init
+        InitTable();
+
+    </script>
+}

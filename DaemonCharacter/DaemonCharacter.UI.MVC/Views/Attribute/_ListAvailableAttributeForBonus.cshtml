@@ -3,30 +3,37 @@
 @{ Layout = null;}
 
 <div style="overflow-y: auto; max-height: 250px;">
-<table class="table table-bordered" id="TableBonus">
-    <thead>
-        <tr>
-            <th style="display: none;"></th>
-            <th colspan="2">Attribute</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (int cont = 0; cont < Model.Count; cont++)
-        {
-            <tr id="@Html.Raw(Model[cont].AttributeId)">
-                <td class="tdAttributeName">
-                    @Html.DisplayFor(m => Model[cont].AttributeName)
-                </td>
-                <td class="tdSelectAttribute">
-                    <label class="switch switch-success AttributeBonus" id="UniqueUse">
-                        <input type="checkbox" checked="@Html.Raw(Model[cont].Selected)">
-                        <span class="switch-label" data-on="YES" data-off="NO"></span>
-                    </label>
-
-                    @*@Html.CheckBoxFor(m => Model[cont].Selected, new { @class = "AttributeBonus" })*@
-                </td>
+    <table class="table table-bordered" id="TableBonus">
+        <thead>
+            <tr>
+                <th style="display: none;"></th>
+                <th colspan="2">Attribute</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @for (int cont = 0; cont < Model.Count; cont++)
+            {
+                <tr id="@Html.Raw(Model[cont].AttributeId)">
+                    <td class="tdAttributeName">
+                        @Html.DisplayFor(m => Model[cont].AttributeName)
+                    </td>
+                    <td class="tdSelectAttribute">
+
+                        <label class="switch switch-success AttributeBonus" id="UniqueUse">
+                            @if (Model[cont].Selected)
+                            {
+                                <input type="checkbox" checked="checked">
+                            }
+                            else
+                            {
+                                <input type="checkbox">
+                            }
+                            <span class="switch-label" data-on="YES" data-off="NO"></span>
+                        </label>
+                        @*@Html.CheckBoxFor(m => Model[cont].Selected, new { @class = "AttributeBonus" })*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

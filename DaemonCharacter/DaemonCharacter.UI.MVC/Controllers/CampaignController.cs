@@ -1,7 +1,9 @@
 ﻿using DaemonCharacter.Application.Interfaces;
 using DaemonCharacter.Application.ViewModels.Campaign;
 using System;
+using System.Linq;
 using System.Web.Mvc;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
 
 namespace DaemonCharacter.UI.MVC.Controllers
 {
@@ -28,72 +30,69 @@ namespace DaemonCharacter.UI.MVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(CampaignViewModel model)
+        public JsonResult Create(CampaignViewModel model)
         {
-
             model.CampaignUserMaster = User.Identity.Name;
-
-            if (model.CampaignUserMaster == null)
-                model.ValidationResult.Add(new DomainValidation.Validation.ValidationError("Not Logged"));
-
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _campaignAppService.Add(model);
-                return RedirectToAction("Index");
+                LoadAttributeErrors(model);
+
+                var errorList = ModelState.ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    );
+
+                return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
             }
 
-            foreach (ModelState modelState in ViewData.ModelState.Values)
-            {
-                foreach (ModelError error in modelState.Errors)
-                {
-                    model.ValidationResult.Add(new DomainValidation.Validation.ValidationError(error.ErrorMessage.ToString()));
-                }
-            }
+            model = _campaignAppService.Add(model);
 
-            return View(model);
+            if (model.ValidationResult.IsValid) return Json(new {error = "", message = model.ValidationResult.Message});
+
+            LoadAttributeErrors(model);
+            return Json(new { error = "ValildationResultError", model = model.ValidationResult });
+        }
+
+        private void LoadAttributeErrors(CampaignViewModel model)
+        {
+            foreach (var error in model.ValidationResult.Erros)
+                ModelState.AddModelError(string.Empty, error.Message);
         }
 
         public ActionResult Edit(Guid? id)
         {
             var model = _campaignAppService.Get(id);
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(model);
+            return model == null ? (ActionResult)HttpNotFound() : View(model);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(CampaignViewModel model)
         {
-            if (ModelState.IsValid)
+            model.CampaignUserMaster = User.Identity.Name;
+            if (!ModelState.IsValid)
             {
-                _campaignAppService.Update(model);
-                return RedirectToAction("Index");
+                LoadAttributeErrors(model);
+
+                var errorList = ModelState.ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    );
+
+                return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
             }
 
-            foreach (ModelState modelState in ViewData.ModelState.Values)
-            {
-                foreach (ModelError error in modelState.Errors)
-                {
-                    model.ValidationResult.Add(new DomainValidation.Validation.ValidationError(error.ErrorMessage.ToString()));
-                }
-            }
+            model = _campaignAppService.Update(model);
 
-            return View(model);
+            if (model.ValidationResult.IsValid) return Json(new { error = "", message = model.ValidationResult.Message });
+
+            LoadAttributeErrors(model);
+            return Json(new { error = "ValildationResultError", model = model.ValidationResult });
         }
 
         public ActionResult Delete(Guid id)
         {
             var model = _campaignAppService.Get(id);
-            if(model == null)
-                return HttpNotFound();
-
-            return View(model);
+            return model == null ? (ActionResult)HttpNotFound() : View(model);
         }
 
         [HttpPost, ActionName("Delete")]

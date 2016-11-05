@@ -3821,6 +3821,12 @@
         <member name="F:SimpleInjector.Internals.ContainerControlledItem.Registration">
             <summary>Can be null.</summary>
         </member>
+        <member name="P:SimpleInjector.Internals.CyclicDependencyException.Message">
+            <summary>
+            Gets a message that describes the current exception.
+            </summary>
+            <value>The error message that explains the reason for the exception, or an empty string("").</value>
+        </member>
         <member name="T:SimpleInjector.Internals.CyclicDependencyValidator">
             <summary>
             Allows verifying whether a given type has a direct or indirect dependency on itself. Verifying is done
@@ -3894,7 +3900,7 @@
         <member name="F:SimpleInjector.Lifestyle.Transient">
             <summary>
             The lifestyle instance that doesn't cache instances. A new instance of the specified
-            component is created every time the registered service it is requested or injected.
+            component is created every time the registered service is requested or injected.
             </summary>
             <example>
             The following example registers the <c>SomeServiceImpl</c> implementation for the
@@ -4761,7 +4767,8 @@
         <member name="P:SimpleInjector.TypesToRegisterOptions.IncludeGenericTypeDefinitions">
             <summary>
             Gets or sets a value indicating whether generic type definitions (types that have
-            <see cref="P:System.Type.IsGenericTypeDefinition">Type.IsGenericTypeDefinition</see> set to true) 
+            <see cref="P:System.Type.IsGenericTypeDefinition">Type.IsGenericTypeDefinition</see>
+            set to true) 
             should be included in the result. The default value for this property is <b>false</b>.
             </summary>
             <value>A boolean.</value>
@@ -5620,6 +5627,13 @@
             <param name="openGenericImplementations">The list of open generic implementation types
             that will be returned when a collection of <paramref name="openGenericServiceType"/> is requested.
             </param>
+        </member>
+        <member name="T:SimpleInjector.NetReflectionExtensions">
+            <summary>
+            Extension methods to adapt Simple Injector to the .NET and PCL. This class consists of extension
+            methods that map to properties with the same name. The Simple Injector library for .NETStandard
+            contains these extension methods as well, but are differently maps.
+            </summary>
         </member>
     </members>
 </doc>
