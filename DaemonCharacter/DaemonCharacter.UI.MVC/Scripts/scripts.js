@@ -1961,9 +1961,9 @@
 		/** Textarea Words Limit
 		 *********************** **/
 		jQuery("textarea.word-count").on('keyup', function() {
-			var _t		= jQuery(this),
-				words 	= this.value.match(/\S+/g).length,
-				_limit	= _t.attr('data-maxlength') || 200;
+		    var _t = jQuery(this);
+		    var words = (this.value == null || this.value == "") ? 0 : this.value.match(/\S+/g).length;
+		    var _limit	= _t.attr('data-maxlength') || 200;
 
 			if (words > parseInt(_limit)) {
 

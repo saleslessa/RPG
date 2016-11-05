@@ -14,8 +14,13 @@ namespace DaemonCharacter.Domain.Specifications.Item
 
         public bool IsSatisfiedBy(Entities.Item entity)
         {
-            var obj = _itemService.SearchByName(entity.ItemName);
-            return obj == null || obj.ItemId == entity.ItemId;
+            if (!string.IsNullOrEmpty(entity.ItemName))
+            {
+                var obj = _itemService.SearchByName(entity.ItemName);
+                return obj == null || obj.ItemId == entity.ItemId;
+            }
+
+            return false;
         }
     }
 }

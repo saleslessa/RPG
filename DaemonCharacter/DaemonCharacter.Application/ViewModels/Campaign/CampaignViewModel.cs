@@ -17,18 +17,18 @@ namespace DaemonCharacter.Application.ViewModels.Campaign
 
         [DisplayName("Name")]
         [Required(ErrorMessage ="The name of campaign is obrigatory. Plase chose one")]
-        [StringLength(50, ErrorMessage ="The length of campaign's name must be between {0} and {1}", MinimumLength =5)]
+        [StringLength(50, ErrorMessage ="The length of campaign's name must be between 5 and 50", MinimumLength =5)]
         [DataType(DataType.Text)]
         public string CampaignName { get; set; }
 
         [DisplayName("Short Description")]
         [Required(ErrorMessage = "The description of campaign is obrigatory. Plase chose one")]
-        [StringLength(500, ErrorMessage = "The length of campaign's description must be between {0} and {1}", MinimumLength = 5)]
+        [StringLength(500, ErrorMessage = "The length of campaign's description must be between 5 and 500", MinimumLength = 5)]
         [DataType(DataType.MultilineText)]
         public string CampaignShortDescription { get; set; }
 
         [DisplayName("Briefing")]
-        [StringLength(500, ErrorMessage = "The maximum length of campaign's briefing is {0}")]
+        [StringLength(500, ErrorMessage = "The maximum length of campaign's briefing is 500")]
         [DataType(DataType.MultilineText)]
         public string CampaignBriefing { get; set; }
 

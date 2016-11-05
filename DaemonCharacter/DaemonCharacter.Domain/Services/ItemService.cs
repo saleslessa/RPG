@@ -4,6 +4,7 @@ using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Service;
 using DaemonCharacter.Domain.Interfaces.Repository;
 using System.Linq;
+using DaemonCharacter.Domain.Validations.Item;
 
 namespace DaemonCharacter.Domain.Services
 {
@@ -18,8 +19,12 @@ namespace DaemonCharacter.Domain.Services
 
         public Item Add(Item model)
         {
-            model.ValidationResult.Message = "Item created successfully";
-            return _itemRepository.Add(model);
+            
+            var retorno = _itemRepository.Add(model);
+            if (retorno != null)
+                retorno.ValidationResult.Message = "Item Added Successfully";
+
+            return retorno;
         }
 
         public void Dispose()

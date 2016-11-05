@@ -58,10 +58,9 @@ namespace DaemonCharacter.Infra.Data.Repository
 
         public TEntity Update(TEntity obj)
         {
-            var entry = db.Entry(obj);
-
+            db.Entry(obj).State = EntityState.Modified;
             DbSet.Attach(obj);
-            entry.State = EntityState.Modified;
+            db.SaveChanges();
             return obj;
         }
 

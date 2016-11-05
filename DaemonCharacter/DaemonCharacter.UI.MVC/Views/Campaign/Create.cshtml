@@ -4,7 +4,6 @@
     ViewBag.Title = "Create Campaign";
 }
 
-
 @section CustomStyle {
     @Styles.Render("~/bundles/Sprite/Acoes")
 }
@@ -14,37 +13,80 @@
             <i class="sprite sprite-New-Item animated wow fadeInDown div-icon"></i>
             &nbsp;New Campaign
         </h3>
-        <hr />
-        @Html.Partial("_MessageSummary")
-        <div class="form-group">
-            @Html.LabelFor(model => model.CampaignName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.CampaignName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CampaignName, "", new { @class = "text-danger" })
-            </div>
+        <div id="MessageSummary">
+            @Html.Partial("_MessageSummary")
         </div>
+        <hr/>
+        <div class="col-md-7">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CampaignName, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.CampaignName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CampaignName, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CampaignShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4 fancy-form">
-                @Html.TextAreaFor(model => model.CampaignShortDescription, new { @rows = "5", @maxlength = "200", @class = "form-control word-count" })
-                <i style="padding-left:10px;" class="fa fa-comments"><!-- icon --></i>
-                <span class="fancy-hint size-11 text-muted">
-                    <strong>Hint:</strong> 200 words allowed!
-                    <span class="pull-right">
-                        <span id="textarea-words-info">0/200</span> Words
+            <div class="form-group">
+                @Html.LabelFor(model => model.CampaignShortDescription, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9 fancy-form">
+                    @Html.TextAreaFor(model => model.CampaignShortDescription, new { @rows = "5", @maxlength = "200", @class = "form-control word-count" })
+                    <i style="padding-left:10px;" class="fa fa-comments"><!-- icon --></i>
+                    <span class="fancy-hint size-11 text-muted" style="background-color: grey; color: white;">
+                        <strong>Hint:</strong> 200 words allowed!
+                        <span class="pull-right">
+                            <span id="textarea-words-info">0/200</span> Words
+                        </span>
                     </span>
-                </span>
-                @Html.ValidationMessageFor(model => model.CampaignShortDescription, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.CampaignShortDescription, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CampaignStartYear, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.CampaignStartYear, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CampaignStartYear, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.CampaignMaxPlayers, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.CampaignMaxPlayers, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CampaignMaxPlayers, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CampaignImg, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.CampaignImg, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CampaignImg, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CampaignStatus, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EnumDropDownListFor(model => model.CampaignStatus, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CampaignStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-8">
+                    <a href="~/Campaign" title="List" class="button btn btn-default">
+                        <span>List</span>
+                    </a>
+                    <input type="button" name="CreateCampaign" value="Create" class="btn btn-success" />
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-5">
             @Html.LabelFor(model => model.CampaignBriefing, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4 fancy-form">
-                @Html.TextAreaFor(model => model.CampaignBriefing, new { @rows = "5", @maxlength = "1000", @class = "form-control word-count" })
+            <div class="col-md-10 fancy-form">
+                @Html.TextAreaFor(model => model.CampaignBriefing, new { @rows = "20", @maxlength = "1000", @class = "form-control word-count" })
                 <i style="padding-left:10px;" class="fa fa-comments"><!-- icon --></i>
-                <span class="fancy-hint size-11 text-muted">
+                <span class="fancy-hint size-11 text-muted" style="background-color: grey; color: white;">
                     <strong>Hint:</strong> 1000 words allowed!
                     <span class="pull-right">
                         <span id="textarea-words-info">0/200</span> Words
@@ -53,49 +95,10 @@
                 @Html.ValidationMessageFor(model => model.CampaignBriefing, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CampaignStartYear, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-1">
-                @Html.EditorFor(model => model.CampaignStartYear, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CampaignStartYear, "", new { @class = "text-danger" })
-            </div>
-
-            @Html.LabelFor(model => model.CampaignMaxPlayers, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-1">
-                @Html.EditorFor(model => model.CampaignMaxPlayers, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CampaignMaxPlayers, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CampaignImg, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.CampaignImg, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CampaignImg, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CampaignStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EnumDropDownListFor(model => model.CampaignStatus, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CampaignStatus, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-4">
-                <a href="~/Campaign" title="List">
-                    <span class="sprite sprite-List-Item animated wow fadeInDown div-icon"></span>
-                    &nbsp;<span>List</span>
-                </a> | <input type="submit" value="Create" class="btn btn-success" />
-            </div>
-        </div>
     </div>
 </section>
 
 
 @section Scripts {
-   
+    @Scripts.Render("~/Scripts/Campaign.js")
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DaemonCharacter.Domain.Entities;
 using DaemonCharacter.Domain.Interfaces.Service;
 using DaemonCharacter.Domain.Interfaces.Repository;
@@ -37,12 +38,13 @@ namespace DaemonCharacter.Domain.Services
 
         public IEnumerable<Campaign> ListAll()
         {
-            return _campaignRepository.ListAll();
+            return _campaignRepository.ListAll().ToList().OrderBy(o => o.CampaignName);
         }
 
         public IEnumerable<Campaign> ListAvailable()
         {
-            return _campaignRepository.Search(c => c.CampaignStatus == CampaignStatus.Beginning && c.CampaignRemainingPlayers > 0);
+            return _campaignRepository.Search(c => c.CampaignStatus == CampaignStatus.Beginning && c.CampaignRemainingPlayers > 0)
+                .OrderBy(o => o.CampaignName);
         }
 
         public void Remove(Guid id)
@@ -52,7 +54,7 @@ namespace DaemonCharacter.Domain.Services
 
         public Campaign Update(Campaign c)
         {
-            if (c.IsValid())
+            if (!c.IsValid())
                 return c;
 
             c.ValidationResult.Message = "Campaign updated successfully";

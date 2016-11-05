@@ -12,10 +12,11 @@ function MountModelStateErrorMessage(model) {
     }
 
     div += '</ul></div>';
+    
     $("#MessageSummary").append(div);
 }
 
-function MountValildationResultError(model) {
+function MountValidationResultError(model) {
     var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><h3>Oops! something goes wrong:</h3><ul>';
 
     for (var i = 0; i < model.Erros.length; i++) {
@@ -23,6 +24,7 @@ function MountValildationResultError(model) {
     }
 
     div += '</ul></div>';
+    
     $("#MessageSummary").append(div);
 }
 
@@ -41,14 +43,15 @@ function SaveModel(model, action) {
             data: JSON.stringify({ model: model }),
 
             success: function (response) {
+               
                 if (response.error == "")
                     MountSuccessMessage(response.message);
 
                 if (response.error == "ModelStateError")
                     MountModelStateErrorMessage(response.model);
 
-                if (response.error == "ValildationResultError")
-                    MountValildationResultError(response.model);
+                if (response.error == "ValidationResultError")
+                    MountValidationResultError(response.model);
 
                 $("#MessageSummary").slideToggle('slow');
             },

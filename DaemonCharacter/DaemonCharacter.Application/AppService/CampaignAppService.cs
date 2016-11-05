@@ -25,6 +25,7 @@ namespace DaemonCharacter.Application.AppService
             var campaign = Mapper.Map<CampaignViewModel, Campaign>(c);
             campaign.CampaignRemainingPlayers = campaign.CampaignMaxPlayers;
 
+            campaign = _campaignService.Add(campaign);
             Commit();
 
             return Mapper.Map<Campaign, CampaignViewModel>(_campaignService.Add(campaign));
@@ -59,10 +60,12 @@ namespace DaemonCharacter.Application.AppService
 
         public CampaignViewModel Update(CampaignViewModel c)
         {
-            var result = _campaignService.Update(Mapper.Map<CampaignViewModel, Campaign>(c));
+            var campaign = Mapper.Map<CampaignViewModel, Campaign>(c);
+
+            campaign = _campaignService.Update(campaign);
             Commit();
 
-            return Mapper.Map<Campaign, CampaignViewModel>(result);
+            return Mapper.Map<Campaign, CampaignViewModel>(campaign);
         }
     }
 }
