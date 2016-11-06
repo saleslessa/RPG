@@ -8,76 +8,72 @@
     @Styles.Render("~/bundles/Sprite/Acoes")
 }
 <section id="slider" class="fullheight page-item">
-    <div class="form-horizontal">
-        <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
-            <i class="sprite sprite-New-Item animated wow fadeInDown div-icon"></i>
-            &nbsp;New Item
-        </h3>
-        <hr />
-        <div id="MessageSummary">
-            @Html.Partial("_MessageSummary")
-        </div>
+    <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+        <i class="sprite sprite-New-Item animated wow fadeInDown div-icon"></i>
+        &nbsp;New Item
+    </h3>
+    <hr />
+    <div id="MessageSummary">
+        @Html.Partial("_MessageSummary")
+    </div>
+    <div class="col-md-7">
         @Html.HiddenFor(model => model.ItemId)
         <div class="form-group">
-            @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
+            @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ItemEffect, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
+            @Html.LabelFor(model => model.ItemEffect, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.ItemEffect, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ItemEffect, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ItemPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
+            @Html.LabelFor(model => model.ItemPrice, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.ItemPrice, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ItemPrice, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ItemCategory, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2" style="color: white;">
+            @Html.LabelFor(model => model.ItemCategory, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.EnumDropDownListFor(model => model.ItemCategory, htmlAttributes: new { @class = "form-control select2" })
                 @Html.ValidationMessageFor(model => model.ItemCategory, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UniqueUse, htmlAttributes: new { @class = "control-label col-md-2 " })
-            <div class="col-md-2">
+            @Html.LabelFor(model => model.UniqueUse, htmlAttributes: new { @class = "control-label col-md-3 " })
+            <div class="col-md-9">
                 <label class="switch switch-info" id="UniqueUse">
                     <input type="checkbox" checked="">
                     <span class="switch-label" data-on="YES" data-off="NO"></span>
                 </label>
             </div>
         </div>
-
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <a href="~/Item" title="List" class="button btn btn-default">List</a>
+                <input type="button" name="CreateItem" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
         <div class="form-group">
             <label class="control-label col-md-2">Bonus To:</label>
-            <div class="col-md-4">
+            <div class="col-md-10">
                 @{Html.RenderPartial("_ListAvailableAttributeForBonus", Model.ItemAttribute);}
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <a href="~/Item" title="List">
-                    <span class="sprite sprite-List-Item animated wow fadeInDown div-icon"></span>
-                    &nbsp;<span>List</span>
-                </a> | <input type="button" name="CreateItem" value="Create" class="btn btn-success" />
-            </div>
-        </div>
-
     </div>
-
 </section>
 @section Scripts {
     @Scripts.Render("~/Scripts/Item.js")

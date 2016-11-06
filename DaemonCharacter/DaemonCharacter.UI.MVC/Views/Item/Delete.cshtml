@@ -47,7 +47,14 @@
 
             <dd>
                 <label class="switch switch-info" id="UniqueUse" disabled="disabled">
-                    <input type="checkbox" checked="@Html.Raw(Model.UniqueUse)" disabled="disabled">
+                    @if (Model.UniqueUse)
+                    {
+                        <input type="checkbox" checked="checked" disabled="disabled">
+                    }
+                    else
+                    {
+                        <input type="checkbox" disabled="disabled">
+                    }
                     <span class="switch-label" data-on="YES" data-off="NO" disabled="disabled"></span>
                 </label>
             </dd>

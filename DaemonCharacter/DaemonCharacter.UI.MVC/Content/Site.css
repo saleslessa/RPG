@@ -9428,6 +9428,21 @@ body.md-skin {
     color: black;
 }
 
+.page-attribute table tbody, .page-attribute table tbody, .page-attribute table tbody {
+    background-color: white;
+    color: black;
+    -ms-opacity: 0.8;
+    opacity: 0.8;
+}
+
+.page-attribute table thead, .page-attribute table thead, .page-attribute table thead {
+    background-color: darkgray;
+    color: black !important;
+    -ms-opacity: 0.8;
+    opacity: 0.8;
+}
+
+
 
 /*.page-item {
     background: url('../../Images/Landscapes/Vikings.jpg');
@@ -9438,19 +9453,31 @@ body.md-skin {
     background-size: cover;
     opacity: 0.75;
 }
+    */
 
-    .page-item label, .page-item h3, .page-item h4, .page-item dd, .page-item dl, .page-item .dataTables_info, .page-item a, .page-item {
+    .page-item table tbody, .page-item table tbody, .page-attribute table tbody {
+        background-color: white;
+        color: black;
+        -ms-opacity: 0.8;
+        opacity: 0.8;
+    }
+
+    .page-item table thead, .page-item table thead, .page-attribute table thead {
+        background-color: darkgray;
         color: white;
-    }*/
-
-.page-item label {
-    font-weight: bold;
-}
+        -ms-opacity: 0.8;
+        opacity: 0.8;
+    }
 
 
-.page-item input, .page-item select {
-    color: black;
-}
+    .page-item label {
+        font-weight: bold;
+    }
+
+
+    .page-item input, .page-item select {
+        color: black;
+    }
 
 /*.page-campaign {
     background: url('../../Images/Landscapes/Boy.jpg');
@@ -9477,15 +9504,16 @@ body.md-skin {
 .page-campaign table tbody, .page-item table tbody, .page-attribute table tbody {
     background-color: white;
     color: black;
-    opacity: 0.9;
+    -ms-opacity: 0.8;
+    opacity: 0.8;
 }
 
 .page-campaign table thead, .page-item table thead, .page-attribute table thead {
-    background-color: gray;
+    background-color: darkgray;
     color: white;
-    opacity: 0.9;
+    -ms-opacity: 0.8;
+    opacity: 0.8;
 }
-
 
 
 .page-player label {
@@ -9499,13 +9527,13 @@ body.md-skin {
 .page-player table tbody, .page-player table tbody, .page-player table tbody {
     background-color: white;
     color: black;
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 .page-player table thead, .page-player table thead, .page-player table thead {
-    background-color: gray;
+    background-color: darkgray;
     color: white;
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 
@@ -9518,4 +9546,7 @@ body.md-skin {
 .select2 {
     background-color: white;
     opacity: 0.8;
+}
+#slider .form-group {
+    margin-top: 7px;
 }

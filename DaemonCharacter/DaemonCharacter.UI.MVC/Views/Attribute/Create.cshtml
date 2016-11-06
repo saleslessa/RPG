@@ -8,64 +8,62 @@
     @Styles.Render("~/bundles/Sprite/Acoes")
 }
 <section id="slider" class="fullheight page-attribute">
-    <div class="form-horizontal">
-        <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
-            <i class="sprite sprite-New-Item animated wow fadeInDown div-icon"></i>
-            &nbsp;New Attribute
-        </h3>
-        <hr />
-        <div id="MessageSummary">
-            @Html.Partial("_MessageSummary")
-        </div>
+    <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
+        <i class="sprite sprite-New-Item animated wow fadeInDown div-icon"></i>
+        &nbsp;New Attribute
+    </h3>
+    <hr />
+    <div id="MessageSummary">
+        @Html.Partial("_MessageSummary")
+    </div>
+    <div class="col-md-7">
         @Html.HiddenFor(model => model.AttributeId)
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(model => model.AttributeName, new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.AttributeName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AttributeName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.AttributeDescription, new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.AttributeDescription, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AttributeDescription, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.AttributeType, new { @class = "control-label col-md-2" })
-                <div class="col-md-2">
-                    @Html.EnumDropDownListFor(model => model.AttributeType, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.AttributeType, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group" id="div-minimum">
-                @Html.LabelFor(model => model.AttributeMinimum, new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.AttributeMinimum, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AttributeMinimum, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AttributeName, new {@class = "control-label col-md-3"})
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.AttributeName, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.AttributeName, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.AttributeDescription, new {@class = "control-label col-md-3"})
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.AttributeDescription, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.AttributeDescription, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AttributeType, new {@class = "control-label col-md-3"})
+            <div class="col-md-9">
+                @Html.EnumDropDownListFor(model => model.AttributeType, htmlAttributes: new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.AttributeType, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group" id="div-minimum">
+            @Html.LabelFor(model => model.AttributeMinimum, new {@class = "control-label col-md-3"})
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.AttributeMinimum, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.AttributeMinimum, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <a href="~/Attribute" title="List" class="button btn btn-default">List</a>
+                <input type="button" name="CreateAttribute" value="Create" class="btn btn-success"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
             <label class="control-label col-md-2">Bonus To:</label>
-            <div class="col-md-6">
+            <div class="col-md-10">
                 @{Html.RenderPartial("_ListAvailableAttributeForBonus", Model.AttributeBonus);}
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <a href="~/Attribute" title="List" class="button btn btn-default">List</a>
-                <input type="button" name="CreateAttribute" value="Create" class="btn btn-success" />
-            </div>
-        </div>
-
     </div>
 </section>
 @section Scripts {
