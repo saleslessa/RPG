@@ -24,13 +24,28 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         public ActionResult _Create(PlayerViewModel player)
         {
-            var model = new CharacterAttributeViewModel();
-            model.ListOfAvailableAttributes = _attributeAppService.ListWithPagination(0, 10);
-            model.SelectedAttributes = player == null || player.SelectedAttributes == null ? new List<SelectedCharacterAttributeViewModel>() : player.SelectedAttributes.ToList();
+            var model = new CharacterAttributeViewModel()
+            {
+                ListOfAvailableAttributes = _attributeAppService.ListAll().Where(t => t.AttributeType != AttributeType.Talent).ToList(),
+                SelectedAttributes =
+                    player == null || player.SelectedAttributes == null
+                        ? new List<SelectedCharacterAttributeViewModel>()
+                        : player.SelectedAttributes.Where(t => t.AttributeType != AttributeType.Talent).ToList()
+            };
 
+            return View(model);
+        }
 
-            ViewBag.PaginationSkip = 0;
-            ViewBag.PaginationTake = 10;
+        public ActionResult _CreateTalent(PlayerViewModel player)
+        {
+            var model = new CharacterAttributeViewModel()
+            {
+                ListOfAvailableAttributes = _attributeAppService.ListAll().Where(t=>t.AttributeType==AttributeType.Talent).ToList(),
+                SelectedAttributes =
+                     player == null || player.SelectedAttributes == null
+                         ? new List<SelectedCharacterAttributeViewModel>()
+                         : player.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList()
+            };
 
             return View(model);
         }

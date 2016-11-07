@@ -49,16 +49,30 @@ namespace DaemonCharacter.UI.MVC
                          , "~/Content/ColorScheme/darkblue.css"
                         ));
 
+            bundles.Add(new ScriptBundle("~/bundles/playerScripts").Include(
+                "~/Scripts/bootstrap-markdown.min.js"
+                , "~/Scripts/custom.fle_upload.js"
+                , "~/Scripts/MultipleStepFormScript.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/playerCss").Include(
+                "~/Content/bootstrap-markdown.min.css"
+                ));
+
 
             bundles.Add(new ScriptBundle("~/bundles/homeCss").Include(
                          "~/Content/header-1.css"
-
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/Sprite/Attributes").Include(
                 "~/Content/Sprites/Atributos.css"
                 , "~/Images/Sprites/Atributos.png"
                 ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Sprite/Users").Include(
+               "~/Content/Sprites/Users.css"
+               , "~/Images/Sprites/Users.png"
+               ));
 
             bundles.Add(new ScriptBundle("~/bundles/Sprite/Acoes").Include(
                "~/Content/Sprites/Acoes.css"

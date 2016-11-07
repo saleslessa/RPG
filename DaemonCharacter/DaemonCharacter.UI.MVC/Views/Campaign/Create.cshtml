@@ -8,6 +8,8 @@
 @section CustomStyle {
     @Styles.Render("~/bundles/Sprite/Acoes")
 }
+
+
 <section id="slider" class="fullheight page-campaign">
     <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
         <i class="sprite sprite-New-Item animated wow fadeInDown div-icon"></i>
@@ -39,15 +41,6 @@
                 @Html.ValidationMessageFor(model => model.CampaignMaxPlayers, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.CampaignImg, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CampaignImg, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CampaignImg, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group col-md-12">
             @Html.LabelFor(model => model.CampaignStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -99,4 +92,20 @@
 
 @section Scripts {
     @Scripts.Render("~/Scripts/Campaign.js")
+    <script>
+        $(document).ready(function () {
+            document.getElementById("CampaignImage").onchange = function () {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("image").src = e.target.result;
+                };
+
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            };
+        });
+
+    </script>
 }

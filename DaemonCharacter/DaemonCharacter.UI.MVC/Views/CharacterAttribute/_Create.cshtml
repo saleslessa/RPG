@@ -1,61 +1,23 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Attribute.CharacterAttributeViewModel
 
 @{Layout = null;}
-
-<div class="col-md-4">
-    <h4>List of available attributes</h4>
-    @*TODO: implementar a pesquisa com paginação*@
-
-    @{List<SelectListItem> list = new List<SelectListItem>();
-        var EnumValues = Enum.GetValues(typeof(AttributeType));
-        var EnumNames = Enum.GetNames(typeof(AttributeType));
-
-
-        list.Add(new SelectListItem()
-        {
-            Text = "",
-            Value = "-1",
-            Selected = false
-        });
-
-        for (int i = 0; i < EnumValues.Length; i++)
-        {
-            var enumList = new SelectListItem()
-            {
-                Text = EnumNames[i],
-                Value = EnumValues.GetValue(i).ToString()
-            };
-
-            list.Add(enumList);
-
-        };
-
-    }
-    @Html.DropDownList("AttributeTypeSearch", list, htmlAttributes: new { @class = "form-control" })
-    <input type="text" class="form-control col-md-12" placeholder="Search" id="SearchAvailable" />
-
+ 
+<div class="col-md-6">
+    <h5>List of available attributes</h5>
     <div id="SearchAttributeContainer">
-        @{Html.RenderPartial("_SearchAttributes", Model.ListOfAvailableAttributes.Where(t => t.AttributeType != AttributeType.Talent).ToList());}
+        @{Html.RenderPartial("_SearchAttributes", Model.ListOfAvailableAttributes.ToList());}
     </div>
 </div>
-<div class="col-md-4">
-    <h4>Selected attributes</h4>
-    @*TODO: implementar a pesquisa com paginação*@
-
-    @Html.DropDownList("AttributeTypeSelected", list, htmlAttributes: new { @class = "form-control" })
-    <input type="text" class="form-control col-md-12" placeholder="Search" />
-    <table id="TableSelected" class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+<div class="col-md-6">
+    <h5>Selected attributes</h5>
+    <table id="TableSelected" class="table table-bordered">
         <thead>
             <tr>
                 <th>Attribute</th>
                 <th>Value</th>
-                <th></th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody></tbody>
     </table>
-</div>
-<div class="col-md-4">
-    <h4>Talents</h4>
-    @{Html.RenderPartial("_SearchAttributes", Model.ListOfAvailableAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList());}
 </div>

@@ -241,10 +241,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UtilModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-markdown.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ColorScheme\darkblue.css" />
@@ -285,6 +287,7 @@
     <Content Include="Images\banner.jpg" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\corner.svg" />
+    <Content Include="Images\Default User.png" />
     <Content Include="Images\diablo_texture.PNG" />
     <Content Include="Images\grain_bg.png" />
     <Content Include="Images\icon_minus.png" />
@@ -333,6 +336,7 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\Attribute.js" />
+    <Content Include="Scripts\bootstrap-markdown.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -348,6 +352,7 @@
     <Content Include="Scripts\Campaign.js" />
     <Content Include="Scripts\CharacterForms.js" />
     <Content Include="Scripts\contact.js" />
+    <Content Include="Scripts\custom.fle_upload.js" />
     <Content Include="Scripts\DataTable\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\DataTable\dataTables.colReorder.min.js" />
     <Content Include="Scripts\DataTable\dataTables.foundation.min.js" />
@@ -383,8 +388,6 @@
     <Content Include="Scripts\smoothscroll.js" />
     <Content Include="Scripts\tutorial.js" />
     <Content Include="Scripts\Util.js" />
-    <Content Include="Scripts\Wizard\jquery.steps.min.js" />
-    <Content Include="Scripts\Wizard\metisMenu.min.js" />
     <Content Include="Scripts\wow.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -457,6 +460,7 @@
     <Content Include="Scripts\particles.json" />
     <Content Include="Views\Item\_ListAvailableAttributeForBonus.cshtml" />
     <Content Include="Views\Item\Delete.cshtml" />
+    <Content Include="Views\CharacterAttribute\_CreateTalent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

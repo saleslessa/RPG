@@ -1,120 +1,92 @@
 ﻿@model DaemonCharacter.Application.ViewModels.Player.PlayerViewModel
 
 @{
-    ViewBag.Title = "Creating a new Player";
+    ViewBag.Title = "Create Player";
 }
-
-@section CustomStyle
-{
-    @Styles.Render("~/Content/Wizard/jquery.steps.css")
+@section CustomStyle {
+    @Styles.Render("~/bundles/playerCss")
+    @Styles.Render("~/bundles/Sprite/Attributes")
 }
-
 <h3 class="animated wow fadeInUp" data-wow-delay="0.2s">
     <i class="fa fa-shield animated wow fadeInDown"></i>
-    &nbsp;Create Player Form
+    &nbsp;Create Player
 </h3>
+<ul class="process-steps nav nav-justified">
+    <li class="active">
+        <a href="#step1" data-toggle="tab">
+            <div class="center-icon"><i class="sprite sprite-Mind-Map-50 div-icon center-icon"></i></div>
+        </a>
+        <p>Basic Information</p>
+    </li>
+    <li>
+        <a href="#step2" data-toggle="tab">
+            <div class="center-icon"><i class="sprite sprite-Stick-Fighting-50 div-icon center-icon"></i></div>
+        </a>
+        <p>Attributes</p>
+    </li>
+    <li>
+        <a href="#step3" data-toggle="tab">
+            <div class="center-icon"><i class="sprite sprite-Talent div-icon center-icon"></i></div>
+        </a>
+        <p>Talents</p>
+    </li>
+    <li>
+        <a href="#step4" data-toggle="tab">
+            <div class="center-icon"><i class="sprite sprite-Money div-icon center-icon"></i></div>
+        </a>
+        <p>Items</p>
+    </li>
+</ul>
 <div id="MessageSummary">
     @Html.Partial("_MessageSummary")
 </div>
 <hr />
-<div class="col-md-offset-1 col-md-10">
-    @using (Html.BeginForm("Create", "Player", FormMethod.Post, new { @class = "form-horizontal" }))
-    {
-        <div id="wizard" class="clearfix">
-            <h1>Basic Info</h1>
-            <div class="padding-20">
-                @Html.Partial("_CreateBasicInformation", Model)
-            </div>
-            <h1>Attributes</h1>
-            <div class="padding-20">
-                @{Html.RenderAction("_Create", "CharacterAttribute", new { player = Model.SelectedAttributes });}
-            </div>
-            <h1>Items</h1>
-            <div class="padding-20">
-                @{Html.RenderAction("_Create", "PlayerItem", new { player = Model.SelectedItems });}
-            </div>
-            @*<input type="button" value="Create Player" name="btnCreatePlayer" class="btn btn-success nextBtn btn-lg float-right" />
-                <input type="button" value="Preview" class="btn btn-info float-right" />*@
+<section id="slider" class="fullheight page-player">
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="step1">
+            @Html.Partial("_CreateBasicInformation", Model)
         </div>
 
-
-                    }
-</div>
+        <div role="tabpanel" class="tab-pane" id="step2">
+            @{Html.RenderAction("_Create", "CharacterAttribute", new { player = Model.SelectedAttributes });}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="step3">
+            @{Html.RenderAction("_CreateTalent", "CharacterAttribute", new { player = Model.SelectedAttributes});}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="step4">
+            @{Html.RenderAction("_Create", "PlayerItem", new { player = Model.SelectedItems });}
+        </div>
+    </div>
+</section>
 @section Scripts {
-    @Scripts.Render("~/Scripts/Wizard/jquery.steps.min.js")
-    @*@Scripts.Render("~/Scripts/inspinia.js")*@
-    @*@Scripts.Render("~/Scripts/Wizard/metisMenu.min.js")*@
+    @Scripts.Render("~/bundles/playerScripts")
+    @Scripts.Render("~/bundles/dataTables")
+    <script>
+        $(document).ready(function() {
+            document.getElementById("CharacterImage").onchange = function() {
+                var reader = new FileReader();
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+                reader.onload = function(e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("image").src = e.target.result;
+                };
 
-            $("#wizard").steps();
-            $("#form").steps({
-                bodyTag: "fieldset",
-                onStepChanging: function (event, currentIndex, newIndex) {
-                    // Always allow going backward even if the current step contains invalid fields!
-                    if (currentIndex > newIndex) {
-                        return true;
-                    }
-
-                    // Forbid suppressing "Warning" step if the user is to young
-                    if (newIndex === 3 && Number($("#age").val()) < 18) {
-                        return false;
-                    }
-
-                    var form = $(this);
-
-                    // Clean up if user went backward before
-                    if (currentIndex < newIndex) {
-                        // To remove error styles
-                        $(".body:eq(" + newIndex + ") label.error", form).remove();
-                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
-                    }
-
-                    // Disable validation on fields that are disabled or hidden.
-                    form.validate().settings.ignore = ":disabled,:hidden";
-
-                    // Start validation; Prevent going forward if false
-                    return form.valid();
-                },
-                onStepChanged: function (event, currentIndex, priorIndex) {
-                    // Suppress (skip) "Warning" step if the user is old enough.
-                    if (currentIndex === 2 && Number($("#age").val()) >= 18) {
-                        $(this).steps("next");
-                    }
-
-                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
-                    if (currentIndex === 2 && priorIndex === 3) {
-                        $(this).steps("previous");
-                    }
-                },
-                onFinishing: function (event, currentIndex) {
-                    var form = $(this);
-
-                    // Disable validation on fields that are disabled.
-                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
-                    form.validate().settings.ignore = ":disabled";
-
-                    // Start validation; Prevent form submission if false
-                    return form.valid();
-                },
-                onFinished: function (event, currentIndex) {
-                    var form = $(this);
-
-                    // Submit form input
-                    form.submit();
-                }
-            }).validate({
-                errorPlacement: function (error, element) {
-                    element.before(error);
-                },
-                rules: {
-                    confirm: {
-                        equalTo: "#password"
-                    }
-                }
-            });
-
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            };
         });
+
+        // Table Init
+        InitTable('TableSearch');
+        InitTable('TableTalents');
+        InitTable('TableSelected');
+        InitTable('TableAttribute');
+        InitTable('table-item-selected');
+        InitTable('table-item-available');
+        
+       
+        
     </script>
+
+
 }

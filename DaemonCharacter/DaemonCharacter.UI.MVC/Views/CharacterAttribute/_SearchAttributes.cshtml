@@ -1,9 +1,9 @@
 ﻿@model List<DaemonCharacter.Application.ViewModels.Attribute.AttributeViewModel>
 
-<div class="col-md-12" style="height:375px;overflow-y:auto;">
+<div class="col-md-12">
     @if (Model.FirstOrDefault().AttributeType != AttributeType.Talent)
     {
-        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="TableSearch">
+        <table class="table table-bordered" id="TableSearch">
             <thead>
                 <tr>
                     <th>Attribute</th>
@@ -23,8 +23,7 @@
     }
     else
     {
-
-        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="TableTalents">
+        <table class="table table-bordered" id="TableTalents">
             <thead>
                 <tr>
                     <th>Talent</th>

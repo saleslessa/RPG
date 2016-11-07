@@ -1,0 +1,7 @@
+﻿@model DaemonCharacter.Application.ViewModels.Attribute.CharacterAttributeViewModel
+
+@{Layout = null;}
+
+<div class="col-md-12">
+    @{Html.RenderPartial("_SearchAttributes", Model.ListOfAvailableAttributes.ToList());}
+</div>

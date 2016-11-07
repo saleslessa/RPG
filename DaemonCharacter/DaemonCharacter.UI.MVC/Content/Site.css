@@ -192,10 +192,10 @@ h3, h4, h5 {
     transition: all 0.4s;
 }
 
-.nav > li.active {
+/*.nav > li.active {
     border-left: 4px solid #19aa8d;
     background: #293846;
-}
+}*/
 
 .nav.nav-second-level > li.active {
     border: none;
@@ -9543,10 +9543,14 @@ body.md-skin {
     background-size: 100% 1.2em;
 }
 
-.select2 {
-    background-color: white;
-    opacity: 0.8;
-}
 #slider .form-group {
     margin-top: 7px;
+}
+.center-icon {
+    margin: 0;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }

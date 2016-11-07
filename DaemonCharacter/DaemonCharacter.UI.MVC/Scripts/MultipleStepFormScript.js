@@ -1,83 +1,22 @@
 ﻿$(document).ready(function () {
 
-    var navListItems = $('div.setup-panel div a'),
-            allWells = $('.setup-content'),
-            allNextBtn = $('.nextBtn');
-
-    allWells.hide();
-
-    navListItems.click(function (e) {
-        e.preventDefault();
-        var $target = $($(this).attr('href')),
-                $item = $(this);
-
-        if (!$item.hasClass('disabled')) {
-            navListItems.removeClass('btn-success').addClass('btn-default');
-            $item.addClass('btn-success');
-            allWells.hide();
-            $target.fadeIn("slow");
-            $target.find('input:eq(0)').focus();
-        }
-    });
-
-    allNextBtn.click(function () {
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
-            isValid = true;
-
-        $(".form-group").removeClass("has-error");
-        for (var i = 0; i < curInputs.length; i++) {
-            if (!curInputs[i].validity.valid) {
-                isValid = false;
-                $(curInputs[i]).closest(".form-group").addClass("has-error");
-            }
-        }
-
-        if (isValid)
-            nextStepWizard.removeAttr('disabled').trigger('click');
-    });
-
-    $('div.setup-panel div a.btn-success').trigger('click');
-
-    var next = 0;
-    $("#add-more").click(function (e) {
-        e.preventDefault();
-        var addto = "#field" + next;
-        var addRemove = "#field" + (next);
-        next = next + 1;
-        var newIn = ' <div id="field' + next + '" name="field' + next + '"><!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_id">Action Id</label> <div class="col-md-5"> <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md"> </div></div><br><br><!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_name">Action Name</label> <div class="col-md-5"> <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md"> </div></div><br><br><!-- File Button --> <div class="form-group"> <label class="col-md-4 control-label" for="action_json">Action JSON File</label> <div class="col-md-4"> <input id="action_json" name="action_json" class="input-file" type="file"> </div></div></div>';
-        var newInput = $(newIn);
-        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
-        var removeButton = $(removeBtn);
-        $(addto).after(newInput);
-        $(addRemove).after(removeButton);
-        $("#field" + next).attr('data-source', $(addto).attr('data-source'));
-        $("#count").val(next);
-
-        $('.remove-me').click(function (e) {
-            e.preventDefault();
-            var fieldNum = this.id.charAt(this.id.length - 1);
-            var fieldID = "#field" + fieldNum;
-            $(this).remove();
-            $(fieldID).remove();
-        });
-    });
-
-
     $('#TableSearch').on('click', '.clickable-row', function (event) {
-        var row = '<tr id="' + $(this).attr('id') + '">';
+        //var row = '<tr id="' + $(this).attr('id') + '">';
 
-        row += '<td>' + this.cells[0].innerText + '</td>';
-        row += '<td class="TdAttributeValue"><input type="number" name="CharacterAttributeValue" class="CharacterAttributeValue" min="0" class="form-control" /></td>';
-        row += '<td><input type="button" class="clickable-row btn btn-danger" value=" - " />';
+        //row += '<td>' + this.cells[0].innerText + '</td>';
+        //row += '<td class="TdAttributeValue"><input type="number" name="CharacterAttributeValue" class="CharacterAttributeValue" min="0" class="form-control" /></td>';
+        //row += '<td><input type="button" class="clickable-row btn btn-danger" value=" - " />';
 
-        row += '</tr>';
+        //row += '</tr>';
 
-        $('#TableSelected tbody').append(row);
+        $('#TableSelected').DataTable().row.add({
+            
+            "0": '<span data-id="" data-description="' + this.cells[1].innerText + '">' + this.cells[0].innerText + '</span>',
+            "1" : '<input type="number" name="CharacterAttributeValue" class="CharacterAttributeValue" min="0" class="form-control" />',
+            "2" : '<input type="button" class="clickable-row btn btn-danger" value=" - " />'
+        }).draw();
 
-        $(this).remove();
+        $('#TableSearch').DataTable().row($(this)).remove().draw();
     });
 
     $('#TableTalents').on('click', '.clickable-row', function (event) {
@@ -86,14 +25,16 @@
 
 
     $('#TableSelected').on('click', '.clickable-row', function (event) {
-        SearchAvailable($('#AttributeTypeSearch').val());
-        $(this).closest('tr').remove();
+        $('#TableSelected').DataTable().row($(this).parents('tr')).remove().draw();
+
+        $('#TableSearch').DataTable().row.add({
+
+            "0": $(this).parent().parent().children()[0].innerText,
+            "1": jQuery($(this).parent().parent().children()[0].getElementsByTagName('SPAN')[0]).attr("data-description"),
+           
+        }).draw();
     });
 
-
-    $('#AttributeTypeSearch').on('change', null, function (event) {
-        SearchAvailable($(this).val());
-    });
 
     $('input[name=ItemQtd]').on('change', null, function (event) {
         var price = GetPricePlayerItem($(this));
@@ -120,6 +61,7 @@
             row += "</tr>";
 
             $("#table-item-selected tbody").append(row);
+            //InitTable('table-item-selected');
         }
         else {
             if (GetQtdPlayerItem($(this)) > 0)
@@ -131,6 +73,7 @@
 
     $('#table-item-selected').on('click', '.btnRemoveItem', function (event) {
         $(this).parent().parent().remove();
+        //InitTable('table-item-selected');
         GetTotalInvested();
     });
 
@@ -166,6 +109,31 @@ function MountBasicInformation() {
     objBasicInfo.PlayerBackground = $('#PlayerBackground').val();
 
     return objBasicInfo;
+}
+
+function InitTable(targetTable) {
+
+    var table = jQuery('#' + targetTable);
+
+    /* Fixed header extension: http://datatables.net/extensions/scroller/ */
+
+    var oTable = table.dataTable({
+        "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
+        "scrollY": "300",
+        "deferRender": true,
+        "order": [
+            [0, 'asc']
+        ],
+        "lengthMenu": [
+            [5, 15, 20, -1],
+            [5, 15, 20, "All"] // change per page values here
+        ],
+        "pageLength": 5 // set the initial value
+    });
+
+
+    //var tableWrapper = jQuery('#' + targetTable); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+    //tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
 }
 
 function MountAttributes() {
@@ -283,25 +251,29 @@ function SearchAvailable(value) {
 
     var url = '/Attribute/SearchByType/?type=' + value;
 
-    $('#TableSearch tbody').empty();
-
-    $.getJSON(url, function (data) {
-
-        for (var i = 0; i < data.length; i++) {
-            var item = JSON.parse(JSON.stringify(data[i]));
-
-            if (!VerifySelectedId(item.AttributeId)) {
-                var row = "<tr class='clickable-row' style='cursor:pointer' id='" + item.AttributeId + "'>";
-                row += "<td>" + item.AttributeName + "</td>";
-                row += "<td>" + item.AttributeDescription + "</td>";
-                row += "</tr>";
-
-                $('#TableSearch tbody').append(row);
-            }
-        }
+    $('#TableSearch').DataTable({
+        ajax: url
     });
 
-    $(this).closest('tr').remove();
+    //$('#TableSearch tbody').empty();
+
+    //$.getJSON(url, function (data) {
+
+    //    for (var i = 0; i < data.length; i++) {
+    //        var item = JSON.parse(JSON.stringify(data[i]));
+
+    //        if (!VerifySelectedId(item.AttributeId)) {
+    //            var row = "<tr class='clickable-row' style='cursor:pointer' id='" + item.AttributeId + "'>";
+    //            row += "<td>" + item.AttributeName + "</td>";
+    //            row += "<td>" + item.AttributeDescription + "</td>";
+    //            row += "</tr>";
+
+    //            $('#TableSearch tbody').append(row);
+    //        }
+    //    }
+    //});
+
+    //InitTable('TableSearch');
 }
 
 function VerifySelectedId(value) {

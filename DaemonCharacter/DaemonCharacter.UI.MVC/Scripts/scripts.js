@@ -35,7 +35,7 @@
 			http://modernizr.com/download/#-csstransforms3d-csstransitions-video-touch-shiv-cssclasses-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes-load
 *************************************************** **/
 window.width = jQuery(window).width();
-
+var plugin_path = '../Scripts/'
 /* Init */
 jQuery(window).ready(function () {
     jQuery.browserDetect();
@@ -2719,7 +2719,7 @@ function _editors() {
 
     if (_container_2.length > 0) {
 
-        loadScript(plugin_path + 'editor.markdown/js/bootstrap-markdown.min.js', function () {
+        loadScript(plugin_path + 'bootstrap-markdown.min.js', function () {
 
             if (jQuery().markdown) {
 
