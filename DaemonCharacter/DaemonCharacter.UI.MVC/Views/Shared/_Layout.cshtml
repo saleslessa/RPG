@@ -19,16 +19,20 @@
     @*<link rel="stylesheet" href="~/Content/particles.css" />*@
 </head>
 <body class="smoothscroll enable-animation body">
-    <div id="wrapper" style="float: left;">
+
+    <div id="wrapper">
         <div id="header" class="sticky dark clearfix">
             @Html.Partial("_Menu")
         </div>
 
-        <div class="row" id="div-container">
+        @RenderSection("PlayerSheet", required: false)
+
+        <div class="row">
             <div id="page-wrapper" class="container-fluid col-md-10 col-md-offset-1">
                 @RenderBody()
             </div>
         </div>
+
         <footer id="footer">
             <div class="container">
                 <div class="row">

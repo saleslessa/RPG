@@ -3,7 +3,7 @@
 <div class="col-md-12">
     @if (Model.FirstOrDefault().AttributeType != AttributeType.Talent)
     {
-        <table class="table table-bordered" id="TableSearch">
+        <table class="table table-bordered table-responsive" id="TableSearch">
             <thead>
                 <tr>
                     <th>Attribute</th>
@@ -13,8 +13,8 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr class="clickable-row" style="cursor:pointer" id="@Html.Raw(item.AttributeId)">
-                        <td>@Html.DisplayFor(m => item.AttributeName)</td>
+                    <tr>
+                        <td><span class="clickable-row" style="cursor:pointer" id="@Html.Raw(item.AttributeId)">@Html.DisplayFor(m => item.AttributeName)</span></td>
                         <td>@Html.DisplayFor(m => item.AttributeDescription)</td>
                     </tr>
                 }

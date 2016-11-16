@@ -5,6 +5,7 @@ using DaemonCharacter.Domain.Interfaces.Service;
 using DaemonCharacter.Application.ViewModels.Player;
 using DaemonCharacter.Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using DaemonCharacter.Application.AutoMapper;
 using DaemonCharacter.Application.ViewModels.Attribute;
@@ -45,6 +46,9 @@ namespace DaemonCharacter.Application.AppService
 
             if (!player.ValidationResult.IsValid)
                 return Mapper.Map<Player, PlayerViewModel>(player);
+
+            player.PlayerMoney = player.PlayerMoney -
+                                 model.SelectedItems.Sum(s => s.PlayerItemQtd*s.PlayerItemUnitPrice);
 
             foreach (var attribute in model.SelectedAttributes)
             {

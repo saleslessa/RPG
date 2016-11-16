@@ -2,7 +2,37 @@
 
 @{Layout = null;}
 
-<div class="form-group col-md-2 col-md-offset-10">
+<div class="col-md-7">
+    <h4>Available items</h4>
+    <table class="table table-bordered table-responsive" id="table-item-available">
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Effect</th>
+            <th>Price</th>
+            <th>Qtd</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.ListAvailableItems)
+        {
+            <tr>
+                <td class="TdItemName">@Html.DisplayFor(m => item.ItemName)</td>
+                <td>@Html.DisplayFor(m => item.ItemEffect)</td>
+                <td class="TdItemPrice">@Html.Raw(item.ItemPrice)</td>
+                <td class="TdItemQtd"><input type="number" class="form-control textbox-small" name="ItemQtd" min="0" placeholder="0"/></td>
+                <td class="TdItemTotal"><input type="number" class="form-control textbox-small" name="ItemTotal" readonly="readonly"/></td>
+                <td>
+                    <a id="@Html.Raw(item.ItemId)" href="javascript:void(0);" class="button btn btn-success button-table btnIncludeItem"> + </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div class="form-group col-md-offset-3 col-md-2">
     <div class="col-md-6">
         <label class="control-label small" id="label-total-invested"><b>Total Invested:</b></label>
         <input type="number" id="input-total-invested" class="form-control small" readonly="readonly" />
@@ -12,40 +42,7 @@
         <input type="number" id="input-total-money" class="form-control small" readonly="readonly" />
     </div>
 </div>
-
-<div class="col-md-8">
-    <h4>Available items</h4>
-    <table class="table table-bordered" id="table-item-available">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Effect</th>
-                <th>Price</th>
-                <th>Qtd</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.ListAvailableItems)
-            {
-            <tr>
-                <td class="TdItemName">@Html.DisplayFor(m => item.ItemName)</td>
-                <td>@Html.DisplayFor(m => item.ItemEffect)</td>
-                <td class="TdItemPrice">
-                    @Html.TextBoxFor(m => item.ItemPrice, new { @readonly = "readonly", @class = "form-control textbox-small" })
-                </td>
-                <td class="TdItemQtd"><input type="number" class="form-control textbox-small" name="ItemQtd" min="0" placeholder="0" /></td>
-                <td class="TdItemTotal"><input type="number" class="form-control textbox-small" name="ItemTotal" readonly="readonly" /></td>
-                <td>
-                    <input id="@Html.Raw(item.ItemId)" type="button" class="btnIncludeItem btn btn-success" value=" + " />
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<div class="col-md-4">
+<div class="col-md-5">
     <h4>Selected Items</h4>
     <table class="table table-borderd" id="table-item-selected">
         <thead>

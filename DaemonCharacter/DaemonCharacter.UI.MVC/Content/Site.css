@@ -9378,6 +9378,11 @@ body.md-skin {
     font-size: smaller;
 }
 
+.textbox-smaller {
+    max-width: 50px;
+    font-size: smaller;
+}
+
 .textbox-medium {
     max-width: 100px;
     font-size: smaller;
@@ -9403,8 +9408,8 @@ body.md-skin {
 .div-icon {
     zoom: 0.4 !important;
     display: inline-block !important;
-    vertical-align: middle;
 }
+
 
 /*.page-attribute {
     background: url('../../Images/Landscapes/Vikings.jpg');
@@ -9455,29 +9460,29 @@ body.md-skin {
 }
     */
 
-    .page-item table tbody, .page-item table tbody, .page-attribute table tbody {
-        background-color: white;
-        color: black;
-        -ms-opacity: 0.8;
-        opacity: 0.8;
-    }
+.page-item table tbody, .page-item table tbody, .page-attribute table tbody {
+    background-color: white;
+    color: black;
+    -ms-opacity: 0.8;
+    opacity: 0.8;
+}
 
-    .page-item table thead, .page-item table thead, .page-attribute table thead {
-        background-color: darkgray;
-        color: white;
-        -ms-opacity: 0.8;
-        opacity: 0.8;
-    }
-
-
-    .page-item label {
-        font-weight: bold;
-    }
+.page-item table thead, .page-item table thead, .page-attribute table thead {
+    background-color: darkgray;
+    color: white;
+    -ms-opacity: 0.8;
+    opacity: 0.8;
+}
 
 
-    .page-item input, .page-item select {
-        color: black;
-    }
+.page-item label {
+    font-weight: bold;
+}
+
+
+.page-item input, .page-item select {
+    color: black;
+}
 
 /*.page-campaign {
     background: url('../../Images/Landscapes/Boy.jpg');
@@ -9540,12 +9545,14 @@ body.md-skin {
 .body {
     background-color: #fff;
     background-image: linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px), linear-gradient(#eee .1em, transparent .1em);
+    -ms-background-size: 100% 1.2em;
     background-size: 100% 1.2em;
 }
 
 #slider .form-group {
     margin-top: 7px;
 }
+
 .center-icon {
     margin: 0;
     position: absolute;
@@ -9553,4 +9560,29 @@ body.md-skin {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+}
+
+.button-table {
+    top: 0 !important;
+    margin: 0 !important;
+    margin-left: 15px !important;
+}
+
+.dataTables_scroll {
+    overflow: auto;
+}
+
+table {
+    font-size: smaller;
+}
+
+.create-player-body {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: gray;
+    color: white;
+    opacity: 0.8;
 }

@@ -12,7 +12,9 @@ namespace DaemonCharacter.UI.MVC
                         , "~/Scripts/jquery.validate.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui.min.js"));
+                        "~/Scripts/jquery-ui.min.js",
+                        "~/Scripts/jquery.unobtrusive*"
+                        ));
 
 
             bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
@@ -24,10 +26,6 @@ namespace DaemonCharacter.UI.MVC
                         , "~/Scripts/DataTable/select2.full.min.js"
                         ));
 
-            //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-            //            "~/Scripts/jquery.unobtrusive*",
-            //            "~/Scripts/jquery.validate*"));
-
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -38,6 +36,7 @@ namespace DaemonCharacter.UI.MVC
                          , "~/Scripts/scripts.js"
                          , "~/Scripts/smoothscroll.js"
                          , "~/Scripts/bootstrap.min.js"
+                         , "~/Scripts/SmartNotification.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/css").Include(
@@ -77,6 +76,11 @@ namespace DaemonCharacter.UI.MVC
             bundles.Add(new ScriptBundle("~/bundles/Sprite/Acoes").Include(
                "~/Content/Sprites/Acoes.css"
                , "~/Images/Sprites/Acoes.png"
+               ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Sprite/playersheet").Include(
+               "~/Content/Sprites/sprite_playersheet.css"
+               , "~/Images/Sprites/sprite_playersheet.png"
                ));
 
 

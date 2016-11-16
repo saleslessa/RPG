@@ -20,8 +20,7 @@ namespace DaemonCharacter.Application.ViewModels.Attribute
         public string AttributeDescription { get; set; }
 
         [DisplayName("Value")]
-        [Required(ErrorMessage = "Character Value must be filled.")]
-        [Range(1, short.MaxValue, ErrorMessage = "Character Value must be between {0} and {1}")]
+        [Range(0, short.MaxValue, ErrorMessage = "Character Value must be greater than zero")]
         public int Value { get; set; }
 
         [ScaffoldColumn(false)]
@@ -41,4 +40,5 @@ namespace DaemonCharacter.Application.ViewModels.Attribute
             ValidationResult = new DomainValidation.Validation.ValidationResult();     
         }
     }
+    
 }

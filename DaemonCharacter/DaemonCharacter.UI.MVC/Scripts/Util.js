@@ -5,7 +5,7 @@
 
 
 function MountModelStateErrorMessage(model) {
-    var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><h3>Oops! something goes wrong:</h3><ul>';
+    var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><p><strong>Oops! something goes wrong:<strong></p><ul>';
 
     for (var i = 0; i < model.length; i++) {
         div += '<li>' + model[i].Key.replace("model.", "") + ': ' + model[i].Value + '</li>';
@@ -16,7 +16,7 @@ function MountModelStateErrorMessage(model) {
 }
 
 function MountValildationResultError(model) {
-    var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><h3>Oops! something goes wrong:</h3><ul>';
+    var div = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button><p><strong>Oops! something goes wrong:</strong></p><ul>';
 
     for (var i = 0; i < model.Erros.length; i++) {
         div += '<li>' + model.Erros[i].Message + '</li>';
@@ -27,7 +27,7 @@ function MountValildationResultError(model) {
 }
 
 function MountSuccessMessage(message) {
-    $("#MessageSummary").append('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button><h3>' + message + '</h3></div>');
+    $("#MessageSummary").append('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button><p><strong>' + message + '</strong></p></div>');
 }
 
 

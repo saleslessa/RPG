@@ -5,6 +5,7 @@
 }
 @section CustomStyle {
     @Styles.Render("~/bundles/Sprite/Acoes")
+    
 }
 
 <section id="slider" class="fullheight page-player">
@@ -70,9 +71,9 @@
                             @Html.DisplayFor(modelItem => item.PlayerMoney)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.CharacterId }) |
-                            @Html.ActionLink("See Player Sheet", "Details", new { id = item.CharacterId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.CharacterId })
+                            <a class="sprite sprite-Edit-Item div-icon" href="~/Player/Edit/@item.CharacterId" title="Edit"></a>&nbsp;|&nbsp;
+                            <a class="sprite sprite-Add-User div-icon" href="~/Player/Details/@item.CharacterId" title="See Player Sheet"></a>&nbsp;|&nbsp;
+                            <a class="sprite sprite-Delete-Item div-icon" href="~/Player/Delete/@item.CharacterId" title="Remove"></a>
                         </td>
                     </tr>
                 }

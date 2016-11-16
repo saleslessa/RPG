@@ -3,8 +3,8 @@
 {
     <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <h6>Oops! something went wrong:</h6>
-        @Html.ValidationSummary(true)
+        <p><strong>Oops! something went wrong:</strong></p>
+        <p>@Html.ValidationSummary(true)</p>
     </div>
 }
 
@@ -12,6 +12,7 @@
 {
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <h6>@ViewBag.Sucesso</h6>
+        <p><strong>Success:</strong></p>
+        <p>@ViewBag.Sucesso</p>
     </div>
 }

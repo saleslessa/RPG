@@ -4,13 +4,29 @@
     background-repeat: no-repeat;
     background-size: 300px;*/
     /*background-color: #fff;*/
-    background-image: linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),linear-gradient(#eee .1em, transparent .1em);
-    background-size: 100% 1.2em;
     /*background-image: url(../Images/diablo_texture2.PNG);
     background-position:top left;
     background-size:cover;*/
+    margin: 15px;
+    margin-left: 75px;
 }
 
+.player-sheet-header {
+    background-color: lightgray;
+    margin: 0;
+    max-height: 250px;
+}
+
+    .player-sheet-header p {
+        display: block;
+        width: 100%;
+        padding: 5px;
+        margin: 0;
+    }
+
+.font-bold {
+    font-weight: bold;
+}
 
 .div-container {
     height: 325px;

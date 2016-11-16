@@ -1,23 +1,27 @@
 ﻿$(document).ready(function () {
 
     $('#TableSearch').on('click', '.clickable-row', function (event) {
-        //var row = '<tr id="' + $(this).attr('id') + '">';
-
-        //row += '<td>' + this.cells[0].innerText + '</td>';
-        //row += '<td class="TdAttributeValue"><input type="number" name="CharacterAttributeValue" class="CharacterAttributeValue" min="0" class="form-control" /></td>';
-        //row += '<td><input type="button" class="clickable-row btn btn-danger" value=" - " />';
-
-        //row += '</tr>';
-
         $('#TableSelected').DataTable().row.add({
-            
-            "0": '<span data-id="" data-description="' + this.cells[1].innerText + '">' + this.cells[0].innerText + '</span>',
-            "1" : '<input type="number" name="CharacterAttributeValue" class="CharacterAttributeValue" min="0" class="form-control" />',
-            "2" : '<input type="button" class="clickable-row btn btn-danger" value=" - " />'
+
+            "0": '<span id="' + $(this).attr('id') + '" data-description="' + $($($(this).parent().parent()).children()[1]).text() + '">' + $(this).text() + '</span>',
+            "1": '<input type="number" name="CharacterAttributeValue" class="CharacterAttributeValue textbox-small" min="0" class="form-control" />&nbsp;<input type="button" class="btn btn-default button-table btn-3" value="+3" />&nbsp;<input type="button" class="btn btn-default button-table btn-5" value="+5" />',
+            "2": '<a href="javascript:void(0);" class="button btn btn-danger clickable-row button-table"> - </a>'
         }).draw();
 
-        $('#TableSearch').DataTable().row($(this)).remove().draw();
+        $('#TableSearch').DataTable().row($(this).parent().parent()).remove().draw();
     });
+
+
+    $('#TableSelected').on('click', '.btn-5', function (event) {
+        var val = $(this).siblings('.CharacterAttributeValue').val();
+        $(this).siblings('.CharacterAttributeValue').val(parseInt((val == "" ? 0 : val)) + 5);
+    });
+
+    $('#TableSelected').on('click', '.btn-3', function (event) {
+        var val = $(this).siblings('.CharacterAttributeValue').val();
+        $(this).siblings('.CharacterAttributeValue').val(parseInt((val == "" ? 0 : val)) + 3);
+    });
+
 
     $('#TableTalents').on('click', '.clickable-row', function (event) {
         $(this).closest('tr').toggleClass("active");
@@ -25,72 +29,99 @@
 
 
     $('#TableSelected').on('click', '.clickable-row', function (event) {
-        $('#TableSelected').DataTable().row($(this).parents('tr')).remove().draw();
-
+        $('#TableSelected').DataTable().row($(this).parents()).remove().draw();
         $('#TableSearch').DataTable().row.add({
 
-            "0": $(this).parent().parent().children()[0].innerText,
-            "1": jQuery($(this).parent().parent().children()[0].getElementsByTagName('SPAN')[0]).attr("data-description"),
-           
+            "0": "<span id='" + jQuery($(this).parent().parent().children()[0].getElementsByTagName('SPAN')[0]).attr("id") + "' class='clickable-row' style='cursor:pointer;'>" + $(this).parent().parent().children()[0].innerText + "</span>",
+            "1": jQuery($(this).parent().parent().children()[0].getElementsByTagName('SPAN')[0]).attr("data-description")
+
         }).draw();
     });
 
 
     $('input[name=ItemQtd]').on('change', null, function (event) {
-        var price = GetPricePlayerItem($(this));
-        var qtd = $(this).val();
+        var price = GetPricePlayerItem($($($(this).parent().parent().children()[5]).children()[0]).attr('id'));
+        var qtd = parseInt($(this).val() == "" ? 0 : $(this).val());
 
         if (price == 0 || qtd == 0)
-            $(this).parent().siblings(".TdItemTotal").children().val("");
+            $($($(this).parent().parent().children()[4]).children()[0]).val("");
         else
-            $(this).parent().siblings(".TdItemTotal").children().val(price * qtd);
+            $($($(this).parent().parent().children()[4]).children()[0]).val(price * qtd);
+
     });
 
     $('#table-item-available').on('click', '.btnIncludeItem', function (event) {
-        var selectedItem = FindItemName(GetItemNamePlayerItem($(this)));
 
-        if (selectedItem == null && GetQtdPlayerItem($(this)) > 0) {
-            var row = "<tr id='" + $(this).attr('id') + "'>";
+        var table = $('#table-item-selected').DataTable();
 
-            row += "<td class='TdItemName'>" + GetItemNamePlayerItem($(this)) + "</td>";
-            row += "<td class='TdItemPrice'>" + GetPricePlayerItem($(this)) + "</td>";
-            row += "<td class='TdItemQtd'>" + GetQtdPlayerItem($(this)) + "</td>";
-            row += "<td class='TdItemTotal'>" + GetPricePlayerItem($(this)) * GetQtdPlayerItem($(this)) + "</td>";
-            row += "<td><input type='button' class='btnRemoveItem btn btn-danger' value=' - ' alt='Remove Item' /></td>";
+        var index = table
+            .column(0)
+            .data()
+            .indexOf(GetItemNamePlayerItem($(this).attr('id')));
 
-            row += "</tr>";
+        if (index == -1 && GetQtdPlayerItem($(this).attr('id')) > 0) {
+            
+            $('#table-item-selected').DataTable().row.add({
+                "0": GetItemNamePlayerItem($(this).attr('id')),
+                "1": GetPricePlayerItem($(this).attr('id')),
+                "2": GetQtdPlayerItem($(this).attr('id')),
+                "3": GetPricePlayerItem($(this).attr('id')) * GetQtdPlayerItem($(this).attr('id')),
+                "4": "<a href='javascript:void(0);' id='" + $(this).attr('id') + "' class='btnRemoveItem button btn btn-danger button-table'> - </a>"
+            }).draw();
 
-            $("#table-item-selected tbody").append(row);
-            //InitTable('table-item-selected');
+        } else {
+            if (GetQtdPlayerItem($(this).attr('id')) > 0) {
+                SetSelectedItem($(this).attr('id'));
+
+            }
         }
-        else {
-            if (GetQtdPlayerItem($(this)) > 0)
-                SetSelectedItem($(this), GetItemNamePlayerItem($(this)));
-        }
-
-        GetTotalInvested();
+        //        GetTotalInvested();
     });
 
     $('#table-item-selected').on('click', '.btnRemoveItem', function (event) {
-        $(this).parent().parent().remove();
-        //InitTable('table-item-selected');
+        $('#table-item-selected').DataTable().row($(this).parents('tr')).remove().draw();
         GetTotalInvested();
     });
 
-    $("input[name=btnCreatePlayer]").on('click', null, function (event) {
-        var model = MountBasicInformation();
-        model.SelectedAttributes = MountAttributes();
-        model.SelectedItems = MountItems();
+    $("a[id=btnCreatePlayer]").on('click', null, function (event) {
 
-        ResetMessageSummary();
+        if (confirm('Are you sure you want to finalize the creation of the player?')) {
+            var model = MountBasicInformation();
+            model.SelectedAttributes = MountAttributes();
+            model.SelectedItems = MountItems();
 
-        SaveModel(model, '/Player/Create/');
+            ResetMessageSummary();
+
+            SaveModel(model, '/Player/Create/');
+        }
+
+        //$.SmartMessageBox({
+        //    title: "",
+        //    content: "Do you confirm this operation?",
+        //    buttons: "[Cancelar][Confirmar]"
+        //    }, function (ButtonPress) {
+        //        if (ButtonPress === "Confirmar") {
+        //            console.log('teste sucesso');
+        //        }
+        //    });
+
+        //var model = MountBasicInformation();
+        //model.SelectedAttributes = MountAttributes();
+        //model.SelectedItems = MountItems();
+
+        //ResetMessageSummary();
+
+        //SaveModel(model, '/Player/Create/');
     });
 
     $('#PlayerMoney').on('change', null, function (event) {
         $('#input-total-money').val($(this).val());
         VerifyTotalInvested();
     });
+
+
+    $('#table-item-selected').DataTable().draw();
+    $('#table-item-available').DataTable().draw();
 });
 
 function MountBasicInformation() {
@@ -103,7 +134,6 @@ function MountBasicInformation() {
     objBasicInfo.PlayerExperience = $('#PlayerExperience').val();
     objBasicInfo.PlayerLevel = $('#PlayerLevel').val();
     objBasicInfo.PlayerMoney = $('#PlayerMoney').val();
-    objBasicInfo.PlayerPointsToDistribute = $('#PlayerPointsToDistribute').val();
     objBasicInfo.CharacterRace = $('#CharacterRace').val();
     objBasicInfo.CharacterGender = $('#CharacterGender').val();
     objBasicInfo.PlayerBackground = $('#PlayerBackground').val();
@@ -117,9 +147,8 @@ function InitTable(targetTable) {
 
     /* Fixed header extension: http://datatables.net/extensions/scroller/ */
 
-    var oTable = table.dataTable({
+    var oTable = table.DataTable({
         "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
-        "scrollY": "300",
         "deferRender": true,
         "order": [
             [0, 'asc']
@@ -128,72 +157,68 @@ function InitTable(targetTable) {
             [5, 15, 20, -1],
             [5, 15, 20, "All"] // change per page values here
         ],
-        "pageLength": 5 // set the initial value
+        "pageLength": 5, // set the initial value
+        "responsive": true,
+        "bAutoWidth": true
     });
-
-
-    //var tableWrapper = jQuery('#' + targetTable); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
-    //tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
 }
 
 function MountAttributes() {
     var objAttributes = [];
 
-    $("#TableSelected > tbody > tr").each(function (index, element) {
-        if (parseInt(jQuery(element).children('.TdAttributeValue').children('.CharacterAttributeValue').val()) > 0) {
-            var item = {};
-            item['AttributeId'] = element.id;
-            item['Value'] = jQuery(element).children('.TdAttributeValue').children('.CharacterAttributeValue').val();
-            objAttributes.push(item);
-        }
-    });
-
-    $("#TableTalents > tbody > tr").each(function (index, element) {
-        if ($(this).attr('class').indexOf('active') != -1) {
-            var item = {};
-            item['AttributeId'] = element.id;
-            objAttributes.push(item);
-        }
-    });
-
+    if ($('#TableSelected').DataTable().rows().count() > 0) {
+        $("#TableSelected > tbody > tr").each(function(index, element) {
+            var value = jQuery($(this).children()[1].getElementsByTagName('INPUT')[0]).val();
+            if (value > 0) {
+                var item = {};
+                item['AttributeId'] = jQuery($(this).children()[0].getElementsByTagName('SPAN')[0]).attr("id");
+                item['Value'] = value;
+                objAttributes.push(item);
+            }
+        });
+    }
+    if ($('#TableTalents').DataTable().rows().count() > 0) {
+        $("#TableTalents > tbody > tr").each(function(index, element) {
+            if ($(this).attr('class').indexOf('active') != -1) {
+                var item = {};
+                item['AttributeId'] = element.id;
+                objAttributes.push(item);
+            }
+        });
+    }
     return objAttributes;
 }
 
 function MountItems() {
     var objItems = [];
 
-    $("#table-item-selected > tbody > tr").each(function (index, element) {
-        if (parseInt(GetPricePlayerItem(element)) > 0) {
-            var item = {};
-            item['ItemId'] = element.id;
-            item['PlayerItemQtd'] = GetQtdPlayerItem(element);
-            item['PlayerItemUnitPrice'] = GetPricePlayerItem(element);
-            objItems.push(item);
-        }
-    });
-
+    if ($('#table-item-selected').DataTable().rows().count() > 0) {
+        $("#table-item-selected > tbody > tr").each(function(index, element) {
+            var value = parseFloat(jQuery($(this).children()[3]).text());
+            if (value > 0) {
+                var item = {};
+                item['ItemId'] = $($($(this).children()[4]).children(0)).attr('id');
+                item['PlayerItemQtd'] = parseInt(jQuery($(this).children()[2]).text());
+                item['PlayerItemUnitPrice'] = parseFloat(jQuery($(this).children()[1]).text());
+                objItems.push(item);
+            }
+        });
+    }
     return objItems;
 }
 
-function SetSelectedItem(obj, ItemName) {
+function SetSelectedItem(itemName) {
+
+
     $("#table-item-selected > tbody > tr").each(function (index, element) {
-        if (GetItemNamePlayerItem(element) == ItemName) {
-            $(this).children(".TdItemQtd").text(GetQtdPlayerItem(obj) + GetQtdPlayerItem(element));
-            $(this).children(".TdItemTotal").text(GetPricePlayerItem(obj) * GetQtdPlayerItem(element));
+        if ($($($(element).children()[4]).children()[0]).attr('id') == itemName) {
+            $($(this).children()[2]).text(GetQtdPlayerItem(itemName) + GetQtdPlayerItemSelected($($($(element).children()[4]).children()[0]).attr('id')));
+            $($(this).children()[3]).text(GetPricePlayerItem(itemName) * GetQtdPlayerItemSelected($($($(element).children()[4]).children()[0]).attr('id')));
         }
     });
+
 }
 
-function FindItemName(ItemName) {
-    var result = null;
-
-    $("#table-item-selected > tbody > tr").each(function (index, element) {
-        if (GetItemNamePlayerItem(element) == ItemName)
-            result = element;
-    });
-
-    return result;
-}
 
 function GetTotalInvested() {
     var total = 0;
@@ -219,70 +244,68 @@ function VerifyTotalInvested() {
     }
 }
 
-function GetItemNamePlayerItem(obj) {
-    if (jQuery(obj).prop("tagName") == "TR")
-        return jQuery(obj).children(".TdItemName").text();
-    else
-        return jQuery(obj).parent().siblings(".TdItemName").text();
-}
+function GetItemNamePlayerItem(itemRowId) {
+    var retorno = null;
+    $("#table-item-available > tbody > tr").each(function (index, element) {
 
-function GetPricePlayerItem(obj) {
-    if (jQuery(obj).prop("tagName") == "TR")
-        return parseFloat(jQuery(obj).children('.TdItemPrice').text());
-    else
-        return parseFloat(obj.parent().siblings(".TdItemPrice").children().val());
-}
-
-function GetTotalPlayerItem(obj) {
-    if (jQuery(obj).prop("tagName") == "TR")
-        return parseFloat(jQuery(obj).children(".TdItemTotal").text());
-    else
-        return parseFloat(jQuery(obj).find('.TdItemTotal').text());
-}
-
-function GetQtdPlayerItem(obj) {
-    if (jQuery(obj).prop("tagName") == "TR")
-        return parseInt(jQuery(obj).children(".TdItemQtd").text());
-    else
-        return parseInt(obj.parent().siblings(".TdItemQtd").children().val());
-}
-
-function SearchAvailable(value) {
-
-    var url = '/Attribute/SearchByType/?type=' + value;
-
-    $('#TableSearch').DataTable({
-        ajax: url
+        if (jQuery(element.children[5].children[0]).attr('id') == itemRowId)
+            retorno = jQuery(element.children[0]).text();
     });
 
-    //$('#TableSearch tbody').empty();
-
-    //$.getJSON(url, function (data) {
-
-    //    for (var i = 0; i < data.length; i++) {
-    //        var item = JSON.parse(JSON.stringify(data[i]));
-
-    //        if (!VerifySelectedId(item.AttributeId)) {
-    //            var row = "<tr class='clickable-row' style='cursor:pointer' id='" + item.AttributeId + "'>";
-    //            row += "<td>" + item.AttributeName + "</td>";
-    //            row += "<td>" + item.AttributeDescription + "</td>";
-    //            row += "</tr>";
-
-    //            $('#TableSearch tbody').append(row);
-    //        }
-    //    }
-    //});
-
-    //InitTable('TableSearch');
+    return retorno;
 }
 
-function VerifySelectedId(value) {
-    var result = false;
-    $.each($('#TableSelected tbody tr'), function (index, element) {
-        if (value == element.id) result = true;
+function GetItemNamePlayerItemSelected(itemRowId) {
+    var retorno = null;
+    $("#table-item-selected > tbody > tr").each(function (index, element) {
 
+        if (jQuery(element.children[4].children[0]).attr('id') == itemRowId)
+            retorno = jQuery(element.children[0]).text();
+    });
+    return retorno;
+}
+
+function GetPricePlayerItem(itemRowId) {
+    var retorno = 0;
+    $("#table-item-available > tbody > tr").each(function (index, element) {
+        if (jQuery(element.children[5].children[0]).attr('id') == itemRowId)
+            retorno = jQuery(element.children[2]).text();
     });
 
-    return result;
+    return parseFloat(retorno);
 }
 
+function GetTotalPlayerItem(itemRowId) {
+    var retorno = null;
+    $("#table-item-available > tbody > tr").each(function (index, element) {
+
+        if (jQuery(element.children[5].children[0]).attr('id') == itemRowId)
+            retorno = jQuery(element.children[4].children[0]).val();
+    });
+
+    return retorno;
+}
+
+function GetQtdPlayerItem(itemRowId) {
+    var retorno = null;
+    $("#table-item-available > tbody > tr").each(function (index, element) {
+
+        if (jQuery(element.children[5].children[0]).attr('id') == itemRowId)
+            retorno = jQuery(element.children[3].children[0]).val();
+    });
+
+    return parseInt(retorno);
+}
+
+function GetQtdPlayerItemSelected(itemRowId) {
+
+    var retorno = null;
+    $("#table-item-selected > tbody > tr").each(function (index, element) {
+
+        if (jQuery(element.children[4].children[0]).attr('id') == itemRowId) {
+            retorno = jQuery(element.children[2]).text();
+        }
+    });
+
+    return parseInt(retorno);
+}

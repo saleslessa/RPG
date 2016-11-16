@@ -64,8 +64,8 @@ namespace DaemonCharacter.UI.MVC.Controllers
                 LoadPlayerErrors(model);
 
                 var errorList = ModelState.ToDictionary(
-                        kvp => string.Empty,
-                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(s=>s.ErrorMessage).ToArray()
                     );
 
                 var firstOrDefault = model.SelectedItems
@@ -73,7 +73,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
                     .Select(s => new { Total = s.Sum(t => t.PlayerItemUnitPrice * t.PlayerItemQtd) })
                     .FirstOrDefault();
                 if (firstOrDefault != null && model.PlayerMoney < firstOrDefault.Total)
-                    errorList.Add(string.Empty, new string[] { "You used more money than you have. Please change your items in your bag or put more money" });
+                    errorList.Add("Money", new string[] { "You used more money than you have. Please change your items in your bag or put more money" });
 
                 return Json(new { error = "ModelStateError", model = errorList.Where(t => t.Value.Length > 0) });
             }
@@ -101,26 +101,20 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
         private void LoadSelectedItemErrors(PlayerViewModel model)
         {
-            if (model.SelectedItems != null)
-                foreach (var it in model.SelectedItems)
-                {
-                    foreach (var error in it.ValidationResult.Erros)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Message);
-                    }
-                }
+            if (model.SelectedItems == null) return;
+            foreach (var error in model.SelectedItems.SelectMany(it => it.ValidationResult.Erros))
+            {
+                ModelState.AddModelError(string.Empty, error.Message);
+            }
         }
 
         private void LoadSelectedAttributeErrors(PlayerViewModel model)
         {
-            if (model.SelectedAttributes != null)
-                foreach (var att in model.SelectedAttributes)
-                {
-                    foreach (var error in att.ValidationResult.Erros)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Message);
-                    }
-                }
+            if (model.SelectedAttributes == null) return;
+            foreach (var error in model.SelectedAttributes.SelectMany(att => att.ValidationResult.Erros))
+            {
+                ModelState.AddModelError(string.Empty, error.Message);
+            }
         }
 
         // GET: Player/Edit/5

@@ -256,11 +256,12 @@
     <Content Include="Content\layout.css" />
     <Content Include="Content\Menu.css" />
     <Content Include="Content\particles.css" />
-    <Content Include="Content\PlayerSheet.css" />
+    <Content Include="Content\PlayerSheet\PlayerSheet.css" />
     <Content Include="Content\Sprites\Acoes.css" />
     <Content Include="Content\Sprites\Atributos.css" />
     <Content Include="Content\Sprites\Dados.css" />
     <Content Include="Content\Sprites\Items.css" />
+    <Content Include="Content\Sprites\sprite_playersheet.css" />
     <Content Include="Content\Sprites\Users.css" />
     <Content Include="Content\Wizard\jquery.steps.css" />
     <Content Include="favicon.png" />
@@ -273,6 +274,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="gulpfile.js" />
     <Content Include="Icon.png" />
+    <Content Include="Images\01.svg" />
     <Content Include="Images\12.jpg" />
     <Content Include="Images\13.jpg" />
     <Content Include="Images\14.jpg" />
@@ -331,6 +333,7 @@
     <Content Include="Images\Sprites\Atributos.png" />
     <Content Include="Images\Sprites\Dados.png" />
     <Content Include="Images\Sprites\Items.png" />
+    <Content Include="Images\Sprites\sprite_playersheet.png" />
     <Content Include="Images\Sprites\Users.png" />
     <Content Include="Images\triangular_%402X.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -374,17 +377,19 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\Menu.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\MultipleStepFormScript.js" />
     <Content Include="Scripts\particles.js" />
     <Content Include="Scripts\particles.min.js" />
-    <Content Include="Scripts\PlayerSheet.js" />
+    <Content Include="Scripts\PlayerSheet\app.js" />
+    <Content Include="Scripts\PlayerSheet\PlayerSheet.js" />
+    <Content Include="Content\PlayerSheet\aside_playersheet.css" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\scripts.js" />
     <Content Include="Scripts\Session.js" />
     <Content Include="Scripts\skin.config.min.js" />
+    <Content Include="Scripts\SmartNotification.js" />
     <Content Include="Scripts\smoothscroll.js" />
     <Content Include="Scripts\tutorial.js" />
     <Content Include="Scripts\Util.js" />
@@ -461,6 +466,7 @@
     <Content Include="Views\Item\_ListAvailableAttributeForBonus.cshtml" />
     <Content Include="Views\Item\Delete.cshtml" />
     <Content Include="Views\CharacterAttribute\_CreateTalent.cshtml" />
+    <Content Include="Views\Player\_SideMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
