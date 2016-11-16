@@ -45,9 +45,6 @@ C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\Microsoft.Owin.Security
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\Microsoft.Web.Infrastructure.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\Newtonsoft.Json.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\Owin.dll
-C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\SimpleInjector.dll
-C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\SimpleInjector.Integration.Web.dll
-C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\SimpleInjector.Integration.Web.Mvc.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\System.Web.Helpers.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\System.Web.Mvc.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.UI.MVC\bin\System.Web.Optimization.dll

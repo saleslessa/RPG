@@ -35,7 +35,48 @@
         $("#div-items-container").slideToggle('slow');
     });
 
+
+    var hitBtn3 = $('a.hit-3'),
+        lifeBtn3 = $('a.life-3'),
+        hitBtn5 = $('a.hit-5'),
+        lifeBtn5 = $('a.life-5'),
+        customVal = $('#CharacterMaxLife');
+           
+    lifeBtn3.on("click", function() {ChangeLife(3,false);});
+    hitBtn3.on("click", function () { ChangeLife(-3,false); });
+    lifeBtn5.on("click", function () { ChangeLife(5,false); });
+    hitBtn5.on("click", function () { ChangeLife(-5,false); });
+    customVal.on("blur", function () { ChangeLife(customVal.val(), true); });
+
+    ChangeLife(0, false);
 });
+
+
+function ChangeLife(val, isAbsolute) {
+    var hBar = $('.health-bar'),
+        bar = hBar.find('.bar'),
+        hit = hBar.find('.hit'),
+        total = hBar.data('total'),
+        value = hBar.data('value');
+
+
+    var newValue =  isAbsolute == true ? val : value + val;
+    // calculate the percentage of the total width
+    var barWidth = (newValue / total) * 100;
+    var hitWidth = (val / value) * 100 + "%";
+
+    // show hit bar and set the width
+    $('#CharacterMaxLife').val(newValue);
+    hit.css('width', hitWidth);
+    hBar.data('value', newValue);
+
+    setTimeout(function () {
+        hit.css({ 'width': '0' });
+        bar.css('width', barWidth + "%");
+    }, 500);
+    //bar.css('width', total - value);
+}
+
 
 function ShowToolTipItemInfo(obj) {
     var url = '/Item/GetInfo/?ItemId=' + jQuery(obj).parent().attr('id');

@@ -7,8 +7,6 @@ C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\D
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\EntityFramework.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\EntityFramework.SqlServer.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\Microsoft.Web.Infrastructure.dll
-C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\SimpleInjector.dll
-C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\SimpleInjector.Integration.Web.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\DomainValidation.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\AutoMapper.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.IoC\bin\Debug\DaemonCharacter.Application.pdb

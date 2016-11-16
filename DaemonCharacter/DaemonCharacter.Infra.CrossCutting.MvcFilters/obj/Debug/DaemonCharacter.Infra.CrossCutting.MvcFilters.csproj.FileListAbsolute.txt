@@ -1,7 +1,6 @@
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.MvcFilters\bin\Debug\DaemonCharacter.Infra.CrossCutting.MvcFilters.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.MvcFilters\bin\Debug\DaemonCharacter.Infra.CrossCutting.MvcFilters.pdb
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.MvcFilters\bin\Debug\Microsoft.Web.Infrastructure.dll
-C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.MvcFilters\bin\Debug\SimpleInjector.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.MvcFilters\bin\Debug\System.Web.Helpers.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.MvcFilters\bin\Debug\System.Web.Mvc.dll
 C:\GitHub\RPG\DaemonCharacter\DaemonCharacter.Infra.CrossCutting.MvcFilters\bin\Debug\System.Web.Razor.dll

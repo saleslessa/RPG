@@ -1,39 +1,41 @@
 ﻿#PlayerSheetContainer {
-    /*background-image: url(../Images/corner.svg);
-    background-position: top left;
-    background-repeat: no-repeat;
-    background-size: 300px;*/
-    /*background-color: #fff;*/
-    /*background-image: url(../Images/diablo_texture2.PNG);
-    background-position:top left;
-    background-size:cover;*/
-    margin: 15px;
-    margin-left: 75px;
+    margin: 10px;
+    margin-left: 50px;
 }
 
-.player-sheet-header {
-    background-color: lightgray;
-    margin: 0;
+.player-sheet-detail {
+    background-color: #f6f8f9;
+    margin: 5px;
+    margin-right: 0;
     max-height: 250px;
+    border: 3px solid #a7cfdf;
+    padding: 0;
+    display: inline-block;
 }
 
-    .player-sheet-header p {
+    .player-sheet-detail p {
         display: block;
         width: 100%;
         padding: 5px;
+        padding-left: 25px;
         margin: 0;
+        text-align: left;
+        
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a7cfdf+0,23538a+100;Blue+3d+%238 */
+        background: #a7cfdf; /* Old browsers */
+        background: -moz-linear-gradient(top, #a7cfdf 0%, #23538a 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #a7cfdf 0%,#23538a 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #a7cfdf 0%,#23538a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=0 ); /* IE6-9 */
+        color: white;
+    }
+
+    .player-sheet-detail > div {
+        padding: 15px;
     }
 
 .font-bold {
     font-weight: bold;
-}
-
-.div-container {
-    height: 325px;
-}
-
-#div-privateAnnotations-container {
-    height: 300px;
 }
 
 .div-attribute-container, .div-talents-container {
@@ -52,7 +54,7 @@
 
 .inline-flex {
     display: inline-flex !important;
-    vertical-align: text-bottom !important;
+    vertical-align: baseline !important;
     margin: 0 !important;
 }
 
@@ -60,33 +62,41 @@
     padding: 17px 10px 0px 0px;
 }
 
-hr.style18 {
-    height: 30px;
-    border-style: solid;
-    border-width: 1px 0 0 0;
-    border-radius: 20px;
+.health-bar {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 200px;
+  height: 20px;
+  padding: 5px;
+  background: #ddd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  position: relative;
+}
+.bar {
+    background: #c54;
+  width: 100%;
+  height: 10px;
+  position: relative;
+    -webkit-transition: width .5s linear;
+    -moz-transition: width .5s linear;
+    -ms-transition: width .5s linear;
+    -o-transition: width .5s linear;
+    transition: width .5s linear;
 }
 
-    hr.style18:before {
-        display: block;
-        content: "";
-        height: 30px;
-        margin-top: -31px;
-        border-style: solid;
-        /*border-color: #8c8b8b;*/
-        border-width: 0 0 1px 0;
-        border-radius: 20px;
-    }
-
-#TableHeader {
-    opacity: 0.9;
-    background-color: rgba(244, 244, 244, 0.01);
-}
-
-    #TableHeader th, td {
-        border: 0px !important;
-    }
-
-.title-playersheet {
-    cursor: pointer;
+.hit {
+  background: rgba(255,255,255,0.6);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0px;
+   -webkit-transition: width .5s linear;
+    -moz-transition: width .5s linear;
+    -ms-transition: width .5s linear;
+    -o-transition: width .5s linear;
+  transition: width .5s linear;
 }

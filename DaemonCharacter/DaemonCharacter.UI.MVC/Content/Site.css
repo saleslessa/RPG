@@ -9568,6 +9568,14 @@ body.md-skin {
     margin-left: 15px !important;
 }
 
+.button-table-small {
+    top: 0 !important;
+    margin: 0 !important;
+    padding: 0 4px 0 4px;
+    height: auto !important;
+    font-size: smaller;
+}
+
 .dataTables_scroll {
     overflow: auto;
 }
