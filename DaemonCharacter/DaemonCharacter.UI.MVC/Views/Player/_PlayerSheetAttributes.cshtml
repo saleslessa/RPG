@@ -2,26 +2,12 @@
 
 @if (Model.ToList().Count > 0)
 {
-    <table class="table table-bordered" id="TableAttribute">
+    <table class="table table-bordered table-responsive" id="TableAttribute_@{@ViewBag.id;}">
         <thead>
             <tr>
                 <th class="small">
-                    @switch (Model.FirstOrDefault().AttributeType)
-                    {
-                        case AttributeType.Characteristic:
-                            <i class="fa fa-cog"></i>
-                            break;
-                        case AttributeType.Misc:
-                            @*<i class="fa fa-cube"></i>*@
-                            @Html.DisplayFor(m => Model.FirstOrDefault().AttributeType)
-                            break;
-                        case AttributeType.Skill:
-                            <i class="fa fa-magic"></i>
-                            @Html.DisplayFor(m => Model.FirstOrDefault().AttributeType)
-                            break;
-                    }
+                    <i class="fa fa-cog"></i>
                 </th>
-
                 <th class="small text-center">Value</th>
                 <th class="small text-center">Bonus</th>
                 <th class="small text-center">Total</th>
@@ -45,4 +31,4 @@
             }
         </tbody>
     </table>
-}
+    }

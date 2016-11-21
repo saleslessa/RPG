@@ -15,37 +15,39 @@
         <ul class="nav nav-list">
             <li class="active">
                 <!-- dashboard -->
-                <a class="dashboard" href="javascript:void(0)" @*id="mobileMenuBtn"*@>
+                <a class="dashboard" href="javascript:void(0)" onclick="Slide('all')">
                     <i class="main-icon fa fa-bars"></i> <span>Default View</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class="main-icon sprite sprite-Stick-Fighting-50 div-icon"></i><span>Attributes</span>
+                <a href="javascript:void(0)" onclick="Slide('div-attributes')">
+                    <i class="main-icon sprite sprite-Kicking-50 div-icon"></i><span>Attributes</span>
                 </a>
             </li>
             <li>
-            <a href="#">
-                <i class="main-icon sprite sprite-Talent div-icon"></i> <span>Talents</span>
-            </a>
+                <a href="javascript:void(0)" onclick="Slide('div-skills')">
+                    <i class="main-icon sprite sprite-Stick-Fighting-50 div-icon"></i><span>Skills</span>
+                </a>
+            </li>
             <li>
-                <a href="#">
+                <a href="javascript:void(0)" onclick="Slide('div-talents')">
+                    <i class="main-icon sprite sprite-Talent div-icon"></i> <span>Talents</span>
+                </a>
+            <li>
+                <a href="javascript:void(0)" onclick="Slide('div-magics')">
                     <i class="main-icon sprite-playersheet sprite-playersheet-Wizard-48 div-icon"></i> <span>Magics</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class="main-icon sprite-playersheet sprite-playersheet-Armored-Helmet div-icon"></i> <span>Items</span>
+                <a href="javascript:void(0)" onclick="Slide('div-items')">
+                    <i class="main-icon sprite-playersheet sprite-playersheet-Viking-Ship div-icon"></i> <span>Items</span>
                 </a>
             </li>
         </ul>
         <h3>Custom Views</h3>
         <ul class="nav nav-list">
             <li>
-                <a href="#"><i class="main-icon sprite-playersheet sprite-playersheet-Armored-Gauntlet div-icon"></i> <span>Using Items + Magics</span></a>
-            </li>
-            <li>
-                <a href="#"><i class="main-icon sprite-playersheet sprite-playersheet-ten-dice div-icon"></i> <span>etc.</span></a>
+                <a href="javascript:void(0)" onclick="Slide('item-magic')"><i class="main-icon sprite-playersheet sprite-playersheet-Armored-Gauntlet div-icon"></i> <span>Magics + Items</span></a>
             </li>
         </ul>
     </nav>

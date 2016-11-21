@@ -1,4 +1,5 @@
-﻿@model DaemonCharacter.Application.ViewModels.Player.PlayerViewModel
+﻿@using AutoMapper.Execution
+@model DaemonCharacter.Application.ViewModels.Player.PlayerViewModel
 
 @{
     ViewBag.Title = "Player Sheet";
@@ -19,8 +20,8 @@
 
 <div class="col-md-12" id="PlayerSheetContainer">
 
-    <div class="col-md-12 player-sheet-detail">
-        <p class="animated wow fadeInUp text-center" data-wow-delay="0.3s">
+    <div class="col-md-12 player-sheet-header animated wow fadeInUp fixedElement" data-wow-delay="0.3s">
+        <p class="text-center">
             <i class="fa fa-user animated wow fadeInDown"></i>&nbsp;
             <strong>@Html.Raw(Model.CharacterName)</strong>
         </p>
@@ -28,7 +29,7 @@
             <table class="table table-responsive borderless PlayerSheet" id="TableHeader">
                 <tbody>
                     <tr>
-                        <td rowspan="4" style="vertical-align: middle">
+                        <td rowspan="5" style="vertical-align: middle">
                             <img src="~/Images/aragorn.jpg" width="150" height="125" style="border-radius: 10px;" />
                         </td>
                         <td class="inline-flex form-group">
@@ -37,55 +38,60 @@
                         </td>
                         <td class="inline-flex pull-right form-group">
                             @Html.LabelFor(model => model.PlayerLevel, new { @class = "font-bold" }):&nbsp;&nbsp;
-                            <input type="number" value="@Html.Raw(Model.PlayerLevel)" class="textbox-small" />
+                            <input type="number" value="@Html.Raw(Model.PlayerLevel)" id="PlayerLevel" class="textbox-small text-editable" />
                             @*<a href="javascript:void(0)" title="Save Changes" style="margin-top: 10px;"><i class="fa fa-save"></i></a>*@
                         </td>
                     </tr>
                     <tr>
                         <td class="inline-flex form-group">
-                            @Html.LabelFor(model => model.PlayerExperience, new { @class = "font-bold" }):&nbsp;&nbsp;
-                            <input type="number" value="@Html.Raw(Model.PlayerExperience)" class="textbox-small" />
-                            @*<a href="javascript:void(0)" title="Save Changes" style="margin-top: 10px;"><i class="fa fa-save"></i></a>*@
-                        </td>
-                        <td class="inline-flex pull-right form-group">
-                            @Html.LabelFor(model => model.PlayerMoney, new { @class = "font-bold" }):&nbsp;&nbsp;
-                            <input type="number" value="@Html.Raw(Model.PlayerMoney)" class="textbox-small" />
-                            @*<a href="javascript:void(0)" title="Save Changes" style="margin-top: 10px;"><i class="fa fa-save"></i></a>*@
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="inline-flex form-group">
-                            @Html.LabelFor(model => model.CharacterRace, new {@class = "font-bold"}):&nbsp;&nbsp;
+                            @Html.LabelFor(model => model.CharacterRace, new { @class = "font-bold" }):&nbsp;&nbsp;
                             @Html.DisplayFor(model => model.CharacterRace)
                         </td>
                         <td class="inline-flex form-group">
                             @Html.LabelFor(model => model.CharacterGender, new { @class = "font-bold" }):&nbsp;&nbsp;
                             @Html.DisplayFor(model => model.CharacterGender)
                         </td>
-                        <td class="inline-flex form-group pull-right">
-                            @Html.LabelFor(model => model.PlayerAge, new { @class = "font-bold" }):&nbsp;&nbsp;
-                            <input type="number" value="@Html.Raw(Model.PlayerAge)" class="textbox-small" />
+                        <td class="inline-flex pull-right form-group">
+                            @Html.LabelFor(model => model.PlayerMoney, new { @class = "font-bold" }):&nbsp;&nbsp;
+                            <input type="number" value="@Html.Raw(Model.PlayerMoney)" id="PlayerMoney" class="textbox-small text-editable" />
+                            @*<a href="javascript:void(0)" title="Save Changes" style="margin-top: 10px;"><i class="fa fa-save"></i></a>*@
                         </td>
                     </tr>
                     <tr>
                         <td class="inline-flex form-group">
-                            @Html.LabelFor(model => model.CharacterRemainingLife, new { @class = "font-bold" }):&nbsp;&nbsp;
-                            @*@Html.DisplayFor(model => model.CharacterMaxLife)*@
+                            @Html.LabelFor(model => model.PlayerExperience, new { @class = "font-bold" }):&nbsp;&nbsp;
+                            <input type="number" value="@Html.Raw(Model.PlayerExperience)" id="PlayerExperience" class="textbox-small text-editable" />
+                        </td>
+                        <td class="inline-flex form-group pull-right">
+                            @Html.LabelFor(model => model.PlayerAge, new { @class = "font-bold" }):&nbsp;&nbsp;
+                            <input type="number" value="@Html.Raw(Model.PlayerAge)" id="PlayerAge" class="textbox-small text-editable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="inline-flex form-group">
+                            @Html.LabelFor(model => model.CharacterRemainingLife, new {@class = "font-bold"}):&nbsp;
+                            <label id="CharacterRemainingLife" class="textbox-smaller" style="margin: 5px;">
+                                @Html.DisplayFor(model => model.CharacterRemainingLife)
+                            </label>
 
                             <div class="health-bar" data-total="@Html.Raw(Model.CharacterMaxLife)" data-value="@Html.Raw(Model.CharacterRemainingLife)">
                                 <div class="bar">
                                     <div class="hit"></div>
                                 </div>
-                            </div>&nbsp;
-                            <input type="number" min="-10" max="@Html.Raw(Model.CharacterMaxLife)" class="textbox-small" id="CharacterMaxLife" value="@Html.Raw(Model.CharacterRemainingLife)" />
+                            </div>
+                            <input type="number" id="CharacterMaxLife" value="@Html.Raw(Model.CharacterMaxLife)" min="@Html.Raw(Model.CharacterMaxLife)" class="textbox-smaller text-editable" style="margin-left: 5px;" />
                         </td>
-                        <td class="inline-flex pull-right form-group">
-                            <a href="#" class="btn btn-danger button-table-small hit-5">-5</a>&nbsp;
-                            <a href="#" class="btn btn-danger button-table-small hit-3">-3</a>&nbsp;&nbsp;
+                        <td class="inline-flex form-group pull-right">
+                            <div class="inline-flex pull-right">
+                                <a href="javascript:void(0)" class="hit-5 text-center"><i class="glyphicon glyphicon-chevron-down"></i><br />-5</a>&nbsp;&nbsp;
+                                <a href="javascript:void(0)" class="hit-3 text-center"><i class="glyphicon glyphicon-chevron-down"></i><br />-3</a>&nbsp;&nbsp;
+                                <a href="javascript:void(0)" class="hit-1 text-center"><i class="glyphicon glyphicon-chevron-down"></i><br />-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                            <a href="#" class="btn btn-success button-table-small life-3">+3</a>&nbsp;
-                            <a href="#" class="btn btn-success button-table-small life-5">+5</a>&nbsp;
-                            @*<a href="javascript:void(0)" title="Save Changes" style="margin-top: 10px;"><i class="fa fa-save"></i></a>*@
+                                <a href="javascript:void(0)" class="life-1 text-center"><i class="glyphicon glyphicon-chevron-up"></i><br />+1</a>&nbsp;&nbsp;
+                                <a href="javascript:void(0)" class="life-3 text-center"><i class="glyphicon glyphicon-chevron-up"></i><br />+3</a>&nbsp;&nbsp;
+                                <a href="javascript:void(0)" class="life-5 text-center"><i class="glyphicon glyphicon-chevron-up"></i><br />+5</a>&nbsp;&nbsp;
+                                @*<a href="javascript:void(0)" title="Save Changes" style="margin-top: 10px;"><i class="fa fa-save"></i></a>*@
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -97,88 +103,102 @@
             @Html.TextAreaFor(m => m.PlayerBackground, new { @class = "form-control", @readonly = "readonly", style = "height:100%" })
         </div>
 
-        <div class="col-md-2" style="height:150px;margin:0">
-            @Html.LabelFor(m => m.PrivateAnnotation, new { @class = "font-bold" })
-            @Html.TextAreaFor(m => m.PrivateAnnotation, new { @class = "form-control", style = "height:100%" })
+        <div class="col-md-2" style="height:125px;margin:0">
+            @Html.LabelFor(m => m.PrivateAnnotations, new { @class = "font-bold" })
+            @Html.TextAreaFor(m => m.PrivateAnnotations, new {@class = "form-control", style = "height:100%" })&nbsp;
+            <a href="javascript:void(0)" title="Save Private Annotation" style="margin-top: 10px;" class="pull-right change-pvt"><i class="fa fa-save"></i></a>
         </div>
-    </div>
 
-    <div class="col-xs-6 player-sheet-detail">
-        <p class="animated wow fadeInUp text-center" data-wow-delay="0.3s">
-            <i class="main-icon sprite sprite-Stick-Fighting-50 div-icon"></i>&nbsp;
+    </div>
+    <div class="player-sheet-detail animated wow fadeInUp" data-wow-delay="0.4s" id="div-attributes">
+        <p class="text-center">
+            <i class="main-icon sprite sprite-Kicking-50 div-icon"></i>&nbsp;
+            <i class="glyphicon glyphicon-remove-circle pull-right closeBox" title="Close"></i>
+            <i class="glyphicon glyphicon-resize-small pull-right box minimizeBox" title="Minimize"></i>
             <strong>Attributes</strong>
         </p>
         <div>
-            Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+            @{ ViewBag.id = 1; }
+            @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Characteristic).ToList())
         </div>
     </div>
 
-    <div class="col-xs-5 pull-right player-sheet-detail">
-        <p class="animated wow fadeInUp text-center" data-wow-delay="0.3s">
+    <div class="player-sheet-detail animated wow fadeInUp" data-wow-delay="0.4s" id="div-skills">
+        <p class="text-center">
+            <i class="main-icon sprite sprite-Stick-Fighting-50 div-icon"></i>&nbsp;
+            <i class="glyphicon glyphicon-remove-circle pull-right closeBox" title="Close"></i>
+            <i class="glyphicon glyphicon-resize-small pull-right minimizeBox" title="Minimize"></i>
+            <strong>Skills</strong>
+        </p>
+        <div>
+            @{ ViewBag.id = 2; }
+            @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Skill || t.AttributeType == AttributeType.Misc).ToList())
+        </div>
+    </div>
+
+    <div class="player-sheet-detail animated wow fadeInUp" data-wow-delay="0.4s" id="div-talents">
+        <p class="text-center">
             <i class="main-icon sprite sprite-Talent div-icon"></i>&nbsp;
+            <i class="glyphicon glyphicon-remove-circle pull-right closeBox" title="Close"></i>
+            <i class="glyphicon glyphicon-resize-small pull-right minimizeBox" title="Minimize"></i>
             <strong>Talents</strong>
         </p>
         <div>
-            Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.
+            @Html.Partial("_PlayerSheetTalents", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList())
         </div>
     </div>
 
-    @*<div class="col-md-12" style="top:-30px;"><hr class="style18" /></div>
-
-        <div class="col-md-9">
-            <div class="col-md-12">
-                <h4 class="animated wow fadeInUp text-center title-playersheet" style="margin-top:-50px;" data-wow-delay="0.3s" id="title-attribute-container">
-                    <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
-                    <strong>Attributes</strong>
-                </h4>
-            </div>
-
-            <div class="col-md-12 div-container" id="div-attribute-container">
-                <div class="col-md-4 div-attribute-container">
-                    @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Characteristic).ToList())
-                </div>
-
-                <div class="col-md-4 div-attribute-container">
-                    @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Misc).ToList())
-                </div>
-
-                <div class="col-md-4 div-attribute-container">
-                    @Html.Partial("_PlayerSheetAttributes", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Skill).ToList())
-                </div>
-            </div>
-
-            <div class="col-md-12"><hr class="style18" /></div>
-
-            <div class="col-md-9">
-                <h4 class="animated wow fadeInUp text-center title-playersheet" style="margin-top:-20px;" data-wow-delay="0.3s" id="title-magics-container">
-                    <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
-                    <strong>Magics</strong>
-                </h4>
-                <div class="div-container" id="div-magics-container">
-                    @Html.Partial("_PlayerSheetMagics", Model.SelectedItems.ToList())
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <h4 class="animated wow fadeInUp text-center title-playersheet" style="margin-top:-20px;" data-wow-delay="0.3s" id="title-talents-container">
-                    <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
-                    <strong>Talents</strong>
-                </h4>
-                <div class="div-container" id="div-talents-container">
-                    @Html.Partial("_PlayerSheetTalents", Model.SelectedAttributes.Where(t => t.AttributeType == AttributeType.Talent).ToList())
-                </div>
-            </div>
+    <div class="player-sheet-detail animated wow fadeInUp" data-wow-delay="0.4s" id="div-magics">
+        <p class="text-center">
+            <i class="main-icon sprite-playersheet sprite-playersheet-Magic div-icon"></i>&nbsp;
+            <i class="glyphicon glyphicon-remove-circle pull-right closeBox" title="Close"></i>
+            <i class="glyphicon glyphicon-resize-small pull-right minimizeBox" title="Minimize"></i>
+            <strong>Magics Activated</strong>
+        </p>
+        <div>
+            @{ ViewBag.id = 1; }
+            @Html.Partial("_PlayerSheetMagics", Model.SelectedItems.ToList())
         </div>
+    </div>
 
-        <div class="col-md-3" style="top:-75px;">
-            <h4 class="animated wow fadeInUp text-center title-playersheet" data-wow-delay="0.3s" id="title-items-container">
-                <i class="fa fa-shield animated wow fadeInDown"></i>&nbsp;
-                <strong>Items</strong>
-            </h4>
-            <div id="div-items-container">
-                @Html.Partial("_PlayerSheetItems", Model.SelectedItems.ToList())
-            </div>
-        </div>*@
+    <div class="player-sheet-detail animated wow fadeInUp" data-wow-delay="0.4s" id="div-magics">
+        <p class="text-center">
+            <i class="main-icon sprite-playersheet sprite-playersheet-Wizard-48 div-icon"></i>&nbsp;
+            <i class="glyphicon glyphicon-remove-circle pull-right closeBox" title="Close"></i>
+            <i class="glyphicon glyphicon-resize-small pull-right minimizeBox" title="Minimize"></i>
+            <strong>All Magics</strong>
+        </p>
+        <div>
+            @{ ViewBag.id = 2; }
+            @Html.Partial("_PlayerSheetMagics", Model.SelectedItems.ToList())
+        </div>
+    </div>
+
+    <div class="player-sheet-detail animated wow fadeInUp" data-wow-delay="0.4s" id="div-items">
+        <p class="text-center">
+            <i class="main-icon sprite-playersheet sprite-playersheet-Viking-Ship div-icon"></i>&nbsp;
+            <i class="glyphicon glyphicon-remove-circle pull-right closeBox" title="Close"></i>
+            <i class="glyphicon glyphicon-resize-small pull-right minimizeBox" title="Minimize"></i>
+            <strong>Using Items</strong>
+        </p>
+        <div>
+            @{ ViewBag.id = 1; }
+            @Html.Partial("_PlayerSheetItems", Model.SelectedItems.Where(t => t.PlayerItemUsingItem).ToList())
+        </div>
+    </div>
+
+    <div class="player-sheet-detail animated wow fadeInUp" data-wow-delay="0.4s" id="div-items">
+        <p class="text-center">
+            <i class="main-icon sprite-playersheet sprite-playersheet-Treasure-Map div-icon"></i>&nbsp;
+            <i class="glyphicon glyphicon-remove-circle pull-right closeBox" title="Close"></i>
+            <i class="glyphicon glyphicon-resize-small pull-right minimizeBox" title="Minimize"></i>
+            <strong>Bag</strong>
+        </p>
+        <div>
+            @{ ViewBag.id = 2; }
+            @Html.Partial("_PlayerSheetItems", Model.SelectedItems.Where(t => !t.PlayerItemUsingItem).ToList())
+        </div>
+    </div>
 </div>
 
 <div id="update-message-container" class="mdl-js-snackbar mdl-snackbar">
@@ -189,6 +209,23 @@
 @section Scripts {
     @Scripts.Render("~/Scripts/PlayerSheet/PlayerSheet.js")
     @Scripts.Render("~/Scripts/PlayerSheet/app.js")
+    @Scripts.Render("~/bundles/playerScripts")
+    @Scripts.Render("~/bundles/dataTables")
+    <script>
+
+        // Table Init
+        InitTable('TableAttribute_1', true);
+        InitTable('TableAttribute_2', true);
+        InitTable('TableTalents', true);
+        InitTable('TableMagics_1', true);
+        InitTable('TableItems_1', true);
+        InitTable('TableMagics_2', true);
+        InitTable('TableItems_2', true);
+
+
+        jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
+
+    </script>
+
 
 }
-

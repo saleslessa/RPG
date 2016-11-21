@@ -27,5 +27,7 @@ namespace DaemonCharacter.Application.Interfaces
         IEnumerable<SelectedCharacterAttributeViewModel> GetAttributes(Guid id);
 
         IEnumerable<SelectedPlayerItemViewModel> GetItems(Guid id);
+
+        PlayerViewModel ChangePlayerField(Guid id, string field, string value);
     }
 }

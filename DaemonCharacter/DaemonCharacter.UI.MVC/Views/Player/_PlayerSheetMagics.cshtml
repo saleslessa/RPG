@@ -1,49 +1,25 @@
 ﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Player.SelectedPlayerItemViewModel>
 
-@if (Model.Where(t => t.PlayerItemUsingItem == false).ToList().Count > 0)
+@if (Model.ToList().Count > 0)
 {
-    <div class="col-md-6">
-        <h4 class="text-center"><strong>Active</strong></h4>
-        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-            <thead>
-                <tr>
-                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
-                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+    <table class="table table-responsive table-bordered" id="TableMagics_@{@ViewBag.id;}">
+        <thead>
+            <tr>
+                <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
+                <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
+                <th>Using</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
                 {
-                    <tr>
-                        <td class="small">@Html.DisplayFor(m => item.ItemName)</td>
-                        <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
+                <tr>
+                    <td class="small">@Html.DisplayFor(m => item.ItemName)</td>
+                    <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
+                    <td class="small">@Html.DisplayFor(m => item.PlayerItemActive)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-@if (Model.Where(t => t.PlayerItemUsingItem == false).ToList().Count > 0)
-{
-    <div class="col-md-6">
-        <h4 class="text-center"><strong>List</strong></h4>
-        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-            <thead>
-                <tr>
-                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
-                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="small">@Html.DisplayFor(m => item.ItemName)</td>
-                        <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
 }

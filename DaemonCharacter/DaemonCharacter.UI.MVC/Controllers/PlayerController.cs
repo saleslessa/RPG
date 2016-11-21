@@ -65,7 +65,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
                 var errorList = ModelState.ToDictionary(
                         kvp => kvp.Key,
-                        kvp => kvp.Value.Errors.Select(s=>s.ErrorMessage).ToArray()
+                        kvp => kvp.Value.Errors.Select(s => s.ErrorMessage).ToArray()
                     );
 
                 var firstOrDefault = model.SelectedItems
@@ -84,7 +84,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
 
             model = _playerAppService.Add(model);
 
-            if (model.ValidationResult.IsValid) return Json(new {error = "", message = "Player created successfully"});
+            if (model.ValidationResult.IsValid) return Json(new { error = "", message = "Player created successfully" });
             LoadPlayerErrors(model);
             return Json(new { error = "ValildationResultError", model = model.ValidationResult });
         }
@@ -174,6 +174,20 @@ namespace DaemonCharacter.UI.MVC.Controllers
         {
             _playerAppService.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public JsonResult SetPlayerValue(Guid characterId, string field, string value)
+        {
+            try
+            {
+                var player = _playerAppService.ChangePlayerField(characterId, field, value);
+                return Json(new { status = "OK", message = player.ValidationResult.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", error = ex.Message });
+            }
         }
 
         protected override void Dispose(bool disposing)

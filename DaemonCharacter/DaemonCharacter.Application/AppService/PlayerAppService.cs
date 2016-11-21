@@ -48,7 +48,7 @@ namespace DaemonCharacter.Application.AppService
                 return Mapper.Map<Player, PlayerViewModel>(player);
 
             player.PlayerMoney = player.PlayerMoney -
-                                 model.SelectedItems.Sum(s => s.PlayerItemQtd*s.PlayerItemUnitPrice);
+                                 model.SelectedItems.Sum(s => s.PlayerItemQtd * s.PlayerItemUnitPrice);
 
             foreach (var attribute in model.SelectedAttributes)
             {
@@ -118,7 +118,7 @@ namespace DaemonCharacter.Application.AppService
             result.SelectedCampaign = Player.Campaign;
 
             return result;
-        } 
+        }
 
         public async Task<IEnumerable<SelectedCharacterAttributeViewModel>> GetAttributesAsync(Guid id)
         {
@@ -140,6 +140,62 @@ namespace DaemonCharacter.Application.AppService
         public IEnumerable<SelectedPlayerItemViewModel> GetItems(Guid id)
         {
             return new PlayerItemToSelectedPlayerItemViewModel().Map(_playerItemService.ListFromPlayer(id));
+        }
+
+        public PlayerViewModel ChangePlayerField(Guid id, string field, string value)
+        {
+
+            lock (_playerService)
+            {
+
+                //var player = new Player() { CharacterId = id };
+                var player = _playerService.Get(id);
+
+                try
+                {
+                    switch (field)
+                    {
+                        case "PlayerAge":
+                            player.PlayerAge = int.Parse(value);
+                            _playerService.ChangePlayerAge(player);
+                            break;
+                        case "PlayerExperience":
+                            player.PlayerExperience = int.Parse(value);
+                            _playerService.ChangePlayerExperience(player);
+                            break;
+                        case "CharacterMaxLife":
+                            if(int.Parse(value) < player.CharacterRemainingLife) throw new Exception("Cannot change max life to lower than remaining");
+                            player.CharacterMaxLife = int.Parse(value);
+                            _playerService.ChangeCharacterMaxLife(player);
+                            break;
+                        case "PlayerMoney":
+                            player.PlayerMoney = int.Parse(value);
+                            _playerService.ChangePlayerMoney(player);
+                            break;
+                        case "PlayerLevel":
+                            player.PlayerLevel = int.Parse(value);
+                            _playerService.ChangePlayerLevel(player);
+                            break;
+                        case "CharacterRemainingLife":
+                            player.CharacterRemainingLife = int.Parse(value);
+                            _playerService.ChangeCharacterRemainingLife(player);
+                            break;
+                        case "PrivateAnnotations":
+                            player.PrivateAnnotations = value;
+                            _playerService.ChangePrivateAnnotations(player);
+                            break;
+                        default:
+                            throw new Exception("Invalid field to update");
+                    }
+                    Commit();
+
+                    return Mapper.Map<Player, PlayerViewModel>(player);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
     }
 }

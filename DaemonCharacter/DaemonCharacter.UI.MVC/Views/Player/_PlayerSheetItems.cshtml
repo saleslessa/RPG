@@ -1,78 +1,41 @@
 ﻿@model IEnumerable<DaemonCharacter.Application.ViewModels.Player.SelectedPlayerItemViewModel>
 
-@if (Model.Where(t => !t.PlayerItemUsingItem).ToList().Count > 0)
+@if (Model.ToList().Count > 0)
 {
-    <div class="div-items-container">
-        <h4 class="text-center"><strong>Using</strong></h4>
+    <table class="table table-responsive table-bordered" id="TableItems_@{@ViewBag.id;}">
+        <thead>
+        <tr>
+            <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
+            <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
+            <th class="small text-center"><i class="fa fa-cog"></i></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@Html.Raw(item.ItemId)">
+                <td class="small item-info" id="td_@Html.Raw(item.ItemId)">
+                    @Html.DisplayFor(m => item.ItemName)
+                    <div id="tooltip_@Html.Raw(item.ItemId)" class="mdl-tooltip" data-mdl-for="td_@Html.Raw(item.ItemId)">
+                    </div>
+                </td>
+                <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
 
-        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-            <thead>
-                <tr>
-                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
-                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
-                    <th class="small text-center"><i class="fa fa-cog"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+                @if (item.ItemUniqueUse)
                 {
-                    <tr id="@Html.Raw(item.ItemId)">
-                        <td class="small item-info" id="td_@Html.Raw(item.ItemId)">
-                            @Html.DisplayFor(m => item.ItemName)
-                            <div id="tooltip_@Html.Raw(item.ItemId)" class="mdl-tooltip" data-mdl-for="td_@Html.Raw(item.ItemId)">
-                            </div>
-                        </td>
-                        <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
-
-                        @if (item.ItemUniqueUse)
-                        {
-                            <td class="small">
-                                <input type="button" value="Remove" class="btn btn-danger" />
-                            </td>
-                        }
-                        else
-                        {
-                            <td class="small">
-                                <input type="button" value="Bag" class="btn btn-info" />
-                                <input type="button" value="Throw" class="btn btn-danger" />
-                            </td>
-                        }
-                    </tr>
+                    <td class="small">
+                        <input type="button" value="Remove" class="btn btn-danger"/>
+                    </td>
                 }
-            </tbody>
-        </table>
-    </div>
-}
-
-@if (Model.Where(t => !t.PlayerItemUsingItem).ToList().Count > 0)
-{
-    <div class="div-items-container">
-        <h4 class="text-center"><strong>Not Using</strong></h4>
-        <table class="table table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-            <thead>
-                <tr>
-                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().ItemName)</th>
-                    <th class="small text-center">@Html.LabelFor(m => Model.FirstOrDefault().PlayerItemQtd)</th>
-                    <th class="small text-center"><i class="fa fa-cog"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+                else
                 {
-                    <tr>
-                        <td class="small">
-                            @Html.DisplayFor(m => item.ItemName)
-                            <div id="tooltip_@Html.Raw(item.ItemName).ToString().Replace(" ","-")" class="mdl-tooltip" data-mdl-for="txt_@Html.Raw(item.ItemName).ToString().Replace(" ","-")">
-                            </div>
-                        </td>
-                        <td class="small">@Html.DisplayFor(m => item.PlayerItemQtd)</td>
-                        <td class="small">
-                            <input type="button" value="Throw" class="btn btn-danger" />
-                            <input type="button" value="Use" class="btn btn-success" />
-                        </td>
-                    </tr>
+                    <td class="small">
+                        <input type="button" value="Bag" class="btn btn-info"/>
+                        <input type="button" value="Throw" class="btn btn-danger"/>
+                    </td>
                 }
-            </tbody>
-        </table>
-    </div>
+            </tr>
+        }
+        </tbody>
+    </table>
 }

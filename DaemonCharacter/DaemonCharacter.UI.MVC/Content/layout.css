@@ -7058,11 +7058,14 @@ ul.search-history {
 	background: -ms-linear-gradient(top, #555555 0%, #313131 100%);
 	background: linear-gradient(to bottom, #555555 0%,#313131 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#313131',GradientType=0 );
+
+    
+    bottom: 0;
 }
-#footer>.container {
+/*#footer>.container {
 	padding-top:60px;
 	margin-bottom:60px;
-}
+}*/
 
 #footer>.copyright {
 	background-color:rgba(0,0,0,0.2);

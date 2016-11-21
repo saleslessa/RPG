@@ -18,5 +18,19 @@ namespace DaemonCharacter.Domain.Interfaces.Service
          
         IEnumerable<Player> SearchByName(string name);
 
+        void ChangePlayerAge(Player p);
+
+        void ChangePlayerExperience(Player p);
+
+        void ChangeCharacterMaxLife(Player p);
+
+        void ChangePlayerMoney(Player p);
+
+        void ChangePlayerLevel(Player p);
+
+        void ChangeCharacterRemainingLife(Player p);
+
+        void ChangePrivateAnnotations(Player p);
+
     }
 }

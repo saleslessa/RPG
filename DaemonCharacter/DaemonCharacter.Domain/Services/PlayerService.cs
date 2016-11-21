@@ -57,16 +57,53 @@ namespace DaemonCharacter.Domain.Services
             return _playerRepository.Search(p => p.CharacterName.ToUpper().Trim() == name.ToUpper().Trim());
         }
 
+        public void ChangePlayerAge(Player p)
+        {
+            _playerRepository.ChangePlayerAge(p);
+            p.ValidationResult.Message = "Age updated successfully";
+        }
+
+        public void ChangePlayerExperience(Player p)
+        {
+            _playerRepository.ChangePlayerExperience(p);
+            p.ValidationResult.Message = "Experience updated successfully";
+        }
+
         public Player Update(Player _player)
         {
-            if (!_player.IsValid())
-                return _player;
-
+            if (!_player.IsValid()) return _player;
             _player.ValidationResult = new UpdatePlayerValidation(_characterRepository).Validate(_player);
-            if (!_player.ValidationResult.IsValid)
-                return _player;
+            return (!_player.ValidationResult.IsValid) ? _player : _playerRepository.Update(_player);
+        }
 
-            return _playerRepository.Update(_player);
+        public void ChangeCharacterMaxLife(Player p)
+        {
+            _playerRepository.ChangeCharacterMaxLife(p);
+            p.ValidationResult.Message = "Max Life updated successfully";
+        }
+
+        public void ChangePlayerMoney(Player p)
+        {
+            _playerRepository.ChangePlayerMoney(p);
+            p.ValidationResult.Message = "Money updated successfully";
+        }
+
+        public void ChangePlayerLevel(Player p)
+        {
+            _playerRepository.ChangePlayerLevel(p);
+            p.ValidationResult.Message = "Level updated successfully";
+        }
+
+        public void ChangeCharacterRemainingLife(Player p)
+        {
+            _playerRepository.ChangeCharacterRemainingLife(p);
+            p.ValidationResult.Message = "Life updated successfully";
+        }
+
+        public void ChangePrivateAnnotations(Player p)
+        {
+            _playerRepository.ChangePrivateAnnotations(p);
+            p.ValidationResult.Message = "Private Annotations updated successfully";
         }
     }
 }

@@ -59,23 +59,23 @@ namespace DaemonCharacter.UI.MVC.Controllers
             var result = new List<object>();
 
             foreach (var item in BonusByAttributes)
-                result.Add(new { Key = item.Key, Value = item.Value });
+                result.Add(new { item.Key, item.Value });
 
             if (BonusByItems.Count > 0)
                 result.Add(new { Key = "Items", Value = "" });
 
             foreach (var item in BonusByItems)
-                result.Add(new { Key = item.Key, Value = item.Value });
+                result.Add(new {item.Key, item.Value });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult SetAttributeValue(Guid CharacterId, Guid AttributeId, int Value)
+        public JsonResult SetAttributeValue(Guid characterId, Guid attributeId, int value)
         {
             try
             {
-                _characterAttributeAppService.SetValue(CharacterId, AttributeId, Value);
+                _characterAttributeAppService.SetValue(characterId, attributeId, value);
                 return Json(new { status = "OK" });
             }
             catch (Exception ex)
@@ -83,6 +83,7 @@ namespace DaemonCharacter.UI.MVC.Controllers
                 return Json(new { status = "error", error = ex.Message });
             }
         }
+
 
         protected override void Dispose(bool disposing)
         {

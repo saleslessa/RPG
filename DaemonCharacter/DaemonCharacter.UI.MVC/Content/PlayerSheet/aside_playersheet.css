@@ -6,7 +6,7 @@
 }
 
 #aside {
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 75px; 
 	bottom: 0;
@@ -15,7 +15,7 @@
 #aside,
 #asidebg {
 	color: #939da8;
-	width: 175px;
+	width: 150px;
 	background-color: #5a6667;
 }
 	#asidebg {
@@ -33,7 +33,7 @@
 		color:#939da8;
 	}
 	#aside .logo h1 {
-		font-size: 25px;
+		font-size: 20px;
 		color:#939da8;
 	}
 	#aside .logo h2 {

@@ -141,26 +141,46 @@ function MountBasicInformation() {
     return objBasicInfo;
 }
 
-function InitTable(targetTable) {
+function InitTable(targetTable, fixedQtd) {
 
     var table = jQuery('#' + targetTable);
 
     /* Fixed header extension: http://datatables.net/extensions/scroller/ */
 
-    var oTable = table.DataTable({
-        "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
-        "deferRender": true,
-        "order": [
-            [0, 'asc']
-        ],
-        "lengthMenu": [
-            [5, 15, 20, -1],
-            [5, 15, 20, "All"] // change per page values here
-        ],
-        "pageLength": 5, // set the initial value
-        "responsive": true,
-        "bAutoWidth": true
-    });
+    if (fixedQtd == true) {
+        table.DataTable({
+            "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
+            "deferRender": false,
+            "order": [
+                [0, 'asc']
+            ],
+            "lengthMenu": [
+                [5],
+                [5] // change per page values here
+            ],
+            "pageLength": 5, // set the initial value
+            "responsive": true,
+            "bLengthChange": false,
+            "bAutoWidth": true
+        });
+    } else {
+        table.DataTable({
+            "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll
+            "deferRender": true,
+            "order": [
+                [0, 'asc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+            "pageLength": 5, // set the initial value
+            "responsive": true,
+            "bAutoWidth": true
+        });
+    }
+
+    
 }
 
 function MountAttributes() {

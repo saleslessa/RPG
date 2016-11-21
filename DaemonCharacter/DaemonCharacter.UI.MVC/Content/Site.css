@@ -9389,6 +9389,7 @@ body.md-skin {
 }
 
 .textbox-table {
+    max-width: 60px;
     font-size: smaller;
 }
 

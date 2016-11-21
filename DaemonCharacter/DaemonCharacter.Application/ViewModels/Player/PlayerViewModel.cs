@@ -24,7 +24,7 @@ namespace DaemonCharacter.Application.ViewModels.Player
         [Required(ErrorMessage = "This field required.")]
         public int CharacterMaxLife { get; set; }
 
-        [DisplayName("Remaining Life")]
+        [DisplayName("Life")]
         public int CharacterRemainingLife { get; set; }
 
         [DisplayName("Race")]
@@ -83,8 +83,8 @@ namespace DaemonCharacter.Application.ViewModels.Player
         [ScaffoldColumn(false)]
         public string CharacterUser { get; set; }
 
-        [DisplayName("Private Annotations")]
-        public string PrivateAnnotation { get; set; }
+        [DisplayName("Pvt Annotations")]
+        public string PrivateAnnotations { get; set; }
 
         [ScaffoldColumn(false)]
         public IEnumerable<SelectedCharacterAttributeViewModel> SelectedAttributes { get; set; }
